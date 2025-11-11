@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🚀 Gurpreet Singh - Portfolio Website
 
 A modern, elegant, and responsive portfolio website built with **Angular 18** showcasing my skills, projects, and experience as a Full Stack Developer.
