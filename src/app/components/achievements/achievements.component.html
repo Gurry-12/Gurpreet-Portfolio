@@ -1,0 +1,101 @@
+<div class="achievements-container">
+  <!-- Header Section -->
+  <section class="achievements-header">
+    <div class="container">
+      <h1 class="page-title">Achievements & Recognition</h1>
+      <p class="page-subtitle">
+        Celebrating milestones, certifications, and accomplishments in my
+        journey
+      </p>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="category-filters">
+    <div class="container">
+      <div class="filters-container">
+        <div class="filter-buttons">
+          <button
+            *ngFor="let category of categories"
+            [class.active]="selectedCategory === category.value"
+            (click)="selectCategory(category.value)"
+            class="filter-btn"
+          >
+            <span class="filter-icon">{{ category.icon }}</span>
+            <span class="filter-label">{{ category.label }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements Grid -->
+  <section class="achievements-grid">
+    <div class="container">
+      <div class="grid-container">
+        <div
+          *ngFor="let achievement of filteredAchievements"
+          class="achievement-card"
+          [class]="'category-' + achievement.category"
+        >
+          <!-- Achievement Header -->
+          <div class="achievement-header">
+            <div class="achievement-icon">
+              {{ achievement.icon }}
+            </div>
+            <div class="achievement-meta">
+              <span class="achievement-category">
+                {{ getCategoryLabel(achievement.category) }}
+              </span>
+              <span class="achievement-date">{{ achievement.date }}</span>
+            </div>
+          </div>
+
+          <!-- Achievement Content -->
+          <div class="achievement-content">
+            <h3 class="achievement-title">{{ achievement.title }}</h3>
+            <p class="achievement-description">{{ achievement.description }}</p>
+
+            <div class="achievement-details" *ngIf="achievement.issuer">
+              <span class="issuer-label">Issued by:</span>
+              <span class="issuer-name">{{ achievement.issuer }}</span>
+            </div>
+          </div>
+
+          <!-- Achievement Actions -->
+          <div class="achievement-actions" *ngIf="achievement.link">
+            <a
+              [href]="achievement.link"
+              [target]="
+                achievement.link.startsWith('http') ? '_blank' : '_self'
+              "
+              class="view-btn"
+            >
+              <span class="btn-text">View Details</span>
+              <span class="btn-icon">→</span>
+            </a>
+          </div>
+
+          <!-- Category Badge -->
+          <div class="category-badge">
+            {{ getCategoryIcon(achievement.category) }}
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" *ngIf="filteredAchievements.length === 0">
+        <div class="no-results-content">
+          <div class="no-results-icon">🔍</div>
+          <h3>No achievements found</h3>
+          <p>
+            Try selecting a different category or check back later for new
+            achievements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+</div>

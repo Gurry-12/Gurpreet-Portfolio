@@ -1,0 +1,177 @@
+<div class="contact-container">
+  <!-- Header Section -->
+  <section class="contact-header">
+    <div class="container">
+      <h1 class="page-title">Get In Touch</h1>
+      <p class="page-subtitle">Let's work together on your next project</p>
+    </div>
+  </section>
+
+  <!-- Contact Content -->
+  <section class="contact-content">
+    <div class="container">
+      <div class="content-grid">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <h2>Let's Connect</h2>
+          <p class="info-description">
+            I'm always interested in hearing about new projects and opportunities. 
+            Whether you have a question or just want to say hi, feel free to reach out!
+          </p>
+          
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="method-icon">📧</div>
+              <div class="method-details">
+                <h3>Email</h3>
+                <p>work.gurpreetsw&#64;gmail.com</p>
+                <a href="mailto:work.gurpreetsw&#64;gmail.com" class="method-link">Send Email</a>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">🔗</div>
+              <div class="method-details">
+                <h3>LinkedIn</h3>
+                <p>Connect with me professionally</p>
+                <a href="https://www.linkedin.com/in/gurpreet-singh57/" target="_blank" class="method-link">Connect on LinkedIn</a>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">📚</div>
+              <div class="method-details">
+                <h3>GitHub</h3>
+                <p>Check out my code and projects</p>
+                <a href="https://github.com/Gurry-12" target="_blank" class="method-link">View GitHub Profile</a>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">💼</div>
+              <div class="method-details">
+                <h3>Freelance</h3>
+                <p>Available for new projects</p>
+                <span class="status available">Available</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="response-time">
+            <div class="response-icon">⏱️</div>
+            <div class="response-text">
+              <h4>Response Time</h4>
+              <p>I typically respond within 24 hours during business days.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+          <h2>Send a Message</h2>
+          <form class="contact-form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                [(ngModel)]="contactForm.name" 
+                required
+                placeholder="Enter your full name"
+                class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                [(ngModel)]="contactForm.email" 
+                required
+                placeholder="Enter your email address"
+                class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                [(ngModel)]="contactForm.subject" 
+                required
+                placeholder="What's this about?"
+                class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                [(ngModel)]="contactForm.message" 
+                required
+                rows="6"
+                placeholder="Tell me about your project or question..."
+                class="form-textarea"></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              class="submit-btn"
+              [disabled]="isSubmitting">
+              <span class="btn-text" *ngIf="!isSubmitting">Send Message</span>
+              <span class="btn-text" *ngIf="isSubmitting">Sending...</span>
+              <span class="btn-icon" *ngIf="!isSubmitting">📤</span>
+              <span class="btn-icon" *ngIf="isSubmitting">⏳</span>
+            </button>
+          </form>
+
+          <!-- Success/Error Messages -->
+          <div class="form-messages">
+            <div class="success-message" *ngIf="submitSuccess">
+              <div class="message-icon">✅</div>
+              <div class="message-content">
+                <h4>Message Sent Successfully!</h4>
+                <p>Thank you for reaching out. I'll get back to you soon!</p>
+              </div>
+            </div>
+
+            <div class="error-message" *ngIf="submitError">
+              <div class="message-icon">❌</div>
+              <div class="message-content">
+                <h4>Something went wrong</h4>
+                <p>Please try again or contact me directly via email.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Info -->
+  <section class="additional-info">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="card-icon">🌍</div>
+          <h3>Location</h3>
+          <p>Based in India, working with clients worldwide</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">🕒</div>
+          <h3>Timezone</h3>
+          <p>IST (UTC+5:30) - Flexible scheduling available</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">💬</div>
+          <h3>Communication</h3>
+          <p>English, Hindi, and Punjabi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
