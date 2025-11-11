@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 Gurpreet Singh - Portfolio Website
 
 A modern, elegant, and responsive portfolio website built with **Angular 18** showcasing my skills, projects, and experience as a Full Stack Developer.
@@ -198,3 +199,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ⭐ **Star this repository if you found it helpful!**
 
 Built with ❤️ using Angular 18
+=======
+# Gurpreet-Portfolio
+>>>>>>> b0a597af0cb3ed9cb6f1e6b1594db7b326cbb0ce
