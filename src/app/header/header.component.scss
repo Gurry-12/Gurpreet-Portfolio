@@ -1,101 +1,137 @@
-// Variables
-:root {
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
-    --accent-color: #06b6d4;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --text-light: #9ca3af;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-accent: #f3f4f6;
-    --border-color: #e5e7eb;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-}
-
-// Navigation
-.navbar {
+.header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
 
-    .nav-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem 2rem;
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+.logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+
+    .nav-link {
+        font-size: 0.9rem;
+        color: var(--text-dim);
+        transition: var(--transition);
+
+        &:hover {
+            color: var(--text);
+        }
+
+        &.active {
+            color: var(--accent);
+        }
+    }
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.theme-toggle,
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    i {
+        font-size: 1.1rem;
+        transition: var(--transition);
+    }
+
+    &:hover i {
+        color: var(--accent);
+    }
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-slow);
+
+    &.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    gap: var(--space-md);
+
+    .mobile-link {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-    }
+        gap: var(--space-sm);
+        font-size: 1rem;
+        color: var(--text-dim);
+        padding: var(--space-sm) 0;
+        border-bottom: 1px solid var(--border);
+        transition: var(--transition);
 
-    .nav-logo {
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        i {
+            font-size: 1.1rem;
+        }
+
+        &:hover {
+            color: var(--accent);
+        }
+
+        &:last-child {
+            border-bottom: none;
         }
     }
+}
 
+/* Mobile Styles */
+@media (max-width: 768px) {
     .nav-links {
-        display: flex;
-        gap: 2rem;
-
-        a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-
-            &:hover {
-                color: var(--primary-color);
-            }
-
-            &.active {
-                color: var(--primary-color);
-            }
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -5px;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background: var(--primary-color);
-                transition: width 0.3s ease;
-            }
-
-            &:hover::after,
-            &.active::after {
-                width: 100%;
-            }
-        }
+        display: none;
     }
 
-    .nav-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 4px;
-        cursor: pointer;
-
-        span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-primary);
-            transition: all 0.3s ease;
-        }
+    .menu-toggle {
+        display: flex;
     }
 }
