@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="4" fill="#0a0a0a"/>
+  
+  <!-- Simple G letter -->
+  <path d="M10 8H22V12H14V14H20V16H14V20H10V8Z" fill="#00ff88"/>
+  <path d="M18 16H22V20H18V16Z" fill="#00ff88"/>
+  
+  <!-- Dot accent -->
+  <circle cx="26" cy="26" r="2" fill="#00ff88"/>
+</svg>

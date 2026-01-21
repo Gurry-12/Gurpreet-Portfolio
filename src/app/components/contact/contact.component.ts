@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -23,12 +24,12 @@ export class ContactComponent {
 
   onSubmit(): void {
     this.isSubmitting = true;
-    
+
     // Simulate form submission
     setTimeout(() => {
       this.isSubmitting = false;
       this.submitSuccess = true;
-      
+
       // Reset form
       this.contactForm = {
         name: '',
@@ -36,7 +37,7 @@ export class ContactComponent {
         subject: '',
         message: ''
       };
-      
+
       // Hide success message after 5 seconds
       setTimeout(() => {
         this.submitSuccess = false;
