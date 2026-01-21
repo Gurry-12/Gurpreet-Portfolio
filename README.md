@@ -1,191 +1,170 @@
-# 🚀 Gurpreet Singh - Developer Portfolio
+<div align="center">
 
-A modern, minimal portfolio website built with **Angular 18** featuring a unique Gen Z aesthetic and terminal-inspired design.
+# 🚀 gurpreet.dev
 
-## ✨ Features
-
-- **Gen Z Aesthetic**: Dark-first design with neon green accents and monospace fonts
-- **Live Clock**: Real-time IST clock display on homepage
-- **Theme Toggle**: Dark/light mode with smooth transitions
-- **Responsive Design**: Mobile-first approach optimized for all devices
-- **PWA Ready**: Service worker and manifest for app-like experience
-- **Performance Optimized**: Lazy loading and optimized bundle sizes
-
-## 🛠️ Tech Stack
-
-- **Framework**: Angular 18 (Standalone Components)
-- **Language**: TypeScript
-- **Styling**: SCSS with CSS custom properties
-- **Fonts**: JetBrains Mono, Inter
-- **Icons**: Bootstrap Icons
-- **Deployment**: Netlify
-
-## 🎨 Design System
-
-### Color Palette
-- **Background**: Deep black (#0a0a0a)
-- **Accent**: Neon green (#00ff88)
-- **Text**: Light gray (#e5e5e5)
-- **Muted**: Dark gray (#666666)
-
-### Typography
-- **Monospace**: JetBrains Mono (code, headers)
-- **Sans-serif**: Inter (body text)
-- **Terminal aesthetic**: Consistent with developer tools
-
-## 📱 Pages
-
-### 🏠 Home
-- Live IST clock
-- Status indicators (open to work)
-- Tech stack overview
-- Experience timeline
-- Social links with hover effects
-
-### 👨‍💻 About
-- Personal bio and background
-- Education details
-- Professional achievements
-- Skills grid (no progress bars)
-- Career timeline
-
-### 🚀 Projects
-- Featured project showcase
-- GitHub and live demo links
-- Tech stack tags
-- Responsive project cards
-
-### 📞 Contact
-- Contact form with validation
-- Multiple contact methods
-- Professional email and social links
-- Hiring-focused messaging
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Installation
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3000&pause=1000&color=00FF88&center=true&vCenter=true&width=600&lines=backend+developer;open+to+work;building+clean+code;angular+%2B+.net+enthusiast)](https://git.io/typing-svg)
 
 ```bash
-# Clone repository
-git clone https://github.com/Gurry-12/Gurpreet-Portfolio.git
-cd Gurpreet-Portfolio
+$ whoami
+gurpreet-singh
 
-# Install dependencies
-npm install
-
-# Start development server
-npm start
+$ cat status.txt
+🟢 actively seeking opportunities | backend developer | bhiwadi, rajasthan
 ```
 
-Visit `http://localhost:4200`
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-## 📁 Project Structure
-
-```
-src/
-├── app/
-│   ├── components/
-│   │   ├── home/           # Homepage with live clock
-│   │   ├── about/          # About page with achievements
-│   │   ├── projects/       # Projects showcase
-│   │   └── contact/        # Contact form
-│   ├── header/             # Navigation with theme toggle
-│   ├── footer/             # Footer with social links
-│   ├── services/
-│   │   └── theme.service.ts # Theme management
-│   └── app.routes.ts       # Routing configuration
-├── styles.scss             # Global styles and variables
-└── index.html              # Main HTML with Bootstrap Icons
-```
-
-## 🎯 Key Features
-
-### Live Clock
-Real-time IST display with proper SSR handling:
-```typescript
-updateTime(): void {
-  const now = new Date();
-  this.currentTime = now.toLocaleTimeString('en-US', {
-    hour12: false,
-    timeZone: 'Asia/Kolkata'
-  });
-}
-```
-
-### Theme Service
-SSR-safe theme management with localStorage persistence:
-```typescript
-@Injectable({ providedIn: 'root' })
-export class ThemeService {
-  // Platform-aware theme switching
-}
-```
-
-### Responsive Design
-Mobile-first CSS with consistent spacing:
-```scss
-// Breakpoints
-$mobile: 768px;
-$tablet: 1024px;
-$desktop: 1200px;
-```
-
-## 🌟 Unique Elements
-
-- **Terminal aesthetic**: Monospace fonts and dark theme
-- **Minimal navigation**: Clean "gurpreet.dev" branding
-- **Status indicators**: "Open to work" messaging
-- **Hover animations**: Subtle interactions throughout
-- **No progress bars**: Clean skills presentation
-- **Bootstrap Icons**: Consistent iconography
-
-## 📊 Performance
-
-- **Bundle size**: Optimized with lazy loading
-- **Lighthouse**: High performance scores
-- **SSR disabled**: Static SPA for Netlify deployment
-- **Service worker**: Offline capability
-
-## � Deployment
-
-Deployed on Netlify with automatic builds:
-
-```toml
-[build]
-  publish = "dist/gurpreet-portfolio/browser"
-  command = "npm install --legacy-peer-deps && npm run build"
-```
-
-## 📈 Future Enhancements
-
-- [ ] Blog section
-- [ ] Project filtering
-- [ ] Animation improvements
-- [ ] More interactive elements
-- [ ] Analytics integration
-
-## 🤝 Contributing
-
-Feel free to submit issues and pull requests!
-
-## 📞 Contact
-
-- **Email**: work.gurpreetsw@gmail.com
-- **LinkedIn**: [gurpreet-singh57](https://linkedin.com/in/gurpreet-singh57)
-- **GitHub**: [Gurry-12](https://github.com/Gurry-12)
+</div>
 
 ---
 
-**Status**: Open to work | **Location**: Bhiwadi, Rajasthan
+## 🛠️ tech.stack()
 
-Built with ❤️ using Angular 18 and modern web technologies
+<div align="center">
+
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
+![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Microsoft SQL Server](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
+
+</div>
+
+## 📊 github.stats()
+
+<div align="center">
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Gurry-12&theme=dark&hide_border=true&include_all_commits=true&count_private=true&bg_color=0a0a0a&title_color=00ff88&text_color=e5e5e5&icon_color=00ff88)
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Gurry-12&theme=dark&hide_border=true&background=0a0a0a&stroke=00ff88&ring=00ff88&fire=00ff88&currStreakLabel=00ff88)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Gurry-12&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact&bg_color=0a0a0a&title_color=00ff88&text_color=e5e5e5)
+
+</div>
+
+## 🎯 portfolio.features()
+
+```typescript
+interface Portfolio {
+  design: 'minimal' | 'gen-z' | 'terminal-inspired';
+  theme: 'dark-first';
+  features: string[];
+}
+
+const myPortfolio: Portfolio = {
+  design: 'gen-z',
+  theme: 'dark-first',
+  features: [
+    '⏰ live IST clock',
+    '🌙 theme toggle', 
+    '📱 responsive design',
+    '⚡ PWA ready',
+    '🚀 netlify deployed'
+  ]
+};
+```
+
+## 🚀 quick.start()
+
+```bash
+# clone the repo
+git clone https://github.com/Gurry-12/Gurpreet-Portfolio.git
+cd Gurpreet-Portfolio
+
+# install dependencies  
+npm install
+
+# fire up dev server
+npm start
+# → http://localhost:4200
+
+# build for production
+npm run build
+```
+
+## 🎨 design.system()
+
+<div align="center">
+
+```css
+:root {
+  --bg-primary: #0a0a0a;    /* deep black */
+  --accent: #00ff88;        /* neon green */
+  --text: #e5e5e5;          /* light gray */
+  --font-mono: 'JetBrains Mono';
+  --font-sans: 'Inter';
+}
+
+/* philosophy: no bloat. just clean code. */
+```
+
+</div>
+
+## 📁 project.structure()
+
+```
+src/
+├── 📂 app/
+│   ├── 📂 components/
+│   │   ├── 🏠 home/        # live clock + status
+│   │   ├── 👨‍💻 about/       # bio + achievements  
+│   │   ├── 🚀 projects/    # showcase
+│   │   └── 📞 contact/     # hiring focused
+│   ├── 📂 services/
+│   │   └── 🎨 theme.service.ts
+│   └── ⚙️ *.ts
+├── 🎨 styles.scss          # global vars + dark theme
+└── 📄 index.html
+```
+
+## 📈 activity.graph()
+
+<div align="center">
+
+![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Gurry-12&theme=react-dark&bg_color=0a0a0a&color=00ff88&line=00ff88&point=e5e5e5&area=true&hide_border=true)
+
+</div>
+
+## 🏆 achievements.unlock()
+
+<div align="center">
+
+![Trophies](https://github-profile-trophy.vercel.app/?username=Gurry-12&theme=darkhub&no-frame=true&no-bg=true&margin-w=4&column=7)
+
+</div>
+
+## 📞 connect.with.me()
+
+<div align="center">
+
+[![Email](https://img.shields.io/badge/Email-work.gurpreetsw%40gmail.com-00ff88?style=for-the-badge&logo=gmail&logoColor=white)](mailto:work.gurpreetsw@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-gurpreet--singh57-00ff88?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gurpreet-singh57)
+[![GitHub](https://img.shields.io/badge/GitHub-Gurry--12-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Gurry-12)
+
+</div>
+
+## 🌐 deployment.info()
+
+```yaml
+platform: netlify
+build_command: npm run build
+publish_dir: dist/gurpreet-portfolio/browser
+auto_deploy: ✅
+status: live
+```
+
+---
+
+<div align="center">
+
+**built with intention. designed for impact.**
+
+![Visitor Count](https://profile-counter.glitch.me/Gurry-12/count.svg)
+
+```bash
+$ echo "thanks for checking out my work 🚀"
+thanks for checking out my work 🚀
+
+$ exit
+```
+
+</div>
