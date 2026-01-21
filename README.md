@@ -1,83 +1,87 @@
+# 🚀 Gurpreet Singh - Developer Portfolio
 
-# 🚀 Gurpreet Singh - Portfolio Website
-
-A modern, elegant, and responsive portfolio website built with **Angular 18** showcasing my skills, projects, and experience as a Full Stack Developer.
+A modern, minimal portfolio website built with **Angular 18** featuring a unique Gen Z aesthetic and terminal-inspired design.
 
 ## ✨ Features
 
-- **Modern Design**: Clean, professional design with smooth animations
-- **Responsive Layout**: Optimized for all devices and screen sizes
-- **Performance**: Built with Angular 18 for optimal performance
-- **SEO Optimized**: Proper meta tags and semantic HTML
-- **Accessibility**: WCAG compliant design patterns
-- **Fast Loading**: Optimized assets and lazy loading
+- **Gen Z Aesthetic**: Dark-first design with neon green accents and monospace fonts
+- **Live Clock**: Real-time IST clock display on homepage
+- **Theme Toggle**: Dark/light mode with smooth transitions
+- **Responsive Design**: Mobile-first approach optimized for all devices
+- **PWA Ready**: Service worker and manifest for app-like experience
+- **Performance Optimized**: Lazy loading and optimized bundle sizes
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-- **Frontend**: Angular 18, TypeScript, SCSS
-- **Styling**: Modern CSS with CSS Variables, Flexbox, Grid
-- **Fonts**: Inter (Google Fonts)
-- **Icons**: Emoji icons for visual appeal
-- **Responsive**: Mobile-first design approach
+- **Framework**: Angular 18 (Standalone Components)
+- **Language**: TypeScript
+- **Styling**: SCSS with CSS custom properties
+- **Fonts**: JetBrains Mono, Inter
+- **Icons**: Bootstrap Icons
+- **Deployment**: Netlify
 
-## 📱 Pages & Components
+## 🎨 Design System
 
-### 🏠 Home Page
-- Hero section with introduction
-- Skills overview
-- Quick statistics
-- Call-to-action sections
+### Color Palette
+- **Background**: Deep black (#0a0a0a)
+- **Accent**: Neon green (#00ff88)
+- **Text**: Light gray (#e5e5e5)
+- **Muted**: Dark gray (#666666)
 
-### 👨‍💻 About Page
-- Personal information and bio
+### Typography
+- **Monospace**: JetBrains Mono (code, headers)
+- **Sans-serif**: Inter (body text)
+- **Terminal aesthetic**: Consistent with developer tools
+
+## 📱 Pages
+
+### 🏠 Home
+- Live IST clock
+- Status indicators (open to work)
+- Tech stack overview
 - Experience timeline
-- Professional values
-- Social media links
+- Social links with hover effects
 
-### 🎯 Skills Page
-- Technical skills with proficiency levels
-- Frontend, Backend, and Tools categories
-- Currently learning section
-- Interactive skill bars
+### 👨‍💻 About
+- Personal bio and background
+- Education details
+- Professional achievements
+- Skills grid (no progress bars)
+- Career timeline
 
-### 🚀 Projects Page
-- Featured projects showcase
-- Project filtering by category
-- Detailed project information
+### 🚀 Projects
+- Featured project showcase
 - GitHub and live demo links
+- Tech stack tags
+- Responsive project cards
 
-### 📞 Contact Page
+### 📞 Contact
 - Contact form with validation
 - Multiple contact methods
-- Professional information
-- Response time indicators
+- Professional email and social links
+- Hiring-focused messaging
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn package manager
+- Node.js 18+
+- npm
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Gurry-12/gurpreet-portfolio.git
-   cd gurpreet-portfolio
-   ```
+```bash
+# Clone repository
+git clone https://github.com/Gurry-12/Gurpreet-Portfolio.git
+cd Gurpreet-Portfolio
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Install dependencies
+npm install
 
-3. **Start development server**
-   ```bash
-   npm start
-   ```
+# Start development server
+npm start
+```
 
-4. **Open your browser**
-   Navigate to `http://localhost:4200`
+Visit `http://localhost:4200`
 
 ### Build for Production
 
@@ -85,120 +89,103 @@ A modern, elegant, and responsive portfolio website built with **Angular 18** sh
 npm run build
 ```
 
-The build artifacts will be stored in the `dist/` directory.
-
-## 🎨 Design System
-
-### Color Palette
-- **Primary**: Indigo (#6366f1)
-- **Secondary**: Purple (#8b5cf6)
-- **Accent**: Cyan (#06b6d4)
-- **Text**: Dark gray (#1f2937)
-- **Background**: White and light gray
-
-### Typography
-- **Font Family**: Inter (Google Fonts)
-- **Weights**: 300, 400, 500, 600, 700, 800
-- **Responsive**: Fluid typography scaling
-
-### Spacing & Layout
-- **Container**: Max-width 1200px
-- **Grid System**: CSS Grid and Flexbox
-- **Spacing**: Consistent 8px base unit
-- **Breakpoints**: Mobile-first responsive design
-
-## 📱 Responsive Breakpoints
-
-- **Mobile**: < 480px
-- **Tablet**: 480px - 768px
-- **Desktop**: > 768px
-
-## 🔧 Customization
-
-### Adding New Projects
-Edit `src/app/components/projects/projects.component.ts` and add new projects to the `projects` array.
-
-### Updating Skills
-Modify the skills data in `src/app/components/skills/skills.component.ts`.
-
-### Changing Colors
-Update CSS variables in `src/styles.scss` under the `:root` selector.
-
-### Adding New Pages
-1. Create a new component in `src/app/components/`
-2. Add the route in `src/app/app.routes.ts`
-3. Update navigation if needed
-
 ## 📁 Project Structure
 
 ```
 src/
 ├── app/
 │   ├── components/
-│   │   ├── home/           # Home page component
-│   │   ├── about/          # About page component
-│   │   ├── skills/         # Skills page component
-│   │   ├── projects/       # Projects page component
-│   │   └── contact/        # Contact page component
-│   ├── app.component.ts    # Main app component
-│   ├── app.routes.ts       # Application routing
-│   └── app.config.ts       # App configuration
-├── assets/                 # Static assets
-├── styles.scss            # Global styles
-└── index.html             # Main HTML file
+│   │   ├── home/           # Homepage with live clock
+│   │   ├── about/          # About page with achievements
+│   │   ├── projects/       # Projects showcase
+│   │   └── contact/        # Contact form
+│   ├── header/             # Navigation with theme toggle
+│   ├── footer/             # Footer with social links
+│   ├── services/
+│   │   └── theme.service.ts # Theme management
+│   └── app.routes.ts       # Routing configuration
+├── styles.scss             # Global styles and variables
+└── index.html              # Main HTML with Bootstrap Icons
 ```
 
-## 🌟 Key Features
+## 🎯 Key Features
 
-- **Lazy Loading**: Components load on demand for better performance
-- **Standalone Components**: Modern Angular 18 architecture
-- **CSS Variables**: Consistent theming and easy customization
-- **Smooth Animations**: CSS transitions and keyframe animations
-- **Form Validation**: Contact form with proper validation
-- **SEO Ready**: Meta tags, semantic HTML, and proper structure
+### Live Clock
+Real-time IST display with proper SSR handling:
+```typescript
+updateTime(): void {
+  const now = new Date();
+  this.currentTime = now.toLocaleTimeString('en-US', {
+    hour12: false,
+    timeZone: 'Asia/Kolkata'
+  });
+}
+```
+
+### Theme Service
+SSR-safe theme management with localStorage persistence:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class ThemeService {
+  // Platform-aware theme switching
+}
+```
+
+### Responsive Design
+Mobile-first CSS with consistent spacing:
+```scss
+// Breakpoints
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1200px;
+```
+
+## 🌟 Unique Elements
+
+- **Terminal aesthetic**: Monospace fonts and dark theme
+- **Minimal navigation**: Clean "gurpreet.dev" branding
+- **Status indicators**: "Open to work" messaging
+- **Hover animations**: Subtle interactions throughout
+- **No progress bars**: Clean skills presentation
+- **Bootstrap Icons**: Consistent iconography
 
 ## 📊 Performance
 
-- **Lighthouse Score**: Optimized for high performance
-- **Bundle Size**: Minimal and optimized
-- **Loading Speed**: Fast initial page load
-- **Core Web Vitals**: Optimized for user experience
+- **Bundle size**: Optimized with lazy loading
+- **Lighthouse**: High performance scores
+- **SSR disabled**: Static SPA for Netlify deployment
+- **Service worker**: Offline capability
 
-## 🔒 Security
+## � Deployment
 
-- **XSS Protection**: Angular's built-in security features
-- **Form Validation**: Client-side validation with Angular forms
-- **Safe Navigation**: Proper sanitization of user inputs
+Deployed on Netlify with automatic builds:
+
+```toml
+[build]
+  publish = "dist/gurpreet-portfolio/browser"
+  command = "npm install --legacy-peer-deps && npm run build"
+```
 
 ## 📈 Future Enhancements
 
 - [ ] Blog section
-- [ ] Dark mode toggle
-- [ ] Multi-language support
-- [ ] Portfolio filters
-- [ ] Testimonials section
+- [ ] Project filtering
+- [ ] Animation improvements
+- [ ] More interactive elements
 - [ ] Analytics integration
-- [ ] PWA capabilities
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+Feel free to submit issues and pull requests!
 
 ## 📞 Contact
 
-- **LinkedIn**: [Gurpreet Singh](https://www.linkedin.com/in/gurpreet-singh57/)
+- **Email**: work.gurpreetsw@gmail.com
+- **LinkedIn**: [gurpreet-singh57](https://linkedin.com/in/gurpreet-singh57)
 - **GitHub**: [Gurry-12](https://github.com/Gurry-12)
-- **Email**: gurpreet.singh@example.com
 
 ---
 
-⭐ **Star this repository if you found it helpful!**
+**Status**: Open to work | **Location**: Bhiwadi, Rajasthan
 
-Built with ❤️ using Angular 18
-=======
-# Gurpreet-Portfolio
->>>>>>> b0a597af0cb3ed9cb6f1e6b1594db7b326cbb0ce
+Built with ❤️ using Angular 18 and modern web technologies
