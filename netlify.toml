@@ -1,0 +1,14 @@
+[build]
+  publish = "dist/gurpreet-portfolio/browser"
+  command = "npm install --legacy-peer-deps --no-package-lock && npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+  NPM_CONFIG_FUND = "false"
+  NPM_CONFIG_AUDIT = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
