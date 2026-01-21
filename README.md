@@ -1,8 +1,11 @@
-<div>
+<div align="center>
 
 # 🚀 gurpreet.dev
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3000&pause=1000&color=00FF88&center=true&vCenter=true&width=435&lines=backend+developer;open+to+work;building+clean+code;angular+%2B+.net+enthusiast)](https://git.io/typing-svg)
+
+</div>
+
 
 ```bash
 $ whoami
@@ -12,7 +15,7 @@ $ cat status.txt
 🟢 actively seeking opportunities | backend developer | bhiwadi, rajasthan
 ```
 
-</div>
+
 
 ---
 
