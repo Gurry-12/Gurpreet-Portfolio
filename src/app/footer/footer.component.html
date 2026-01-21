@@ -1,46 +1,82 @@
-<!-- footer.component.html -->
 <footer class="footer">
-  <div class="footer-content">
-    <!-- About Section -->
-    <div class="footer-section">
-      <h3>About Me</h3>
-      <p>
-        I'm Gurpreet Singh, a Computer Science Engineering graduate and backend
-        developer skilled in .NET Core, ASP.NET MVC, Web APIs, C#, SQL Server,
-        and Python. Passionate about building scalable solutions, exploring
-        AI/ML, and contributing to tech communities.
-      </p>
+  <div class="container">
+    <div class="footer-content">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h3 class="font-mono">gurpreet.dev</h3>
+        <p class="text-dim">Building digital experiences with code</p>
+      </div>
+
+      <!-- Links -->
+      <div class="footer-links">
+        <div class="link-group">
+          <h4 class="font-mono">navigate</h4>
+          <ul>
+            <li><a routerLink="/home">home</a></li>
+            <li><a routerLink="/about">about</a></li>
+            <li><a routerLink="/projects">projects</a></li>
+            <li><a routerLink="/contact">contact</a></li>
+          </ul>
+        </div>
+
+        <div class="link-group">
+          <h4 class="font-mono">connect</h4>
+          <ul>
+            <li>
+              <a href="https://github.com/Gurry-12" target="_blank">
+                <i class="bi bi-github"></i>
+                github
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank">
+                <i class="bi bi-linkedin"></i>
+                linkedin
+              </a>
+            </li>
+            <li>
+              <a href="mailto:work.gurpreetsw&#64;gmail.com">
+                <i class="bi bi-envelope"></i>
+                email
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="link-group">
+          <h4 class="font-mono">resources</h4>
+          <ul>
+            <li>
+              <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank">
+                <i class="bi bi-download"></i>
+                resume
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Gurry-12/Gurpreet-Portfolio" target="_blank">
+                <i class="bi bi-code-slash"></i>
+                source code
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <!-- Quick Links -->
-    <div class="footer-section">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a routerLink="/home">Home</a></li>
-        <li><a routerLink="/about">About</a></li>
-        <li><a routerLink="/skills">Skills</a></li>
-        <li><a routerLink="/projects">Projects</a></li>
-        <li><a routerLink="/achievements">Achievements</a></li>
-        <li><a routerLink="/contact">Contact</a></li>
-      </ul>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-info">
+        <span class="font-mono text-muted">© {{ currentYear }} gurpreet singh</span>
+        <span class="text-muted">•</span>
+        <span class="text-muted">built with angular & scss</span>
+      </div>
+      
+      <div class="footer-status">
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span class="font-mono text-accent">open to work</span>
+        </div>
+      </div>
     </div>
-
-    <!-- Contact Section -->
-    <div class="footer-section">
-      <h3>Contact</h3>
-      <p>Email: work.gurpreetsw&#64;gmail.com</p>
-      <p>Phone: +91 9376847944</p>
-      <p>Location: Alwar, Rajasthan, India</p>
-      <p>
-        <a href="https://www.linkedin.com/in/gurpreet-singh57" target="_blank">
-          LinkedIn Profile
-        </a>
-      </p>
-    </div>
-  </div>
-
-  <!-- Bottom Footer -->
-  <div class="footer-bottom">
-    <p>&copy; 2025 Gurpreet Singh. All rights reserved.</p>
   </div>
 </footer>

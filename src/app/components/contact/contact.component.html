@@ -1,177 +1,174 @@
-<div class="contact-container">
-  <!-- Header Section -->
-  <section class="contact-header">
-    <div class="container">
-      <h1 class="page-title">Get In Touch</h1>
-      <p class="page-subtitle">Let's work together on your next project</p>
-    </div>
-  </section>
+<main class="contact">
+  <div class="container">
+    <!-- Header -->
+    <header class="page-header">
+      <h1 class="font-mono">contact</h1>
+      <p class="text-dim">Ready to build something incredible together?</p>
+    </header>
 
-  <!-- Contact Content -->
-  <section class="contact-content">
-    <div class="container">
-      <div class="content-grid">
-        <!-- Contact Information -->
-        <div class="contact-info">
-          <h2>Let's Connect</h2>
-          <p class="info-description">
-            I'm always interested in hearing about new projects and opportunities. 
-            Whether you have a question or just want to say hi, feel free to reach out!
+    <!-- Contact Grid -->
+    <div class="contact-grid">
+      <!-- Contact Info -->
+      <section class="contact-info">
+        <div class="info-card card">
+          <h2 class="font-mono">let's connect</h2>
+          <p class="text-dim">
+            I'm actively seeking backend developer opportunities where I can contribute to meaningful projects and grow professionally. 
+            Whether you're hiring, have project ideas, or want to discuss technology, I'd love to hear from you.
           </p>
-          
+
           <div class="contact-methods">
             <div class="contact-method">
-              <div class="method-icon">📧</div>
-              <div class="method-details">
-                <h3>Email</h3>
-                <p>work.gurpreetsw&#64;gmail.com</p>
-                <a href="mailto:work.gurpreetsw&#64;gmail.com" class="method-link">Send Email</a>
-              </div>
+              <span class="method-label font-mono">email</span>
+              <a href="mailto:work.gurpreetsw@gmail.com" class="method-value">
+                <i class="bi bi-envelope"></i>
+                work.gurpreetsw&#64;gmail.com
+              </a>
             </div>
 
             <div class="contact-method">
-              <div class="method-icon">🔗</div>
-              <div class="method-details">
-                <h3>LinkedIn</h3>
-                <p>Connect with me professionally</p>
-                <a href="https://www.linkedin.com/in/gurpreet-singh57/" target="_blank" class="method-link">Connect on LinkedIn</a>
-              </div>
+              <span class="method-label font-mono">linkedin</span>
+              <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" class="method-value">
+                <i class="bi bi-linkedin"></i>
+                /in/gurpreet-singh57
+              </a>
             </div>
 
             <div class="contact-method">
-              <div class="method-icon">📚</div>
-              <div class="method-details">
-                <h3>GitHub</h3>
-                <p>Check out my code and projects</p>
-                <a href="https://github.com/Gurry-12" target="_blank" class="method-link">View GitHub Profile</a>
-              </div>
+              <span class="method-label font-mono">github</span>
+              <a href="https://github.com/Gurry-12" target="_blank" class="method-value">
+                <i class="bi bi-github"></i>
+                /Gurry-12
+              </a>
             </div>
 
             <div class="contact-method">
-              <div class="method-icon">💼</div>
-              <div class="method-details">
-                <h3>Freelance</h3>
-                <p>Available for new projects</p>
-                <span class="status available">Available</span>
-              </div>
+              <span class="method-label font-mono">status</span>
+              <span class="method-value">
+                <i class="bi bi-briefcase"></i>
+                Open to work - Seeking backend developer roles
+              </span>
             </div>
           </div>
 
-          <div class="response-time">
-            <div class="response-icon">⏱️</div>
-            <div class="response-text">
-              <h4>Response Time</h4>
-              <p>I typically respond within 24 hours during business days.</p>
-            </div>
+          <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span class="font-mono text-accent">available for work</span>
           </div>
         </div>
 
-        <!-- Contact Form -->
-        <div class="contact-form-container">
-          <h2>Send a Message</h2>
-          <form class="contact-form" (ngSubmit)="onSubmit()">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary">
+            <i class="bi bi-envelope"></i>
+            <span class="font-mono">send email</span>
+          </a>
+          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="btn">
+            <i class="bi bi-download"></i>
+            <span class="font-mono">download cv</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Contact Form -->
+      <section class="contact-form-section">
+        <div class="form-card card">
+          <h2 class="font-mono">send message</h2>
+          
+          <form class="contact-form" (ngSubmit)="onSubmit()" #contactFormRef="ngForm">
             <div class="form-group">
-              <label for="name">Full Name *</label>
+              <label for="name" class="font-mono">name</label>
               <input 
                 type="text" 
                 id="name" 
                 name="name" 
                 [(ngModel)]="contactForm.name" 
                 required
-                placeholder="Enter your full name"
+                placeholder="your name"
                 class="form-input">
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address *</label>
+              <label for="email" class="font-mono">email</label>
               <input 
                 type="email" 
                 id="email" 
                 name="email" 
                 [(ngModel)]="contactForm.email" 
                 required
-                placeholder="Enter your email address"
+                placeholder="your@email.com"
                 class="form-input">
             </div>
 
             <div class="form-group">
-              <label for="subject">Subject *</label>
+              <label for="subject" class="font-mono">subject</label>
               <input 
                 type="text" 
                 id="subject" 
                 name="subject" 
                 [(ngModel)]="contactForm.subject" 
                 required
-                placeholder="What's this about?"
+                placeholder="what's this about?"
                 class="form-input">
             </div>
 
             <div class="form-group">
-              <label for="message">Message *</label>
+              <label for="message" class="font-mono">message</label>
               <textarea 
                 id="message" 
                 name="message" 
                 [(ngModel)]="contactForm.message" 
                 required
                 rows="6"
-                placeholder="Tell me about your project or question..."
+                placeholder="tell me about your project..."
                 class="form-textarea"></textarea>
             </div>
 
             <button 
               type="submit" 
-              class="submit-btn"
-              [disabled]="isSubmitting">
-              <span class="btn-text" *ngIf="!isSubmitting">Send Message</span>
-              <span class="btn-text" *ngIf="isSubmitting">Sending...</span>
-              <span class="btn-icon" *ngIf="!isSubmitting">📤</span>
-              <span class="btn-icon" *ngIf="isSubmitting">⏳</span>
+              class="btn btn-primary submit-btn"
+              [disabled]="isSubmitting || !contactFormRef.form.valid">
+              <i class="bi" [class]="isSubmitting ? 'bi-arrow-clockwise' : 'bi-send'"></i>
+              <span class="font-mono" *ngIf="!isSubmitting">send message</span>
+              <span class="font-mono" *ngIf="isSubmitting">sending...</span>
             </button>
           </form>
 
-          <!-- Success/Error Messages -->
-          <div class="form-messages">
-            <div class="success-message" *ngIf="submitSuccess">
-              <div class="message-icon">✅</div>
-              <div class="message-content">
-                <h4>Message Sent Successfully!</h4>
-                <p>Thank you for reaching out. I'll get back to you soon!</p>
-              </div>
+          <!-- Success Message -->
+          <div class="success-message" *ngIf="submitSuccess">
+            <div class="message-content">
+              <span class="font-mono text-accent">message sent!</span>
+              <p class="text-dim">Thanks for reaching out. I'll get back to you soon.</p>
             </div>
+          </div>
 
-            <div class="error-message" *ngIf="submitError">
-              <div class="message-icon">❌</div>
-              <div class="message-content">
-                <h4>Something went wrong</h4>
-                <p>Please try again or contact me directly via email.</p>
-              </div>
+          <!-- Error Message -->
+          <div class="error-message" *ngIf="submitError">
+            <div class="message-content">
+              <span class="font-mono" style="color: var(--warning)">something went wrong</span>
+              <p class="text-dim">Please try again or email me directly.</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
 
-  <!-- Additional Info -->
-  <section class="additional-info">
-    <div class="container">
+    <!-- Additional Info -->
+    <section class="additional-info">
       <div class="info-grid">
-        <div class="info-card">
-          <div class="card-icon">🌍</div>
-          <h3>Location</h3>
-          <p>Based in India, working with clients worldwide</p>
+        <div class="info-item">
+          <span class="info-label font-mono">timezone</span>
+          <span class="info-value">IST (UTC+5:30)</span>
         </div>
-        <div class="info-card">
-          <div class="card-icon">🕒</div>
-          <h3>Timezone</h3>
-          <p>IST (UTC+5:30) - Flexible scheduling available</p>
+        <div class="info-item">
+          <span class="info-label font-mono">languages</span>
+          <span class="info-value">English, Hindi, Punjabi</span>
         </div>
-        <div class="info-card">
-          <div class="card-icon">💬</div>
-          <h3>Communication</h3>
-          <p>English, Hindi, and Punjabi</p>
+        <div class="info-item">
+          <span class="info-label font-mono">response time</span>
+          <span class="info-value">Usually within 24 hours</span>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+</main>

@@ -1,93 +1,121 @@
-<div class="home-container">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-text">
+<main class="home">
+  <div class="container">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="font-mono text-muted">IST</span>
+        <span class="font-mono">{{ currentTime }}</span>
+      </div>
+      <div class="status-item">
+        <span class="status-dot"></span>
+        <span class="font-mono">{{ profile.status }}</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
         <h1 class="hero-title">
-          <span class="greeting">Hello, I'm</span>
-          <span class="name">Gurpreet Singh</span>
-          <span class="title">.NET Core Backend Developer</span>
+          <span class="font-mono">{{ profile.name }}</span>
         </h1>
-        <p class="hero-description">
-          Computer Science Engineering graduate specializing in backend
-          development with .NET Core, ASP.NET MVC, Web APIs, C#, and SQL Server.
-          Passionate about creating scalable, reliable solutions and exploring
-          Python + Machine Learning.
+        <p class="hero-subtitle">
+          {{ profile.role }} based in {{ profile.location }}
         </p>
-        <div class="hero-buttons">
-          <a routerLink="/projects" class="btn btn-primary">View My Work</a>
-          <a routerLink="/contact" class="btn btn-secondary">Get In Touch</a>
+        
+        <div class="hero-description">
+          <p>
+            Backend developer with hands-on experience in ASP.NET Core, Python, and database optimization. 
+            Recently completed successful internships where I improved system performance by 30% and built production-ready APIs. 
+            Actively seeking full-time opportunities to contribute to impactful projects.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a routerLink="/projects" class="btn btn-primary">
+            <i class="bi bi-code-slash"></i>
+            <span class="font-mono">view work</span>
+          </a>
+          <button (click)="copyEmail()" class="btn">
+            <i class="bi bi-clipboard"></i>
+            <span class="font-mono">copy email</span>
+          </button>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="floating-card">
-          <div class="card-content">
-            <div class="tech-stack">
-              <span class="tech-item">.NET Core</span>
-              <span class="tech-item">ASP.NET MVC</span>
-              <span class="tech-item">Web API</span>
-              <span class="tech-item">C#</span>
-              <span class="tech-item">SQL Server</span>
-              <span class="tech-item">Python</span>
+
+      <div class="hero-sidebar">
+        <!-- Tech Stack -->
+        <div class="card stack-card">
+          <h3 class="font-mono">stack</h3>
+          <div class="stack-list">
+            <span class="badge" *ngFor="let tech of stack">{{ tech }}</span>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="card experience-card">
+          <h3 class="font-mono">experience</h3>
+          <div class="experience-list">
+            <div class="experience-item" *ngFor="let exp of experience">
+              <div class="exp-header">
+                <span class="font-mono exp-company">{{ exp.company }}</span>
+                <span class="badge" *ngIf="exp.current">current</span>
+              </div>
+              <div class="exp-role">{{ exp.role }}</div>
+              <div class="exp-period font-mono text-muted">{{ exp.period }}</div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Quick Stats -->
-  <section class="stats">
-    <div class="stats-container">
-      <div class="stat-item">
-        <div class="stat-number">1+</div>
-        <div class="stat-label">Year Experience</div>
+        <!-- Links -->
+        <div class="card links-card">
+          <h3 class="font-mono">links</h3>
+          <div class="links-list">
+            <a [href]="'https://' + profile.github" target="_blank" class="link-item">
+              <div class="link-content">
+                <i class="bi bi-github"></i>
+                <span class="font-mono">github</span>
+              </div>
+              <i class="bi bi-arrow-up-right text-muted"></i>
+            </a>
+            <a [href]="'https://' + profile.linkedin" target="_blank" class="link-item">
+              <div class="link-content">
+                <i class="bi bi-linkedin"></i>
+                <span class="font-mono">linkedin</span>
+              </div>
+              <i class="bi bi-arrow-up-right text-muted"></i>
+            </a>
+            <a [href]="'mailto:' + profile.email" class="link-item">
+              <div class="link-content">
+                <i class="bi bi-envelope"></i>
+                <span class="font-mono">email</span>
+              </div>
+              <i class="bi bi-arrow-up-right text-muted"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">Projects Completed</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">12+</div>
-        <div class="stat-label">Technologies</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Commitment to Learning</div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Featured Section -->
-  <section class="featured">
-    <div class="featured-container">
-      <h2 class="section-title">What I Do</h2>
-      <div class="featured-grid">
-        <div class="featured-card">
-          <div class="card-icon">💻</div>
-          <h3>Backend Development</h3>
-          <p>
-            Designing and implementing APIs, authentication systems, and admin
-            dashboards using .NET Core, ASP.NET MVC, and SQL Server.
-          </p>
+    <!-- Quick Stats -->
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number font-mono">1+</span>
+          <span class="stat-label">years coding</span>
         </div>
-        <div class="featured-card">
-          <div class="card-icon">🔗</div>
-          <h3>API Integration</h3>
-          <p>
-            Building and consuming RESTful APIs for scalable, reliable
-            applications with clean architecture and best practices.
-          </p>
+        <div class="stat-item">
+          <span class="stat-number font-mono">15+</span>
+          <span class="stat-label">projects built</span>
         </div>
-        <div class="featured-card">
-          <div class="card-icon">📊</div>
-          <h3>Exploring AI/ML</h3>
-          <p>
-            Applying Python for data science and machine learning projects to
-            enhance problem-solving and logical thinking.
-          </p>
+        <div class="stat-item">
+          <span class="stat-number font-mono">3</span>
+          <span class="stat-label">internships</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number font-mono">6+</span>
+          <span class="stat-label">technologies</span>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+</main>

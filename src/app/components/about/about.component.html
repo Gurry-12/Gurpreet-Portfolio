@@ -1,193 +1,160 @@
-<div class="about-container">
-  <!-- Header Section -->
-  <section class="about-header">
-    <div class="container">
-      <h1 class="page-title">About Me</h1>
-      <p class="page-subtitle">Get to know me better</p>
-    </div>
-  </section>
+<main class="about">
+  <div class="container">
+    <!-- Header -->
+    <header class="page-header">
+      <h1 class="font-mono">about</h1>
+      <p class="text-dim">Get to know me better</p>
+    </header>
 
-  <!-- Main Content -->
-  <section class="about-content">
-    <div class="container">
-      <div class="content-grid">
-        <!-- Personal Info -->
-        <div class="personal-info">
-          <div class="profile-card">
-            <div class="profile-image">
-              <div class="image-placeholder">
-                <span class="initials">GS</span>
-              </div>
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Bio Section -->
+      <section class="bio-section">
+        <div class="card">
+          <h2 class="font-mono">bio</h2>
+          <div class="bio-content">
+            <p>{{ bio }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Info -->
+      <aside class="profile-sidebar">
+        <div class="card profile-card">
+          <h3 class="font-mono">profile</h3>
+          <div class="profile-details">
+            <div class="detail-item">
+              <span class="label font-mono">
+                <i class="bi bi-person"></i>
+                name
+              </span>
+              <span class="value">{{ profile.name }}</span>
             </div>
-            <div class="profile-details">
-              <h2>Gurpreet Singh</h2>
-              <p class="title">.NET Core Backend Developer</p>
-              <p class="location">📍 Alwar, Rajasthan, India</p>
-              <div class="social-links">
-                <a
-                  href="https://www.linkedin.com/in/gurpreet-singh57/"
-                  target="_blank"
-                  class="social-link linkedin"
-                >
-                  <span class="icon">🔗</span>
-                  LinkedIn
-                </a>
-                <a
-                  href="https://github.com/Gurry-12"
-                  target="_blank"
-                  class="social-link github"
-                >
-                  <span class="icon">📚</span>
-                  GitHub
-                </a>
-              </div>
+            <div class="detail-item">
+              <span class="label font-mono">
+                <i class="bi bi-geo-alt"></i>
+                location
+              </span>
+              <span class="value">{{ profile.location }}</span>
             </div>
           </div>
         </div>
 
-        <!-- About Text -->
-        <div class="about-text">
-          <div class="text-section">
-            <h3>Who I Am</h3>
-            <p>
-              I'm Gurpreet Singh, a Computer Science Engineering graduate from
-              Gulzar Group of Institutes. I specialize in backend development
-              using .NET Core, ASP.NET MVC, Web APIs, C#, and SQL Server. Beyond
-              backend, I also explore Python for Data Science and Machine
-              Learning to broaden my problem-solving approach.
-            </p>
-            <p>
-              As Chairperson of CodeForge Club and Student Placement
-              Coordinator, I’ve led multiple technical events, fostered
-              collaborative learning, and supported peers in their career
-              journeys — combining technical skills with leadership and
-              teamwork.
-            </p>
+        <div class="card languages-card">
+          <h3 class="font-mono">languages</h3>
+          <div class="languages-list">
+            <span class="badge" *ngFor="let lang of profile.languages">{{ lang }}</span>
           </div>
+        </div>
+      </aside>
+    </div>
 
-          <div class="text-section">
-            <h3>My Journey</h3>
-            <p>
-              My professional journey includes working as a .NET Core Backend
-              Developer Intern at Anviam Solutions Pvt. Ltd., where I gained
-              real-world experience in building scalable applications with APIs,
-              authentication, and dashboards. I've also completed internships at
-              Codehop Interfusion and Brainitix, expanding my skills in Flask,
-              BDD, and full-stack development.
-            </p>
-            <p>
-              Every project I work on strengthens my logical thinking, DSA
-              skills, and ability to create solutions that are efficient,
-              reliable, and user-focused. I believe in writing clean,
-              maintainable code and contributing to communities that encourage
-              growth.
-            </p>
+    <!-- Education Section -->
+    <section class="education-section">
+      <h2 class="font-mono">education</h2>
+      <div class="card education-card">
+        <div class="education-header">
+          <div class="education-main">
+            <h3>{{ education.degree }}</h3>
+            <p class="specialization">{{ education.specialization }}</p>
+          </div>
+          <span class="badge status-badge">{{ education.status }}</span>
+        </div>
+        <div class="education-details">
+          <div class="detail-row">
+            <span class="detail-label font-mono">
+              <i class="bi bi-building"></i>
+              university
+            </span>
+            <span class="detail-value">{{ education.university }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label font-mono">
+              <i class="bi bi-mortarboard"></i>
+              institute
+            </span>
+            <span class="detail-value">{{ education.institute }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label font-mono">
+              <i class="bi bi-calendar-range"></i>
+              duration
+            </span>
+            <span class="detail-value">{{ education.duration }}</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Experience Timeline -->
-  <section class="experience">
-    <div class="container">
-      <h2 class="section-title">Experience & Education</h2>
+    <!-- Achievements Section -->
+    <section class="achievements-section">
+      <h2 class="font-mono">achievements</h2>
+      <div class="achievements-grid">
+        <div class="achievement-card card" *ngFor="let achievement of achievements">
+          <div class="achievement-icon">
+            <i class="bi" [class]="achievement.icon"></i>
+          </div>
+          <div class="achievement-content">
+            <h3>{{ achievement.title }}</h3>
+            <p class="achievement-description">{{ achievement.description }}</p>
+            <div class="achievement-meta">
+              <span class="organization font-mono">{{ achievement.organization }}</span>
+              <span class="year badge">{{ achievement.year }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+      <h2 class="font-mono">skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category" *ngFor="let category of skills | keyvalue">
+          <h3 class="font-mono category-title">{{ category.key }}</h3>
+          <div class="skill-tags">
+            <span class="badge" *ngFor="let skill of category.value">{{ skill }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+      <h2 class="font-mono">timeline</h2>
       <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>.NET Core Backend Developer Intern</h3>
-            <p class="company">Anviam Solutions Pvt. Ltd.</p>
-            <p class="duration">Jan 2025 – Aug 2025</p>
-            <p class="description">
-              Worked on backend logic, authentication, APIs, and admin
-              dashboards using ASP.NET MVC, Web APIs, C#, and SQL Server in
-              real-world applications.
-            </p>
+        <div class="timeline-item" *ngFor="let item of timeline">
+          <div class="timeline-marker">
+            <span class="year font-mono">{{ item.year }}</span>
           </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>Software Engineer Intern</h3>
-            <p class="company">Codehop Interfusion (Remote)</p>
-            <p class="duration">Sept 2024 – Oct 2024</p>
-            <p class="description">
-              Developed web applications with Python, Flask, and behavior-driven
-              testing (BDD) using Behave framework.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>Full Stack Developer Intern</h3>
-            <p class="company">Brainitix, Jaipur</p>
-            <p class="duration">July 2024</p>
-            <p class="description">
-              Built full-stack solutions during a short-term internship to gain
-              practical exposure.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3>B.Tech CSE (IoT, Cybersecurity with Blockchain)</h3>
-            <p class="company">Gulzar Group of Institutes</p>
-            <p class="duration">2021 – 2025</p>
-            <p class="description">
-              Focused on computer science fundamentals, algorithms, data
-              structures, and emerging technologies like IoT, cybersecurity, and
-              blockchain.
-            </p>
+          <div class="timeline-content card">
+            <div class="timeline-header">
+              <h3>{{ item.title }}</h3>
+              <span class="badge" *ngIf="item.current">current</span>
+            </div>
+            <p class="company font-mono text-accent">{{ item.company }}</p>
+            <p class="description">{{ item.description }}</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Values Section -->
-  <section class="values">
-    <div class="container">
-      <h2 class="section-title">What I Value</h2>
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-icon">💡</div>
-          <h3>Innovation</h3>
-          <p>
-            Exploring creative approaches in backend design, APIs, and scalable
-            software solutions.
-          </p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🎯</div>
-          <h3>Quality</h3>
-          <p>
-            Committed to clean code, best practices, and delivering efficient
-            applications.
-          </p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🚀</div>
-          <h3>Growth</h3>
-          <p>
-            Dedicated to continuous learning — from DSA to ML — to evolve as a
-            developer.
-          </p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">🤝</div>
-          <h3>Collaboration</h3>
-          <p>
-            Believing in teamwork, mentoring, and building communities like
-            CodeForge Club.
-          </p>
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="card cta-card">
+        <h2 class="font-mono">looking for a backend developer?</h2>
+        <p>I'm actively seeking opportunities to join a team where I can contribute to challenging projects and continue growing as a developer. Let's discuss how I can add value to your organization.</p>
+        <div class="cta-actions">
+          <a routerLink="/contact" class="btn btn-primary">
+            <i class="bi bi-envelope"></i>
+            <span class="font-mono">discuss opportunities</span>
+          </a>
+          <a routerLink="/projects" class="btn">
+            <i class="bi bi-code-slash"></i>
+            <span class="font-mono">view my work</span>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+</main>
