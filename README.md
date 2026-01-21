@@ -134,11 +134,9 @@ status: live
 
 ---
 
-<div align="center">
+<div>
 
 **built with intention. designed for impact.**
-
-![Visitor Count](https://profile-counter.glitch.me/Gurry-12/count.svg)
 
 ```bash
 $ echo "thanks for checking out my work 🚀"
