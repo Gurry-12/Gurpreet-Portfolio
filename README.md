@@ -2,7 +2,10 @@
 
 # 🚀 gurpreet.dev
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3000&pause=1000&color=00FF88&center=true&vCenter=true&width=600&lines=backend+developer;open+to+work;building+clean+code;angular+%2B+.net+enthusiast)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3000&pause=1000&color=00FF88&center=true&vCenter=true&width=435&lines=backend+developer;open+to+work;building+clean+code;angular+%2B+.net+enthusiast)](https://git.io/typing-svg)
+
+</div>
+
 
 ```bash
 $ whoami
@@ -12,34 +15,18 @@ $ cat status.txt
 🟢 actively seeking opportunities | backend developer | bhiwadi, rajasthan
 ```
 
-</div>
+
 
 ---
 
 ## 🛠️ tech.stack()
 
-<div align="center">
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=angular,vscode,ts,git,github" />
+  </a>
+</p>
 
-![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
-![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Microsoft SQL Server](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
-
-</div>
-
-## 📊 github.stats()
-
-<div align="center">
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Gurry-12&theme=dark&hide_border=true&include_all_commits=true&count_private=true&bg_color=0a0a0a&title_color=00ff88&text_color=e5e5e5&icon_color=00ff88)
-
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Gurry-12&theme=dark&hide_border=true&background=0a0a0a&stroke=00ff88&ring=00ff88&fire=00ff88&currStreakLabel=00ff88)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Gurry-12&theme=dark&hide_border=true&include_all_commits=true&count_private=true&layout=compact&bg_color=0a0a0a&title_color=00ff88&text_color=e5e5e5)
-
-</div>
 
 ## 🎯 portfolio.features()
 
@@ -58,7 +45,7 @@ const myPortfolio: Portfolio = {
     '🌙 theme toggle', 
     '📱 responsive design',
     '⚡ PWA ready',
-    '🚀 netlify deployed'
+    '🚀 netlify deployed.'
   ]
 };
 ```
@@ -83,10 +70,10 @@ npm run build
 
 ## 🎨 design.system()
 
-<div align="center">
+<div>
 
 ```css
-:root {
+: root {
   --bg-primary: #0a0a0a;    /* deep black */
   --accent: #00ff88;        /* neon green */
   --text: #e5e5e5;          /* light gray */
@@ -94,7 +81,7 @@ npm run build
   --font-sans: 'Inter';
 }
 
-/* philosophy: no bloat. just clean code. */
+/* philosophy: no bloat. Just clean code. */
 ```
 
 </div>
@@ -116,17 +103,10 @@ src/
 └── 📄 index.html
 ```
 
-## 📈 activity.graph()
-
-<div align="center">
-
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Gurry-12&theme=react-dark&bg_color=0a0a0a&color=00ff88&line=00ff88&point=e5e5e5&area=true&hide_border=true)
-
-</div>
 
 ## 🏆 achievements.unlock()
 
-<div align="center">
+<div>
 
 ![Trophies](https://github-profile-trophy.vercel.app/?username=Gurry-12&theme=darkhub&no-frame=true&no-bg=true&margin-w=4&column=7)
 
@@ -134,7 +114,7 @@ src/
 
 ## 📞 connect.with.me()
 
-<div align="center">
+<div>
 
 [![Email](https://img.shields.io/badge/Email-work.gurpreetsw%40gmail.com-00ff88?style=for-the-badge&logo=gmail&logoColor=white)](mailto:work.gurpreetsw@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-gurpreet--singh57-00ff88?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gurpreet-singh57)
@@ -145,7 +125,7 @@ src/
 ## 🌐 deployment.info()
 
 ```yaml
-platform: netlify
+platform: Netlify
 build_command: npm run build
 publish_dir: dist/gurpreet-portfolio/browser
 auto_deploy: ✅
@@ -154,11 +134,9 @@ status: live
 
 ---
 
-<div align="center">
+<div>
 
 **built with intention. designed for impact.**
-
-![Visitor Count](https://profile-counter.glitch.me/Gurry-12/count.svg)
 
 ```bash
 $ echo "thanks for checking out my work 🚀"
