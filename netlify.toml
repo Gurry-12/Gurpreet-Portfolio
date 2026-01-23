@@ -8,6 +8,10 @@
   NPM_CONFIG_FUND = "false"
   NPM_CONFIG_AUDIT = "false"
 
+# Form handling
+[[forms]]
+  name = "contact"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -26,21 +26,21 @@ export class ProjectsComponent {
 
   projects: Project[] = [
     {
-      id: 'enterprise-portal',
-      title: 'Enterprise Management Portal',
-      description: 'Built a role-based access control system that cut administrative overhead by 40%. Handles user authentication, permissions, and data management for enterprise clients using ASP.NET Core and SQL Server.',
-      tech: ['ASP.NET Core', 'C#', 'SQL Server', 'Razor Pages'],
-      github: 'https://github.com/Gurry-12/enterprise-portal',
+      id: 'library-portal',
+      title: 'Online Book Management System',
+      description: 'Full-stack library management platform with role-based authentication and CRUD operations. Features admin dashboard, user registration, book inventory tracking, and automated fine calculations using ASP.NET Core MVC architecture.',
+      tech: ['ASP.NET Core', 'C#', 'SQL Server', 'Entity Framework', 'Bootstrap'],
+      github: 'https://github.com/Gurry-12/OnlineBookManagementSystem',
       status: 'completed',
       year: '2024',
       type: 'web'
     },
     {
       id: 'emotion-analyzer',
-      title: 'Real-Time Emotion Insight Analyzer',
-      description: 'Developed a sentiment analysis engine with 85% accuracy that processes text in real-time. Includes rate limiting, Docker containerization, and handles thousands of requests per minute.',
-      tech: ['Python', 'Flask', 'NLTK', 'scikit-learn', 'Docker'],
-      github: 'https://github.com/Gurry-12/emotion-analyzer',
+      title: 'Sentiment Analysis API',
+      description: 'RESTful API for real-time text sentiment analysis using NLTK and machine learning models. Processes user input to classify emotions as positive, negative, or neutral with confidence scores and detailed analytics.',
+      tech: ['Python', 'Flask', 'NLTK', 'scikit-learn', 'REST API'],
+      github: 'https://github.com/Gurry-12/sentiment_analyzer',
       status: 'completed',
       year: '2024',
       type: 'ml'
@@ -48,43 +48,42 @@ export class ProjectsComponent {
     {
       id: 'disaster-dashboard',
       title: 'Disaster Response Dashboard',
-      description: 'Created a real-time emergency response system that coordinates disaster alerts and resource allocation. Built with Angular 17, featuring live data updates and responsive design for field workers.',
-      tech: ['Angular', 'TypeScript', 'RxJS', 'Bootstrap'],
-      github: 'https://github.com/Gurry-12/disaster-dashboard',
-      live: 'https://disaster-response.netlify.app',
+      description: 'Emergency management web application built with Angular 18 for coordinating disaster response efforts. Features real-time alerts, resource tracking, responsive design for mobile field workers, and interactive data visualization.',
+      tech: ['Angular 18', 'TypeScript', 'RxJS', 'Chart.js', 'Bootstrap'],
+      github: 'https://github.com/Gurry-12/Disaster-Ready-UI',
       status: 'completed',
       year: '2024',
       type: 'web'
     },
     {
       id: 'wine-quality-ml',
-      title: 'Wine Quality Scoring System',
-      description: 'Built an ML pipeline using Random Forest that predicts wine quality with high accuracy. Deployed as a Flask API with proper error handling and input validation for production use.',
-      tech: ['Python', 'scikit-learn', 'Pandas', 'Flask', 'ML'],
-      github: 'https://github.com/Gurry-12/wine-quality-ml',
+      title: 'Wine Quality Prediction Model',
+      description: 'Machine learning system that predicts wine quality ratings using Random Forest algorithm. Includes data preprocessing, feature engineering, model training, and Flask API deployment with comprehensive error handling.',
+      tech: ['Python', 'scikit-learn', 'Pandas', 'Flask', 'Jupyter'],
+      github: 'https://github.com/Gurry-12/wine_prediction',
       status: 'completed',
       year: '2024',
       type: 'ml'
     },
     {
-      id: 'api-gateway',
-      title: 'Microservices API Gateway',
-      description: 'Architected a secure API gateway with JWT authentication and comprehensive BDD testing. Handles service routing, rate limiting, and request validation for multiple microservices.',
-      tech: ['Python', 'Flask', 'JWT', 'BDD Testing', 'Postman'],
+      id: 'portfolio-v2',
+      title: 'Developer Portfolio Website',
+      description: 'Modern portfolio website featuring Gen Z aesthetic with dark-first design, live IST clock, theme toggle, and PWA capabilities. Built with Angular 18 standalone components and deployed on Netlify with CI/CD.',
+      tech: ['Angular 18', 'TypeScript', 'SCSS', 'PWA', 'Netlify'],
+      github: 'https://github.com/Gurry-12/Gurpreet-Portfolio',
+      live: 'https://gurpreetdev.netlify.app',
+      status: 'completed',
+      year: '2025',
+      type: 'web'
+    },
+    {
+      id: 'api-testing',
+      title: 'API Testing & Documentation Suite',
+      description: 'Comprehensive API testing framework with automated test suites, documentation generation, and performance monitoring. Includes Postman collections, BDD testing scenarios, and CI/CD integration.',
+      tech: ['Postman', 'Newman', 'BDD', 'JavaScript', 'CI/CD'],
       status: 'completed',
       year: '2024',
       type: 'api'
-    },
-    {
-      id: 'portfolio-v2',
-      title: 'Developer Portfolio v2',
-      description: 'Designed and built this portfolio with a unique Gen Z aesthetic, focusing on performance and user experience. Features PWA capabilities, responsive design, and custom animations.',
-      tech: ['Angular', 'TypeScript', 'SCSS', 'PWA'],
-      github: 'https://github.com/Gurry-12/Gurpreet-Portfolio',
-      live: 'https://gurpreetdev.netlify.app',
-      status: 'in-progress',
-      year: '2025',
-      type: 'web'
     }
   ];
 

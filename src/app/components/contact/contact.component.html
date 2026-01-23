@@ -75,7 +75,19 @@
         <div class="form-card card">
           <h2 class="font-mono">send message</h2>
           
-          <form class="contact-form" (ngSubmit)="onSubmit()" #contactFormRef="ngForm">
+          <form 
+            class="contact-form" 
+            name="contact" 
+            method="POST" 
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            (ngSubmit)="onSubmit()" 
+            #contactFormRef="ngForm">
+            
+            <!-- Hidden bot field for spam protection -->
+            <input type="hidden" name="bot-field" />
+            <input type="hidden" name="form-name" value="contact" />
+
             <div class="form-group">
               <label for="name" class="font-mono">name</label>
               <input 
