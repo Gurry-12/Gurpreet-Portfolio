@@ -51,8 +51,9 @@ export class ProjectsComponent {
       description: 'Emergency management web application built with Angular 18 for coordinating disaster response efforts. Features real-time alerts, resource tracking, responsive design for mobile field workers, and interactive data visualization.',
       tech: ['Angular 18', 'TypeScript', 'RxJS', 'Chart.js', 'Bootstrap'],
       github: 'https://github.com/Gurry-12/Disaster-Ready-UI',
+      live: 'https://disaster-ready-ui.onrender.com',
       status: 'completed',
-      year: '2024',
+      year: '2025',
       type: 'web'
     },
     {
