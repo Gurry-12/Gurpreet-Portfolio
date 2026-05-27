@@ -70,7 +70,7 @@ export class AboutComponent {
     }
   ];
 
-  bio = `I'm a backend developer who thrives on solving complex data challenges and building robust systems. Recently completed impactful internships at Anviam Solutions and Codehop Interfusion, where I architected scalable APIs with ASP.NET Core and Python, and optimized database performance by 30%.
+  bio = `I'm a backend developer who thrives on solving complex data challenges and building robust systems. Currently working as a Software Intern at Monocept, and previously completed impactful internships at Anviam Solutions and Codehop Interfusion, where I architected scalable APIs with ASP.NET Core and Python, and optimized database performance by 30%.
 
 My experience spans from building enterprise management portals to developing ML-powered sentiment analysis systems. I've led placement coordination for 2000+ students and created automation tools that significantly improved operational efficiency.
 
@@ -85,6 +85,13 @@ Currently seeking a full-time backend developer role where I can contribute to m
   };
 
   timeline = [
+    {
+      year: '2026',
+      title: 'Software Intern',
+      company: 'Monocept',
+      description: 'Working as a Software Intern, contributing to software development, collaborating with the team to design and build scalable features, and writing robust, maintainable code.',
+      current: true
+    },
     {
       year: '2025',
       title: 'Software Developer Intern',

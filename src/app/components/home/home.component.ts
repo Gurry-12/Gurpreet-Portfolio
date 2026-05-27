@@ -28,6 +28,12 @@ export class HomeComponent implements OnInit {
 
   experience = [
     {
+      company: 'Monocept',
+      role: 'Software Intern',
+      period: 'Feb 2026 - Present',
+      current: true
+    },
+    {
       company: 'Anviam Solutions',
       role: 'Software Developer Intern',
       period: 'Jan - Aug 2025',
