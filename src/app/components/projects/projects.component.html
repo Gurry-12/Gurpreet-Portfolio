@@ -1,91 +1,105 @@
-<main class="projects">
+<main class="projects" appScrollReveal id="main-content">
   <div class="container">
-    <!-- Header -->
-    <header class="page-header">
-      <h1 class="font-mono">work</h1>
-      <p class="text-dim">Projects I've built and contributed to</p>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <header class="page-header reveal">
+      <span class="section-label">work</span>
+      <h1 class="page-title">Projects & Case Studies</h1>
+      <p class="page-desc">Deep dives into the systems I've built — from problem analysis to architecture decisions and measurable outcomes.</p>
     </header>
 
-    <!-- Filters -->
-    <section class="filters-section">
-      <div class="filters">
-        <button 
-          *ngFor="let type of projectTypes" 
-          (click)="setFilter(type)"
-          class="filter-btn font-mono"
-          [class.active]="selectedFilter === type">
-          {{ type }}
-        </button>
-      </div>
-      <div class="project-count">
-        <span class="font-mono text-muted">{{ filteredProjects.length }} projects</span>
-      </div>
-    </section>
+    <!-- ===== FEATURED CASE STUDIES ===== -->
+    <section class="case-studies" aria-label="Featured project case studies">
+      <div class="case-study" *ngFor="let project of featuredProjects; let i = index" [class.revealed]="true">
 
-    <!-- Projects Grid -->
-    <section class="projects-grid">
-      <article class="project-card card" *ngFor="let project of filteredProjects; trackBy: trackByProject">
-        <!-- Project Header -->
-        <div class="project-header">
-          <div class="project-meta">
-            <h2 class="project-title">{{ project.title }}</h2>
-            <div class="project-badges">
-              <span class="badge type-badge">{{ project.type }}</span>
-              <span class="badge status-badge" [style.color]="getStatusColor(project.status)">
-                {{ project.status }}
-              </span>
+        <!-- Case Study Header -->
+        <div class="cs-header reveal">
+          <div class="cs-meta">
+            <span class="cs-year font-mono">{{ project.year }}</span>
+            <span class="badge badge-accent" *ngIf="project.featured">featured</span>
+            <span class="badge">{{ project.status }}</span>
+          </div>
+          <h2 class="cs-title">{{ project.title }}</h2>
+          <p class="cs-subtitle">{{ project.subtitle }}</p>
+          <div class="cs-actions">
+            <a [routerLink]="['/projects', project.id]" class="btn btn-sm btn-primary">
+              <i class="bi bi-arrow-right"></i> <span class="font-mono">view case study</span>
+            </a>
+            <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-sm">
+              <i class="bi bi-github"></i> <span class="font-mono">source</span>
+            </a>
+            <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-sm">
+              <i class="bi bi-globe"></i> <span class="font-mono">live demo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Collapsed Preview -->
+        <div class="cs-preview">
+          <div class="cs-preview-grid">
+            <div class="cs-preview-item">
+              <span class="cs-label font-mono">problem</span>
+              <p class="cs-text">{{ project.problemStatement }}</p>
+            </div>
+            <div class="cs-preview-item">
+              <span class="cs-label font-mono">solution</span>
+              <p class="cs-text">{{ project.overview }}</p>
             </div>
           </div>
-          <span class="project-year font-mono text-muted">{{ project.year }}</span>
-        </div>
-
-        <!-- Project Description -->
-        <div class="project-description">
-          <p>{{ project.description }}</p>
-        </div>
-
-        <!-- Tech Stack -->
-        <div class="project-tech">
-          <span class="tech-tag" *ngFor="let tech of project.tech">{{ tech }}</span>
-        </div>
-
-        <!-- Project Links -->
-        <footer class="project-footer">
-          <div class="project-links">
-            <a *ngIf="project.github" [href]="project.github" target="_blank" class="project-link">
-              <i class="bi bi-github"></i>
-              <span class="font-mono">github</span>
-            </a>
-            <a *ngIf="project.live" [href]="project.live" target="_blank" class="project-link">
-              <i class="bi bi-globe"></i>
-              <span class="font-mono">live</span>
-            </a>
+          <div class="cs-tech-preview">
+            <span class="cs-label font-mono">tech stack</span>
+            <div class="cs-tech-tags">
+              <span class="badge" *ngFor="let badge of project.techBadges">{{ badge }}</span>
+            </div>
           </div>
-        </footer>
-      </article>
+        </div>
+
+
+      </div>
     </section>
 
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="filteredProjects.length === 0">
-      <p class="font-mono text-muted">no projects found for "{{ selectedFilter }}"</p>
-    </div>
+    <!-- ===== ADDITIONAL PROJECTS ===== -->
+    <section class="additional-projects reveal" aria-label="Additional projects">
+      <h2 class="section-heading font-mono">More Projects</h2>
+      <div class="additional-grid">
+        <div class="additional-card card card-interactive" *ngFor="let project of additionalProjects">
+          <div class="ac-header">
+            <h3 class="ac-title">{{ project.title }}</h3>
+            <span class="cs-year font-mono">{{ project.year }}</span>
+          </div>
+          <p class="ac-subtitle">{{ project.subtitle }}</p>
+          <div class="ac-tech">
+            <span class="badge" *ngFor="let badge of project.techBadges">{{ badge }}</span>
+          </div>
+          <div class="ac-actions">
+            <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-sm">
+              <i class="bi bi-github"></i> <span class="font-mono">source</span>
+            </a>
+            <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-sm">
+              <i class="bi bi-globe"></i> <span class="font-mono">live</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+    <!-- ===== CTA ===== -->
+    <section class="cta-section reveal">
       <div class="card cta-card">
-        <h2 class="font-mono">interested in working together?</h2>
-        <p>I'm open to exciting backend development opportunities and challenging projects. Let's connect and explore how we can create something impactful together.</p>
+        <h2 class="cta-title font-mono">Interested in working together?</h2>
+        <p class="cta-desc">I'm open to backend development opportunities and challenging engineering problems. Let's discuss how I can contribute.</p>
         <div class="cta-actions">
           <a routerLink="/contact" class="btn btn-primary">
             <i class="bi bi-envelope"></i>
-            <span class="font-mono">get in touch</span>
+            <span class="font-mono">Get in Touch</span>
           </a>
-          <a href="https://github.com/Gurry-12" target="_blank" class="btn">
+          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
             <i class="bi bi-github"></i>
-            <span class="font-mono">view my code</span>
+            <span class="font-mono">View GitHub</span>
           </a>
         </div>
       </div>
     </section>
+
   </div>
 </main>

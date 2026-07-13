@@ -1,160 +1,194 @@
-<main class="about">
+<main class="about" appScrollReveal id="main-content">
   <div class="container">
-    <!-- Header -->
-    <header class="page-header">
-      <h1 class="font-mono">about</h1>
-      <p class="text-dim">Get to know me better</p>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <header class="page-header reveal">
+      <span class="section-label">about</span>
+      <h1 class="page-title">About Me</h1>
+      <p class="page-desc">Engineering mindset, production focus, continuous growth.</p>
     </header>
 
-    <!-- Content Grid -->
-    <div class="content-grid">
-      <!-- Bio Section -->
-      <section class="bio-section">
-        <div class="card">
-          <h2 class="font-mono">bio</h2>
-          <div class="bio-content">
-            <p>{{ bio }}</p>
+    <!-- ===== BIO + SIDEBAR ===== -->
+    <section class="about-grid reveal">
+      <div class="bio-section">
+        <h2 class="section-heading font-mono">bio</h2>
+        <div class="bio-content">
+          <p *ngFor="let paragraph of bio.split('\n\n')">{{ paragraph }}</p>
+        </div>
+      </div>
+
+      <aside class="about-sidebar">
+        <!-- Profile Card -->
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title font-mono">profile</h3>
+          <div class="sidebar-details">
+            <div class="detail-row">
+              <span class="detail-label font-mono"><i class="bi bi-person"></i> name</span>
+              <span class="detail-value">Gurpreet Singh</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label font-mono"><i class="bi bi-geo-alt"></i> location</span>
+              <span class="detail-value">Bhiwadi, Rajasthan</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label font-mono"><i class="bi bi-translate"></i> languages</span>
+              <span class="detail-value">English, Hindi, Punjabi</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label font-mono"><i class="bi bi-briefcase"></i> status</span>
+              <span class="detail-value status-available"><span class="status-dot status-pulse"></span> Open to work</span>
+            </div>
           </div>
         </div>
-      </section>
 
-      <!-- Profile Info -->
-      <aside class="profile-sidebar">
-        <div class="card profile-card">
-          <h3 class="font-mono">profile</h3>
-          <div class="profile-details">
-            <div class="detail-item">
-              <span class="label font-mono">
-                <i class="bi bi-person"></i>
-                name
-              </span>
-              <span class="value">{{ profile.name }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label font-mono">
-                <i class="bi bi-geo-alt"></i>
-                location
-              </span>
-              <span class="value">{{ profile.location }}</span>
-            </div>
+        <!-- Education Card -->
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title font-mono">education</h3>
+          <div class="edu-info">
+            <span class="edu-degree">{{ education.degree }}</span>
+            <span class="edu-spec">{{ education.specialization }}</span>
+            <span class="edu-school font-mono">{{ education.institute }}</span>
+            <span class="edu-duration font-mono">{{ education.duration }}</span>
           </div>
         </div>
 
-        <div class="card languages-card">
-          <h3 class="font-mono">languages</h3>
-          <div class="languages-list">
-            <span class="badge" *ngFor="let lang of profile.languages">{{ lang }}</span>
+        <!-- GitHub Activity -->
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title font-mono">github activity</h3>
+          <div class="github-grid">
+            <div class="github-stat">
+              <span class="github-value font-mono">{{ githubStats.contributions }}</span>
+              <span class="github-label">contributions</span>
+            </div>
+            <div class="github-stat">
+              <span class="github-value font-mono">{{ githubStats.repositories }}</span>
+              <span class="github-label">repositories</span>
+            </div>
+            <div class="github-stat">
+              <span class="github-value font-mono">{{ githubStats.stars }}</span>
+              <span class="github-label">stars</span>
+            </div>
+            <div class="github-stat">
+              <span class="github-value font-mono">{{ githubStats.streak }}</span>
+              <span class="github-label">streak</span>
+            </div>
           </div>
+          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn btn-sm" style="width: 100%; margin-top: var(--sp-4);">
+            <i class="bi bi-github"></i> <span class="font-mono">view profile</span>
+          </a>
         </div>
       </aside>
-    </div>
-
-    <!-- Education Section -->
-    <section class="education-section">
-      <h2 class="font-mono">education</h2>
-      <div class="card education-card">
-        <div class="education-header">
-          <div class="education-main">
-            <h3>{{ education.degree }}</h3>
-            <p class="specialization">{{ education.specialization }}</p>
-          </div>
-          <span class="badge status-badge">{{ education.status }}</span>
-        </div>
-        <div class="education-details">
-          <div class="detail-row">
-            <span class="detail-label font-mono">
-              <i class="bi bi-building"></i>
-              university
-            </span>
-            <span class="detail-value">{{ education.university }}</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label font-mono">
-              <i class="bi bi-mortarboard"></i>
-              institute
-            </span>
-            <span class="detail-value">{{ education.institute }}</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label font-mono">
-              <i class="bi bi-calendar-range"></i>
-              duration
-            </span>
-            <span class="detail-value">{{ education.duration }}</span>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section class="achievements-section">
-      <h2 class="font-mono">achievements</h2>
-      <div class="achievements-grid">
-        <div class="achievement-card card" *ngFor="let achievement of achievements">
-          <div class="achievement-icon">
-            <i class="bi" [class]="achievement.icon"></i>
+    <!-- ===== SKILLS ===== -->
+    <section class="skills-section reveal" aria-label="Technical skills">
+      <div class="section-header">
+        <span class="section-label">skills</span>
+        <h2 class="section-title">Technical Proficiency</h2>
+        <p class="section-desc">Grouped by domain. Level reflects production usage depth, not self-assessment.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-group card" *ngFor="let group of skillGroups">
+          <div class="sg-header">
+            <i class="bi sg-icon" [class]="group.icon"></i>
+            <h3 class="sg-title font-mono">{{ group.category }}</h3>
           </div>
-          <div class="achievement-content">
-            <h3>{{ achievement.title }}</h3>
-            <p class="achievement-description">{{ achievement.description }}</p>
-            <div class="achievement-meta">
-              <span class="organization font-mono">{{ achievement.organization }}</span>
-              <span class="year badge">{{ achievement.year }}</span>
+          <div class="sg-skills">
+            <div class="sg-skill" *ngFor="let skill of group.skills" [class.primary]="skill.level === 'primary'">
+              <span class="sg-skill-name">{{ skill.name }}</span>
+              <span class="sg-skill-level font-mono" [class]="'level-' + skill.level">{{ skill.level }}</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="skills-section">
-      <h2 class="font-mono">skills</h2>
-      <div class="skills-grid">
-        <div class="skill-category" *ngFor="let category of skills | keyvalue">
-          <h3 class="font-mono category-title">{{ category.key }}</h3>
-          <div class="skill-tags">
-            <span class="badge" *ngFor="let skill of category.value">{{ skill }}</span>
-          </div>
-        </div>
+    <!-- ===== TIMELINE ===== -->
+    <section class="timeline-section reveal" aria-label="Career timeline">
+      <div class="section-header">
+        <span class="section-label">timeline</span>
+        <h2 class="section-title">Career & Education Timeline</h2>
       </div>
-    </section>
 
-    <!-- Timeline -->
-    <section class="timeline-section">
-      <h2 class="font-mono">timeline</h2>
       <div class="timeline">
         <div class="timeline-item" *ngFor="let item of timeline">
-          <div class="timeline-marker">
-            <span class="year font-mono">{{ item.year }}</span>
+          <div class="tl-marker">
+            <span class="tl-year font-mono">{{ item.year }}</span>
+            <span class="tl-dot" [class.current]="item.current"></span>
           </div>
-          <div class="timeline-content card">
-            <div class="timeline-header">
-              <h3>{{ item.title }}</h3>
-              <span class="badge" *ngIf="item.current">current</span>
+          <div class="tl-content card">
+            <div class="tl-header">
+              <h3 class="tl-title">{{ item.title }}</h3>
+              <span class="badge badge-accent" *ngIf="item.current">current</span>
             </div>
-            <p class="company font-mono text-accent">{{ item.company }}</p>
-            <p class="description">{{ item.description }}</p>
+            <span class="tl-company font-mono">{{ item.company }}</span>
+            <p class="tl-desc">{{ item.description }}</p>
+            <span class="tl-type badge" [class]="'badge-type-' + item.type">{{ item.type }}</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section">
+    <!-- ===== ACHIEVEMENTS ===== -->
+    <section class="achievements-section reveal" aria-label="Achievements">
+      <div class="section-header">
+        <span class="section-label">achievements</span>
+        <h2 class="section-title">Key Achievements</h2>
+      </div>
+
+      <div class="achievements-grid">
+        <div class="achievement-card card card-interactive" *ngFor="let a of achievements">
+          <div class="ach-icon">
+            <i class="bi" [class]="a.icon"></i>
+          </div>
+          <div class="ach-content">
+            <h3 class="ach-title">{{ a.title }}</h3>
+            <p class="ach-desc">{{ a.description }}</p>
+            <div class="ach-meta">
+              <span class="ach-org font-mono">{{ a.organization }}</span>
+              <span class="badge">{{ a.year }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CERTIFICATIONS ===== -->
+    <section class="certs-section reveal" aria-label="Certifications">
+      <div class="section-header">
+        <span class="section-label">certifications</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+
+      <div class="certs-grid">
+        <div class="cert-card card card-interactive" *ngFor="let cert of certifications">
+          <i class="bi cert-icon" [class]="cert.icon"></i>
+          <div class="cert-info">
+            <h4 class="cert-name">{{ cert.name }}</h4>
+            <span class="cert-issuer font-mono">{{ cert.issuer }} · {{ cert.year }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section reveal">
       <div class="card cta-card">
-        <h2 class="font-mono">looking for a backend developer?</h2>
-        <p>I'm actively seeking opportunities to join a team where I can contribute to challenging projects and continue growing as a developer. Let's discuss how I can add value to your organization.</p>
+        <h2 class="cta-title font-mono">Looking for a backend engineer?</h2>
+        <p class="cta-desc">I'm actively seeking opportunities to contribute to meaningful engineering projects. Let's discuss how I can add value.</p>
         <div class="cta-actions">
           <a routerLink="/contact" class="btn btn-primary">
             <i class="bi bi-envelope"></i>
-            <span class="font-mono">discuss opportunities</span>
+            <span class="font-mono">Discuss Opportunities</span>
           </a>
           <a routerLink="/projects" class="btn">
             <i class="bi bi-code-slash"></i>
-            <span class="font-mono">view my work</span>
+            <span class="font-mono">View My Work</span>
           </a>
         </div>
       </div>
     </section>
+
   </div>
 </main>

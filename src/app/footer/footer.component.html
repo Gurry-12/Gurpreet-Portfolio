@@ -1,81 +1,46 @@
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer-content">
-      <!-- Brand -->
       <div class="footer-brand">
-        <h3 class="font-mono">gurpreet.dev</h3>
-        <p class="text-dim">Building digital experiences with code</p>
+        <span class="footer-logo font-mono">gurpreet<span class="accent">.</span>dev</span>
+        <p class="footer-tagline">Backend software engineer building<br/>reliable, performant systems.</p>
       </div>
 
-      <!-- Links -->
-      <div class="footer-links">
-        <div class="link-group">
-          <h4 class="font-mono">navigate</h4>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-group">
+          <h4 class="footer-group-title font-mono">navigate</h4>
           <ul>
-            <li><a routerLink="/home">home</a></li>
+            <li><a routerLink="/">home</a></li>
             <li><a routerLink="/about">about</a></li>
-            <li><a routerLink="/projects">projects</a></li>
+            <li><a routerLink="/projects">work</a></li>
             <li><a routerLink="/contact">contact</a></li>
           </ul>
         </div>
 
-        <div class="link-group">
-          <h4 class="font-mono">connect</h4>
+        <div class="footer-group">
+          <h4 class="footer-group-title font-mono">connect</h4>
           <ul>
-            <li>
-              <a href="https://github.com/Gurry-12" target="_blank">
-                <i class="bi bi-github"></i>
-                github
-              </a>
-            </li>
-            <li>
-              <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank">
-                <i class="bi bi-linkedin"></i>
-                linkedin
-              </a>
-            </li>
-            <li>
-              <a href="mailto:work.gurpreetsw&#64;gmail.com">
-                <i class="bi bi-envelope"></i>
-                email
-              </a>
-            </li>
+            <li><a href="https://github.com/Gurry-12" target="_blank" rel="noopener"><i class="bi bi-github"></i> github</a></li>
+            <li><a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i> linkedin</a></li>
+            <li><a href="mailto:work.gurpreetsw@gmail.com"><i class="bi bi-envelope"></i> email</a></li>
           </ul>
         </div>
 
-        <div class="link-group">
-          <h4 class="font-mono">resources</h4>
+        <div class="footer-group">
+          <h4 class="footer-group-title font-mono">resources</h4>
           <ul>
-            <li>
-              <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank">
-                <i class="bi bi-download"></i>
-                resume
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/Gurry-12/Gurpreet-Portfolio" target="_blank">
-                <i class="bi bi-code-slash"></i>
-                source code
-              </a>
-            </li>
+            <li><a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener"><i class="bi bi-download"></i> resume</a></li>
+            <li><a href="https://github.com/Gurry-12/Gurpreet-Portfolio" target="_blank" rel="noopener"><i class="bi bi-code-slash"></i> source</a></li>
           </ul>
         </div>
-      </div>
+      </nav>
     </div>
 
-    <!-- Footer Bottom -->
     <div class="footer-bottom">
-      <div class="footer-info">
-        <span class="font-mono text-muted">© {{ currentYear }} gurpreet singh</span>
-        <span class="text-muted">•</span>
-        <span class="text-muted">built with angular & scss</span>
-      </div>
-      
+      <span class="footer-copy font-mono">&copy; {{ currentYear }} gurpreet singh</span>
       <div class="footer-status">
-        <div class="status-indicator">
-          <div class="status-dot"></div>
-          <span class="font-mono text-accent">open to work</span>
-        </div>
+        <span class="status-dot status-pulse"></span>
+        <span class="font-mono footer-available">open to work</span>
       </div>
     </div>
   </div>

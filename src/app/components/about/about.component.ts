@@ -1,124 +1,209 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ScrollRevealDirective],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
-  profile = {
-    name: 'Gurpreet Singh',
-    location: 'Bhiwadi, Rajasthan, India',
-    languages: ['English', 'Hindi', 'Punjabi']
-  };
+  bio = `Backend engineer who builds reliable, performant systems. Currently contributing at Monocept, with prior experience at Anviam Solutions and Codehop Interfusion — where I architected scalable APIs, optimized database queries for 30% performance gains, and shipped production features.
+
+My approach is engineering-first: understand the problem deeply, design for the constraints, then build incrementally with measurability built in. I care about code that is readable, tests that are meaningful, and systems that are operable.
+
+Actively seeking full-time backend roles where I can work on distributed systems, high-throughput APIs, and data-intensive applications.`;
 
   education = {
     degree: 'B.Tech in Computer Science & Engineering',
     specialization: 'IoT & Cyber Security with Blockchain',
     university: 'Punjab Technical University',
     institute: 'Gulzar Group of Institutes',
-    duration: '2021 - 2025',
+    duration: '2021 — 2025',
     status: 'Final Year'
   };
 
-  achievements = [
+  skillGroups = [
     {
-      title: 'Academic Excellence Award',
-      description: 'Achieved highest academic score in Computer Science Department',
-      organization: 'Gulzar Group of Institutes',
-      year: '2024',
-      icon: 'bi-trophy'
+      category: 'Backend',
+      icon: 'bi-server',
+      skills: [
+        { name: 'Java', level: 'primary' },
+        { name: 'Spring Boot', level: 'primary' },
+        { name: 'ASP.NET Core', level: 'primary' },
+        { name: 'Python', level: 'primary' },
+        { name: 'REST APIs', level: 'primary' },
+        { name: 'Microservices', level: 'secondary' },
+        { name: 'JWT Auth', level: 'secondary' },
+        { name: 'Flask', level: 'secondary' }
+      ]
     },
     {
-      title: 'Student Placement Coordinator',
-      description: 'Successfully coordinated 10+ placement drives, facilitating career opportunities for 2000+ students',
-      organization: 'Gulzar Group of Institutes',
-      year: '2024-2025',
-      icon: 'bi-people'
+      category: 'Frontend',
+      icon: 'bi-window',
+      skills: [
+        { name: 'Angular', level: 'primary' },
+        { name: 'TypeScript', level: 'primary' },
+        { name: 'JavaScript', level: 'primary' },
+        { name: 'HTML/CSS', level: 'secondary' },
+        { name: 'Bootstrap', level: 'secondary' }
+      ]
     },
     {
-      title: 'Technical Club Chairperson',
-      description: 'Led CodeForge Club initiatives, organizing technical events and peer learning sessions',
-      organization: 'College Technical Society',
-      year: '2023-2024',
-      icon: 'bi-code-slash'
+      category: 'Database',
+      icon: 'bi-database',
+      skills: [
+        { name: 'SQL Server', level: 'primary' },
+        { name: 'MySQL', level: 'primary' },
+        { name: 'Oracle', level: 'secondary' },
+        { name: 'Entity Framework', level: 'secondary' },
+        { name: 'SQL Optimization', level: 'primary' }
+      ]
     },
     {
-      title: 'Backend Systems Development',
-      description: 'Architected and developed 6+ scalable backend modules using ASP.NET Core and Python',
-      organization: 'Anviam Solutions Pvt. Ltd.',
-      year: '2025',
-      icon: 'bi-server'
+      category: 'DevOps & Cloud',
+      icon: 'bi-cloud',
+      skills: [
+        { name: 'Docker', level: 'secondary' },
+        { name: 'Git', level: 'primary' },
+        { name: 'CI/CD', level: 'secondary' },
+        { name: 'Linux', level: 'secondary' }
+      ]
     },
     {
-      title: 'Performance Optimization',
-      description: 'Optimized SQL Server queries achieving 30% improvement in API response times',
-      organization: 'Anviam Solutions Pvt. Ltd.',
-      year: '2025',
-      icon: 'bi-speedometer2'
+      category: 'Tools',
+      icon: 'bi-tools',
+      skills: [
+        { name: 'VS Code', level: 'primary' },
+        { name: 'Visual Studio', level: 'primary' },
+        { name: 'Postman', level: 'primary' },
+        { name: 'IntelliJ IDEA', level: 'secondary' },
+        { name: 'Jupyter', level: 'secondary' }
+      ]
     },
     {
-      title: 'Workflow Automation',
-      description: 'Developed automated Excel workflows resulting in 25% efficiency improvement',
-      organization: 'Gulzar Group of Institutes',
-      year: '2024',
-      icon: 'bi-gear'
+      category: 'Concepts',
+      icon: 'bi-lightbulb',
+      skills: [
+        { name: 'System Design', level: 'primary' },
+        { name: 'OOP', level: 'primary' },
+        { name: 'Data Structures', level: 'primary' },
+        { name: 'MVC', level: 'primary' },
+        { name: 'Design Patterns', level: 'secondary' }
+      ]
     }
   ];
-
-  bio = `I'm a backend developer who thrives on solving complex data challenges and building robust systems. Currently working as a Software Intern at Monocept, and previously completed impactful internships at Anviam Solutions and Codehop Interfusion, where I architected scalable APIs with ASP.NET Core and Python, and optimized database performance by 30%.
-
-My experience spans from building enterprise management portals to developing ML-powered sentiment analysis systems. I've led placement coordination for 2000+ students and created automation tools that significantly improved operational efficiency.
-
-Currently seeking a full-time backend developer role where I can contribute to meaningful projects and continue growing my expertise in system architecture and performance optimization.`;
-
-  skills = {
-    languages: ['C#', 'Python', 'JavaScript', 'TypeScript', 'SQL'],
-    frameworks: ['ASP.NET Core', 'Angular', 'Flask', 'Bootstrap'],
-    databases: ['SQL Server', 'MySQL', 'Oracle'],
-    tools: ['Git', 'Docker', 'Postman', 'Visual Studio', 'VS Code'],
-    concepts: ['REST APIs', 'JWT Auth', 'MVC', 'OOP', 'Data Structures']
-  };
 
   timeline = [
     {
       year: '2026',
       title: 'Software Intern',
       company: 'Monocept',
-      description: 'Working as a Software Intern, contributing to software development, collaborating with the team to design and build scalable features, and writing robust, maintainable code.',
-      current: true
+      description: 'Contributing to production software development. Collaborating with engineering teams to design and build scalable features with clean, maintainable code.',
+      current: true,
+      type: 'work'
     },
     {
       year: '2025',
       title: 'Software Developer Intern',
       company: 'Anviam Solutions Pvt. Ltd.',
-      description: 'Completed successful internship building production-ready backend modules. Implemented JWT authentication systems, optimized SQL queries for 30% performance improvement, and developed scalable APIs handling real user traffic.',
-      current: false
+      description: 'Built production-ready backend modules with ASP.NET Core. Implemented JWT authentication, optimized SQL queries for 30% performance improvement, and developed scalable APIs serving real users.',
+      current: false,
+      type: 'work'
+    },
+    {
+      year: '2025',
+      title: 'Student Placement Coordinator',
+      company: 'Gulzar Group of Institutes',
+      description: 'Led placement operations for 2000+ students across 10+ drives. Automated Excel workflows saving hours of manual processing.',
+      current: false,
+      type: 'leadership'
     },
     {
       year: '2024',
       title: 'Software Engineer Intern',
       company: 'Codehop Interfusion',
-      description: 'Dove deep into microservices architecture with Python and Flask. Built robust API endpoints with comprehensive BDD testing—because broken code in production is not an option.',
-      current: false
+      description: 'Built microservices with Python and Flask. Developed API endpoints with comprehensive BDD testing and CI/CD pipeline integration.',
+      current: false,
+      type: 'work'
     },
     {
       year: '2024',
-      title: 'Student Placement Coordinator',
-      company: 'Gulzar Group of Institutes',
-      description: 'Led placement operations for 2000+ students across 10+ drives. Created automated Excel workflows that saved hours of manual work and helped students land their dream jobs.',
-      current: false
+      title: 'Technical Club Chairperson',
+      company: 'CodeForge Club',
+      description: 'Led technical events and peer learning sessions. Organized coding workshops and hackathons for the college developer community.',
+      current: false,
+      type: 'leadership'
     },
     {
       year: '2021',
       title: 'Started B.Tech CSE',
       company: 'Gulzar Group of Institutes',
-      description: 'Embarked on my computer science journey with a focus on IoT, Cyber Security, and Blockchain. This is where I discovered my love for backend development and system architecture.',
-      current: false
+      description: 'Began computer science studies with focus on IoT, Cyber Security, and Blockchain. Discovered passion for backend development and system architecture.',
+      current: false,
+      type: 'education'
     }
   ];
+
+  achievements = [
+    {
+      title: 'Academic Excellence Award',
+      description: 'Highest academic score in Computer Science Department',
+      organization: 'Gulzar Group of Institutes',
+      year: '2024',
+      icon: 'bi-trophy'
+    },
+    {
+      title: 'Performance Optimization',
+      description: 'Optimized SQL Server queries achieving 30% improvement in API response times across production systems',
+      organization: 'Anviam Solutions',
+      year: '2025',
+      icon: 'bi-speedometer2'
+    },
+    {
+      title: 'Placement Coordinator',
+      description: 'Coordinated 10+ placement drives facilitating career opportunities for 2000+ students',
+      organization: 'Gulzar Group of Institutes',
+      year: '2024-2025',
+      icon: 'bi-people'
+    },
+    {
+      title: 'Backend Systems Development',
+      description: 'Architected and developed 6+ scalable backend modules using ASP.NET Core and Python',
+      organization: 'Anviam Solutions',
+      year: '2025',
+      icon: 'bi-server'
+    },
+    {
+      title: 'Club Chairperson',
+      description: 'Led CodeForge Club initiatives, organizing technical events and peer learning sessions',
+      organization: 'College Technical Society',
+      year: '2023-2024',
+      icon: 'bi-code-slash'
+    },
+    {
+      title: 'Workflow Automation',
+      description: 'Developed automated Excel workflows resulting in 25% efficiency improvement in manual processes',
+      organization: 'Gulzar Group of Institutes',
+      year: '2024',
+      icon: 'bi-gear'
+    }
+  ];
+
+  certifications = [
+    { name: 'Java Programming', issuer: 'Coursera', year: '2024', icon: 'bi-cup-hot' },
+    { name: 'SQL & Database Design', issuer: 'Microsoft Learn', year: '2024', icon: 'bi-database' },
+    { name: 'RESTful API Design', issuer: 'Postman Academy', year: '2024', icon: 'bi-plug' },
+    { name: 'Docker Fundamentals', issuer: 'Docker Hub', year: '2024', icon: 'bi-box-seam' }
+  ];
+
+  githubStats = {
+    contributions: '200+',
+    repositories: '12+',
+    stars: '15+',
+    streak: '30+ days'
+  };
 }

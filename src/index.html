@@ -1,58 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8"/>
-    <title>Gurpreet Singh - Full-Stack Developer Portfolio</title>
+    <title>Gurpreet Singh — Backend Software Engineer</title>
     <base href="/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Portfolio of Gurpreet Singh - Full-Stack Developer specializing in C#, ASP.NET Core, Python, Angular, and modern web technologies. Creating scalable solutions with AI/ML integration."/>
-    <meta name="keywords" content="Full-Stack Developer, C#, ASP.NET Core, Python, Angular, Machine Learning, Web Development, Software Engineer, Portfolio, Gurpreet Singh"/>
+    <!-- Primary SEO -->
+    <meta name="description" content="Backend Software Engineer specializing in Java, Spring Boot, SQL, REST APIs, and Microservices. View production-grade projects, case studies, and engineering depth."/>
+    <meta name="keywords" content="Backend Developer, Software Engineer, Java, Spring Boot, SQL, REST APIs, Microservices, Gurpreet Singh, Portfolio"/>
     <meta name="author" content="Gurpreet Singh"/>
-    <meta name="robots" content="index, follow"/>
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
+    <link rel="canonical" href="https://gurpreetdev.netlify.app"/>
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Gurpreet Singh - Full-Stack Developer Portfolio"/>
-    <meta property="og:description" content="Full-Stack Developer skilled in C#, ASP.NET Core, Python, Angular, and AI/ML. Passionate about creating scalable, innovative solutions."/>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Gurpreet Singh — Backend Software Engineer"/>
+    <meta property="og:description" content="Backend engineer building production-ready systems. Specializing in Java, Spring Boot, SQL, REST APIs, and Microservices architecture."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://gurpreetdev.netlify.app"/>
-    <meta property="og:image" content="https://gurpreetdev.netlify.app/assets/og-image.jpg"/>
+    <meta property="og:image" content="https://gurpreetdev.netlify.app/assets/og-image.png"/>
+    <meta property="og:site_name" content="Gurpreet Singh — Portfolio"/>
 
-    <!-- Twitter Meta Tags -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="Gurpreet Singh - Full-Stack Developer Portfolio"/>
-    <meta name="twitter:description" content="Full-Stack Developer skilled in C#, ASP.NET Core, Python, Angular, and AI/ML. Creating innovative solutions."/>
-    <meta name="twitter:image" content="https://gurpreetdev.netlify.app/assets/og-image.jpg"/>
+    <meta name="twitter:title" content="Gurpreet Singh — Backend Software Engineer"/>
+    <meta name="twitter:description" content="Backend engineer building production-ready systems with Java, Spring Boot, SQL, and Microservices."/>
+    <meta name="twitter:image" content="https://gurpreetdev.netlify.app/assets/og-image.png"/>
 
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#00ff88"/>
-    <meta name="msapplication-TileColor" content="#0a0a0a"/>
+    <!-- Theme & PWA -->
+    <meta name="theme-color" content="#09090b"/>
+    <meta name="msapplication-TileColor" content="#09090b"/>
+    <meta name="color-scheme" content="dark light"/>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00ff88"/>
 
-    <!-- Google Fonts -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 
-    <!-- Bootstrap Icons -->
+    <!-- Preload critical fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
-
-    <!-- Google Analytics -->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -60,24 +52,37 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Gurpreet Singh",
-      "jobTitle": "Full-Stack Developer",
-      "description": "Full-Stack Developer specializing in C#, ASP.NET Core, Python, Angular, and AI/ML solutions",
+      "jobTitle": "Backend Software Engineer",
+      "description": "Backend Software Engineer specializing in Java, Spring Boot, SQL, REST APIs, and Microservices architecture.",
       "url": "https://gurpreetdev.netlify.app",
+      "image": "https://gurpreetdev.netlify.app/assets/og-image.png",
       "sameAs": [
         "https://linkedin.com/in/gurpreet-singh57",
         "https://github.com/Gurry-12"
       ],
       "knowsAbout": [
-        "C#", "ASP.NET Core", "Python", "Angular", "Machine Learning", 
-        "Web Development", "SQL Server", "REST APIs"
-      ]
+        "Java", "Spring Boot", "SQL", "REST APIs", "Microservices",
+        "Backend Development", "System Design", "Database Optimization"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Backend Software Engineer",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "India"
+        }
+      }
     }
     </script>
-    <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#00ff88">
-</head>
+
+    <link rel="manifest" href="manifest.webmanifest"/>
+  </head>
   <body>
     <app-root></app-root>
-    <noscript>Please enable JavaScript to continue using this application.</noscript>
-</body>
+    <noscript>
+      <div style="padding:2rem;text-align:center;font-family:monospace;color:#fafafa;background:#09090b;">
+        Please enable JavaScript to view this portfolio.
+      </div>
+    </noscript>
+  </body>
 </html>

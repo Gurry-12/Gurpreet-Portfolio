@@ -1,0 +1,384 @@
+<!-- Scroll Progress Bar -->
+<div class="progress-bar" [style.width.%]="scrollProgress" aria-hidden="true"></div>
+
+<!-- Not Found -->
+<div class="not-found container" *ngIf="!project">
+  <h1>Project Not Found</h1>
+  <p>The project you're looking for doesn't exist.</p>
+  <a routerLink="/projects" class="btn btn-primary"><i class="bi bi-arrow-left"></i> <span class="font-mono">Back to Projects</span></a>
+</div>
+
+<main class="project-detail" *ngIf="project" id="main-content">
+
+  <!-- ===== HERO ===== -->
+  <section class="pd-hero" [style.background]="project.heroGradient">
+    <div class="container">
+      <div class="pd-hero-content">
+        <div class="pd-hero-nav">
+          <a routerLink="/projects" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-left"></i> <span class="font-mono">all projects</span></a>
+          <span class="pd-hero-year font-mono">{{ project.year }}</span>
+        </div>
+        <span class="pd-hero-category badge badge-accent">{{ project.category }}</span>
+        <h1 class="pd-hero-title">{{ project.title }}</h1>
+        <p class="pd-hero-subtitle">{{ project.subtitle }}</p>
+        <div class="pd-hero-badges">
+          <span class="badge" *ngFor="let tech of project.techBadges">{{ tech }}</span>
+        </div>
+        <div class="pd-hero-actions">
+          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-primary"><i class="bi bi-box-arrow-up-right"></i> <span class="font-mono">Live Demo</span></a>
+          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn"><i class="bi bi-github"></i> <span class="font-mono">GitHub</span></a>
+          <a *ngIf="project.linkedin" [href]="project.linkedin" target="_blank" rel="noopener" class="btn"><i class="bi bi-linkedin"></i> <span class="font-mono">LinkedIn Post</span></a>
+          <a *ngIf="project.documentation" [href]="project.documentation" target="_blank" rel="noopener" class="btn"><i class="bi bi-book"></i> <span class="font-mono">Docs</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGE CAROUSEL ===== -->
+  <section class="pd-carousel-section" *ngIf="project.screenshots.length > 0">
+    <div class="container">
+      <div class="pd-carousel">
+        <button class="carousel-btn carousel-prev" (click)="prevSlide()" aria-label="Previous screenshot"><i class="bi bi-chevron-left"></i></button>
+        <div class="carousel-viewport">
+          <div class="carousel-track" [style.transform]="'translateX(-' + carouselIndex * 100 + '%)'">
+            <div class="carousel-slide" *ngFor="let shot of project.screenshots; let i = index; trackBy: trackByIndex">
+              <div class="screenshot-placeholder" (click)="openLightbox(i)">
+                <i class="bi bi-image"></i>
+                <span class="font-mono">{{ shot.label }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-next" (click)="nextSlide()" aria-label="Next screenshot"><i class="bi bi-chevron-right"></i></button>
+        <div class="carousel-dots">
+          <button *ngFor="let shot of project.screenshots; let i = index; trackBy: trackByIndex" type="button" class="dot" [class.active]="i === carouselIndex" (click)="goToSlide(i)" [attr.aria-label]="'Go to screenshot ' + (i + 1)"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTENT + SIDEBAR ===== -->
+  <div class="pd-layout container">
+
+    <!-- Sticky Side Navigation -->
+    <nav class="pd-sidebar" aria-label="Case study navigation">
+      <div class="pd-nav-inner">
+        <button *ngFor="let section of sections" type="button" class="pd-nav-item" [class.active]="activeSection === section.id" (click)="scrollToSection(section.id)">
+          <i class="bi" [class]="section.icon"></i>
+          <span class="font-mono">{{ section.label }}</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pd-content">
+
+      <!-- Overview -->
+      <section id="overview" class="pd-section">
+        <span class="pd-section-label font-mono">01 / overview</span>
+        <h2 class="pd-section-title">Overview</h2>
+        <p class="pd-overview-text">{{ project.overview }}</p>
+      </section>
+
+      <!-- Problem Statement -->
+      <section id="problem" class="pd-section">
+        <span class="pd-section-label font-mono">02 / problem</span>
+        <h2 class="pd-section-title">Problem Statement</h2>
+        <blockquote class="pd-quote">
+          <p>{{ project.problemStatement }}</p>
+        </blockquote>
+      </section>
+
+      <!-- Features -->
+      <section id="features" class="pd-section">
+        <span class="pd-section-label font-mono">03 / features</span>
+        <h2 class="pd-section-title">Key Features</h2>
+        <div class="pd-features-grid">
+          <div class="pd-feature-card" *ngFor="let f of project.features">
+            <div class="pd-feature-icon"><i class="bi" [class]="f.icon"></i></div>
+            <h3 class="pd-feature-title">{{ f.title }}</h3>
+            <p class="pd-feature-desc">{{ f.description }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section id="architecture" class="pd-section">
+        <span class="pd-section-label font-mono">04 / architecture</span>
+        <h2 class="pd-section-title">Architecture</h2>
+        <p class="pd-arch-desc">{{ project.architecture.description }}</p>
+
+        <div class="pd-arch-diagram">
+          <ng-container *ngFor="let layer of project.architecture.layers; let i = index; let last = last">
+            <!-- Tier label: show at first layer of each tier -->
+            <div class="arch-tier-label" *ngIf="getTierLabel(i, project.architecture.layers.length)"
+                 [class.arch-tier-label-client]="i <= 1"
+                 [class.arch-tier-label-server]="i > 1 && i <= project.architecture.layers.length - 2"
+                 [class.arch-tier-label-data]="i >= project.architecture.layers.length - 1">
+              <span class="font-mono">{{ getTierLabel(i, project.architecture.layers.length) }}</span>
+            </div>
+
+            <div class="arch-layer-box"
+                 [class.arch-tier-client]="i <= 1"
+                 [class.arch-tier-server]="i > 1 && i <= project.architecture.layers.length - 2"
+                 [class.arch-tier-data]="i >= project.architecture.layers.length - 1">
+              <span class="arch-layer-index font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
+              <span class="arch-layer-name font-mono">{{ layer }}</span>
+            </div>
+            <div class="arch-connector" *ngIf="!last">
+              <div class="arch-connector-line"></div>
+              <i class="bi bi-chevron-down arch-connector-icon"></i>
+              <div class="arch-connector-line"></div>
+            </div>
+          </ng-container>
+        </div>
+      </section>
+
+      <!-- Sequence Diagrams -->
+      <section id="sequence" class="pd-section" *ngIf="project.sequenceDiagrams.length > 0">
+        <span class="pd-section-label font-mono">05 / sequence diagrams</span>
+        <h2 class="pd-section-title">How It Works</h2>
+        <p class="pd-intro">Key data flows visualized as sequence diagrams. These show the actual request lifecycle through the system.</p>
+        <div class="pd-sequences-list">
+          <div class="pd-sequence-card" *ngFor="let seq of project.sequenceDiagrams">
+            <div class="pd-seq-header">
+              <h3 class="pd-seq-title font-mono">{{ seq.title }}</h3>
+              <p class="pd-seq-desc">{{ seq.description }}</p>
+            </div>
+            <div class="pd-seq-steps">
+              <div class="pd-seq-step" *ngFor="let step of seq.steps; let i = index">
+                <span class="pd-seq-num font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                <code class="pd-seq-code font-mono">{{ step }}</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section id="tech-stack" class="pd-section">
+        <span class="pd-section-label font-mono">05 / tech stack</span>
+        <h2 class="pd-section-title">Technology Decisions</h2>
+        <p class="pd-intro">Each technology was chosen for a specific reason — not because it's popular, but because it solves the problem at hand.</p>
+        <div class="pd-tech-table">
+          <div class="pd-tech-row pd-tech-header font-mono">
+            <span>Technology</span>
+            <span>Why Used</span>
+          </div>
+          <div class="pd-tech-row" *ngFor="let tech of project.techStack">
+            <div class="pd-tech-name">
+              <span class="badge badge-accent">{{ tech.category }}</span>
+              <span class="font-mono">{{ tech.name }}</span>
+            </div>
+            <span class="pd-tech-purpose">{{ tech.purpose }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Engineering Decisions -->
+      <section id="decisions" class="pd-section" *ngIf="project.engineeringDecisions.length > 0">
+        <span class="pd-section-label font-mono">06 / engineering decisions</span>
+        <h2 class="pd-section-title">Why I Chose This Stack</h2>
+        <p class="pd-intro">Every technology choice involved tradeoffs. Here's why I went with these specific solutions — and what I considered instead.</p>
+        <div class="pd-decisions-list">
+          <div class="pd-decision-card" *ngFor="let d of project.engineeringDecisions">
+            <div class="pd-decision-header">
+              <h3 class="pd-decision-tech font-mono">{{ d.technology }}</h3>
+            </div>
+            <div class="pd-decision-body">
+              <p class="pd-decision-why">{{ d.why }}</p>
+              <div class="pd-decision-alternative" *ngIf="d.alternatives">
+                <span class="pd-alt-label font-mono">What I considered</span>
+                <p class="pd-alt-text">{{ d.alternatives }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Database -->
+      <section id="database" class="pd-section" *ngIf="project.database.tables.length > 0">
+        <span class="pd-section-label font-mono">06 / database</span>
+        <h2 class="pd-section-title">Database Design</h2>
+        <p class="pd-db-desc">{{ project.database.description }}</p>
+        <div class="pd-db-tables">
+          <div class="pd-db-table" *ngFor="let table of project.database.tables">
+            <i class="bi bi-table"></i>
+            <span class="font-mono">{{ table }}</span>
+          </div>
+        </div>
+        <div class="pd-db-relationships">
+          <h3 class="pd-sub-heading font-mono"><i class="bi bi-arrow-left-right"></i> Relationships</h3>
+          <p>{{ project.database.relationships }}</p>
+        </div>
+      </section>
+
+      <!-- API Showcase -->
+      <section id="api" class="pd-section" *ngIf="project.apiShowcase.length > 0">
+        <span class="pd-section-label font-mono">07 / api</span>
+        <h2 class="pd-section-title">API Showcase</h2>
+        <p class="pd-intro">RESTful endpoints following proper HTTP conventions with structured error responses.</p>
+        <div class="pd-api-list">
+          <div class="pd-api-item" *ngFor="let api of project.apiShowcase">
+            <span class="pd-api-method font-mono" [class]="'method-' + api.method.toLowerCase()">{{ api.method }}</span>
+            <code class="pd-api-endpoint font-mono">{{ api.endpoint }}</code>
+            <span class="pd-api-desc">{{ api.description }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Workflow -->
+      <section id="workflow" class="pd-section">
+        <span class="pd-section-label font-mono">08 / workflow</span>
+        <h2 class="pd-section-title">User Workflow</h2>
+        <div class="pd-workflow">
+          <div class="pd-wf-step" *ngFor="let step of project.workflow; let last = last">
+            <div class="pd-wf-icon"><i class="bi" [class]="step.icon"></i></div>
+            <div class="pd-wf-info">
+              <span class="pd-wf-label font-mono">{{ step.label }}</span>
+              <span class="pd-wf-desc">{{ step.description }}</span>
+            </div>
+            <div class="pd-wf-connector" *ngIf="!last"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Challenges -->
+      <section id="challenges" class="pd-section">
+        <span class="pd-section-label font-mono">09 / challenges</span>
+        <h2 class="pd-section-title">Challenges</h2>
+        <div class="pd-challenges-list">
+          <div class="pd-challenge" *ngFor="let c of project.challenges; let i = index">
+            <span class="pd-challenge-num font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <p>{{ c }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tradeoffs -->
+      <section id="tradeoffs" class="pd-section" *ngIf="project.tradeoffs.length > 0">
+        <span class="pd-section-label font-mono">10 / tradeoffs</span>
+        <h2 class="pd-section-title">Tradeoffs & What I'd Change</h2>
+        <p class="pd-intro">Every engineering decision involves compromise. Here's what I chose, why, and what I'd do differently with more time.</p>
+        <div class="pd-tradeoffs-list">
+          <div class="pd-tradeoff-card" *ngFor="let t of project.tradeoffs">
+            <div class="pd-tradeoff-decision">
+              <span class="pd-tradeoff-label font-mono">Decision</span>
+              <h3 class="pd-tradeoff-title">{{ t.decision }}</h3>
+            </div>
+            <div class="pd-tradeoff-rationale">
+              <span class="pd-tradeoff-label font-mono">Why</span>
+              <p>{{ t.rationale }}</p>
+            </div>
+            <div class="pd-tradeoff-change" *ngIf="t.whatIdChange">
+              <span class="pd-tradeoff-label font-mono">What I'd change</span>
+              <p>{{ t.whatIdChange }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Failure Story -->
+      <section id="failure" class="pd-section" *ngIf="project.failureStory">
+        <span class="pd-section-label font-mono">11 / what broke</span>
+        <h2 class="pd-section-title">What Broke (And What I Learned)</h2>
+        <div class="pd-failure-card">
+          <div class="pd-failure-icon">
+            <i class="bi bi-bug-fill"></i>
+          </div>
+          <div class="pd-failure-content">
+            <p class="pd-failure-text">{{ project.failureStory }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Learnings -->
+      <section id="learnings" class="pd-section">
+        <span class="pd-section-label font-mono">12 / learnings</span>
+        <h2 class="pd-section-title">Key Learnings</h2>
+        <div class="pd-learnings-list">
+          <div class="pd-learning" *ngFor="let l of project.learnings">
+            <i class="bi bi-check-circle-fill"></i>
+            <p>{{ l }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Future Improvements -->
+      <section id="future" class="pd-section">
+        <span class="pd-section-label font-mono">13 / future</span>
+        <h2 class="pd-section-title">Future Improvements</h2>
+        <div class="pd-future-grid">
+          <div class="pd-future-card" *ngFor="let f of project.futureImprovements">
+            <i class="bi pd-future-icon" [class]="f.icon"></i>
+            <h4 class="pd-future-title font-mono">{{ f.title }}</h4>
+            <p class="pd-future-desc">{{ f.description }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Metrics -->
+      <section id="metrics" class="pd-section">
+        <span class="pd-section-label font-mono">14 / metrics</span>
+        <h2 class="pd-section-title">Project Metrics</h2>
+        <div class="pd-metrics-grid">
+          <div class="pd-metric-card" *ngFor="let m of project.metrics">
+            <span class="pd-metric-value font-mono">{{ m.value }}</span>
+            <span class="pd-metric-label">{{ m.label }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Source Links -->
+      <section class="pd-section pd-links-section">
+        <h2 class="pd-section-title">Source & Links</h2>
+        <div class="pd-source-links">
+          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="pd-source-link">
+            <i class="bi bi-github"></i><span class="font-mono">GitHub Repository</span><i class="bi bi-arrow-up-right"></i>
+          </a>
+          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="pd-source-link">
+            <i class="bi bi-globe"></i><span class="font-mono">Live Website</span><i class="bi bi-arrow-up-right"></i>
+          </a>
+          <a *ngIf="project.linkedin" [href]="project.linkedin" target="_blank" rel="noopener" class="pd-source-link">
+            <i class="bi bi-linkedin"></i><span class="font-mono">LinkedIn Post</span><i class="bi bi-arrow-up-right"></i>
+          </a>
+          <a *ngIf="project.documentation" [href]="project.documentation" target="_blank" rel="noopener" class="pd-source-link">
+            <i class="bi bi-book"></i><span class="font-mono">API Documentation</span><i class="bi bi-arrow-up-right"></i>
+          </a>
+          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener" class="pd-source-link">
+            <i class="bi bi-download"></i><span class="font-mono">Resume</span><i class="bi bi-arrow-up-right"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Related Projects -->
+      <section class="pd-section pd-related" *ngIf="relatedProjects.length > 0">
+        <h2 class="pd-section-title">Similar Projects</h2>
+        <div class="pd-related-grid">
+          <a *ngFor="let rp of relatedProjects" [routerLink]="['/projects', rp.id]" class="pd-related-card card card-interactive">
+            <span class="pd-related-year font-mono">{{ rp.year }}</span>
+            <h3 class="pd-related-title">{{ rp.title }}</h3>
+            <p class="pd-related-tagline">{{ rp.tagline }}</p>
+            <span class="pd-related-link font-mono">View Case Study <i class="bi bi-arrow-right"></i></span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()" role="dialog" aria-modal="true" aria-label="Screenshot lightbox">
+    <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close lightbox" type="button"><i class="bi bi-x-lg"></i></button>
+    <button class="lightbox-prev" (click)="$event.stopPropagation(); lightboxPrev()" aria-label="Previous screenshot" type="button"><i class="bi bi-chevron-left"></i></button>
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+      <div class="lightbox-placeholder">
+        <i class="bi bi-image"></i>
+        <span class="font-mono">{{ project.screenshots[lightboxIndex].label }}</span>
+      </div>
+    </div>
+    <button class="lightbox-next" (click)="$event.stopPropagation(); lightboxNext()" aria-label="Next screenshot" type="button"><i class="bi bi-chevron-right"></i></button>
+    <div class="lightbox-counter font-mono">{{ lightboxIndex + 1 }} / {{ project.screenshots.length }}</div>
+  </div>
+
+</main>

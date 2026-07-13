@@ -1,3 +1,34 @@
 <app-header></app-header>
+
+<!-- Loading Skeleton -->
+<div class="route-skeleton" *ngIf="isLoading" role="status" aria-label="Loading page">
+  <div class="skeleton-container container">
+    <div class="skeleton-header">
+      <div class="skeleton-line skeleton-label"></div>
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line skeleton-desc"></div>
+    </div>
+    <div class="skeleton-grid">
+      <div class="skeleton-card">
+        <div class="skeleton-line skeleton-card-title"></div>
+        <div class="skeleton-line skeleton-card-text"></div>
+        <div class="skeleton-line skeleton-card-text short"></div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-line skeleton-card-title"></div>
+        <div class="skeleton-line skeleton-card-text"></div>
+        <div class="skeleton-line skeleton-card-text short"></div>
+      </div>
+      <div class="skeleton-card">
+        <div class="skeleton-line skeleton-card-title"></div>
+        <div class="skeleton-line skeleton-card-text"></div>
+        <div class="skeleton-line skeleton-card-text short"></div>
+      </div>
+    </div>
+  </div>
+  <span class="sr-only">Loading...</span>
+</div>
+
 <router-outlet></router-outlet>
 <app-footer></app-footer>
+<app-toast></app-toast>

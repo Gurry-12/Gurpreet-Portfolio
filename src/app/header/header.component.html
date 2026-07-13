@@ -1,57 +1,55 @@
-<header class="header">
+<header class="header" [class.scrolled]="isScrolled" role="banner">
+  <a href="#main-content" class="skip-link font-mono">Skip to content</a>
   <div class="container">
     <div class="nav">
-      <!-- Logo -->
-      <div class="logo">
-        <span class="font-mono">gurpreet.dev</span>
-      </div>
+      <a routerLink="/" class="logo" aria-label="Home">
+        <span class="logo-text font-mono">gurpreet<span class="logo-dot">.</span>dev</span>
+      </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="nav-links">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
-          <span class="font-mono">home</span>
-        </a>
-        <a routerLink="/about" routerLinkActive="active" class="nav-link">
-          <span class="font-mono">about</span>
-        </a>
-        <a routerLink="/projects" routerLinkActive="active" class="nav-link">
-          <span class="font-mono">work</span>
-        </a>
-        <a routerLink="/contact" routerLinkActive="active" class="nav-link">
-          <span class="font-mono">contact</span>
+      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+        <a *ngFor="let link of navLinks"
+           [routerLink]="link.path"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: link.exact }"
+           class="nav-link font-mono">
+          {{ link.label }}
         </a>
       </nav>
 
-      <!-- Actions -->
       <div class="nav-actions">
-        <button (click)="toggleTheme()" class="btn btn-ghost theme-toggle" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-          <i class="bi" [class]="isDarkMode ? 'bi-sun' : 'bi-moon'"></i>
+        <button
+          (click)="toggleTheme()"
+          class="btn btn-ghost theme-toggle"
+          [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+          type="button">
+          <i class="bi" [class]="isDarkMode ? 'bi-sun-fill' : 'bi-moon-fill'"></i>
         </button>
-        
-        <button (click)="toggleMenu()" class="btn btn-ghost menu-toggle" [class.active]="isMenuOpen">
-          <i class="bi" [class]="isMenuOpen ? 'bi-x' : 'bi-list'"></i>
+
+        <button
+          (click)="toggleMenu()"
+          class="btn btn-ghost menu-toggle"
+          [class.active]="isMenuOpen"
+          [attr.aria-expanded]="isMenuOpen"
+          aria-label="Toggle navigation menu"
+          type="button">
+          <span class="hamburger" [class.open]="isMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" [class.active]="isMenuOpen">
+    <div class="mobile-menu" [class.active]="isMenuOpen" role="navigation" aria-label="Mobile navigation">
       <nav class="mobile-nav">
-        <a routerLink="/" (click)="closeMenu()" class="mobile-link">
-          <i class="bi bi-house"></i>
-          <span class="font-mono">home</span>
-        </a>
-        <a routerLink="/about" (click)="closeMenu()" class="mobile-link">
-          <i class="bi bi-person"></i>
-          <span class="font-mono">about</span>
-        </a>
-        <a routerLink="/projects" (click)="closeMenu()" class="mobile-link">
-          <i class="bi bi-code-slash"></i>
-          <span class="font-mono">work</span>
-        </a>
-        <a routerLink="/contact" (click)="closeMenu()" class="mobile-link">
-          <i class="bi bi-envelope"></i>
-          <span class="font-mono">contact</span>
+        <a *ngFor="let link of navLinks"
+           [routerLink]="link.path"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: link.exact }"
+           (click)="closeMenu()"
+           class="mobile-link font-mono">
+          {{ link.label }}
         </a>
       </nav>
     </div>
