@@ -5,53 +5,54 @@
     <header class="page-header reveal">
       <span class="section-label">contact</span>
       <h1 class="page-title">Get in Touch</h1>
-      <p class="page-desc">Ready to discuss backend engineering opportunities, architecture decisions, or interesting technical challenges.</p>
+      <p class="page-desc">I'm actively looking for backend engineering roles, especially in APIs and microservices. Let's build something great together.</p>
     </header>
 
     <!-- ===== CONTACT GRID ===== -->
     <div class="contact-grid">
 
-      <!-- Contact Info -->
+      <!-- Availability Card (Left) -->
       <section class="contact-info reveal">
-        <div class="card info-card">
-          <h2 class="info-title font-mono">let's connect</h2>
+        <div class="card-glass info-card">
+          <div class="availability-header">
+            <span class="status-dot status-pulse"></span>
+            <span class="font-mono availability-status">Available for hire</span>
+          </div>
+
+          <h2 class="info-title font-mono">Backend Engineer</h2>
           <p class="info-desc">
-            I'm actively seeking backend developer roles where I can contribute to
-            meaningful projects. Whether you're hiring, have a technical question,
-            or want to discuss system design — I'd love to hear from you.
+            Located in Bhiwadi, Rajasthan (UTC+5:30). Open to full-time backend,
+            full-stack, and API engineering roles. Typical response time: under 24 hours.
           </p>
 
           <div class="methods-list">
-            <div class="method-row" *ngFor="let method of contactMethods">
-              <span class="method-label font-mono">{{ method.label }}</span>
-              <a [href]="method.href" [target]="method.external ? '_blank' : undefined" [rel]="method.external ? 'noopener' : undefined" class="method-value">
-                <i class="bi" [class]="method.icon"></i>
-                {{ method.value }}
-              </a>
-            </div>
+            <a *ngFor="let method of contactMethods"
+               [href]="method.href"
+               [target]="method.external ? '_blank' : undefined"
+               [rel]="method.external ? 'noopener' : undefined"
+               class="method-row">
+              <i class="bi" [class]="method.icon"></i>
+              <span class="method-value font-mono">{{ method.value }}</span>
+              <i class="bi bi-arrow-up-right method-arrow"></i>
+            </a>
           </div>
 
-          <div class="status-bar-info">
-            <span class="status-dot status-pulse"></span>
-            <span class="font-mono status-text">available for work</span>
+          <div class="quick-actions">
+            <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary quick-action-btn">
+              <i class="bi bi-envelope"></i>
+              <span class="font-mono">Email Me</span>
+            </a>
+            <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener" class="btn quick-action-btn">
+              <i class="bi bi-download"></i>
+              <span class="font-mono">Download CV</span>
+            </a>
           </div>
-        </div>
-
-        <div class="quick-actions">
-          <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary quick-action-btn">
-            <i class="bi bi-envelope"></i>
-            <span class="font-mono">Send Email</span>
-          </a>
-          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener" class="btn quick-action-btn">
-            <i class="bi bi-download"></i>
-            <span class="font-mono">Download Resume</span>
-          </a>
         </div>
       </section>
 
-      <!-- Contact Form -->
+      <!-- Contact Form (Right) -->
       <section class="contact-form-section reveal">
-        <div class="card form-card">
+        <div class="card-glass form-card">
           <h2 class="form-title font-mono">send a message</h2>
 
           <form

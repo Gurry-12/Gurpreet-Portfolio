@@ -1,105 +1,121 @@
-<main class="projects" appScrollReveal id="main-content">
-  <div class="container">
+<main class="relative min-h-screen bg-portfolio-bg text-portfolio-text overflow-hidden selection:bg-portfolio-accent selection:text-white pt-32 pb-24">
+  <!-- Aurora Mesh Gradient Background -->
+  <div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-portfolio-accent blur-[120px] mix-blend-screen animate-aurora opacity-30"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#10b981] blur-[120px] mix-blend-screen animate-aurora opacity-20" style="animation-delay: -5s;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 space-y-24">
 
     <!-- ===== PAGE HEADER ===== -->
-    <header class="page-header reveal">
-      <span class="section-label">work</span>
-      <h1 class="page-title">Projects & Case Studies</h1>
-      <p class="page-desc">Deep dives into the systems I've built — from problem analysis to architecture decisions and measurable outcomes.</p>
+    <header class="space-y-6 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-portfolio-surface border border-portfolio-border backdrop-blur-md">
+        <i class="bi bi-folder-fill text-portfolio-accent"></i>
+        <span class="text-xs font-mono tracking-wider uppercase">Work</span>
+      </div>
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">Projects & Case Studies</h1>
+      <p class="text-xl text-portfolio-muted font-light leading-relaxed">
+        Deep dives into the systems I've built — from problem analysis to architecture decisions and measurable outcomes.
+      </p>
     </header>
 
     <!-- ===== FEATURED CASE STUDIES ===== -->
-    <section class="case-studies" aria-label="Featured project case studies">
-      <div class="case-study" *ngFor="let project of featuredProjects; let i = index" [class.revealed]="true">
+    <section aria-label="Featured project case studies" class="space-y-12">
+      <div class="space-y-4 border-b border-portfolio-border/50 pb-4">
+        <h2 class="text-3xl font-semibold">Featured Architectures</h2>
+      </div>
 
-        <!-- Case Study Header -->
-        <div class="cs-header reveal">
-          <div class="cs-meta">
-            <span class="cs-year font-mono">{{ project.year }}</span>
-            <span class="badge badge-accent" *ngIf="project.featured">featured</span>
-            <span class="badge">{{ project.status }}</span>
-          </div>
-          <h2 class="cs-title">{{ project.title }}</h2>
-          <p class="cs-subtitle">{{ project.subtitle }}</p>
-          <div class="cs-actions">
-            <a [routerLink]="['/projects', project.id]" class="btn btn-sm btn-primary">
-              <i class="bi bi-arrow-right"></i> <span class="font-mono">view case study</span>
-            </a>
-            <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-sm">
-              <i class="bi bi-github"></i> <span class="font-mono">source</span>
-            </a>
-            <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-sm">
-              <i class="bi bi-globe"></i> <span class="font-mono">live demo</span>
-            </a>
+      <div class="space-y-16">
+        <div *ngFor="let project of featuredProjects" class="group relative rounded-3xl overflow-hidden border border-portfolio-border bg-portfolio-surface hover:border-portfolio-accent/30 transition-all duration-500 hover:shadow-2xl">
+          <div class="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="p-8 md:p-12 space-y-8 relative z-10">
+            <!-- Header Meta -->
+            <div class="flex flex-wrap items-center gap-4 text-sm font-mono text-portfolio-muted">
+              <span class="text-portfolio-text">{{ project.year }}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-portfolio-border"></span>
+              <span class="text-portfolio-accent">{{ project.status }}</span>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div>
+              <h3 class="text-3xl md:text-4xl font-bold leading-tight mb-4">{{ project.title }}</h3>
+              <p class="text-lg text-portfolio-muted">{{ project.subtitle }}</p>
+            </div>
+
+            <!-- Problem & Solution Grid -->
+            <div class="grid md:grid-cols-2 gap-8 pt-4">
+              <div class="space-y-2">
+                <h4 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">The Problem</h4>
+                <p class="text-portfolio-muted text-sm leading-relaxed">{{ project.problemStatement }}</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">The Solution</h4>
+                <p class="text-portfolio-muted text-sm leading-relaxed">{{ project.overview }}</p>
+              </div>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="pt-4 flex flex-wrap gap-2">
+              <span *ngFor="let badge of project.techBadges" class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-xs text-portfolio-muted">
+                {{ badge }}
+              </span>
+            </div>
+
+            <!-- Actions -->
+            <div class="pt-6 flex flex-wrap gap-4 border-t border-portfolio-border/50">
+              <a [routerLink]="['/projects', project.id]" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-portfolio-text text-portfolio-bg font-medium hover:scale-105 transition-transform duration-300">
+                Read Case Study <i class="bi bi-arrow-right"></i>
+              </a>
+              <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent hover:text-portfolio-text transition-colors duration-300 font-medium text-portfolio-muted">
+                <i class="bi bi-github"></i> Source
+              </a>
+              <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent hover:text-portfolio-text transition-colors duration-300 font-medium text-portfolio-muted">
+                <i class="bi bi-globe"></i> Live Demo
+              </a>
+            </div>
           </div>
         </div>
-
-        <!-- Collapsed Preview -->
-        <div class="cs-preview">
-          <div class="cs-preview-grid">
-            <div class="cs-preview-item">
-              <span class="cs-label font-mono">problem</span>
-              <p class="cs-text">{{ project.problemStatement }}</p>
-            </div>
-            <div class="cs-preview-item">
-              <span class="cs-label font-mono">solution</span>
-              <p class="cs-text">{{ project.overview }}</p>
-            </div>
-          </div>
-          <div class="cs-tech-preview">
-            <span class="cs-label font-mono">tech stack</span>
-            <div class="cs-tech-tags">
-              <span class="badge" *ngFor="let badge of project.techBadges">{{ badge }}</span>
-            </div>
-          </div>
-        </div>
-
-
       </div>
     </section>
 
     <!-- ===== ADDITIONAL PROJECTS ===== -->
-    <section class="additional-projects reveal" aria-label="Additional projects">
-      <h2 class="section-heading font-mono">More Projects</h2>
-      <div class="additional-grid">
-        <div class="additional-card card card-interactive" *ngFor="let project of additionalProjects">
-          <div class="ac-header">
-            <h3 class="ac-title">{{ project.title }}</h3>
-            <span class="cs-year font-mono">{{ project.year }}</span>
-          </div>
-          <p class="ac-subtitle">{{ project.subtitle }}</p>
-          <div class="ac-tech">
-            <span class="badge" *ngFor="let badge of project.techBadges">{{ badge }}</span>
-          </div>
-          <div class="ac-actions">
-            <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-sm">
-              <i class="bi bi-github"></i> <span class="font-mono">source</span>
-            </a>
-            <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-sm">
-              <i class="bi bi-globe"></i> <span class="font-mono">live</span>
-            </a>
+    <section aria-label="Additional projects" class="space-y-12 pt-12">
+      <div class="space-y-4 border-b border-portfolio-border/50 pb-4">
+        <h2 class="text-2xl font-semibold">Additional Projects</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div *ngFor="let project of additionalProjects" class="rounded-2xl p-8 bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent/50 transition-colors flex flex-col group relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-portfolio-bg/50 to-transparent z-0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <h3 class="text-xl font-bold">{{ project.title }}</h3>
+              <span class="text-xs font-mono text-portfolio-muted">{{ project.year }}</span>
+            </div>
+            
+            <p class="text-sm text-portfolio-muted leading-relaxed mb-8 flex-grow">{{ project.subtitle }}</p>
+            
+            <div class="space-y-6">
+              <div class="flex flex-wrap gap-2">
+                <span *ngFor="let badge of project.techBadges" class="px-2.5 py-1 rounded border border-portfolio-border text-[10px] uppercase font-mono text-portfolio-muted group-hover:border-portfolio-accent/30 transition-colors">
+                  {{ badge }}
+                </span>
+              </div>
+              
+              <div class="flex gap-4 border-t border-portfolio-border/50 pt-4">
+                <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="text-sm font-medium text-portfolio-muted hover:text-portfolio-text transition-colors flex items-center gap-2">
+                  <i class="bi bi-github"></i> Source
+                </a>
+                <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="text-sm font-medium text-portfolio-muted hover:text-portfolio-text transition-colors flex items-center gap-2">
+                  <i class="bi bi-globe"></i> Live
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- ===== CTA ===== -->
-    <section class="cta-section reveal">
-      <div class="card cta-card">
-        <h2 class="cta-title font-mono">Interested in working together?</h2>
-        <p class="cta-desc">I'm open to backend development opportunities and challenging engineering problems. Let's discuss how I can contribute.</p>
-        <div class="cta-actions">
-          <a routerLink="/contact" class="btn btn-primary">
-            <i class="bi bi-envelope"></i>
-            <span class="font-mono">Get in Touch</span>
-          </a>
-          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
-            <i class="bi bi-github"></i>
-            <span class="font-mono">View GitHub</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
   </div>
 </main>

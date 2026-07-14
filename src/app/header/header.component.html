@@ -1,57 +1,48 @@
-<header class="header" [class.scrolled]="isScrolled" role="banner">
-  <a href="#main-content" class="skip-link font-mono">Skip to content</a>
-  <div class="container">
-    <div class="nav">
-      <a routerLink="/" class="logo" aria-label="Home">
-        <span class="logo-text font-mono">gurpreet<span class="logo-dot">.</span>dev</span>
+<header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300" [ngClass]="isScrolled ? 'w-[90%] md:w-[600px]' : 'w-full md:w-[800px] px-6'">
+  <div class="bg-portfolio-surface/80 backdrop-blur-xl border border-portfolio-border rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+    
+    <a routerLink="/" class="text-portfolio-text font-bold text-lg tracking-tight hover:text-portfolio-accent transition-colors flex items-center gap-2">
+      <div class="w-6 h-6 rounded-md bg-portfolio-text text-portfolio-bg flex items-center justify-center font-mono text-xs">G</div>
+      <span class="hidden sm:inline">Gurpreet Singh</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      <a *ngFor="let link of navLinks" 
+         [routerLink]="link.path"
+         routerLinkActive="text-portfolio-accent"
+         [routerLinkActiveOptions]="{ exact: link.exact }"
+         class="text-sm font-medium text-portfolio-muted hover:text-portfolio-text transition-colors">
+        {{ link.label }}
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      
+      <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-full bg-portfolio-accent/10 text-portfolio-accent border border-portfolio-accent/20 hover:bg-portfolio-accent hover:text-white transition-colors text-sm font-medium">
+        <span>Resume</span>
       </a>
 
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
-        <a *ngFor="let link of navLinks"
-           [routerLink]="link.path"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: link.exact }"
-           class="nav-link font-mono">
-          {{ link.label }}
-        </a>
-      </nav>
-
-      <div class="nav-actions">
-        <button
-          (click)="toggleTheme()"
-          class="btn btn-ghost theme-toggle"
-          [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
-          type="button">
-          <i class="bi" [class]="isDarkMode ? 'bi-sun-fill' : 'bi-moon-fill'"></i>
-        </button>
-
-        <button
-          (click)="toggleMenu()"
-          class="btn btn-ghost menu-toggle"
-          [class.active]="isMenuOpen"
-          [attr.aria-expanded]="isMenuOpen"
-          aria-label="Toggle navigation menu"
-          type="button">
-          <span class="hamburger" [class.open]="isMenuOpen">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
-      </div>
-    </div>
-
-    <div class="mobile-menu" [class.active]="isMenuOpen" role="navigation" aria-label="Mobile navigation">
-      <nav class="mobile-nav">
-        <a *ngFor="let link of navLinks"
-           [routerLink]="link.path"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: link.exact }"
-           (click)="closeMenu()"
-           class="mobile-link font-mono">
-          {{ link.label }}
-        </a>
-      </nav>
+      <!-- Mobile menu toggle -->
+      <button class="md:hidden text-portfolio-muted" (click)="toggleMenu()">
+        <i class="bi bi-list text-2xl"></i>
+      </button>
     </div>
   </div>
+
+  <!-- Mobile Dropdown -->
+  <div *ngIf="isMenuOpen" class="absolute top-16 left-0 right-0 bg-portfolio-surface/95 backdrop-blur-3xl border border-portfolio-border rounded-2xl p-4 flex flex-col gap-4 shadow-2xl md:hidden animate-[fadeIn_0.2s_ease-out]">
+    <a *ngFor="let link of navLinks" 
+       [routerLink]="link.path"
+       (click)="closeMenu()"
+       class="text-portfolio-text font-medium text-lg px-4 py-2 hover:bg-portfolio-border rounded-lg transition-colors">
+      {{ link.label }}
+    </a>
+  </div>
 </header>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

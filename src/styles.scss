@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 /* ==========================================================================
    DESIGN SYSTEM — gurpreet.dev
    Premium engineering portfolio · 8-point grid · WCAG AA compliant
@@ -88,6 +94,12 @@
   /* ---- Layout ---- */
   --container-max: 1120px;
   --header-h: 64px;
+
+  /* ---- Glassmorphism ---- */
+  --glass-bg:     rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur:   16px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* ---------- Light Mode ---------- */
@@ -117,6 +129,11 @@
   --shadow-md:  0 4px 12px rgba(0,0,0,0.06);
   --shadow-lg:  0 8px 24px rgba(0,0,0,0.07);
   --shadow-xl:  0 16px 48px rgba(0,0,0,0.09);
+
+  --glass-bg:     rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur:   16px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
 /* ==========================================================================
@@ -260,19 +277,32 @@ strong { font-weight: 600; color: var(--text); }
   background: transparent;
   color: var(--text);
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease-out);
   white-space: nowrap;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+    pointer-events: none;
+  }
 
   &:hover {
     border-color: var(--accent);
     color: var(--accent);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px var(--accent-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--accent-dim);
   }
 
   &:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.98);
+    box-shadow: none;
   }
 
   &:focus-visible {
@@ -282,6 +312,11 @@ strong { font-weight: 600; color: var(--text); }
 
   i {
     font-size: var(--text-base);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  &:hover i {
+    transform: scale(1.1);
   }
 }
 
@@ -323,6 +358,21 @@ strong { font-weight: 600; color: var(--text); }
   border-radius: var(--radius-lg);
   padding: var(--sp-6);
   transition: var(--transition-normal);
+}
+
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--duration-normal) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: var(--glass-shadow), 0 0 20px var(--accent-dim);
+  }
 }
 
 .card-interactive {

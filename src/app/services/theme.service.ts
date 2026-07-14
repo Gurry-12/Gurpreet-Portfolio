@@ -17,28 +17,18 @@ export class ThemeService {
 
     private initializeTheme(): void {
         if (!isPlatformBrowser(this.platformId)) return;
-
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (savedTheme) {
-            this.setTheme(savedTheme === 'dark');
-        } else {
-            this.setTheme(prefersDark);
-        }
+        this.setTheme(true);
     }
 
     toggleTheme(): void {
-        this.setTheme(!this.isDarkMode.value);
+        // Disabled to enforce premium dark SaaS aesthetic
     }
 
     setTheme(isDark: boolean): void {
-        this.isDarkMode.next(isDark);
-        const theme = isDark ? 'dark' : 'light';
-
+        this.isDarkMode.next(true); // Force true
         if (isPlatformBrowser(this.platformId)) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         }
     }
 

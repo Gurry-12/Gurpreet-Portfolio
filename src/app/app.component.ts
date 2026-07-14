@@ -4,13 +4,14 @@ import { RouterModule, Router, NavigationStart, NavigationEnd, NavigationCancel,
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { ScrollTopComponent } from './components/scroll-top/scroll-top.component';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent, ToastComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent, ToastComponent, ScrollTopComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

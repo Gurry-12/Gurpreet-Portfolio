@@ -1,121 +1,290 @@
-<main class="home" appScrollReveal id="main-content">
-  <div class="container">
+<main class="relative min-h-screen bg-portfolio-bg text-portfolio-text overflow-hidden selection:bg-portfolio-accent selection:text-white">
+  <!-- Aurora Mesh Gradient Background -->
+  <div class="fixed inset-0 z-0 pointer-events-none opacity-40">
+    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-portfolio-accent blur-[120px] mix-blend-screen animate-aurora opacity-30"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#10b981] blur-[120px] mix-blend-screen animate-aurora opacity-20" style="animation-delay: -5s;"></div>
+  </div>
 
-    <!-- ===== STATUS BAR ===== -->
-    <div class="status-bar reveal">
-      <div class="status-item">
-        <span class="font-mono status-label">IST</span>
-        <span class="font-mono status-time">{{ currentTime }}</span>
-      </div>
-      <div class="status-item">
-        <span class="status-dot status-pulse"></span>
-        <span class="font-mono status-available">available for hire</span>
-      </div>
-    </div>
-
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero" aria-label="Introduction">
-      <div class="hero-content reveal">
-        <div class="hero-badge badge badge-accent">
-          <i class="bi bi-circle-fill status-dot-mini"></i>
-          Open to full-time opportunities
+  <div class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-24">
+    <!-- HERO SECTION -->
+    <section class="flex flex-col md:flex-row items-center gap-12 min-h-[75vh]" #revealElement>
+      <div class="flex-1 space-y-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-portfolio-surface border border-portfolio-border backdrop-blur-md">
+          <span class="w-2 h-2 rounded-full bg-portfolio-accent animate-pulse"></span>
+          <span class="text-xs font-mono tracking-wider uppercase">{{ profile.status }}</span>
         </div>
-
-        <h1 class="hero-name">
-          Building backend systems<br/>
-          that <span class="hero-accent">scale</span>.
+        
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
+          {{ profile.name }}
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-portfolio-accent to-[#10b981]">
+            {{ profile.role }}
+          </span>
         </h1>
-
-        <p class="hero-desc">
-          Backend software engineer with production experience across
-          <strong>3 internships</strong>, specializing in Java, Spring Boot,
-          SQL optimization, and RESTful API design. I turn complex requirements
-          into reliable, performant services.
+        
+        <p class="text-xl md:text-2xl text-portfolio-muted font-light max-w-2xl leading-relaxed">
+          {{ profile.headline }}
         </p>
 
-        <div class="hero-actions">
-          <a routerLink="/projects" class="btn btn-primary btn-lg">
-            <i class="bi bi-code-slash"></i>
-            <span class="font-mono">View Projects</span>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="px-6 py-3 rounded-lg bg-portfolio-text text-portfolio-bg font-medium hover:scale-105 transition-transform duration-300">
+            Download Resume
           </a>
-          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf"
-             target="_blank"
-             rel="noopener"
-             class="btn btn-lg">
-            <i class="bi bi-download"></i>
-            <span class="font-mono">Download Resume</span>
+          <a routerLink="/projects" class="px-6 py-3 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors duration-300 font-medium">
+            View Projects
           </a>
-        </div>
-
-        <div class="hero-links">
-          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="hero-link" aria-label="GitHub">
-            <i class="bi bi-github"></i>
-          </a>
-          <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener" class="hero-link" aria-label="LinkedIn">
-            <i class="bi bi-linkedin"></i>
-          </a>
-          <a href="mailto:work.gurpreetsw@gmail.com" class="hero-link" aria-label="Email">
-            <i class="bi bi-envelope"></i>
-          </a>
+          <button (click)="copyEmail()" class="px-4 py-3 rounded-lg bg-transparent hover:bg-portfolio-surface transition-colors duration-300 text-portfolio-muted hover:text-portfolio-text">
+            <i class="bi bi-envelope text-xl"></i>
+          </button>
         </div>
       </div>
-
-      <aside class="hero-sidebar reveal" aria-label="Quick information">
-        <!-- Tech Stack -->
-        <div class="card sidebar-card">
-          <h3 class="card-title font-mono">tech stack</h3>
-          <div class="tech-grid">
-            <div class="tech-item" *ngFor="let tech of techStack">
-              <i class="bi" [class]="tech.icon"></i>
-              <span class="font-mono">{{ tech.name }}</span>
-            </div>
+      
+      <!-- Backend Server Terminal Infographic -->
+      <div class="w-72 md:w-80 h-96 rounded-2xl bg-portfolio-bg/90 border border-portfolio-border overflow-hidden relative shadow-2xl flex-shrink-0 flex flex-col backdrop-blur-xl group hover:border-portfolio-accent/50 transition-colors duration-500">
+        <!-- Terminal Header -->
+        <div class="h-10 border-b border-portfolio-border bg-portfolio-surface/50 flex items-center px-4 gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <span class="ml-2 flex-1 text-center text-[10px] font-mono text-portfolio-muted opacity-50">gurpreet&#64;production:~</span>
+        </div>
+        <!-- Terminal Body -->
+        <div class="p-5 font-mono text-xs leading-loose flex-1 flex flex-col justify-end text-portfolio-muted overflow-hidden relative">
+          <!-- Gradient fade at top for scrolling effect -->
+          <div class="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-portfolio-bg/90 to-transparent z-10"></div>
+          
+          <div class="space-y-1 animate-[terminal-scroll_15s_linear_infinite] group-hover:text-portfolio-text transition-colors duration-300">
+            <p><span class="text-portfolio-accent/70">[18:24:01]</span> Starting Application v2.4.1</p>
+            <p><span class="text-portfolio-accent/70">[18:24:02]</span> Initializing Spring Boot...</p>
+            <p><span class="text-portfolio-accent/70">[18:24:03]</span> JVM running for 1.843 s</p>
+            <p><span class="text-portfolio-accent/70">[18:24:04]</span> Connecting to PostgreSQL <span class="text-green-400">OK</span></p>
+            <p><span class="text-portfolio-accent/70">[18:24:04]</span> Redis Cache clustered <span class="text-green-400">OK</span></p>
+            <p><span class="text-portfolio-accent/70">[18:24:05]</span> Kafka topics registered (4)</p>
+            <p><span class="text-portfolio-accent/70">[18:24:06]</span> Exposed 14 REST Endpoints</p>
+            <p class="text-portfolio-text mt-4 flex items-center gap-2">
+              <span class="text-portfolio-accent font-bold">➜</span> Server started on port 8080
+              <span class="w-2 h-4 bg-portfolio-accent animate-pulse inline-block align-middle"></span>
+            </p>
           </div>
         </div>
-
-        <!-- Experience -->
-        <div class="card sidebar-card">
-          <h3 class="card-title font-mono">experience</h3>
-          <div class="exp-list">
-            <div class="exp-item" *ngFor="let exp of experience">
-              <div class="exp-top">
-                <span class="font-mono exp-company">{{ exp.company }}</span>
-                <span class="badge badge-accent" *ngIf="exp.current">current</span>
-              </div>
-              <div class="exp-role">{{ exp.role }}</div>
-              <div class="exp-period font-mono">{{ exp.period }}</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="card sidebar-card">
-          <h3 class="card-title font-mono">links</h3>
-          <div class="links-list">
-            <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="link-row">
-              <span class="font-mono"><i class="bi bi-github"></i> github</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-            <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener" class="link-row">
-              <span class="font-mono"><i class="bi bi-linkedin"></i> linkedin</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-            <a href="mailto:work.gurpreetsw@gmail.com" class="link-row">
-              <span class="font-mono"><i class="bi bi-envelope"></i> email</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-          </div>
-        </div>
-      </aside>
+      </div>
     </section>
 
-    <!-- ===== HIGHLIGHTS ===== -->
-    <section class="highlights reveal" aria-label="Key metrics">
-      <div class="highlights-grid">
-        <div class="highlight-item" *ngFor="let h of highlights">
-          <i class="bi highlight-icon" [class]="h.icon"></i>
-          <div class="highlight-text">
-            <span class="highlight-value font-mono">{{ h.label }}</span>
-            <span class="highlight-desc">{{ h.desc }}</span>
+    <!-- ABOUT: BENTO GRID -->
+    <section class="py-24 space-y-12" #revealElement>
+      <div class="space-y-4">
+        <h2 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">About</h2>
+        <h3 class="text-3xl md:text-4xl font-semibold">Engineering Philosophy</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+        <!-- Bento 1 -->
+        <div class="md:col-span-2 rounded-3xl p-8 bg-portfolio-surface border border-portfolio-border backdrop-blur-xl hover:border-portfolio-accent/50 transition-colors flex flex-col justify-end relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-t from-portfolio-bg/80 to-transparent z-0"></div>
+          <div class="relative z-10">
+            <h4 class="text-2xl font-bold mb-2">Problem Solving & Enterprise Systems</h4>
+            <p class="text-portfolio-muted leading-relaxed max-w-lg">I thrive on architecting scalable backend solutions and resolving complex data flow challenges in enterprise environments.</p>
+          </div>
+        </div>
+
+        <!-- Bento 2 -->
+        <div class="rounded-3xl p-8 bg-portfolio-surface border border-portfolio-border backdrop-blur-xl hover:border-portfolio-accent/50 transition-colors flex flex-col justify-between group">
+          <i class="bi bi-diagram-3 text-4xl text-portfolio-accent opacity-70 group-hover:opacity-100 transition-opacity"></i>
+          <div>
+            <h4 class="text-xl font-bold mb-1">API Design</h4>
+            <p class="text-sm text-portfolio-muted">Crafting robust, secure, and performant RESTful APIs.</p>
+          </div>
+        </div>
+
+        <!-- Bento 3 -->
+        <div class="rounded-3xl p-8 bg-portfolio-surface border border-portfolio-border backdrop-blur-xl hover:border-portfolio-accent/50 transition-colors flex flex-col justify-between group">
+          <i class="bi bi-shield-check text-4xl text-portfolio-accent opacity-70 group-hover:opacity-100 transition-opacity"></i>
+          <div>
+            <h4 class="text-xl font-bold mb-1">Authentication</h4>
+            <p class="text-sm text-portfolio-muted">Deep expertise in JWT and Role-Based Access Control.</p>
+          </div>
+        </div>
+
+        <!-- Bento 4 -->
+        <div class="md:col-span-2 rounded-3xl p-8 bg-gradient-to-br from-portfolio-surface to-portfolio-bg border border-portfolio-border backdrop-blur-xl hover:border-portfolio-accent/50 transition-colors flex flex-col justify-center items-center text-center">
+           <h4 class="text-3xl font-bold mb-4">Continuous Learning Mindset</h4>
+           <p class="text-portfolio-muted max-w-md">Currently pushing boundaries as a Software Engineering Intern at <span class="text-portfolio-text font-semibold">Monocept</span>, bridging the gap between theory and production reality.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE: VERTICAL TIMELINE -->
+    <section class="py-24 space-y-12" #revealElement>
+      <div class="space-y-4">
+        <h2 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">Experience</h2>
+        <h3 class="text-3xl md:text-4xl font-semibold">Career Journey</h3>
+      </div>
+
+      <div class="relative border-l border-portfolio-border ml-4 md:ml-6 space-y-16 py-8">
+        <div *ngFor="let exp of experience" class="relative pl-8 md:pl-12 group">
+          <!-- Timeline Node -->
+          <div class="absolute w-4 h-4 rounded-full bg-portfolio-bg border-2 border-portfolio-accent left-[-8.5px] top-1.5 group-hover:scale-125 transition-transform duration-300 group-hover:bg-portfolio-accent group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
+            <div>
+              <h4 class="text-2xl font-bold flex items-center gap-3">
+                {{ exp.company }}
+                <span *ngIf="exp.current" class="px-2 py-0.5 text-xs rounded-full bg-portfolio-accent/10 text-portfolio-accent border border-portfolio-accent/20">Current</span>
+              </h4>
+              <h5 class="text-lg text-portfolio-muted">{{ exp.role }}</h5>
+            </div>
+            <span class="font-mono text-sm text-portfolio-muted">{{ exp.period }}</span>
+          </div>
+
+          <div class="space-y-4">
+            <ul class="space-y-2">
+              <li *ngFor="let res of exp.responsibilities" class="flex gap-3 text-portfolio-muted">
+                <i class="bi bi-arrow-right-short text-portfolio-accent mt-0.5"></i>
+                <span class="leading-relaxed">{{ res }}</span>
+              </li>
+            </ul>
+            <div class="p-4 rounded-xl bg-portfolio-accent/5 border border-portfolio-accent/10 inline-block">
+              <strong class="text-portfolio-text block mb-1 text-sm uppercase tracking-wider font-mono">Impact</strong>
+              <span class="text-portfolio-muted">{{ exp.impact }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS: TECH CARDS -->
+    <section class="py-24 space-y-12" #revealElement>
+      <div class="space-y-4">
+        <h2 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">Skills</h2>
+        <h3 class="text-3xl md:text-4xl font-semibold">Technical Arsenal</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div *ngFor="let skill of skills" class="p-6 rounded-2xl bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors duration-300">
+          <div class="w-12 h-12 rounded-full bg-portfolio-bg flex items-center justify-center mb-6 border border-portfolio-border">
+            <i class="bi {{ skill.icon }} text-xl text-portfolio-accent"></i>
+          </div>
+          <h4 class="text-lg font-bold mb-4">{{ skill.category }}</h4>
+          <div class="flex flex-wrap gap-2">
+            <span *ngFor="let item of skill.items" class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-sm text-portfolio-muted hover:text-portfolio-text hover:border-portfolio-accent transition-colors">
+              {{ item }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS: SHOWCASE -->
+    <section class="py-24 space-y-12" #revealElement>
+      <div class="space-y-4 flex justify-between items-end">
+        <div>
+          <h2 class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">Showcase</h2>
+          <h3 class="text-3xl md:text-4xl font-semibold">Featured Projects</h3>
+        </div>
+        <a routerLink="/projects" class="text-portfolio-accent hover:text-white transition-colors flex items-center gap-2 text-sm font-medium">
+          View All <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="space-y-12">
+        <!-- Flagship Project Card -->
+        <div class="group relative rounded-3xl overflow-hidden border border-portfolio-border bg-portfolio-surface">
+          <div class="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <div class="grid md:grid-cols-2 gap-8 p-8 md:p-12">
+            <div class="space-y-6 z-10 flex flex-col justify-center">
+              <span class="px-3 py-1 text-xs font-mono tracking-wider rounded-full bg-portfolio-accent/10 text-portfolio-accent border border-portfolio-accent/20 w-max">
+                Flagship Project
+              </span>
+              <h4 class="text-3xl md:text-4xl font-bold leading-tight">Enterprise Insurance Policy & Claim Management</h4>
+              <p class="text-portfolio-muted leading-relaxed">A comprehensive system managing complex policy workflows, complete claim lifecycles, and stringent role-based access controls designed for enterprise scale.</p>
+              
+              <div class="flex flex-wrap gap-2 pt-2">
+                <span class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-sm text-portfolio-muted">Java</span>
+                <span class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-sm text-portfolio-muted">Spring Boot</span>
+                <span class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-sm text-portfolio-muted">React</span>
+                <span class="px-3 py-1 rounded-md bg-portfolio-bg border border-portfolio-border text-sm text-portfolio-muted">SQL</span>
+              </div>
+
+              <div class="pt-6">
+                <a routerLink="/projects/insurance-system" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-portfolio-text text-portfolio-bg font-medium hover:scale-105 transition-transform duration-300">
+                  Read Case Study <i class="bi bi-arrow-up-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- CSS Interactive Diagram Placeholder -->
+            <div class="relative h-[400px] md:h-auto min-h-[400px] rounded-2xl bg-portfolio-bg border border-portfolio-border overflow-hidden flex items-center justify-center group-hover:border-portfolio-accent/30 transition-colors perspective-1200">
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-portfolio-surface to-portfolio-bg"></div>
+              
+              <!-- Isometric Container -->
+              <div class="relative z-10 w-full h-full min-h-[400px] flex items-center justify-center isometric-container group-hover:scale-110 group-hover:rotate-x-[55deg] transition-all duration-1000">
+                
+                <!-- Base Layer (Databases) -->
+                <div class="absolute w-[240px] h-[240px] border border-portfolio-border/30 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] rounded-2xl iso-layer-bottom shadow-[0_0_40px_rgba(59,130,246,0.05)]">
+                  <div class="absolute bottom-4 left-4 w-14 h-14 bg-portfolio-surface/90 border border-portfolio-border rounded flex flex-col items-center justify-center shadow-lg">
+                    <i class="bi bi-database text-portfolio-muted text-xl mb-1"></i>
+                  </div>
+                  <div class="absolute top-4 right-4 w-14 h-14 bg-portfolio-surface/90 border border-portfolio-border rounded flex flex-col items-center justify-center shadow-lg">
+                    <i class="bi bi-database text-portfolio-muted text-xl mb-1"></i>
+                  </div>
+                </div>
+
+                <!-- Mid Layer (Microservices) -->
+                <div class="absolute w-[200px] h-[200px] border border-portfolio-accent/30 bg-portfolio-accent/5 backdrop-blur-sm rounded-2xl iso-layer-middle flex flex-col justify-between p-4 shadow-[inset_0_0_20px_rgba(59,130,246,0.1)]">
+                  
+                  <!-- Data beams -->
+                  <div class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+                     <div class="absolute left-1/4 top-0 w-px h-full bg-gradient-to-b from-transparent via-portfolio-accent/80 to-transparent animate-[flow-y_3s_linear_infinite]"></div>
+                     <div class="absolute right-1/4 top-0 w-px h-full bg-gradient-to-b from-transparent via-portfolio-accent/80 to-transparent animate-[flow-y_3s_linear_infinite_1.5s]"></div>
+                  </div>
+
+                  <div class="flex justify-between w-full">
+                    <div class="w-16 h-16 bg-portfolio-surface border border-portfolio-accent/50 rounded flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                      <i class="bi bi-shield-lock text-portfolio-accent text-lg"></i>
+                      <span class="text-[8px] font-mono text-portfolio-text mt-1">AUTH</span>
+                    </div>
+                    <div class="w-16 h-16 bg-portfolio-surface border border-portfolio-accent/50 rounded flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                      <i class="bi bi-file-earmark-medical text-portfolio-accent text-lg"></i>
+                      <span class="text-[8px] font-mono text-portfolio-text mt-1">CLAIMS</span>
+                    </div>
+                  </div>
+                  <div class="flex justify-center w-full">
+                    <div class="w-16 h-16 bg-portfolio-surface border border-portfolio-accent/50 rounded flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                      <i class="bi bi-file-text text-portfolio-accent text-lg"></i>
+                      <span class="text-[8px] font-mono text-portfolio-text mt-1">POLICIES</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Top Layer (Gateway) -->
+                <div class="absolute w-[160px] h-[60px] border border-portfolio-accent bg-portfolio-surface/90 backdrop-blur-md rounded-xl iso-layer-top shadow-[0_20px_40px_rgba(0,0,0,0.6)] flex items-center justify-center">
+                    <span class="font-mono text-[10px] tracking-widest font-bold text-portfolio-accent">API GATEWAY</span>
+                </div>
+
+                <!-- Floating Client Layer -->
+                <div class="absolute w-[120px] h-[40px] iso-layer-float flex justify-between items-center z-50">
+                    <div class="w-10 h-10 bg-portfolio-surface border border-portfolio-border rounded-full flex items-center justify-center shadow-2xl">
+                        <i class="bi bi-laptop text-portfolio-text text-sm"></i>
+                    </div>
+                    <div class="w-10 h-10 bg-portfolio-surface border border-portfolio-border rounded-full flex items-center justify-center shadow-2xl">
+                        <i class="bi bi-phone text-portfolio-text text-sm"></i>
+                    </div>
+                </div>
+                
+              </div>
+
+              <!-- Metrics -->
+              <div class="absolute bottom-4 left-4 right-4 flex justify-between bg-portfolio-surface/80 backdrop-blur-md p-3 rounded-lg border border-portfolio-border z-20 transition-all duration-300">
+                <div class="text-center w-1/2 border-r border-portfolio-border">
+                  <div class="text-portfolio-accent font-mono font-bold">99.9%</div>
+                  <div class="text-[10px] text-portfolio-muted uppercase tracking-wider">Uptime</div>
+                </div>
+                <div class="text-center w-1/2">
+                  <div class="text-portfolio-accent font-mono font-bold">&lt;50ms</div>
+                  <div class="text-[10px] text-portfolio-muted uppercase tracking-wider">Latency</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -123,3 +292,39 @@
 
   </div>
 </main>
+
+<style>
+  .perspective-1200 { perspective: 1200px; }
+  .isometric-container {
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) rotateZ(-45deg);
+  }
+  .iso-layer-bottom { transform: translateZ(0px); }
+  .iso-layer-middle { transform: translateZ(80px); }
+  .iso-layer-top { transform: translateZ(160px); }
+  .iso-layer-float { transform: translateZ(240px); }
+  
+  @keyframes flow-y {
+    0% { transform: translateY(-100%); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+
+  .revealElement {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .revealElement.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @keyframes terminal-scroll {
+    0% { transform: translateY(20%); }
+    10% { transform: translateY(0%); }
+    90% { transform: translateY(0%); }
+    100% { transform: translateY(-20%); }
+  }
+</style>

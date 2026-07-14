@@ -112,20 +112,22 @@
       </div>
 
       <div class="timeline">
-        <div class="timeline-item" *ngFor="let item of timeline">
-          <div class="tl-marker">
-            <span class="tl-year font-mono">{{ item.year }}</span>
-            <span class="tl-dot" [class.current]="item.current"></span>
-          </div>
-          <div class="tl-content card">
-            <div class="tl-header">
+        <div class="tl-line"></div>
+        <div class="timeline-item" *ngFor="let item of timeline; let i = index" [class.tl-left]="i % 2 === 0" [class.tl-right]="i % 2 !== 0">
+          <div class="tl-card-wrap">
+            <div class="tl-card card">
+              <div class="tl-card-head">
+                <span class="tl-year font-mono">{{ item.year }}</span>
+                <span class="badge badge-accent" *ngIf="item.current">current</span>
+              </div>
               <h3 class="tl-title">{{ item.title }}</h3>
-              <span class="badge badge-accent" *ngIf="item.current">current</span>
+              <span class="tl-company font-mono">{{ item.company }}</span>
+              <p class="tl-desc">{{ item.description }}</p>
+              <span class="tl-type badge" [class]="'badge-type-' + item.type">{{ item.type }}</span>
             </div>
-            <span class="tl-company font-mono">{{ item.company }}</span>
-            <p class="tl-desc">{{ item.description }}</p>
-            <span class="tl-type badge" [class]="'badge-type-' + item.type">{{ item.type }}</span>
           </div>
+          <span class="tl-dot" [class.current]="item.current"></span>
+          <div class="tl-spacer"></div>
         </div>
       </div>
     </section>

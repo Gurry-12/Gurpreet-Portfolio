@@ -41,6 +41,91 @@ export interface Tradeoff {
   whatIdChange?: string;
 }
 
+export interface UserJourneyStep {
+  icon: string;
+  label: string;
+  description: string;
+}
+
+export interface PermissionFeature {
+  feature: string;
+  customer: boolean;
+  staff: boolean;
+  admin: boolean;
+}
+
+export interface LifecycleState {
+  label: string;
+  color: string;
+  description: string;
+}
+
+export interface FlowStep {
+  icon: string;
+  label: string;
+  description: string;
+}
+
+export interface FolderNode {
+  name: string;
+  type: 'folder' | 'file';
+  children?: FolderNode[];
+}
+
+export interface DevTimelineItem {
+  week: string;
+  title: string;
+  tasks: string[];
+}
+
+export interface ChallengeSolution {
+  challenge: string;
+  solution: string;
+  icon: string;
+}
+
+export interface BeforeAfter {
+  before: string[];
+  after: string[];
+}
+
+export interface ServerArchNode {
+  label: string;
+  icon: string;
+  color: string;
+  description: string;
+}
+
+export interface DbEntity {
+  name: string;
+  color: string;
+  fields: string[];
+  relations?: { entity: string; type: string }[];
+}
+
+export interface AuthFlowStep {
+  actor: string;
+  action: string;
+  target: string;
+  description: string;
+  icon: string;
+}
+
+export interface StateTransition {
+  from: string;
+  to: string;
+  label: string;
+  color: string;
+}
+
+export interface StateNode {
+  id: string;
+  label: string;
+  color: string;
+  x: number;
+  y: number;
+}
+
 export interface ProjectCaseStudy {
   id: string;
   title: string;
@@ -78,6 +163,21 @@ export interface ProjectCaseStudy {
 
   screenshots: { alt: string; label: string }[];
   videoUrl?: string;
+
+  userJourney?: { customer: UserJourneyStep[]; staff?: UserJourneyStep[] };
+  permissionMatrix?: PermissionFeature[];
+  claimLifecycle?: LifecycleState[];
+  paymentFlow?: FlowStep[];
+  apiFlow?: FlowStep[];
+  folderStructure?: FolderNode[];
+  devTimeline?: DevTimelineItem[];
+  challengeSolutions?: ChallengeSolution[];
+  beforeAfter?: BeforeAfter;
+  dbTree?: string;
+  serverArch?: ServerArchNode[];
+  dbEntities?: DbEntity[];
+  authFlow?: AuthFlowStep[];
+  stateMachine?: { nodes: StateNode[]; transitions: StateTransition[] };
 }
 
 @Injectable({ providedIn: 'root' })
@@ -91,10 +191,10 @@ export class ProjectDataService {
       tagline: 'A production-inspired insurance platform that handles the complete policy lifecycle — from purchase to claim settlement.',
       category: 'Enterprise',
       status: 'completed',
-      year: '2025',
+      year: '2026',
       heroGradient: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
 
-      overview: 'A production-inspired insurance platform that enables customers to purchase policies, pay premiums, raise claims, upload documents, and allows staff to review and approve claims through a secure role-based workflow. Built with Spring Boot layered architecture, JWT authentication, and React frontend.',
+      overview: 'A production-inspired insurance platform that enables customers to purchase policies, pay premiums, raise claims, and allows staff to review and approve claims through a secure role-based workflow. Built entirely as a Backend REST API with Spring Boot layered architecture and JWT authentication.',
       problemStatement: 'Most college CRUD projects don\'t simulate real enterprise workflows. This project solves that by implementing complete insurance lifecycle management — including role-based access control, claim status transitions, document management, payment simulation, and automated notifications — the kind of complexity recruiters expect from backend engineers.',
 
       features: [
@@ -103,7 +203,7 @@ export class ProjectDataService {
         { icon: 'bi-clipboard-check', title: 'Claim Workflow', description: 'State machine for claim lifecycle: Submitted → Under Review → Approved/Rejected → Settled.' },
         { icon: 'bi-file-earmark-text', title: 'Policy Purchase', description: 'End-to-end policy buying flow with plan selection, premium calculation, and instant activation.' },
         { icon: 'bi-credit-card', title: 'Premium Payment', description: 'QR code payment simulation with receipt generation and payment history tracking.' },
-        { icon: 'bi-cloud-arrow-up', title: 'Cloudinary Upload', description: 'Secure document upload to Cloudinary with validation, preview, and download capabilities.' },
+        { icon: 'bi-file-text', title: 'Document Reference', description: 'Store references for claim verification documents linked to policies.' },
         { icon: 'bi-check-circle', title: 'Validation', description: '100+ server-side validations using Bean Validation with custom validators for business rules.' },
         { icon: 'bi-exclamation-triangle', title: 'Exception Handling', description: 'Global exception handler with custom error responses, structured error codes, and logging.' },
         { icon: 'bi-book', title: 'Swagger Documentation', description: 'Interactive API documentation with Swagger UI for all 35+ REST endpoints.' },
@@ -116,17 +216,15 @@ export class ProjectDataService {
         { name: 'Spring Boot 3', purpose: 'REST API framework — dependency injection, auto-configuration, security', category: 'Backend' },
         { name: 'Spring Security', purpose: 'Authentication & authorization — JWT filter chain, role-based access', category: 'Security' },
         { name: 'Hibernate / JPA', purpose: 'ORM layer — entity mapping, lazy loading, query optimization', category: 'Data Access' },
-        { name: 'React 18', purpose: 'Frontend SPA — component architecture, hooks, context for state', category: 'Frontend' },
         { name: 'SQL Server', purpose: 'Relational database — complex joins, stored procedures, indexing', category: 'Database' },
         { name: 'JWT', purpose: 'Stateless authentication — token generation, validation, refresh flow', category: 'Security' },
-        { name: 'Cloudinary', purpose: 'Document storage — image upload, transformation, CDN delivery', category: 'Services' },
         { name: 'Docker', purpose: 'Containerization — consistent dev environment, deployment readiness', category: 'DevOps' },
         { name: 'Swagger / OpenAPI', purpose: 'API documentation — auto-generated interactive docs for all endpoints', category: 'Tooling' }
       ],
 
       architecture: {
         layers: [
-          'React Client (SPA)',
+          'Client (Postman/Swagger)',
           'REST API Gateway',
           'Spring Security Filter Chain',
           'JWT Authentication',
@@ -222,7 +320,7 @@ export class ProjectDataService {
       github: 'https://github.com/Gurry-12/insurance-system',
       live: 'https://insurance-demo.onrender.com',
       linkedin: 'https://linkedin.com/posts/gurpreet-singh57-insurance',
-      documentation: 'https://github.com/Gurry-12/insurance-system#readme',
+      documentation: '/assets/docs/Insurance Policy and Claim Management System.md',
 
       engineeringDecisions: [
         { technology: 'JWT over Session-based Auth', why: 'Stateless tokens eliminate server-side session storage. Critical for a system with 3 user roles where session management would add unnecessary complexity.', alternatives: 'Session-based auth was considered but rejected — requires sticky sessions or shared cache, adds latency on every request for session lookup.' },
@@ -232,9 +330,7 @@ export class ProjectDataService {
       ],
 
       tradeoffs: [
-        { decision: 'Cloudinary over S3 for document storage', rationale: 'Faster implementation, built-in image transformations, CDN included. Avoids managing bucket policies and IAM roles.', whatIdChange: 'For production, migrate to S3 — Cloudinary\'s pricing scales poorly above 25GB. S3 + CloudFront would cut storage costs by 80%.' },
-        { decision: 'Simulated payments over real gateway', rationale: 'Focus was on the payment flow architecture, not payment processing. QR code simulation demonstrates the integration pattern without PCI compliance overhead.', whatIdChange: 'Add Razorpay integration for production — the current simulation doesn\'t test edge cases like payment timeouts and reconciliation.' },
-        { decision: 'React SPA over Server-rendered MVC', rationale: 'Demonstrates modern frontend skills. Component-based UI with hooks is more maintainable than server-rendered views for a multi-role dashboard.', whatIdChange: 'Consider Next.js for SSR — better SEO for the policy browsing pages, faster initial load on slow connections.' }
+        { decision: 'Local Document References over Cloudinary', rationale: 'For this mini project, maintaining database references for documents simplifies the architecture and avoids third-party rate limits.', whatIdChange: 'For production, integrate S3 or Cloudinary for actual document blob storage.' }
       ],
 
       failureStory: 'The hardest part was claim status transitions. My first implementation used if/else chains scattered across controllers — when a claim could go from 5 different states to 3 others, this became unmaintainable. I rewrote it as a state machine pattern with explicit transition rules. The second failure was duplicate premium payments — users clicking submit twice would create duplicate records. Fixed with idempotency keys and optimistic locking. The biggest lesson: enterprise patterns exist because the problems they solve are real, not theoretical.',
@@ -277,8 +373,188 @@ export class ProjectDataService {
         { alt: 'Admin Panel', label: 'Admin Panel' },
         { alt: 'Mobile View', label: 'Mobile View' },
         { alt: 'Swagger', label: 'Swagger' },
-        { alt: 'Database Diagram', label: 'DB Schema' }
-      ]
+        { alt: 'Database Diagram', label: 'DB Schema' },
+        { alt: 'Additional View', label: 'System View' }
+      ],
+
+      userJourney: {
+        customer: [
+          { icon: 'bi-person-plus', label: 'Register', description: 'Create account with email verification' },
+          { icon: 'bi-box-arrow-in-right', label: 'Login', description: 'JWT authentication with role-based routing' },
+          { icon: 'bi-file-earmark-plus', label: 'Buy Policy', description: 'Select plan, review terms, confirm purchase' },
+          { icon: 'bi-credit-card', label: 'Pay Premium', description: 'QR code generation and payment simulation' },
+          { icon: 'bi-clipboard-data', label: 'Raise Claim', description: 'Submit claim with details and documents' },
+          { icon: 'bi-eye', label: 'Track Status', description: 'Real-time claim status tracking' }
+        ],
+        staff: [
+          { icon: 'bi-box-arrow-in-right', label: 'Login', description: 'Staff JWT authentication' },
+          { icon: 'bi-clipboard-check', label: 'Review Claims', description: 'Review pending claims with documents' },
+          { icon: 'bi-file-earmark-check', label: 'Verify', description: 'Validate claim documents and details' },
+          { icon: 'bi-chat-dots', label: 'Recommend', description: 'Submit recommendation report' },
+          { icon: 'bi-check2-all', label: 'Approve', description: 'Final approval with settlement calculation' },
+          { icon: 'bi-cash-stack', label: 'Settle', description: 'Process payment and notify customer' }
+        ]
+      },
+
+      permissionMatrix: [
+        { feature: 'Login', customer: true, staff: true, admin: true },
+        { feature: 'Buy Policy', customer: true, staff: false, admin: false },
+        { feature: 'Pay Premium', customer: true, staff: false, admin: false },
+        { feature: 'Raise Claim', customer: true, staff: false, admin: false },
+        { feature: 'Upload Documents', customer: true, staff: true, admin: true },
+        { feature: 'Review Claims', customer: false, staff: true, admin: true },
+        { feature: 'Approve / Reject', customer: false, staff: true, admin: false },
+        { feature: 'Manage Products', customer: false, staff: false, admin: true },
+        { feature: 'Manage Users', customer: false, staff: false, admin: true },
+        { feature: 'View Dashboard', customer: true, staff: true, admin: true }
+      ],
+
+      claimLifecycle: [
+        { label: 'Draft', color: '#71717a', description: 'Claim created, not yet submitted' },
+        { label: 'Submitted', color: '#60a5fa', description: 'Claim submitted for review' },
+        { label: 'Under Review', color: '#fbbf24', description: 'Staff reviewing claim documents' },
+        { label: 'Recommended', color: '#a78bfa', description: 'Staff recommendation submitted' },
+        { label: 'Approved', color: '#34d399', description: 'Claim approved by management' },
+        { label: 'Settled', color: '#10b981', description: 'Payment processed to customer' }
+      ],
+
+      paymentFlow: [
+        { icon: 'bi-person', label: 'Customer', description: 'Initiates payment' },
+        { icon: 'bi-file-earmark-text', label: 'Choose Policy', description: 'Select insurance plan' },
+        { icon: 'bi-qr-code', label: 'Generate QR', description: 'Dynamic QR code created' },
+        { icon: 'bi-phone', label: 'Scan QR', description: 'Mobile payment scan' },
+        { icon: 'bi-check-circle', label: 'Payment Success', description: 'Payment confirmed' },
+        { icon: 'bi-server', label: 'Backend Verify', description: 'Server-side validation' },
+        { icon: 'bi-shield-check', label: 'Policy Activated', description: 'Policy goes live' }
+      ],
+
+      apiFlow: [
+        { icon: 'bi-window', label: 'Client App', description: 'Any REST client' },
+        { icon: 'bi-arrow-down-up', label: 'POST /login', description: 'Authentication request' },
+        { icon: 'bi-key', label: 'JWT Token', description: 'Stateless auth token' },
+        { icon: 'bi-lock', label: 'Protected APIs', description: 'Authorization header' },
+        { icon: 'bi-database', label: 'SQL Server', description: 'Data persistence' }
+      ],
+
+      folderStructure: [
+        { name: 'src', type: 'folder', children: [
+          { name: 'controller', type: 'folder', children: [
+            { name: 'AuthController.java', type: 'file' },
+            { name: 'PolicyController.java', type: 'file' },
+            { name: 'ClaimController.java', type: 'file' },
+            { name: 'PaymentController.java', type: 'file' }
+          ]},
+          { name: 'service', type: 'folder', children: [
+            { name: 'AuthService.java', type: 'file' },
+            { name: 'PolicyService.java', type: 'file' },
+            { name: 'ClaimService.java', type: 'file' },
+            { name: 'PaymentService.java', type: 'file' },
+            { name: 'NotificationService.java', type: 'file' }
+          ]},
+          { name: 'repository', type: 'folder', children: [
+            { name: 'UserRepository.java', type: 'file' },
+            { name: 'PolicyRepository.java', type: 'file' },
+            { name: 'ClaimRepository.java', type: 'file' }
+          ]},
+          { name: 'entity', type: 'folder', children: [
+            { name: 'User.java', type: 'file' },
+            { name: 'Policy.java', type: 'file' },
+            { name: 'Claim.java', type: 'file' },
+            { name: 'Payment.java', type: 'file' }
+          ]},
+          { name: 'dto', type: 'folder', children: [
+            { name: 'AuthRequest.java', type: 'file' },
+            { name: 'PolicyRequest.java', type: 'file' },
+            { name: 'ClaimRequest.java', type: 'file' }
+          ]},
+          { name: 'config', type: 'folder', children: [
+            { name: 'SecurityConfig.java', type: 'file' },
+            { name: 'JwtConfig.java', type: 'file' },
+            { name: 'CorsConfig.java', type: 'file' }
+          ]},
+          { name: 'security', type: 'folder', children: [
+            { name: 'JwtTokenProvider.java', type: 'file' },
+            { name: 'JwtAuthFilter.java', type: 'file' }
+          ]},
+          { name: 'exception', type: 'folder', children: [
+            { name: 'GlobalExceptionHandler.java', type: 'file' },
+            { name: 'ResourceNotFoundException.java', type: 'file' }
+          ]}
+        ]}
+      ],
+
+      devTimeline: [
+        { week: 'Week 1', title: 'Planning & Setup', tasks: ['Database schema design', 'Entity relationships', 'Project scaffolding', 'Git repository setup'] },
+        { week: 'Week 2', title: 'Authentication', tasks: ['JWT token generation', 'Spring Security config', 'Role-based access', 'Registration flow'] },
+        { week: 'Week 3', title: 'Policy Module', tasks: ['Plan CRUD operations', 'Policy purchase flow', 'Premium calculation', 'Payment simulation'] },
+        { week: 'Week 4', title: 'Claims Module', tasks: ['Claim submission', 'Status state machine', 'Document upload', 'Staff review workflow'] },
+        { week: 'Week 5', title: 'Integration', tasks: ['Email notifications', 'Cloudinary integration', 'Swagger documentation', 'Error handling'] },
+        { week: 'Week 6', title: 'Testing & Deploy', tasks: ['Unit testing', 'API testing', 'Docker containerization', 'Production deployment'] }
+      ],
+
+      challengeSolutions: [
+        { challenge: 'Duplicate Payments', solution: 'Implemented idempotency keys and optimistic locking to prevent double-submit', icon: 'bi-credit-card' },
+        { challenge: 'Unauthorized Access', solution: 'JWT + RBAC with route-level protection and Spring Security filter chain', icon: 'bi-shield-lock' },
+        { challenge: 'Document Storage', solution: 'Cloudinary integration with file type validation and access control', icon: 'bi-cloud-arrow-up' },
+        { challenge: 'Invalid Claims', solution: 'State machine pattern with explicit transition rules and validation', icon: 'bi-clipboard-check' },
+        { challenge: 'Token Refresh', solution: 'Refresh token rotation with short-lived access tokens', icon: 'bi-key' },
+        { challenge: 'Role Escalation', solution: 'Server-side role validation on every protected endpoint', icon: 'bi-people' }
+      ],
+
+      beforeAfter: {
+        before: ['Manual paper-based process', 'No role-based access', 'Email-based claim tracking', 'Physical document storage', 'No audit trail'],
+        after: ['Digital automated workflow', 'JWT + 3-role RBAC', 'Real-time status dashboard', 'Cloudinary document management', 'Complete audit logging']
+      },
+
+      serverArch: [
+        { label: 'React Client', icon: 'bi-window', color: '#60a5fa', description: 'SPA with component-based architecture, Axios HTTP client, React Router for navigation' },
+        { label: 'REST API Gateway', icon: 'bi-arrow-left-right', color: '#60a5fa', description: 'Spring Boot embedded server, CORS configuration, request routing to controllers' },
+        { label: 'Security Filter Chain', icon: 'bi-shield-lock', color: '#a78bfa', description: 'Spring Security filter chain, JWT validation, role-based access control' },
+        { label: 'Controller Layer', icon: 'bi-usb-plug', color: 'var(--accent)', description: 'REST endpoints, request/response mapping, input validation, DTO conversion' },
+        { label: 'Service Layer', icon: 'bi-gear', color: 'var(--accent)', description: 'Business logic, transaction management, cross-cutting concerns, notification triggers' },
+        { label: 'Repository Layer', icon: 'bi-database', color: 'var(--accent)', description: 'JPA repositories, custom queries, pagination, entity relationship management' },
+        { label: 'SQL Server', icon: 'bi-database', color: '#fbbf24', description: 'ACID transactions, indexed queries, stored procedures, referential integrity' }
+      ],
+
+      dbEntities: [
+        { name: 'User', color: '#60a5fa', fields: ['id (PK)', 'email', 'password', 'role', 'createdAt'], relations: [{ entity: 'Customer', type: '1:1' }, { entity: 'Staff', type: '1:1' }] },
+        { name: 'Customer', color: '#34d399', fields: ['id (PK)', 'userId (FK)', 'name', 'phone', 'address'], relations: [{ entity: 'Policy', type: '1:N' }, { entity: 'Payment', type: '1:N' }] },
+        { name: 'Policy', color: '#a78bfa', fields: ['id (PK)', 'customerId (FK)', 'planId (FK)', 'startDate', 'endDate', 'status'], relations: [{ entity: 'Claim', type: '1:N' }, { entity: 'PremiumPayment', type: '1:N' }] },
+        { name: 'Plan', color: '#fbbf24', fields: ['id (PK)', 'name', 'premium', 'coverage', 'duration'], relations: [{ entity: 'Policy', type: '1:N' }] },
+        { name: 'Claim', color: '#f87171', fields: ['id (PK)', 'policyId (FK)', 'amount', 'status', 'createdAt'], relations: [{ entity: 'ClaimDocument', type: '1:N' }] },
+        { name: 'ClaimDocument', color: '#fb923c', fields: ['id (PK)', 'claimId (FK)', 'documentId (FK)', 'uploadedAt'], relations: [] },
+        { name: 'PremiumPayment', color: '#2dd4bf', fields: ['id (PK)', 'policyId (FK)', 'amount', 'paidAt', 'method'], relations: [] }
+      ],
+
+      authFlow: [
+        { actor: 'Client', action: 'POST /api/auth/login', target: 'AuthController', description: 'User submits email + password', icon: 'bi-window' },
+        { actor: 'AuthController', action: 'authenticate()', target: 'AuthService', description: 'Controller delegates to service layer', icon: 'bi-usb-plug' },
+        { actor: 'AuthService', action: 'findByEmail()', target: 'UserRepository', description: 'Lookup user in database', icon: 'bi-gear' },
+        { actor: 'AuthService', action: 'matches()', target: 'PasswordEncoder', description: 'Verify password against BCrypt hash', icon: 'bi-key' },
+        { actor: 'AuthService', action: 'generateToken()', target: 'JwtProvider', description: 'Create JWT with userId + role + expiry', icon: 'bi-shield-check' },
+        { actor: 'AuthController', action: '200 OK', target: 'Client', description: 'Return JWT token + refresh token', icon: 'bi-check-circle' },
+        { actor: 'Client', action: 'Authorization: Bearer <token>', target: 'Protected API', description: 'Attach JWT to all subsequent requests', icon: 'bi-lock' }
+      ],
+
+      stateMachine: {
+        nodes: [
+          { id: 'draft', label: 'Draft', color: '#71717a', x: 0, y: 0 },
+          { id: 'submitted', label: 'Submitted', color: '#60a5fa', x: 1, y: 0 },
+          { id: 'review', label: 'Under Review', color: '#fbbf24', x: 2, y: 0 },
+          { id: 'recommended', label: 'Recommended', color: '#a78bfa', x: 3, y: 0 },
+          { id: 'approved', label: 'Approved', color: '#34d399', x: 4, y: 0 },
+          { id: 'settled', label: 'Settled', color: '#10b981', x: 5, y: 0 },
+          { id: 'rejected', label: 'Rejected', color: '#f87171', x: 2, y: 1 }
+        ],
+        transitions: [
+          { from: 'draft', to: 'submitted', label: 'Submit', color: '#60a5fa' },
+          { from: 'submitted', to: 'review', label: 'Assign', color: '#fbbf24' },
+          { from: 'review', to: 'recommended', label: 'Recommend', color: '#a78bfa' },
+          { from: 'review', to: 'rejected', label: 'Reject', color: '#f87171' },
+          { from: 'recommended', to: 'approved', label: 'Approve', color: '#34d399' },
+          { from: 'approved', to: 'settled', label: 'Settle', color: '#10b981' }
+        ]
+      }
     },
 
     'book-management': {
@@ -532,7 +808,8 @@ export class ProjectDataService {
       screenshots: [
         { alt: 'Dashboard', label: 'Incident Dashboard' },
         { alt: 'Charts', label: 'Analytics View' },
-        { alt: 'Mobile', label: 'Mobile Layout' }
+        { alt: 'Mobile', label: 'Mobile Layout' },
+        { alt: 'Additional View', label: 'System View' }
       ]
     },
 

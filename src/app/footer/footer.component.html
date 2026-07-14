@@ -1,46 +1,55 @@
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <span class="footer-logo font-mono">gurpreet<span class="accent">.</span>dev</span>
-        <p class="footer-tagline">Backend software engineer building<br/>reliable, performant systems.</p>
+<footer class="mt-32 border-t border-portfolio-border bg-portfolio-bg relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-t from-portfolio-accent/5 to-transparent pointer-events-none"></div>
+  
+  <div class="max-w-6xl mx-auto px-6 py-16 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      
+      <!-- Brand -->
+      <div class="md:col-span-1 space-y-4">
+        <span class="text-xl font-bold tracking-tight flex items-center gap-2">
+          <div class="w-6 h-6 rounded-md bg-portfolio-text text-portfolio-bg flex items-center justify-center font-mono text-xs">G</div>
+          gurpreet.dev
+        </span>
+        <p class="text-portfolio-muted text-sm leading-relaxed max-w-xs">
+          Backend software engineer building reliable, scalable, and performant enterprise systems.
+        </p>
       </div>
 
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <div class="footer-group">
-          <h4 class="footer-group-title font-mono">navigate</h4>
-          <ul>
-            <li><a routerLink="/">home</a></li>
-            <li><a routerLink="/about">about</a></li>
-            <li><a routerLink="/projects">work</a></li>
-            <li><a routerLink="/contact">contact</a></li>
-          </ul>
-        </div>
+      <!-- Links -->
+      <div class="space-y-4">
+        <h4 class="text-xs font-mono text-portfolio-text tracking-widest uppercase">Navigate</h4>
+        <ul class="space-y-3">
+          <li><a routerLink="/" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm">Home</a></li>
+          <li><a routerLink="/about" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm">About</a></li>
+          <li><a routerLink="/projects" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm">Projects</a></li>
+        </ul>
+      </div>
 
-        <div class="footer-group">
-          <h4 class="footer-group-title font-mono">connect</h4>
-          <ul>
-            <li><a href="https://github.com/Gurry-12" target="_blank" rel="noopener"><i class="bi bi-github"></i> github</a></li>
-            <li><a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i> linkedin</a></li>
-            <li><a href="mailto:work.gurpreetsw@gmail.com"><i class="bi bi-envelope"></i> email</a></li>
-          </ul>
-        </div>
+      <div class="space-y-4">
+        <h4 class="text-xs font-mono text-portfolio-text tracking-widest uppercase">Connect</h4>
+        <ul class="space-y-3">
+          <li><a href="https://github.com/Gurry-12" target="_blank" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm flex items-center gap-2"><i class="bi bi-github"></i> GitHub</a></li>
+          <li><a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm flex items-center gap-2"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+          <li><a href="mailto:work.gurpreetsw@gmail.com" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm flex items-center gap-2"><i class="bi bi-envelope"></i> Email</a></li>
+        </ul>
+      </div>
 
-        <div class="footer-group">
-          <h4 class="footer-group-title font-mono">resources</h4>
-          <ul>
-            <li><a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener"><i class="bi bi-download"></i> resume</a></li>
-            <li><a href="https://github.com/Gurry-12/Gurpreet-Portfolio" target="_blank" rel="noopener"><i class="bi bi-code-slash"></i> source</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div class="space-y-4">
+        <h4 class="text-xs font-mono text-portfolio-text tracking-widest uppercase">Resources</h4>
+        <ul class="space-y-3">
+          <li><a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="text-portfolio-muted hover:text-portfolio-accent transition-colors text-sm flex items-center gap-2"><i class="bi bi-download"></i> Resume</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="footer-bottom">
-      <span class="footer-copy font-mono">&copy; {{ currentYear }} gurpreet singh</span>
-      <div class="footer-status">
-        <span class="status-dot status-pulse"></span>
-        <span class="font-mono footer-available">open to work</span>
+    <div class="pt-8 border-t border-portfolio-border flex flex-col md:flex-row justify-between items-center gap-4">
+      <span class="text-portfolio-muted font-mono text-xs tracking-wider">
+        &copy; {{ currentYear }} Gurpreet Singh. Designed for scale.
+      </span>
+      <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-portfolio-surface border border-portfolio-border">
+        <span class="w-1.5 h-1.5 rounded-full bg-portfolio-accent animate-pulse"></span>
+        <span class="font-mono text-[10px] text-portfolio-muted uppercase tracking-widest">Open to work</span>
       </div>
     </div>
   </div>

@@ -1,384 +1,374 @@
-<!-- Scroll Progress Bar -->
-<div class="progress-bar" [style.width.%]="scrollProgress" aria-hidden="true"></div>
+<!-- Scroll Progress -->
+<div class="fixed top-0 left-0 h-1 bg-portfolio-accent z-50 transition-all duration-300" [style.width.%]="scrollProgress" aria-hidden="true"></div>
 
 <!-- Not Found -->
-<div class="not-found container" *ngIf="!project">
-  <h1>Project Not Found</h1>
-  <p>The project you're looking for doesn't exist.</p>
-  <a routerLink="/projects" class="btn btn-primary"><i class="bi bi-arrow-left"></i> <span class="font-mono">Back to Projects</span></a>
+<div class="min-h-screen flex items-center justify-center p-6 bg-portfolio-bg text-portfolio-text" *ngIf="!project">
+  <div class="text-center space-y-6">
+    <i class="bi bi-folder-x text-6xl text-portfolio-muted"></i>
+    <h1 class="text-3xl font-bold">Project Not Found</h1>
+    <p class="text-portfolio-muted">The project you're looking for doesn't exist or has been moved.</p>
+    <a routerLink="/projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors">
+      <i class="bi bi-arrow-left"></i> <span class="font-mono">Back to Projects</span>
+    </a>
+  </div>
 </div>
 
-<main class="project-detail" *ngIf="project" id="main-content">
+<main class="min-h-screen bg-portfolio-bg text-portfolio-text selection:bg-portfolio-accent selection:text-white pb-24" *ngIf="project" id="main-content">
 
-  <!-- ===== HERO ===== -->
-  <section class="pd-hero" [style.background]="project.heroGradient">
-    <div class="container">
-      <div class="pd-hero-content">
-        <div class="pd-hero-nav">
-          <a routerLink="/projects" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-left"></i> <span class="font-mono">all projects</span></a>
-          <span class="pd-hero-year font-mono">{{ project.year }}</span>
-        </div>
-        <span class="pd-hero-category badge badge-accent">{{ project.category }}</span>
-        <h1 class="pd-hero-title">{{ project.title }}</h1>
-        <p class="pd-hero-subtitle">{{ project.subtitle }}</p>
-        <div class="pd-hero-badges">
-          <span class="badge" *ngFor="let tech of project.techBadges">{{ tech }}</span>
-        </div>
-        <div class="pd-hero-actions">
-          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-primary"><i class="bi bi-box-arrow-up-right"></i> <span class="font-mono">Live Demo</span></a>
-          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn"><i class="bi bi-github"></i> <span class="font-mono">GitHub</span></a>
-          <a *ngIf="project.linkedin" [href]="project.linkedin" target="_blank" rel="noopener" class="btn"><i class="bi bi-linkedin"></i> <span class="font-mono">LinkedIn Post</span></a>
-          <a *ngIf="project.documentation" [href]="project.documentation" target="_blank" rel="noopener" class="btn"><i class="bi bi-book"></i> <span class="font-mono">Docs</span></a>
-        </div>
+  <!-- ===== 01 / HERO ===== -->
+  <section id="hero" class="relative pt-32 pb-24 px-6 overflow-hidden border-b border-portfolio-border/30">
+    <div class="absolute inset-0 opacity-20 pointer-events-none" [style.background]="project.heroGradient"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-portfolio-bg pointer-events-none"></div>
+    
+    <div class="relative z-10 max-w-6xl mx-auto space-y-8">
+      <a routerLink="/projects" class="inline-flex items-center gap-2 text-portfolio-muted hover:text-portfolio-text transition-colors font-mono text-sm">
+        <i class="bi bi-arrow-left"></i> all projects
+      </a>
+      
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="px-3 py-1 rounded bg-portfolio-surface border border-portfolio-border text-xs uppercase tracking-widest text-portfolio-accent font-bold">{{ project.category }}</span>
+        <span class="font-mono text-portfolio-muted text-sm">{{ project.year }}</span>
+        <span class="px-3 py-1 rounded border border-portfolio-border text-xs flex items-center gap-1" [ngClass]="project.status === 'completed' ? 'text-[#10b981]' : 'text-yellow-500'">
+          <i class="bi" [ngClass]="project.status === 'completed' ? 'bi-check-lg' : 'bi-clock'"></i>
+          {{ project.status === 'completed' ? 'completed' : 'in progress' }}
+        </span>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== IMAGE CAROUSEL ===== -->
-  <section class="pd-carousel-section" *ngIf="project.screenshots.length > 0">
-    <div class="container">
-      <div class="pd-carousel">
-        <button class="carousel-btn carousel-prev" (click)="prevSlide()" aria-label="Previous screenshot"><i class="bi bi-chevron-left"></i></button>
-        <div class="carousel-viewport">
-          <div class="carousel-track" [style.transform]="'translateX(-' + carouselIndex * 100 + '%)'">
-            <div class="carousel-slide" *ngFor="let shot of project.screenshots; let i = index; trackBy: trackByIndex">
-              <div class="screenshot-placeholder" (click)="openLightbox(i)">
-                <i class="bi bi-image"></i>
-                <span class="font-mono">{{ shot.label }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-btn carousel-next" (click)="nextSlide()" aria-label="Next screenshot"><i class="bi bi-chevron-right"></i></button>
-        <div class="carousel-dots">
-          <button *ngFor="let shot of project.screenshots; let i = index; trackBy: trackByIndex" type="button" class="dot" [class.active]="i === carouselIndex" (click)="goToSlide(i)" [attr.aria-label]="'Go to screenshot ' + (i + 1)"></button>
-        </div>
+      
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight max-w-4xl">{{ project.title }}</h1>
+      <p class="text-xl md:text-2xl text-portfolio-muted font-light max-w-3xl leading-relaxed">{{ project.subtitle }}</p>
+      
+      <div class="flex flex-wrap gap-2 pt-4">
+        <span class="px-3 py-1 rounded-md bg-portfolio-surface border border-portfolio-border text-sm text-portfolio-muted" *ngFor="let tech of project.techBadges">{{ tech }}</span>
+      </div>
+      
+      <div class="flex flex-wrap gap-4 pt-8">
+        <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-portfolio-text text-portfolio-bg font-medium hover:scale-105 transition-transform duration-300">
+          <i class="bi bi-box-arrow-up-right"></i> Live Demo
+        </a>
+        <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors font-medium">
+          <i class="bi bi-github"></i> Source Code
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ===== CONTENT + SIDEBAR ===== -->
-  <div class="pd-layout container">
+  <div class="max-w-7xl mx-auto px-6 pt-16 flex flex-col lg:flex-row gap-12 relative">
 
-    <!-- Sticky Side Navigation -->
-    <nav class="pd-sidebar" aria-label="Case study navigation">
-      <div class="pd-nav-inner">
-        <button *ngFor="let section of sections" type="button" class="pd-nav-item" [class.active]="activeSection === section.id" (click)="scrollToSection(section.id)">
+    <!-- Sidebar Nav -->
+    <aside class="hidden lg:block w-64 flex-shrink-0">
+      <div class="sticky top-24 space-y-1 bg-portfolio-surface/50 backdrop-blur-md border border-portfolio-border rounded-xl p-4">
+        <button *ngFor="let section of sections" 
+                type="button" 
+                class="w-full text-left px-4 py-2 rounded-lg transition-colors flex items-center gap-3 text-sm font-mono"
+                [ngClass]="activeSection === section.id ? 'bg-portfolio-accent/10 text-portfolio-accent font-bold' : 'text-portfolio-muted hover:bg-portfolio-surface hover:text-portfolio-text'"
+                [class.hidden]="!isSectionVisible(section.id)" 
+                (click)="scrollToSection(section.id)">
           <i class="bi" [class]="section.icon"></i>
-          <span class="font-mono">{{ section.label }}</span>
+          <span>{{ section.label }}</span>
         </button>
       </div>
-    </nav>
+    </aside>
 
     <!-- Main Content -->
-    <div class="pd-content">
+    <div class="flex-1 space-y-32">
 
-      <!-- Overview -->
-      <section id="overview" class="pd-section">
-        <span class="pd-section-label font-mono">01 / overview</span>
-        <h2 class="pd-section-title">Overview</h2>
-        <p class="pd-overview-text">{{ project.overview }}</p>
-      </section>
-
-      <!-- Problem Statement -->
-      <section id="problem" class="pd-section">
-        <span class="pd-section-label font-mono">02 / problem</span>
-        <h2 class="pd-section-title">Problem Statement</h2>
-        <blockquote class="pd-quote">
-          <p>{{ project.problemStatement }}</p>
-        </blockquote>
-      </section>
-
-      <!-- Features -->
-      <section id="features" class="pd-section">
-        <span class="pd-section-label font-mono">03 / features</span>
-        <h2 class="pd-section-title">Key Features</h2>
-        <div class="pd-features-grid">
-          <div class="pd-feature-card" *ngFor="let f of project.features">
-            <div class="pd-feature-icon"><i class="bi" [class]="f.icon"></i></div>
-            <h3 class="pd-feature-title">{{ f.title }}</h3>
-            <p class="pd-feature-desc">{{ f.description }}</p>
+      <!-- ===== 02 / OVERVIEW ===== -->
+      <section id="overview" *ngIf="project">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">01</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Overview</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-portfolio-surface border border-portfolio-border rounded-2xl p-8 space-y-4 shadow-lg">
+            <h3 class="font-mono text-portfolio-accent flex items-center gap-2"><i class="bi bi-lightbulb"></i> The Problem</h3>
+            <p class="text-portfolio-muted leading-relaxed">{{ project.problemStatement }}</p>
+          </div>
+          <div class="bg-portfolio-surface border border-portfolio-border rounded-2xl p-8 space-y-4 shadow-lg relative overflow-hidden">
+             <div class="absolute inset-0 bg-portfolio-accent/5"></div>
+            <h3 class="relative z-10 font-mono text-portfolio-accent flex items-center gap-2"><i class="bi bi-check-circle"></i> What I Built</h3>
+            <p class="relative z-10 text-portfolio-text leading-relaxed">{{ project.overview }}</p>
           </div>
         </div>
       </section>
 
-      <!-- Architecture -->
-      <section id="architecture" class="pd-section">
-        <span class="pd-section-label font-mono">04 / architecture</span>
-        <h2 class="pd-section-title">Architecture</h2>
-        <p class="pd-arch-desc">{{ project.architecture.description }}</p>
-
-        <div class="pd-arch-diagram">
-          <ng-container *ngFor="let layer of project.architecture.layers; let i = index; let last = last">
-            <!-- Tier label: show at first layer of each tier -->
-            <div class="arch-tier-label" *ngIf="getTierLabel(i, project.architecture.layers.length)"
-                 [class.arch-tier-label-client]="i <= 1"
-                 [class.arch-tier-label-server]="i > 1 && i <= project.architecture.layers.length - 2"
-                 [class.arch-tier-label-data]="i >= project.architecture.layers.length - 1">
-              <span class="font-mono">{{ getTierLabel(i, project.architecture.layers.length) }}</span>
-            </div>
-
-            <div class="arch-layer-box"
-                 [class.arch-tier-client]="i <= 1"
-                 [class.arch-tier-server]="i > 1 && i <= project.architecture.layers.length - 2"
-                 [class.arch-tier-data]="i >= project.architecture.layers.length - 1">
-              <span class="arch-layer-index font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
-              <span class="arch-layer-name font-mono">{{ layer }}</span>
-            </div>
-            <div class="arch-connector" *ngIf="!last">
-              <div class="arch-connector-line"></div>
-              <i class="bi bi-chevron-down arch-connector-icon"></i>
-              <div class="arch-connector-line"></div>
-            </div>
-          </ng-container>
+      <!-- ===== 04 / ARCHITECTURE ===== -->
+      <section id="architecture">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">02</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">System Architecture</h2>
         </div>
-      </section>
+        <p class="text-portfolio-muted text-lg mb-8">{{ project.architecture.description }}</p>
 
-      <!-- Sequence Diagrams -->
-      <section id="sequence" class="pd-section" *ngIf="project.sequenceDiagrams.length > 0">
-        <span class="pd-section-label font-mono">05 / sequence diagrams</span>
-        <h2 class="pd-section-title">How It Works</h2>
-        <p class="pd-intro">Key data flows visualized as sequence diagrams. These show the actual request lifecycle through the system.</p>
-        <div class="pd-sequences-list">
-          <div class="pd-sequence-card" *ngFor="let seq of project.sequenceDiagrams">
-            <div class="pd-seq-header">
-              <h3 class="pd-seq-title font-mono">{{ seq.title }}</h3>
-              <p class="pd-seq-desc">{{ seq.description }}</p>
-            </div>
-            <div class="pd-seq-steps">
-              <div class="pd-seq-step" *ngFor="let step of seq.steps; let i = index">
-                <span class="pd-seq-num font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
-                <code class="pd-seq-code font-mono">{{ step }}</code>
+        <!-- Enhanced Vertical Timeline Architecture -->
+        <div class="relative pl-6 md:pl-10 py-4 max-w-4xl mx-auto">
+          <!-- Glowing vertical line -->
+          <div class="absolute left-2 md:left-4 top-8 bottom-8 w-px bg-gradient-to-b from-portfolio-accent/20 via-portfolio-accent/50 to-portfolio-accent/20"></div>
+          
+          <div class="space-y-6">
+            <div *ngFor="let layer of project.architecture.layers; let i = index" class="relative group">
+                 
+              <!-- Connection Node -->
+              <div class="absolute -left-[22px] md:-left-[30px] top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-portfolio-surface border-[2px] border-portfolio-border group-hover:border-portfolio-accent group-hover:bg-portfolio-accent group-hover:shadow-[0_0_15px_rgba(59,130,246,0.6)] transition-all duration-300 z-10"></div>
+              
+              <!-- Layer Card -->
+              <div class="bg-portfolio-surface/40 backdrop-blur border border-portfolio-border/60 group-hover:border-portfolio-accent/40 rounded-xl p-4 md:p-5 shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.08)] transition-all duration-500 flex items-center gap-5 hover:-translate-y-1 relative overflow-hidden">
+                
+                <!-- Sweep Gradient -->
+                <div class="absolute inset-0 bg-gradient-to-r from-portfolio-accent/0 via-portfolio-accent/[0.03] to-transparent -translate-x-full group-hover:translate-x-0 transition-transform duration-700 pointer-events-none"></div>
+
+                <!-- Icon Container -->
+                <div class="w-12 h-12 rounded-lg bg-portfolio-bg/80 border border-portfolio-border flex items-center justify-center flex-shrink-0 group-hover:border-portfolio-accent/50 group-hover:bg-portfolio-accent/10 transition-colors duration-300 shadow-inner">
+                  <i [class]="'text-portfolio-muted group-hover:text-portfolio-accent text-xl transition-colors duration-300 bi ' + getLayerIcon(layer)"></i>
+                </div>
+                
+                <!-- Content -->
+                <div class="flex-grow">
+                  <div class="flex items-center gap-3 mb-1">
+                    <span class="text-[10px] font-mono text-portfolio-muted opacity-60 uppercase tracking-widest">Step 0{{ i + 1 }}</span>
+                  </div>
+                  <div class="text-base font-semibold text-portfolio-text/90 tracking-wide">{{ layer }}</div>
+                </div>
+
+                <!-- Tier Badges -->
+                <div *ngIf="i === 0" class="hidden sm:block absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-mono text-portfolio-accent bg-portfolio-accent/10 px-3 py-1 rounded border border-portfolio-accent/20 uppercase tracking-wider">Client Edge</div>
+                <div *ngIf="i > 0 && i < project.architecture.layers.length - 1" class="hidden sm:block absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-mono text-portfolio-muted bg-portfolio-bg px-3 py-1 rounded border border-portfolio-border uppercase tracking-wider">Backend Service</div>
+                <div *ngIf="i === project.architecture.layers.length - 1" class="hidden sm:block absolute right-6 top-1/2 -translate-y-1/2 text-[10px] font-mono text-green-500 bg-green-500/10 px-3 py-1 rounded border border-green-500/20 uppercase tracking-wider">Data Store</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Tech Stack -->
-      <section id="tech-stack" class="pd-section">
-        <span class="pd-section-label font-mono">05 / tech stack</span>
-        <h2 class="pd-section-title">Technology Decisions</h2>
-        <p class="pd-intro">Each technology was chosen for a specific reason — not because it's popular, but because it solves the problem at hand.</p>
-        <div class="pd-tech-table">
-          <div class="pd-tech-row pd-tech-header font-mono">
-            <span>Technology</span>
-            <span>Why Used</span>
+      <!-- ===== 05 / TECH STACK ===== -->
+      <section id="tech-stack" *ngIf="project.techStack.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">03</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Tech Stack</h2>
+        </div>
+        
+        <div class="bg-portfolio-surface border border-portfolio-border rounded-2xl overflow-hidden">
+          <div class="grid grid-cols-3 md:grid-cols-4 bg-portfolio-bg border-b border-portfolio-border p-4 font-mono text-xs text-portfolio-muted uppercase tracking-wider">
+            <div class="col-span-1 md:col-span-1">Category</div>
+            <div class="col-span-2 md:col-span-3">Technology & Purpose</div>
           </div>
-          <div class="pd-tech-row" *ngFor="let tech of project.techStack">
-            <div class="pd-tech-name">
-              <span class="badge badge-accent">{{ tech.category }}</span>
-              <span class="font-mono">{{ tech.name }}</span>
+          <div *ngFor="let tech of project.techStack" class="grid grid-cols-3 md:grid-cols-4 border-b border-portfolio-border/50 p-4 items-center hover:bg-portfolio-bg/50 transition-colors">
+            <div class="col-span-1 md:col-span-1">
+              <span class="px-2 py-1 rounded bg-portfolio-bg border border-portfolio-border text-[10px] font-mono text-portfolio-muted">{{ tech.category }}</span>
             </div>
-            <span class="pd-tech-purpose">{{ tech.purpose }}</span>
+            <div class="col-span-2 md:col-span-3">
+              <strong class="font-mono text-portfolio-text block md:inline md:mr-2">{{ tech.name }}</strong>
+              <span class="text-sm text-portfolio-muted">{{ tech.purpose }}</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Engineering Decisions -->
-      <section id="decisions" class="pd-section" *ngIf="project.engineeringDecisions.length > 0">
-        <span class="pd-section-label font-mono">06 / engineering decisions</span>
-        <h2 class="pd-section-title">Why I Chose This Stack</h2>
-        <p class="pd-intro">Every technology choice involved tradeoffs. Here's why I went with these specific solutions — and what I considered instead.</p>
-        <div class="pd-decisions-list">
-          <div class="pd-decision-card" *ngFor="let d of project.engineeringDecisions">
-            <div class="pd-decision-header">
-              <h3 class="pd-decision-tech font-mono">{{ d.technology }}</h3>
+      <!-- ===== 06.5 / WORKFLOW (STATE MACHINE) ===== -->
+      <section id="workflow" *ngIf="project.stateMachine || project.workflow.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">03.5</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Core Workflow</h2>
+        </div>
+        
+        <!-- Interactive State Machine Data (if available) -->
+        <div *ngIf="project.stateMachine" class="bg-portfolio-surface border border-portfolio-border rounded-2xl p-8 overflow-x-auto">
+          <p class="text-portfolio-muted mb-8">State machine for the claim lifecycle, demonstrating robust transition logic without if/else chains.</p>
+          <div class="flex flex-wrap items-center gap-4">
+            <ng-container *ngFor="let node of project.stateMachine.nodes; let last = last">
+              <div class="px-6 py-3 rounded-lg border flex items-center gap-3 bg-portfolio-bg shadow-lg" [style.borderColor]="node.color" [style.color]="node.color">
+                <span class="w-3 h-3 rounded-full animate-pulse" [style.backgroundColor]="node.color"></span>
+                <span class="font-mono font-bold">{{ node.label }}</span>
+              </div>
+              <div *ngIf="!last" class="text-portfolio-muted hidden md:block">
+                <i class="bi bi-arrow-right text-2xl"></i>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Fallback Workflow Steps (if no stateMachine) -->
+        <div *ngIf="!project.stateMachine && project.workflow.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let step of project.workflow; let i = index" class="bg-portfolio-surface border border-portfolio-border rounded-xl p-6 relative hover:border-portfolio-accent/50 transition-colors group">
+            <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-portfolio-bg border border-portfolio-border flex items-center justify-center font-mono text-xs text-portfolio-muted group-hover:text-portfolio-accent group-hover:border-portfolio-accent transition-colors">{{ i + 1 }}</div>
+            <i class="bi text-3xl mb-4 text-portfolio-accent" [class]="step.icon"></i>
+            <h3 class="text-lg font-bold mb-2">{{ step.label }}</h3>
+            <p class="text-portfolio-muted text-sm">{{ step.description }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 06.6 / DATABASE SCHEMA ===== -->
+      <section id="database" *ngIf="project.dbEntities && project.dbEntities.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">03.6</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Database Architecture</h2>
+        </div>
+        <p class="text-portfolio-muted text-lg mb-8">{{ project.database.description }}</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let entity of project.dbEntities" class="bg-portfolio-surface border border-portfolio-border rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-2 hover:border-portfolio-accent/40 transition-all duration-500 flex flex-col group relative">
+            
+            <!-- Glowing gradient background -->
+            <div class="absolute inset-0 bg-gradient-to-b from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            <!-- Table Header -->
+            <div class="px-4 py-3 border-b flex items-center gap-3 bg-portfolio-bg/50" [style.borderColor]="entity.color + '40'">
+              <i class="bi bi-table" [style.color]="entity.color"></i>
+              <span class="font-mono font-bold text-portfolio-text tracking-wide">{{ entity.name }}</span>
             </div>
-            <div class="pd-decision-body">
-              <p class="pd-decision-why">{{ d.why }}</p>
-              <div class="pd-decision-alternative" *ngIf="d.alternatives">
-                <span class="pd-alt-label font-mono">What I considered</span>
-                <p class="pd-alt-text">{{ d.alternatives }}</p>
+            <!-- Fields -->
+            <div class="p-4 flex-1">
+              <ul class="space-y-2 font-mono text-xs">
+                <li *ngFor="let field of entity.fields" class="flex justify-between items-center text-portfolio-muted">
+                  <span [ngClass]="{'text-portfolio-accent font-bold': field.includes('PK'), 'text-yellow-500': field.includes('FK')}">
+                    {{ field.split(' ')[0] }}
+                  </span>
+                  <span class="opacity-50 text-[10px] bg-portfolio-bg px-1.5 py-0.5 rounded border border-portfolio-border">{{ field.split(' ')[1] || 'str' }}</span>
+                </li>
+              </ul>
+            </div>
+            <!-- Relations -->
+            <div class="px-4 py-3 border-t border-portfolio-border/50 bg-portfolio-bg/30 text-xs flex flex-wrap gap-2" *ngIf="entity.relations && entity.relations.length > 0">
+              <span *ngFor="let rel of entity.relations" class="px-2 py-1 rounded bg-portfolio-surface border flex items-center gap-1" [style.borderColor]="entity.color + '30'" [style.color]="entity.color">
+                <i class="bi bi-link-45deg"></i> {{ rel.type }} {{ rel.entity }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 07 / API ===== -->
+      <section id="api" *ngIf="project.apiShowcase.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">04</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">API Showcase</h2>
+        </div>
+        
+        <div class="space-y-4">
+          <div *ngFor="let api of project.apiShowcase" class="flex flex-col md:flex-row md:items-center gap-4 bg-portfolio-surface border border-portfolio-border p-4 rounded-xl hover:border-portfolio-accent/50 transition-colors">
+            <span class="font-mono font-bold w-16" [style.color]="getMethodColor(api.method)">{{ api.method }}</span>
+            <code class="px-3 py-1 bg-portfolio-bg rounded text-sm text-portfolio-text font-mono border border-portfolio-border">{{ api.endpoint }}</code>
+            <span class="text-portfolio-muted text-sm flex-1">{{ api.description }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 10 / CHALLENGES ===== -->
+      <section id="challenges" *ngIf="project.challengeSolutions && project.challengeSolutions.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">04.5</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Engineering Challenges</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div *ngFor="let item of project.challengeSolutions" class="bg-portfolio-surface border border-portfolio-border rounded-2xl p-6 group hover:border-portfolio-accent/50 transition-colors shadow-lg relative overflow-hidden">
+            <!-- Decorative gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            
+            <div class="relative z-10 space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="bi bi-bug text-red-500"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono text-portfolio-muted uppercase tracking-wider block mb-1">Challenge</span>
+                  <h3 class="font-bold text-portfolio-text leading-tight">{{ item.challenge }}</h3>
+                </div>
+              </div>
+              
+              <div class="pl-14">
+                <div class="h-4 border-l-2 border-portfolio-border border-dashed ml-3 mb-2"></div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-portfolio-accent/10 border border-portfolio-accent/30 flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="bi text-portfolio-accent" [class]="item.icon"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-mono text-portfolio-accent uppercase tracking-wider block mb-1">Solution</span>
+                  <p class="text-portfolio-muted text-sm leading-relaxed">{{ item.solution }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Database -->
-      <section id="database" class="pd-section" *ngIf="project.database.tables.length > 0">
-        <span class="pd-section-label font-mono">06 / database</span>
-        <h2 class="pd-section-title">Database Design</h2>
-        <p class="pd-db-desc">{{ project.database.description }}</p>
-        <div class="pd-db-tables">
-          <div class="pd-db-table" *ngFor="let table of project.database.tables">
-            <i class="bi bi-table"></i>
-            <span class="font-mono">{{ table }}</span>
-          </div>
+      <!-- ===== 11 / METRICS ===== -->
+      <section id="metrics" *ngIf="project.metrics.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">05</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Results & Impact</h2>
         </div>
-        <div class="pd-db-relationships">
-          <h3 class="pd-sub-heading font-mono"><i class="bi bi-arrow-left-right"></i> Relationships</h3>
-          <p>{{ project.database.relationships }}</p>
-        </div>
-      </section>
-
-      <!-- API Showcase -->
-      <section id="api" class="pd-section" *ngIf="project.apiShowcase.length > 0">
-        <span class="pd-section-label font-mono">07 / api</span>
-        <h2 class="pd-section-title">API Showcase</h2>
-        <p class="pd-intro">RESTful endpoints following proper HTTP conventions with structured error responses.</p>
-        <div class="pd-api-list">
-          <div class="pd-api-item" *ngFor="let api of project.apiShowcase">
-            <span class="pd-api-method font-mono" [class]="'method-' + api.method.toLowerCase()">{{ api.method }}</span>
-            <code class="pd-api-endpoint font-mono">{{ api.endpoint }}</code>
-            <span class="pd-api-desc">{{ api.description }}</span>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div *ngFor="let m of animatedMetrics" class="bg-gradient-to-br from-portfolio-surface to-portfolio-bg border border-portfolio-border rounded-2xl p-6 md:p-8 flex flex-col justify-center items-center text-center shadow-lg hover:border-portfolio-accent/50 transition-colors overflow-hidden">
+            <span class="font-mono font-bold text-portfolio-accent mb-2 w-full break-words whitespace-normal leading-tight" [ngClass]="m.isNumeric ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'">
+              <ng-container *ngIf="m.isNumeric">{{ m.displayValue }}</ng-container>{{ getMetricSuffix(m.value) }}
+            </span>
+            <span class="text-[10px] md:text-xs text-portfolio-muted uppercase tracking-wider">{{ m.label }}</span>
           </div>
         </div>
       </section>
-
-      <!-- Workflow -->
-      <section id="workflow" class="pd-section">
-        <span class="pd-section-label font-mono">08 / workflow</span>
-        <h2 class="pd-section-title">User Workflow</h2>
-        <div class="pd-workflow">
-          <div class="pd-wf-step" *ngFor="let step of project.workflow; let last = last">
-            <div class="pd-wf-icon"><i class="bi" [class]="step.icon"></i></div>
-            <div class="pd-wf-info">
-              <span class="pd-wf-label font-mono">{{ step.label }}</span>
-              <span class="pd-wf-desc">{{ step.description }}</span>
+      
+      <!-- ===== 14 / GALLERY ===== -->
+      <section id="gallery" *ngIf="project.screenshots && project.screenshots.length > 0">
+        <div class="mb-8">
+          <span class="text-xs font-mono text-portfolio-accent tracking-widest uppercase">06</span>
+          <h2 class="text-2xl font-bold mt-2 text-portfolio-text/90">Project Gallery</h2>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div *ngFor="let img of project.screenshots; let i = index" class="relative group cursor-pointer overflow-hidden rounded-xl bg-portfolio-surface border border-portfolio-border aspect-video" (click)="openLightbox(i)">
+            <!-- Placeholder/Loading state -> we just use the bg color -->
+            <div class="absolute inset-0 flex items-center justify-center text-portfolio-muted">
+              <i class="bi bi-image text-2xl opacity-20"></i>
             </div>
-            <div class="pd-wf-connector" *ngIf="!last"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Challenges -->
-      <section id="challenges" class="pd-section">
-        <span class="pd-section-label font-mono">09 / challenges</span>
-        <h2 class="pd-section-title">Challenges</h2>
-        <div class="pd-challenges-list">
-          <div class="pd-challenge" *ngFor="let c of project.challenges; let i = index">
-            <span class="pd-challenge-num font-mono">{{ (i + 1).toString().padStart(2, '0') }}</span>
-            <p>{{ c }}</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tradeoffs -->
-      <section id="tradeoffs" class="pd-section" *ngIf="project.tradeoffs.length > 0">
-        <span class="pd-section-label font-mono">10 / tradeoffs</span>
-        <h2 class="pd-section-title">Tradeoffs & What I'd Change</h2>
-        <p class="pd-intro">Every engineering decision involves compromise. Here's what I chose, why, and what I'd do differently with more time.</p>
-        <div class="pd-tradeoffs-list">
-          <div class="pd-tradeoff-card" *ngFor="let t of project.tradeoffs">
-            <div class="pd-tradeoff-decision">
-              <span class="pd-tradeoff-label font-mono">Decision</span>
-              <h3 class="pd-tradeoff-title">{{ t.decision }}</h3>
-            </div>
-            <div class="pd-tradeoff-rationale">
-              <span class="pd-tradeoff-label font-mono">Why</span>
-              <p>{{ t.rationale }}</p>
-            </div>
-            <div class="pd-tradeoff-change" *ngIf="t.whatIdChange">
-              <span class="pd-tradeoff-label font-mono">What I'd change</span>
-              <p>{{ t.whatIdChange }}</p>
+            
+            <img [src]="'/assets/projects/' + project.id + '/screenshots/' + i + '.png'" [alt]="img.alt" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 z-10" loading="lazy" onerror="this.style.display='none'">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-portfolio-bg/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-end p-4">
+              <span class="text-sm font-medium text-white">{{ img.label }}</span>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Failure Story -->
-      <section id="failure" class="pd-section" *ngIf="project.failureStory">
-        <span class="pd-section-label font-mono">11 / what broke</span>
-        <h2 class="pd-section-title">What Broke (And What I Learned)</h2>
-        <div class="pd-failure-card">
-          <div class="pd-failure-icon">
-            <i class="bi bi-bug-fill"></i>
+        
+        <!-- Lightbox -->
+        <div *ngIf="lightboxOpen" class="fixed inset-0 z-[100] bg-portfolio-bg/95 backdrop-blur-xl flex flex-col">
+          <div class="h-16 flex items-center justify-between px-6 border-b border-portfolio-border/50">
+            <span class="font-mono text-portfolio-muted">{{ lightboxIndex + 1 }} / {{ project.screenshots.length }}</span>
+            <button (click)="closeLightbox()" class="text-portfolio-muted hover:text-white transition-colors p-2"><i class="bi bi-x-lg"></i></button>
           </div>
-          <div class="pd-failure-content">
-            <p class="pd-failure-text">{{ project.failureStory }}</p>
+          <div class="flex-1 relative flex items-center justify-center p-4">
+            <button (click)="lightboxPrev(); $event.stopPropagation()" class="absolute left-4 w-12 h-12 rounded-full bg-portfolio-surface border border-portfolio-border flex items-center justify-center text-portfolio-muted hover:text-white hover:border-portfolio-accent transition-colors z-10 hidden md:flex">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            
+            <img [src]="'/assets/projects/' + project.id + '/screenshots/' + lightboxIndex + '.png'" [alt]="project.screenshots[lightboxIndex].alt" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl">
+            
+            <button (click)="lightboxNext(); $event.stopPropagation()" class="absolute right-4 w-12 h-12 rounded-full bg-portfolio-surface border border-portfolio-border flex items-center justify-center text-portfolio-muted hover:text-white hover:border-portfolio-accent transition-colors z-10 hidden md:flex">
+              <i class="bi bi-chevron-right"></i>
+            </button>
           </div>
-        </div>
-      </section>
-
-      <!-- Learnings -->
-      <section id="learnings" class="pd-section">
-        <span class="pd-section-label font-mono">12 / learnings</span>
-        <h2 class="pd-section-title">Key Learnings</h2>
-        <div class="pd-learnings-list">
-          <div class="pd-learning" *ngFor="let l of project.learnings">
-            <i class="bi bi-check-circle-fill"></i>
-            <p>{{ l }}</p>
+          <div class="h-16 flex items-center justify-center border-t border-portfolio-border/50">
+            <span class="font-medium">{{ project.screenshots[lightboxIndex].label }}</span>
           </div>
         </div>
       </section>
 
-      <!-- Future Improvements -->
-      <section id="future" class="pd-section">
-        <span class="pd-section-label font-mono">13 / future</span>
-        <h2 class="pd-section-title">Future Improvements</h2>
-        <div class="pd-future-grid">
-          <div class="pd-future-card" *ngFor="let f of project.futureImprovements">
-            <i class="bi pd-future-icon" [class]="f.icon"></i>
-            <h4 class="pd-future-title font-mono">{{ f.title }}</h4>
-            <p class="pd-future-desc">{{ f.description }}</p>
+      <!-- ===== 15 / CTA ===== -->
+      <section id="cta" class="pt-12">
+        <div class="bg-gradient-to-br from-portfolio-surface to-portfolio-bg border border-portfolio-border rounded-3xl p-12 text-center space-y-6">
+          <h2 class="text-3xl font-bold">Interested in this project?</h2>
+          <p class="text-portfolio-muted">Check out the source code, live demo, or connect with me.</p>
+          <div class="flex flex-wrap justify-center gap-4 pt-4">
+            <a *ngIf="project.github" [href]="project.github" target="_blank" class="px-6 py-3 rounded-lg bg-portfolio-text text-portfolio-bg font-medium hover:scale-105 transition-transform"><i class="bi bi-github"></i> GitHub</a>
+            <a *ngIf="project.live" [href]="project.live" target="_blank" class="px-6 py-3 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors"><i class="bi bi-globe"></i> Live Demo</a>
+            <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="px-6 py-3 rounded-lg bg-portfolio-surface border border-portfolio-border hover:border-portfolio-accent transition-colors"><i class="bi bi-file-pdf"></i> Resume</a>
           </div>
-        </div>
-      </section>
-
-      <!-- Metrics -->
-      <section id="metrics" class="pd-section">
-        <span class="pd-section-label font-mono">14 / metrics</span>
-        <h2 class="pd-section-title">Project Metrics</h2>
-        <div class="pd-metrics-grid">
-          <div class="pd-metric-card" *ngFor="let m of project.metrics">
-            <span class="pd-metric-value font-mono">{{ m.value }}</span>
-            <span class="pd-metric-label">{{ m.label }}</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Source Links -->
-      <section class="pd-section pd-links-section">
-        <h2 class="pd-section-title">Source & Links</h2>
-        <div class="pd-source-links">
-          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="pd-source-link">
-            <i class="bi bi-github"></i><span class="font-mono">GitHub Repository</span><i class="bi bi-arrow-up-right"></i>
-          </a>
-          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="pd-source-link">
-            <i class="bi bi-globe"></i><span class="font-mono">Live Website</span><i class="bi bi-arrow-up-right"></i>
-          </a>
-          <a *ngIf="project.linkedin" [href]="project.linkedin" target="_blank" rel="noopener" class="pd-source-link">
-            <i class="bi bi-linkedin"></i><span class="font-mono">LinkedIn Post</span><i class="bi bi-arrow-up-right"></i>
-          </a>
-          <a *ngIf="project.documentation" [href]="project.documentation" target="_blank" rel="noopener" class="pd-source-link">
-            <i class="bi bi-book"></i><span class="font-mono">API Documentation</span><i class="bi bi-arrow-up-right"></i>
-          </a>
-          <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" rel="noopener" class="pd-source-link">
-            <i class="bi bi-download"></i><span class="font-mono">Resume</span><i class="bi bi-arrow-up-right"></i>
-          </a>
-        </div>
-      </section>
-
-      <!-- Related Projects -->
-      <section class="pd-section pd-related" *ngIf="relatedProjects.length > 0">
-        <h2 class="pd-section-title">Similar Projects</h2>
-        <div class="pd-related-grid">
-          <a *ngFor="let rp of relatedProjects" [routerLink]="['/projects', rp.id]" class="pd-related-card card card-interactive">
-            <span class="pd-related-year font-mono">{{ rp.year }}</span>
-            <h3 class="pd-related-title">{{ rp.title }}</h3>
-            <p class="pd-related-tagline">{{ rp.tagline }}</p>
-            <span class="pd-related-link font-mono">View Case Study <i class="bi bi-arrow-right"></i></span>
-          </a>
         </div>
       </section>
 
     </div>
   </div>
-
-  <!-- ===== LIGHTBOX ===== -->
-  <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()" role="dialog" aria-modal="true" aria-label="Screenshot lightbox">
-    <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close lightbox" type="button"><i class="bi bi-x-lg"></i></button>
-    <button class="lightbox-prev" (click)="$event.stopPropagation(); lightboxPrev()" aria-label="Previous screenshot" type="button"><i class="bi bi-chevron-left"></i></button>
-    <div class="lightbox-content" (click)="$event.stopPropagation()">
-      <div class="lightbox-placeholder">
-        <i class="bi bi-image"></i>
-        <span class="font-mono">{{ project.screenshots[lightboxIndex].label }}</span>
-      </div>
-    </div>
-    <button class="lightbox-next" (click)="$event.stopPropagation(); lightboxNext()" aria-label="Next screenshot" type="button"><i class="bi bi-chevron-right"></i></button>
-    <div class="lightbox-counter font-mono">{{ lightboxIndex + 1 }} / {{ project.screenshots.length }}</div>
-  </div>
-
 </main>

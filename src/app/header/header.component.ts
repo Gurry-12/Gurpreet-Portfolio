@@ -18,9 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navLinks = [
     { path: '/', label: 'home', exact: true },
-    { path: '/about', label: 'about', exact: false },
-    { path: '/projects', label: 'work', exact: false },
-    { path: '/contact', label: 'contact', exact: false }
+    { path: '/projects', label: 'work', exact: false }
   ];
 
   constructor(

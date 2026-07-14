@@ -253,76 +253,96 @@
 
 .timeline {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-6);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--sp-4) 0;
+}
+
+.tl-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-dim);
+  transform: translateX(-50%);
 }
 
 .timeline-item {
   display: flex;
-  gap: var(--sp-6);
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: var(--sp-8);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-.tl-marker {
+.tl-card-wrap {
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  min-width: 0;
+}
+
+.tl-left .tl-card-wrap {
+  justify-content: flex-end;
+  padding-right: var(--sp-8);
+  order: 1;
+}
+
+.tl-left .tl-spacer {
+  order: 3;
+}
+
+.tl-right .tl-card-wrap {
+  justify-content: flex-start;
+  padding-left: var(--sp-8);
+  order: 3;
+}
+
+.tl-right .tl-spacer {
+  order: 1;
+}
+
+.tl-card {
+  width: 100%;
+  max-width: 380px;
+  padding: var(--sp-5);
+  transition: var(--transition-normal);
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.tl-card-head {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
-  width: 80px;
-  position: relative;
+  margin-bottom: var(--sp-3);
 }
 
 .tl-year {
   font-size: var(--text-xs);
-  color: var(--text-3);
-  margin-bottom: var(--sp-2);
-}
-
-.tl-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--border);
-  border: 2px solid var(--surface);
-  z-index: 1;
-
-  &.current {
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-dim);
-  }
-}
-
-.timeline-item:not(:last-child) .tl-marker::after {
-  content: '';
-  position: absolute;
-  top: calc(var(--text-xs) + 1.5rem);
-  width: 1px;
-  height: calc(100% + var(--sp-6));
-  background: var(--border-dim);
-}
-
-.tl-content {
-  flex: 1;
-  padding: var(--sp-5);
-}
-
-.tl-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--sp-2);
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .tl-title {
   font-size: var(--text-base);
   font-weight: 600;
+  margin-bottom: var(--sp-2);
 }
 
 .tl-company {
   display: block;
   font-size: var(--text-xs);
-  color: var(--accent);
-  margin-bottom: var(--sp-2);
+  color: var(--text-3);
+  margin-bottom: var(--sp-3);
 }
 
 .tl-desc {
@@ -335,6 +355,29 @@
 .tl-type {
   font-size: var(--text-xs);
   text-transform: uppercase;
+}
+
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  top: var(--sp-5);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 3px solid var(--bg);
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: var(--transition-normal);
+
+  &.current {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-dim), 0 0 12px var(--accent-glow);
+  }
+}
+
+.tl-spacer {
+  flex: 1;
 }
 
 .badge-type-work { background: var(--accent-dim); color: var(--accent); }
@@ -498,12 +541,36 @@
     grid-template-columns: 1fr;
   }
 
-  .timeline-item {
-    gap: var(--sp-4);
+  .timeline {
+    max-width: 100%;
   }
 
-  .tl-marker {
-    width: 60px;
+  .tl-line {
+    left: 20px;
+  }
+
+  .timeline-item {
+    flex-direction: row;
+  }
+
+  .timeline-item.tl-left .tl-card-wrap,
+  .timeline-item.tl-right .tl-card-wrap {
+    justify-content: flex-start;
+    padding-left: 52px;
+    padding-right: 0;
+    order: 1;
+  }
+
+  .tl-dot {
+    left: 20px;
+  }
+
+  .tl-spacer {
+    display: none;
+  }
+
+  .tl-card {
+    max-width: 100%;
   }
 
   .cta-card {
@@ -512,19 +579,25 @@
 }
 
 @media (max-width: 480px) {
-  .timeline-item {
-    flex-direction: column;
-    gap: var(--sp-2);
+  .tl-line {
+    left: 16px;
   }
 
-  .tl-marker {
-    width: auto;
-    flex-direction: row;
-    gap: var(--sp-2);
+  .tl-dot {
+    left: 16px;
+    width: 10px;
+    height: 10px;
   }
 
-  .timeline-item:not(:last-child) .tl-marker::after {
-    display: none;
+  .tl-card-wrap {
+    &.tl-left,
+    &.tl-right {
+      padding-left: 40px;
+    }
+  }
+
+  .tl-card {
+    padding: var(--sp-4);
   }
 
   .achievement-card {
