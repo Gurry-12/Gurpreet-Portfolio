@@ -1,0 +1,95 @@
+<div class="page-container">
+  <!-- Back Link -->
+  <a routerLink="/" class="action-link" style="margin-bottom: 1.5rem;">
+    &larr; Back to Index
+  </a>
+
+  <!-- Header -->
+  <header style="margin-bottom: 2.5rem;">
+    <span class="section-eyebrow">06 / Communication</span>
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Get in Touch</h1>
+    <p class="hero-bio" style="margin-bottom: 0;">
+      Open to software engineering opportunities, technical discussions on backend architectures, and open-source collaboration.
+    </p>
+  </header>
+
+  <!-- Availability / Current Context Box -->
+  <section style="margin-bottom: 2.5rem;">
+    <div style="background: var(--surface); border: 1px solid var(--border-dim); border-radius: var(--radius-sm); padding: 1.25rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+        <span class="hero-focus-dot"></span>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--accent);">CURRENT STATUS</span>
+      </div>
+      <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem;">
+        Currently contributing as a <strong style="color: var(--text-primary);">Software Engineer at Monocept</strong>. Actively exploring challenging problems in backend distributed systems, API performance, and relational schema engineering.
+      </p>
+      <div class="tag-list">
+        <span class="tag" *ngFor="let topic of currentFocus">{{ topic }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Contact Methods (Editorial Rows) -->
+  <section style="margin-bottom: 3.5rem;">
+    <span class="section-eyebrow" style="margin-bottom: 0.75rem;">Verified Direct Channels</span>
+
+    <div style="display: flex; flex-direction: column;">
+      <article *ngFor="let c of channels" style="padding: 1.25rem 0; border-bottom: 1px solid var(--border-dim); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75rem; transition: border-color var(--transition-fast);">
+        <div style="max-width: 520px;">
+          <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.25rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--accent);">{{ c.index }}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">{{ c.label }}</span>
+          </div>
+          <div style="font-size: 1.0625rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">
+            {{ c.value }}
+          </div>
+          <div *ngIf="c.annotation" style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.45;">
+            {{ c.annotation }}
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <button
+            *ngIf="c.isEmail"
+            type="button"
+            class="btn btn-sm"
+            (click)="copyEmail()">
+            <svg *ngIf="!copied" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <svg *ngIf="copied" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ copied ? 'Copied to Clipboard!' : 'Copy Address' }}
+          </button>
+
+          <a
+            [href]="c.url"
+            [target]="c.isExternal ? '_blank' : '_self'"
+            [rel]="c.isExternal ? 'noopener' : ''"
+            class="btn btn-primary btn-sm">
+            {{ c.actionText }}
+            <span *ngIf="c.isExternal">&#8599;</span>
+            <span *ngIf="!c.isExternal">&rarr;</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Physical Location & Timezone Note -->
+  <section style="border-top: 1px solid var(--border-dim); padding-top: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <div>
+        <span class="section-eyebrow">Location &amp; Base</span>
+        <h2 style="font-size: 1rem; margin-bottom: 0.25rem;">India (IST · UTC+5:30)</h2>
+        <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0;">
+          Based in India. Available for on-site, hybrid, and asynchronous distributed engineering teams worldwide.
+        </p>
+      </div>
+      <div>
+        <span class="section-eyebrow">Response Time</span>
+        <h2 style="font-size: 1rem; margin-bottom: 0.25rem;">Within 24 Hours</h2>
+        <p style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 0;">
+          All professional correspondence sent to <a href="mailto:work.gurpreetsw@gmail.com" style="color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px;">work.gurpreetsw&#64;gmail.com</a> or LinkedIn is typically reviewed within one business day.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

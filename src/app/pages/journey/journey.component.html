@@ -1,0 +1,28 @@
+<div class="page-container">
+  <!-- Back Link -->
+  <a routerLink="/" class="action-link" style="margin-bottom: 1.5rem;">
+    &larr; Back to Index
+  </a>
+
+  <!-- Header -->
+  <header style="margin-bottom: 2rem;">
+    <span class="section-eyebrow">04 / Trajectory</span>
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Engineering Evolution</h1>
+    <p class="hero-bio" style="margin-bottom: 0;">
+      A visual timeline tracking how technical focus and mental models evolved from early scripting to backend systems and domain architecture.
+    </p>
+  </header>
+
+  <div class="journey-stream">
+    <article class="journey-entry" [class.current]="i === 0" *ngFor="let m of milestones; let i = index">
+      <div class="journey-entry-year">{{ m.year }}</div>
+      <h2 class="journey-entry-phase">{{ m.phase }}</h2>
+      <div class="journey-entry-title">{{ m.title }}</div>
+      <p class="journey-entry-desc">{{ m.summary }}</p>
+
+      <div class="journey-entry-shift">
+        <strong style="color: var(--text-primary);">Key Shift:</strong> {{ m.keyShift }}
+      </div>
+    </article>
+  </div>
+</div>

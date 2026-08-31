@@ -1,0 +1,85 @@
+<div class="page-container">
+  <!-- Back Link -->
+  <a routerLink="/" class="action-link" style="margin-bottom: 1.5rem;">
+    &larr; Back to Index
+  </a>
+
+  <!-- Header -->
+  <header style="margin-bottom: 2.5rem;">
+    <span class="section-eyebrow">01 / Engineering Archive</span>
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Selected Work</h1>
+    <p class="hero-bio" style="margin-bottom: 0;">
+      Systems engineered with explicit architectural boundaries, multi-role state workflows, and documented trade-offs.
+    </p>
+  </header>
+
+  <!-- Tier 1: Major Case Studies -->
+  <section style="margin-bottom: 3rem;">
+    <span class="section-eyebrow">Tier 1 · Flagship Systems</span>
+    
+    <div>
+      <article class="project-module" *ngFor="let p of tier1Projects; let i = index">
+        <div class="project-meta-row">
+          <span class="project-number">0{{ i + 1 }}</span>
+          <span>{{ p.category }}</span>
+          <span>&middot;</span>
+          <span>{{ p.year }}</span>
+        </div>
+
+        <h2 class="project-title" style="font-size: 1.25rem;">
+          <a [routerLink]="['/work', p.id]">{{ p.title }}</a>
+        </h2>
+
+        <p class="project-desc">{{ p.solution }}</p>
+
+        <div class="project-insight" *ngIf="p.engineeringDecisions.length">
+          <strong>Key Decision:</strong> {{ p.engineeringDecisions[0].why }}
+        </div>
+
+        <div class="project-tech-stack">
+          {{ p.tags.join(' · ') }}
+        </div>
+
+        <div class="project-actions">
+          <a [routerLink]="['/work', p.id]" class="action-link">
+            Read Case Study &rarr;
+          </a>
+          <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link" style="color: var(--text-muted);">
+            Source Code &#8599;
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Tier 2: Supporting Work -->
+  <section *ngIf="tier2Projects.length" style="border-top: 1px solid var(--border-dim); padding-top: 2rem;">
+    <span class="section-eyebrow">Tier 2 · Supporting Systems</span>
+    
+    <div>
+      <article class="project-module" *ngFor="let p of tier2Projects">
+        <div class="project-meta-row">
+          <span>{{ p.category }}</span>
+          <span>&middot;</span>
+          <span>{{ p.year }}</span>
+        </div>
+
+        <h3 class="project-title" style="font-size: 1.125rem;">
+          {{ p.title }}
+        </h3>
+
+        <p class="project-desc">{{ p.solution }}</p>
+
+        <div class="project-tech-stack">
+          {{ p.tags.join(' · ') }}
+        </div>
+
+        <div class="project-actions" *ngIf="p.github">
+          <a [href]="p.github" target="_blank" rel="noopener" class="action-link">
+            View Repository &#8599;
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

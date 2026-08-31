@@ -1,0 +1,46 @@
+<div class="page-container">
+  <!-- Back Link -->
+  <a routerLink="/" class="action-link" style="margin-bottom: 1.5rem;">
+    &larr; Back to Index
+  </a>
+
+  <!-- Header -->
+  <header style="margin-bottom: 2rem;">
+    <span class="section-eyebrow">03 / Project Lab</span>
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Technical Experiments &amp; Sandboxes</h1>
+    <p class="hero-bio" style="margin-bottom: 0;">
+      Focused sandboxes testing hypotheses across machine learning, real-time reactive streams, and database concurrency.
+    </p>
+  </header>
+
+  <div class="lab-list">
+    <article class="lab-item" *ngFor="let exp of experiments">
+      <div>
+        <div class="lab-header">
+          <span class="lab-tag">{{ exp.category }}</span>
+          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--accent);">{{ exp.status }}</span>
+        </div>
+        <h2 class="lab-item-title">{{ exp.title }}</h2>
+        <p class="lab-item-desc">{{ exp.description }}</p>
+        <div class="lab-takeaway">
+          <strong>Key Discovery:</strong> {{ exp.learnings }}
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
+          <span class="tag" style="font-size: 0.6875rem; padding: 2px 0.5rem;" *ngFor="let t of exp.tech">{{ t }}</span>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <a *ngIf="exp.github" [href]="exp.github" target="_blank" rel="noopener" class="action-link">
+            Repository &#8599;
+          </a>
+          <a *ngIf="exp.live" [href]="exp.live" target="_blank" rel="noopener" class="action-link" style="color: var(--accent);">
+            Live Demo &#8599;
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

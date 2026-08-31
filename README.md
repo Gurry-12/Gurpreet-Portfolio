@@ -1,148 +1,75 @@
-<div align="center">
+# Gurpreet Singh — Personal Portfolio
 
-# 🚀 gurpreet.dev
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=24&duration=3000&pause=1000&color=00FF88&center=true&vCenter=true&width=435&lines=backend+developer;open+to+work;building+clean+code;angular+%2B+.net+enthusiast)](https://git.io/typing-svg)
-
-</div>
-
-
-```bash
-$ whoami
-gurpreet-singh
-
-$ cat status.txt
-🟢 actively seeking opportunities | backend developer | bhiwadi, rajasthan
-```
-
-
+> Minimal, fast, engineering-focused portfolio built with Angular 18 and clean vanilla CSS.
 
 ---
 
-## 🛠️ tech.stack()
+## ⚡ Overview
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=angular,vscode,ts,git,github" />
-  </a>
-</p>
+A lightweight, high-density personal portfolio designed for a **Backend Software Engineer**.
 
+- **Zero CSS Framework Overhead**: Pure CSS design tokens with custom properties (~12 kB uncompressed, 2.4 kB gzipped).
+- **No Over-Engineering**: Static data modeling, minimal dependencies, no SSR or Service Worker bloat.
+- **Deep Technical Case Studies**: Architectural layers, engineering tradeoffs, and failure retrospectives.
 
-## 🎯 portfolio.features()
+---
 
-```typescript
-interface Portfolio {
-  design: 'minimal' | 'gen-z' | 'terminal-inspired';
-  theme: 'dark-first';
-  features: string[];
-}
+## 🛠️ Tech Stack
 
-const myPortfolio: Portfolio = {
-  design: 'gen-z',
-  theme: 'dark-first',
-  features: [
-    '⏰ live IST clock',
-    '🌙 theme toggle', 
-    '📱 responsive design',
-    '⚡ PWA ready',
-    '🚀 netlify deployed.'
-  ]
-};
-```
+- **Framework**: Angular 18 (Standalone Components)
+- **Styling**: Vanilla CSS (8-point grid, CSS Custom Properties)
+- **Typography**: Inter & JetBrains Mono
+- **Deployment**: Netlify
 
-## 🚀 quick.start()
+---
 
-```bash
-# clone the repo
-git clone https://github.com/Gurry-12/Gurpreet-Portfolio.git
-cd Gurpreet-Portfolio
-
-# install dependencies  
-npm install
-
-# fire up dev server
-npm start
-# → http://localhost:4200
-
-# build for production
-npm run build
-```
-
-## 🎨 design.system()
-
-<div>
-
-```css
-: root {
-  --bg-primary: #0a0a0a;    /* deep black */
-  --accent: #00ff88;        /* neon green */
-  --text: #e5e5e5;          /* light gray */
-  --font-mono: 'JetBrains Mono';
-  --font-sans: 'Inter';
-}
-
-/* philosophy: no bloat. Just clean code. */
-```
-
-</div>
-
-## 📁 project.structure()
+## 📂 Project Architecture
 
 ```
 src/
-├── 📂 app/
-│   ├── 📂 components/
-│   │   ├── 🏠 home/        # live clock + status
-│   │   ├── 👨‍💻 about/       # bio + achievements  
-│   │   ├── 🚀 projects/    # showcase
-│   │   └── 📞 contact/     # hiring focused
-│   ├── 📂 services/
-│   │   └── 🎨 theme.service.ts
-│   └── ⚙️ *.ts
-├── 🎨 styles.scss          # global vars + dark theme
-└── 📄 index.html
-```
-
-
-## 🏆 achievements.unlock()
-
-<div>
-
-![Trophies](https://github-profile-trophy.vercel.app/?username=Gurry-12&theme=darkhub&no-frame=true&no-bg=true&margin-w=4&column=7)
-
-</div>
-
-## 📞 connect.with.me()
-
-<div>
-
-[![Email](https://img.shields.io/badge/Email-work.gurpreetsw%40gmail.com-00ff88?style=for-the-badge&logo=gmail&logoColor=white)](mailto:work.gurpreetsw@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-gurpreet--singh57-00ff88?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gurpreet-singh57)
-[![GitHub](https://img.shields.io/badge/GitHub-Gurry--12-00ff88?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Gurry-12)
-
-</div>
-
-## 🌐 deployment.info()
-
-```yaml
-platform: Netlify
-build_command: npm run build
-publish_dir: dist/gurpreet-portfolio/browser
-auto_deploy: ✅
-status: live
+├── index.html
+├── main.ts
+├── styles.css                 # Standalone design system (~500 lines)
+├── app/
+│   ├── app.component.ts       # Shell layout (Header + Outlet + Footer)
+│   ├── app.config.ts          # Angular application configuration
+│   ├── app.routes.ts          # Minimal route definition (/ and /projects/:id)
+│   ├── data/
+│   │   └── projects.ts        # Typed project case study data
+│   ├── pages/
+│   │   ├── home/              # Hero, Experience, Capabilities, Work, Contact
+│   │   └── project-detail/    # Architecture & tradeoff deep-dives
+│   └── directives/
+│       └── scroll-reveal.directive.ts
+└── assets/
+    └── resume/
+        └── Gurpreet_Singh_Resume.pdf
 ```
 
 ---
 
-<div>
-
-**built with intention. designed for impact.**
+## 🚀 Quick Start
 
 ```bash
-$ echo "thanks for checking out my work 🚀"
-thanks for checking out my work 🚀
+# Clone the repository
+git clone https://github.com/Gurry-12/Gurpreet-Portfolio.git
+cd Gurpreet-Portfolio
 
-$ exit
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+# -> http://localhost:4200
+
+# Build production bundle
+npm run build
 ```
 
-</div>
+---
+
+## 📬 Contact
+
+- **Email**: [work.gurpreetsw@gmail.com](mailto:work.gurpreetsw@gmail.com)
+- **LinkedIn**: [linkedin.com/in/gurpreet-singh57](https://linkedin.com/in/gurpreet-singh57)
+- **GitHub**: [github.com/Gurry-12](https://github.com/Gurry-12)

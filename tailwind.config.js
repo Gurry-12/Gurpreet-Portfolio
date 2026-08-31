@@ -1,30 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{html,ts}",
+    "./src/**/*.{html,ts,scss,css}"
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'portfolio-bg': '#000000',
-        'portfolio-surface': '#111111',
-        'portfolio-accent': '#3b82f6', // Linear blue accent
-        'portfolio-border': '#333333',
-        'portfolio-text': '#fafafa',
-        'portfolio-muted': '#a1a1aa'
+        canvas: 'var(--canvas)',
+        surface: 'var(--surface)',
+        'surface-elevated': 'var(--surface-elevated)',
+        'border-dim': 'var(--border-dim)',
+        'border-strong': 'var(--border-strong)',
+        text: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)'
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover: 'var(--accent-hover)',
+          dim: 'var(--accent-dim)'
+        }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
       },
-      animation: {
-        'aurora': 'aurora 20s linear infinite',
-      },
-      keyframes: {
-        aurora: {
-          '0%, 100%': { transform: 'translate(0, 0)' },
-          '50%': { transform: 'translate(100px, 50px)' },
-        }
+      maxWidth: {
+        editorial: '880px',
+        content: '680px'
       }
     },
   },
