@@ -1,154 +1,272 @@
-<div class="container">
-  <!-- ===== HERO / IDENTITY ===== -->
+<div class="shell">
+  <!-- ===== HERO / IDENTITY — full-width grid composition ===== -->
   <section class="hero">
-    <h1 class="hero-name">Gurpreet Singh</h1>
-    <div class="hero-role">Software Engineer / Backend-focused Developer</div>
-    
-    <p class="hero-bio">
-      Building reliable backend architectures, investigating system constraints, and documenting technical discoveries. Currently contributing at Monocept as a Software Engineering Intern.
-    </p>
+    <div class="hero-grid">
+      <!-- Main: name + introduction + Interactive Architecture Radar (8 cols) -->
+      <div class="hero-main">
+        <div class="hero-pretitle">
+          <span>Software Engineer &middot; Backend-focused</span>
+          <span class="hero-pretitle-dot">&middot;</span>
+          <span class="hero-pretitle-dim">India &middot; IST (UTC+5:30)</span>
+        </div>
 
-    <div class="hero-focus-box">
-      <span class="hero-focus-dot"></span>
-      <span>Current focus: Java · Spring Boot · SQL · DSA</span>
+        <h1 class="hero-name">Gurpreet Singh</h1>
+        <div class="hero-role">Software Engineer / Backend-focused Developer</div>
+
+        <p class="hero-bio">
+          Building reliable backend architectures, investigating system constraints, and documenting technical discoveries. Currently contributing at Monocept as a Software Engineering Intern.
+        </p>
+
+        <div class="hero-focus-box">
+          <span class="hero-focus-dot"></span>
+          <span>Current focus: Java 17 · Spring Boot 3 · Spring Security · SQL Indexing</span>
+        </div>
+
+        <div class="hero-ctas" style="margin-bottom: var(--sp-6);">
+          <a routerLink="/work" class="btn btn-primary">
+            Selected Work
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+          <a routerLink="/work/insurance-system" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            System Blueprint
+          </a>
+          <a routerLink="/notes" class="btn">
+            Engineering Notes
+          </a>
+          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf" target="_blank" class="btn">
+            Resume (PDF)
+          </a>
+        </div>
+
+        <!-- Interactive Backend Pipeline Blueprint Preview -->
+        <div class="hero-pipeline-card">
+          <div class="hero-pipeline-header">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span class="hero-focus-dot"></span>
+              <span style="font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-primary); font-weight: 600;">Architectural Pipeline &middot; Live Topology</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--accent);">Java 17 / Spring Boot 3</span>
+          </div>
+
+          <div class="hero-pipeline-steps">
+            <div
+              class="hero-pipeline-node"
+              *ngFor="let node of pipelineNodes; let i = index; let last = last"
+              [class.active]="activePipelineIndex === i"
+              (click)="selectPipelineStep(i)">
+              <div class="hero-pipeline-node-num">{{ node.step }}</div>
+              <div class="hero-pipeline-node-info">
+                <div class="hero-pipeline-node-name">{{ node.name }}</div>
+                <div class="hero-pipeline-node-tech">{{ node.tech }}</div>
+              </div>
+              <div class="hero-pipeline-connector" *ngIf="!last">&rarr;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: availability + index -->
+      <aside class="hero-rail">
+        <span class="rail-label">Availability</span>
+        <div class="rail-status">
+          <span class="hero-focus-dot"></span>&nbsp; Open to engineering roles &amp; collaboration
+        </div>
+
+        <span class="rail-label">Index</span>
+        <ul class="rail-index">
+          <li><a routerLink="/work"><span class="ridx">01</span> Work</a></li>
+          <li><a routerLink="/notes"><span class="ridx">02</span> Notes</a></li>
+          <li><a routerLink="/lab"><span class="ridx">03</span> Lab</a></li>
+          <li><a routerLink="/journey"><span class="ridx">04</span> Journey</a></li>
+          <li><a routerLink="/about"><span class="ridx">05</span> About</a></li>
+          <li><a routerLink="/contact"><span class="ridx">06</span> Contact</a></li>
+        </ul>
+      </aside>
     </div>
+  </section>
 
-    <div class="hero-ctas">
-      <a routerLink="/work" class="btn btn-primary">
-        Selected Work
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-      </a>
-      <a routerLink="/notes" class="btn">
-        Engineering Notes
-      </a>
-      <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="/assets/resume/Gurpreet_Singh_Resume.pdf" target="_blank" class="btn">
-        Resume (PDF)
-      </a>
+  <!-- ===== LIVE TELEMETRY STRIP ===== -->
+  <section style="border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim); padding: var(--sp-6) 0; margin-bottom: var(--sp-6);">
+    <div class="grid">
+      <div class="g-12">
+        <div class="telemetry-bar">
+          <div class="telemetry-item" *ngFor="let t of telemetryMetrics">
+            <div class="telemetry-tag">{{ t.tag }}</div>
+            <div class="telemetry-val">{{ t.value }}</div>
+            <div class="telemetry-lbl">{{ t.label }}</div>
+            <div class="telemetry-detail">{{ t.detail }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ===== 01 / SELECTED WORK ===== -->
   <section class="section" id="work">
-    <div class="section-header">
-      <div>
+    <div class="editorial-head">
+      <div class="eyebrow-col">
         <span class="section-eyebrow">01 / Engineering Work</span>
-        <h2 class="section-title">Selected Projects</h2>
       </div>
-      <a routerLink="/work" class="section-link">
-        All projects &rarr;
-      </a>
+      <div class="title-col">
+        <span class="section-title">Selected Projects &amp; Systems</span>
+      </div>
     </div>
 
-    <div>
-      <article class="project-module" *ngFor="let p of projects; let i = index">
-        <div class="project-meta-row">
-          <span class="project-number">0{{ i + 1 }}</span>
-          <span>{{ p.category }}</span>
-          <span>&middot;</span>
-          <span>{{ p.year }}</span>
+    <div class="grid" style="margin-top: var(--sp-6);">
+      <article class="project-module g-12" *ngFor="let p of projects; let i = index">
+        <span class="project-index">0{{ i + 1 }}</span>
+
+        <div class="project-main">
+          <div class="project-meta-row">
+            <span>{{ p.category }}</span>
+            <span>&middot;</span>
+            <span>{{ p.year }}</span>
+          </div>
+
+          <h3 class="project-title">
+            <a [routerLink]="['/work', p.id]">{{ p.title }}</a>
+          </h3>
+
+          <p class="project-desc">{{ p.solution }}</p>
+
+          <div class="project-insight" *ngIf="p.engineeringDecisions.length">
+            <strong>Key Decision:</strong> {{ p.engineeringDecisions[0].why }}
+          </div>
+
+          <!-- Feature badges -->
+          <div class="tag-list" style="margin-bottom: 1rem;" *ngIf="p.tags.length">
+            <span class="tag" *ngFor="let t of p.tags">{{ t }}</span>
+          </div>
+
+          <div class="project-actions">
+            <a [routerLink]="['/work', p.id]" class="btn btn-primary btn-sm">
+              Explore Interactive Case Study &rarr;
+            </a>
+            <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="btn btn-sm">
+              Source Code &#8599;
+            </a>
+          </div>
         </div>
 
-        <h3 class="project-title">
-          <a [routerLink]="['/work', p.id]">{{ p.title }}</a>
-        </h3>
-
-        <p class="project-desc">{{ p.solution }}</p>
-
-        <div class="project-insight" *ngIf="p.engineeringDecisions.length">
-          <strong>Key Decision:</strong> {{ p.engineeringDecisions[0].why }}
-        </div>
-
-        <div class="project-tech-stack">
-          {{ p.tags.join(' · ') }}
-        </div>
-
-        <div class="project-actions">
-          <a [routerLink]="['/work', p.id]" class="action-link">
-            Read Case Study &rarr;
-          </a>
-          <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link" style="color: var(--text-muted);">
-            Source Code &#8599;
-          </a>
-        </div>
+        <aside class="project-aside">
+          <ul class="project-aside-list">
+            <li><span class="k">Type</span><span class="v">{{ p.category }}</span></li>
+            <li><span class="k">Year</span><span class="v">{{ p.year }}</span></li>
+            <li><span class="k">Status</span><span class="v">Production Ready</span></li>
+            <li>
+              <span class="k">Stack</span>
+              <span class="v">{{ p.tags.slice(0, 3).join(' · ') }}</span>
+            </li>
+          </ul>
+        </aside>
       </article>
     </div>
   </section>
 
   <!-- ===== 02 / RECENT NOTES ===== -->
   <section class="section" id="notes">
-    <div class="section-header">
-      <div>
+    <div class="editorial-head">
+      <div class="eyebrow-col">
         <span class="section-eyebrow">02 / Engineering Notebook</span>
-        <h2 class="section-title">Recent Notes &amp; Findings</h2>
       </div>
-      <a routerLink="/notes" class="section-link">
-        Archive &rarr;
-      </a>
+      <div class="title-col" style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
+        <span class="section-title">Recent Notes &amp; Findings</span>
+        <a routerLink="/notes" class="section-link">
+          Archive &rarr;
+        </a>
+      </div>
     </div>
 
-    <div class="notes-archive">
-      <a [routerLink]="['/notes']" class="note-row" *ngFor="let n of notes">
-        <span class="note-date">{{ n.date }}</span>
-        <div class="note-content">
-          <span class="note-title">{{ n.title }}</span>
-          <span class="note-category">{{ n.category }} &middot; {{ n.tags.join(', ') }}</span>
+    <div class="grid" style="margin-top: var(--sp-6);">
+      <div class="g-9 g-offset-3">
+        <div class="notes-archive">
+          <a [routerLink]="['/notes']" class="note-row" *ngFor="let n of notes">
+            <span class="note-date">{{ n.date }}</span>
+            <div class="note-content">
+              <span class="note-title">{{ n.title }}</span>
+              <span class="note-category">{{ n.category }}</span>
+            </div>
+            <span class="note-arrow">&rarr;</span>
+          </a>
         </div>
-        <span class="note-arrow">&rarr;</span>
-      </a>
+      </div>
     </div>
   </section>
 
   <!-- ===== 03 / CURRENTLY EXPLORING ===== -->
   <section class="section">
-    <div class="section-header">
-      <div>
+    <div class="editorial-head">
+      <div class="eyebrow-col">
         <span class="section-eyebrow">03 / Continuous Learning</span>
-        <h2 class="section-title">Currently Exploring</h2>
       </div>
-      <a routerLink="/lab" class="section-link">
-        Lab &rarr;
-      </a>
+      <div class="title-col">
+        <span class="section-title">Currently Exploring</span>
+        <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.75rem; margin-bottom: 1rem;">
+          Active technical areas I am currently studying, benchmarking, and writing prototypes for.
+        </p>
+      </div>
     </div>
 
-    <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 1rem;">
-      Active technical areas I am currently studying, benchmarking, and writing prototypes for:
-    </p>
-
-    <div class="tag-list">
-      <span class="tag" *ngFor="let topic of exploringTopics">{{ topic }}</span>
+    <div class="grid" style="margin-top: var(--sp-2);">
+      <div class="g-9 g-offset-3">
+        <div class="tag-list">
+          <span class="tag" *ngFor="let topic of exploringTopics">{{ topic }}</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ===== 04 / CONTACT ===== -->
   <section class="section" id="contact">
-    <div class="section-header">
-      <div>
+    <div class="editorial-head">
+      <div class="eyebrow-col">
         <span class="section-eyebrow">04 / Communication</span>
-        <h2 class="section-title">Get in Touch</h2>
+      </div>
+      <div class="title-col">
+        <span class="section-title">Get in Touch</span>
       </div>
     </div>
 
-    <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-      Open to software engineering opportunities, technical discussions on backend architectures, and open-source collaboration.
-    </p>
+    <div class="grid" style="margin-top: var(--sp-6);">
+      <div class="g-9 g-offset-3">
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--grid-gap); align-items: start;">
+          <div>
+            <p style="font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
+              Open to software engineering opportunities, technical discussions on backend architectures, and open-source collaboration.
+            </p>
+            <div class="hero-ctas">
+              <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Email
+              </a>
+              <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener" class="btn">
+                LinkedIn
+              </a>
+              <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
+                GitHub
+              </a>
+              <a href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf" target="_blank" class="btn">
+                Resume (PDF)
+              </a>
+            </div>
+          </div>
 
-    <div class="hero-ctas">
-      <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        work.gurpreetsw&#64;gmail.com
-      </a>
-      <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener" class="btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        GitHub
-      </a>
+          <div style="background: var(--surface); border: 1px solid var(--border-dim); border-radius: var(--radius-sm); padding: 1.25rem;">
+            <span class="section-eyebrow" style="margin-bottom: 0.75rem; display: block;">Response Time &amp; Location</span>
+            <ul class="project-aside-list">
+              <li><span class="k">Response</span><span class="v">&lt; 24 hours</span></li>
+              <li><span class="k">Time zone</span><span class="v">IST · UTC+5:30</span></li>
+              <li><span class="k">Location</span><span class="v">India (Remote/Hybrid)</span></li>
+              <li><span class="k">Prefers async</span><span class="v">Yes</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </div>

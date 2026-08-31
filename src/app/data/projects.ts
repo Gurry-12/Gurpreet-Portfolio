@@ -3,6 +3,46 @@
  * Categorized into Tier 1 (Major Case Studies) and Tier 2 (Supporting Systems).
  */
 
+export interface ArchitectureLayer {
+  id: string;
+  name: string;
+  badge: string;
+  description: string;
+  tech: string;
+  role: string;
+  keyResponsibilities: string[];
+}
+
+export interface StateMachineNode {
+  id: string;
+  name: string;
+  role: 'Customer' | 'Staff / Agent' | 'Admin' | 'System';
+  desc: string;
+  badgeClass: string;
+}
+
+export interface StateTransition {
+  from: string;
+  to: string;
+  action: string;
+  actor: string;
+  guard?: string;
+}
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+  detail: string;
+}
+
+export interface RequestLifecycleStep {
+  step: string;
+  title: string;
+  layer: string;
+  detail: string;
+  method?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -21,6 +61,13 @@ export interface Project {
   overview: string;
   problemStatement: string;
   architecture: string[];
+  architectureLayers?: ArchitectureLayer[];
+  stateMachine?: {
+    nodes: StateMachineNode[];
+    transitions: StateTransition[];
+  };
+  metrics?: ProjectMetric[];
+  requestLifecycle?: RequestLifecycleStep[];
   techStack: { name: string; purpose: string }[];
   engineeringDecisions: { decision: string; why: string; alternative: string }[];
   challenges: { challenge: string; solution: string }[];
@@ -43,6 +90,13 @@ export const PROJECTS: Project[] = [
     tier: 1,
     featured: true,
 
+    metrics: [
+      { label: 'REST API Endpoints', value: '35+', detail: 'Secured via RBAC' },
+      { label: 'FSM Approval Stages', value: '6 Stages', detail: 'Strict zero-bypass state machine' },
+      { label: 'Authorization Tiers', value: '3 Roles', detail: 'Customer · Agent · Admin' },
+      { label: 'Database Integrity', value: '100% ACID', detail: 'Foreign keys & composite indexing' }
+    ],
+
     problem: 'Standard academic projects usually stop at simple CRUD without modeling real enterprise lifecycle complexities like role hierarchies, multi-state claim processing, and payment idempotency.',
     solution: 'Engineered a full-featured Spring Boot 3 REST API managing policy lifecycles, simulated premium payments, and a 6-stage claim approval state machine across 3 user roles (Admin, Agent, Customer) with 35+ secure endpoints.',
     tags: ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA / Hibernate', 'SQL Server', 'JWT', 'Docker', 'Swagger'],
@@ -58,6 +112,114 @@ export const PROJECTS: Project[] = [
       'Repository Layer (Spring Data JPA with Custom Queries & Pagination)',
       'ORM Layer (Hibernate with Lazy Loading & Optimistic Locking)',
       'Relational Database (SQL Server with Foreign Keys & B-Tree Indexes)'
+    ],
+
+    architectureLayers: [
+      {
+        id: 'client',
+        name: 'Client Interface & API Consumer',
+        badge: 'Layer 01 · Ingress',
+        description: 'Single-page web applications, external systems, and Swagger/OpenAPI interactive client tooling dispatching HTTPS JSON payloads.',
+        tech: 'HTTPS / JSON / OpenAPI 3.0',
+        role: 'Client Gateway',
+        keyResponsibilities: [
+          'Transmits Bearer JWT tokens in Authorization headers',
+          'Supplies UUID idempotency keys on payment submissions',
+          'Consumes standardized RFC 7807 problem details error responses'
+        ]
+      },
+      {
+        id: 'security',
+        name: 'Spring Security Filter Chain & JWT Gateway',
+        badge: 'Layer 02 · Security Gate',
+        description: 'Stateless authentication filter validating cryptographic JWT signatures, expiry stamps, and claims before requests reach controller handlers.',
+        tech: 'Spring Security 6 / OncePerRequestFilter / HMAC-SHA256',
+        role: 'Authentication & RBAC',
+        keyResponsibilities: [
+          'Intercepts request and extracts Bearer JWT token from header',
+          'Validates token integrity and populates SecurityContextHolder',
+          'Enforces pre-authorization annotations (@PreAuthorize("hasRole(\'ADMIN\')"))'
+        ]
+      },
+      {
+        id: 'controller',
+        name: 'Controller Boundary & DTO Ingestion',
+        badge: 'Layer 03 · Boundary',
+        description: 'Strict REST controllers accepting immutable record DTOs, validating constraints via Jakarta Validation, and masking internal database entities.',
+        tech: 'Spring MVC / Jakarta Bean Validation (@Valid)',
+        role: 'Contract Enforcement',
+        keyResponsibilities: [
+          'Prevents mass-assignment vulnerabilities with typed request DTOs',
+          'Centralized GlobalExceptionHandler for predictable error envelopes',
+          'URI versioning and clean HTTP response code mappings (201, 200, 400, 403)'
+        ]
+      },
+      {
+        id: 'service',
+        name: 'Domain Service Engine & State Machine',
+        badge: 'Layer 04 · Business Logic',
+        description: 'Encapsulates business invariants, claim state transitions, payment verification rules, and transactional consistency boundaries.',
+        tech: 'Spring Framework @Transactional / Finite State Machine',
+        role: 'Core Engine',
+        keyResponsibilities: [
+          'Executes 6-stage claim state transition checks against actor role',
+          'Atomic multi-table orchestrations with automatic rollback on runtime error',
+          'Payment reference idempotency verification to block duplicate billing'
+        ]
+      },
+      {
+        id: 'repository',
+        name: 'Data Access & ORM Persistence',
+        badge: 'Layer 05 · Persistence',
+        description: 'Spring Data JPA repositories providing type-safe query execution, dynamic pagination, and lazy relationship loading.',
+        tech: 'Spring Data JPA / Hibernate 6 / JPQL',
+        role: 'Data Access',
+        keyResponsibilities: [
+          'Paginated cursor retrieval for high-volume claim and policy queries',
+          'Optimistic locking (@Version) for concurrent claim status updates',
+          'N+1 query avoidance through explicit JOIN FETCH patterns'
+        ]
+      },
+      {
+        id: 'database',
+        name: 'Relational Database Engine (SQL Server)',
+        badge: 'Layer 06 · Storage',
+        description: 'ACID-compliant relational store with foreign key enforcement, custom check constraints, and composite indexing strategies.',
+        tech: 'Microsoft SQL Server / B-Tree Indexes / Foreign Keys',
+        role: 'Source of Truth',
+        keyResponsibilities: [
+          'Strict referential integrity preventing orphaned claim or policy records',
+          'Composite index on (customer_id, status) for sub-20ms lookup latency',
+          'Audit trail timestamps on all mutation events'
+        ]
+      }
+    ],
+
+    stateMachine: {
+      nodes: [
+        { id: 'draft', name: '01 / DRAFT', role: 'Customer', desc: 'Customer initiates claim & attaches damage details', badgeClass: 'badge-customer' },
+        { id: 'submitted', name: '02 / SUBMITTED', role: 'Customer', desc: 'Claim locked from client edits; queued for review', badgeClass: 'badge-customer' },
+        { id: 'under_review', name: '03 / UNDER REVIEW', role: 'Staff / Agent', desc: 'Agent inspects documents & policy coverage', badgeClass: 'badge-agent' },
+        { id: 'recommended', name: '04 / RECOMMENDED', role: 'Staff / Agent', desc: 'Agent submits recommendation & estimated payout', badgeClass: 'badge-agent' },
+        { id: 'approved', name: '05 / APPROVED / REJECTED', role: 'Admin', desc: 'Admin executes final decision & authorizes payout', badgeClass: 'badge-admin' },
+        { id: 'settled', name: '06 / SETTLED', role: 'System', desc: 'Payment simulated & policy ledger updated', badgeClass: 'badge-system' }
+      ],
+      transitions: [
+        { from: '01 / DRAFT', to: '02 / SUBMITTED', action: 'Submit Claim', actor: 'Customer', guard: 'Valid Policy Active' },
+        { from: '02 / SUBMITTED', to: '03 / UNDER REVIEW', action: 'Claim Assignment', actor: 'Staff / Agent', guard: 'Document Attached' },
+        { from: '03 / UNDER REVIEW', to: '04 / RECOMMENDED', action: 'Assess Coverage', actor: 'Staff / Agent', guard: 'Surveyor Report OK' },
+        { from: '04 / RECOMMENDED', to: '05 / APPROVED', action: 'Final Approval', actor: 'Admin', guard: 'Within Claim Limit' },
+        { from: '05 / APPROVED', to: '06 / SETTLED', action: 'Disburse Payout', actor: 'System Engine', guard: 'Ledger Reconciled' }
+      ]
+    },
+
+    requestLifecycle: [
+      { step: '01', title: 'HTTP Request Ingress', layer: 'Client -> Network', method: 'POST /api/v1/claims', detail: 'Client sends Bearer token + JSON payload with idempotency UUID' },
+      { step: '02', title: 'JWT Authentication', layer: 'Security Filter Chain', detail: 'Token signature verified, username & role permissions parsed into SecurityContext' },
+      { step: '03', title: 'DTO Validation', layer: 'Controller Boundary', detail: 'Jakarta @Valid asserts non-null policyId, valid incidentDate, and positive claimAmount' },
+      { step: '04', title: 'FSM Transition Guard', layer: 'Service State Machine', detail: 'Service checks if current claim status allows the requested transition for the authenticated role' },
+      { step: '05', title: 'Transactional DB Commit', layer: 'JPA & SQL Server', detail: 'Claim state, audit history, and policy balance updated atomically inside @Transactional boundary' },
+      { step: '06', title: 'Standardized Response', layer: 'Response Pipeline', detail: 'Returns 201 Created with updated claim representation & HATEOAS state transitions' }
     ],
 
     techStack: [

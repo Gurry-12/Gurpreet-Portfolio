@@ -1,116 +1,362 @@
 <div class="page-container" *ngIf="project">
   <!-- Back Link -->
-  <a routerLink="/work" class="action-link" style="margin-bottom: 1.5rem;">
-    &larr; Back to Work
+  <a routerLink="/work" class="action-link" style="margin-bottom: 1.5rem; display: inline-flex;">
+    &larr; Back to Work Catalog
   </a>
 
   <!-- Header -->
-  <header class="cs-header">
-    <div class="cs-meta">
-      <span style="color: var(--accent);">{{ project.category }}</span>
-      <span>&middot;</span>
-      <span>{{ project.year }}</span>
+  <header class="cs-hero-header">
+    <div class="editorial-head">
+      <div class="eyebrow-col">
+        <div class="cs-meta">
+          <span class="cs-category-badge">{{ project.category }}</span>
+          <span>&middot;</span>
+          <span class="cs-year-badge">{{ project.year }}</span>
+        </div>
+      </div>
+      <div class="title-col">
+        <h1 class="hero-name" style="margin-bottom: 0.75rem;">{{ project.title }}</h1>
+        <p class="hero-bio" style="margin-bottom: 1.25rem;">{{ project.subtitle }}</p>
+
+        <div class="project-actions">
+          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            Source Code Repository
+          </a>
+          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn">
+            Live Deployment &#8599;
+          </a>
+        </div>
+      </div>
     </div>
 
-    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">{{ project.title }}</h1>
-    <p class="hero-bio" style="margin-bottom: 1.25rem;">{{ project.subtitle }}</p>
-
-    <div class="project-actions">
-      <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-        Source Code
-      </a>
-      <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn">
-        Live Demo &#8599;
-      </a>
+    <!-- Telemetry & Metric Strip -->
+    <div class="cs-metrics-grid" *ngIf="project.metrics?.length">
+      <div class="cs-metric-card" *ngFor="let m of project.metrics">
+        <div class="cs-metric-val">{{ m.value }}</div>
+        <div class="cs-metric-lbl">{{ m.label }}</div>
+        <div class="cs-metric-detail">{{ m.detail }}</div>
+      </div>
     </div>
   </header>
 
-  <!-- Problem & Solution -->
+  <!-- Problem & Solution Overview -->
   <section class="cs-section">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-      <div>
-        <span class="cs-section-label">The Problem</span>
-        <h2 style="font-size: 1rem; margin-bottom: 0.5rem;">Context &amp; Business Constraints</h2>
-        <p style="font-size: 0.875rem; line-height: 1.65;">{{ project.problemStatement }}</p>
+    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Overview</span>
       </div>
-      <div>
-        <span class="cs-section-label">The System</span>
-        <h2 style="font-size: 1rem; margin-bottom: 0.5rem;">What Was Built</h2>
-        <p style="font-size: 0.875rem; line-height: 1.65;">{{ project.overview }}</p>
+      <div class="title-col">
+        <h2 class="section-title">Context &amp; Architectural Objectives</h2>
+      </div>
+    </div>
+
+    <div class="cs-problem-grid">
+      <div class="cs-context-box">
+        <span class="cs-section-label">Domain Challenge</span>
+        <h3 class="cs-context-title">The Real-World Problem</h3>
+        <p class="cs-context-desc">{{ project.problemStatement }}</p>
+      </div>
+      <div class="cs-context-box">
+        <span class="cs-section-label">System Implementation</span>
+        <h3 class="cs-context-title">Engineered Solution</h3>
+        <p class="cs-context-desc">{{ project.overview }}</p>
       </div>
     </div>
   </section>
 
-  <!-- Architecture -->
-  <section class="cs-section" *ngIf="project.architecture.length">
-    <span class="cs-section-label">System Design</span>
-    <h2>Architecture Layers</h2>
-    <ol class="cs-arch-list">
-      <li *ngFor="let layer of project.architecture">{{ layer }}</li>
-    </ol>
+  <!-- INTERACTIVE SYSTEM BLUEPRINT & DIAGRAMS (Advanced Engineering UI) -->
+  <section class="cs-section cs-diagram-section" *ngIf="project.architectureLayers?.length || project.stateMachine">
+    <div class="editorial-head" style="margin-bottom: var(--sp-5);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Interactive Blueprint</span>
+      </div>
+      <div class="title-col" style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
+        <div>
+          <h2 class="section-title">System Architecture &amp; State Workflows</h2>
+          <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 0.25rem; margin-bottom: 0;">
+            Select a tab below to inspect live topological layers, state-machine transitions, or request pipelines.
+          </p>
+        </div>
+
+        <!-- Diagram Navigation Tabs -->
+        <div class="cs-tab-pills">
+          <button
+            type="button"
+            class="cs-tab-pill"
+            [class.active]="activeDiagramTab === 'architecture'"
+            (click)="setDiagramTab('architecture')"
+            *ngIf="project.architectureLayers?.length">
+            01 / Layered Architecture
+          </button>
+          <button
+            type="button"
+            class="cs-tab-pill"
+            [class.active]="activeDiagramTab === 'stateMachine'"
+            (click)="setDiagramTab('stateMachine')"
+            *ngIf="project.stateMachine">
+            02 / State Machine (FSM)
+          </button>
+          <button
+            type="button"
+            class="cs-tab-pill"
+            [class.active]="activeDiagramTab === 'lifecycle'"
+            (click)="setDiagramTab('lifecycle')"
+            *ngIf="project.requestLifecycle?.length">
+            03 / Request Lifecycle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: LAYERED SYSTEM ARCHITECTURE DIAGRAM -->
+    <div class="cs-diagram-canvas" *ngIf="activeDiagramTab === 'architecture' && project.architectureLayers?.length">
+      <div class="cs-diagram-grid">
+        <!-- Left: Interactive Flow Stack -->
+        <div class="cs-flow-stack">
+          <div class="cs-flow-node-wrapper" *ngFor="let layer of project.architectureLayers; let i = index; let last = last">
+            <button
+              type="button"
+              class="cs-flow-node"
+              [class.cs-flow-node--active]="selectedLayerId === layer.id"
+              (click)="selectLayer(layer.id)">
+              <div class="cs-flow-node__badge">{{ layer.badge }}</div>
+              <div class="cs-flow-node__content">
+                <div class="cs-flow-node__name">{{ layer.name }}</div>
+                <div class="cs-flow-node__tech">{{ layer.tech }}</div>
+              </div>
+              <div class="cs-flow-node__indicator">
+                <span class="cs-pulse-dot"></span>
+              </div>
+            </button>
+            <div class="cs-flow-connector" *ngIf="!last">
+              <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0V20M8 20L3 15M8 20L13 15" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Layer Inspector Panel -->
+        <div class="cs-inspector-panel" *ngIf="getSelectedLayer() as layer">
+          <div class="cs-inspector-head">
+            <span class="cs-inspector-badge">{{ layer.badge }}</span>
+            <h3 class="cs-inspector-title">{{ layer.name }}</h3>
+            <div class="cs-inspector-role">Role: <span>{{ layer.role }}</span></div>
+          </div>
+
+          <p class="cs-inspector-desc">{{ layer.description }}</p>
+
+          <div class="cs-inspector-tech-box">
+            <span class="cs-inspector-label">Technology &amp; Protocols</span>
+            <div class="cs-inspector-tech-val">{{ layer.tech }}</div>
+          </div>
+
+          <div class="cs-inspector-responsibilities">
+            <span class="cs-inspector-label">Key Invariants &amp; Responsibilities</span>
+            <ul class="cs-inspector-list">
+              <li *ngFor="let r of layer.keyResponsibilities">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>{{ r }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: FINITE STATE MACHINE (FSM) DIAGRAM -->
+    <div class="cs-diagram-canvas" *ngIf="activeDiagramTab === 'stateMachine' && project.stateMachine">
+      <div class="cs-fsm-container">
+        <div class="cs-fsm-header">
+          <div>
+            <h3 style="font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.25rem;">Deterministic Claim Lifecycle Engine</h3>
+            <p style="font-size: 0.8125rem; color: var(--text-secondary); margin: 0;">
+              Enforces strict zero-bypass progression across 6 distinct lifecycle states according to authenticated role permissions.
+            </p>
+          </div>
+          <div class="cs-fsm-legend">
+            <span class="cs-fsm-legend-item badge-customer">Customer Action</span>
+            <span class="cs-fsm-legend-item badge-agent">Agent / Staff</span>
+            <span class="cs-fsm-legend-item badge-admin">Admin Execution</span>
+            <span class="cs-fsm-legend-item badge-system">Automated Engine</span>
+          </div>
+        </div>
+
+        <!-- Interactive FSM State Flow Nodes -->
+        <div class="cs-fsm-timeline">
+          <div
+            class="cs-fsm-node-box"
+            *ngFor="let node of project.stateMachine.nodes; let i = index; let last = last"
+            [class.active]="selectedStateId === node.id"
+            (click)="selectState(node.id)">
+            <div class="cs-fsm-node-role" [ngClass]="node.badgeClass">{{ node.role }}</div>
+            <div class="cs-fsm-node-name">{{ node.name }}</div>
+            <div class="cs-fsm-node-desc">{{ node.desc }}</div>
+            <div class="cs-fsm-node-arrow" *ngIf="!last">
+              <span>&rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transition Rules Matrix -->
+        <div class="cs-fsm-rules-table">
+          <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-primary);">
+            Transition Authorization Matrix
+          </h4>
+          <table class="cs-table">
+            <thead>
+              <tr>
+                <th>From State</th>
+                <th>To State</th>
+                <th>Transition Trigger</th>
+                <th>Authorized Actor</th>
+                <th>Validation Guard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of project.stateMachine.transitions">
+                <td style="font-family: var(--font-mono); color: var(--text-primary); font-weight: 500;">{{ t.from }}</td>
+                <td style="font-family: var(--font-mono); color: var(--accent); font-weight: 600;">{{ t.to }}</td>
+                <td style="font-size: 0.8125rem;">{{ t.action }}</td>
+                <td>
+                  <span class="tag" style="font-size: 0.6875rem;">{{ t.actor }}</span>
+                </td>
+                <td style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">{{ t.guard }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: REQUEST LIFECYCLE PIPELINE -->
+    <div class="cs-diagram-canvas" *ngIf="activeDiagramTab === 'lifecycle' && project.requestLifecycle?.length">
+      <div class="cs-lifecycle-container">
+        <div class="cs-lifecycle-step" *ngFor="let s of project.requestLifecycle">
+          <div class="cs-lifecycle-num">{{ s.step }}</div>
+          <div class="cs-lifecycle-body">
+            <div class="cs-lifecycle-top">
+              <span class="cs-lifecycle-layer">{{ s.layer }}</span>
+              <span class="cs-lifecycle-method" *ngIf="s.method">{{ s.method }}</span>
+            </div>
+            <h4 class="cs-lifecycle-title">{{ s.title }}</h4>
+            <p class="cs-lifecycle-detail">{{ s.detail }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Engineering Decisions -->
+  <!-- Fallback architecture list for other projects -->
+  <section class="cs-section" *ngIf="!project.architectureLayers?.length && project.architecture.length">
+    <div class="container">
+      <span class="cs-section-label">System Design</span>
+      <h2>Architecture Layers</h2>
+      <ol class="cs-arch-list">
+        <li *ngFor="let layer of project.architecture">{{ layer }}</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Engineering Decisions & Trade-offs -->
   <section class="cs-section" *ngIf="project.engineeringDecisions.length">
-    <span class="cs-section-label">Trade-offs</span>
-    <h2>Key Engineering Decisions</h2>
-    <div style="overflow-x: auto;">
-      <table class="cs-table">
-        <thead>
-          <tr>
-            <th>Decision</th>
-            <th>Rationale</th>
-            <th>Alternative Considered</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let d of project.engineeringDecisions">
-            <td>{{ d.decision }}</td>
-            <td>{{ d.why }}</td>
-            <td style="color: var(--text-muted);">{{ d.alternative }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Trade-offs</span>
+      </div>
+      <div class="title-col">
+        <h2 class="section-title">Key Engineering Decisions &amp; Rationales</h2>
+      </div>
+    </div>
+
+    <div class="cs-decision-grid">
+      <article class="cs-decision-card" *ngFor="let d of project.engineeringDecisions">
+        <div class="cs-decision-top">
+          <span class="cs-decision-tag">Decision Taken</span>
+          <h3 class="cs-decision-heading">{{ d.decision }}</h3>
+        </div>
+        <div class="cs-decision-rationale">
+          <strong>Why:</strong> {{ d.why }}
+        </div>
+        <div class="cs-decision-alt">
+          <strong>Alternative Considered:</strong> {{ d.alternative }}
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- Difficult Part / Challenges -->
+  <!-- Execution / Challenges -->
   <section class="cs-section" *ngIf="project.challenges.length">
-    <span class="cs-section-label">Execution</span>
-    <h2>Difficult Parts &amp; Technical Solutions</h2>
-    <div>
-      <div class="cs-challenge-item" *ngFor="let ch of project.challenges">
-        <div class="cs-challenge-title">{{ ch.challenge }}</div>
-        <div class="cs-challenge-solution">{{ ch.solution }}</div>
+    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Execution</span>
+      </div>
+      <div class="title-col">
+        <h2 class="section-title">Technical Challenges &amp; Edge Cases</h2>
+      </div>
+    </div>
+
+    <div class="cs-challenges-grid">
+      <div class="cs-challenge-box" *ngFor="let ch of project.challenges">
+        <div class="cs-challenge-head">
+          <span class="cs-challenge-icon">!</span>
+          <h3 class="cs-challenge-title">{{ ch.challenge }}</h3>
+        </div>
+        <p class="cs-challenge-solution">{{ ch.solution }}</p>
       </div>
     </div>
   </section>
 
   <!-- Retrospective / Failure Story -->
   <section class="cs-section" *ngIf="project.failureStory">
-    <span class="cs-section-label">Retrospective</span>
-    <h2>What Went Wrong &amp; Lessons Learned</h2>
-    <div style="background: var(--surface); border-left: 2px solid var(--border-subtle); padding: 1rem; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">
-      {{ project.failureStory }}
+    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Retrospective</span>
+      </div>
+      <div class="title-col">
+        <h2 class="section-title">What Went Wrong &amp; Lessons Learned</h2>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="g-12">
+        <div class="cs-retrospective-box">
+          <div class="cs-retro-quote-icon">“</div>
+          <div class="cs-retro-content">
+            <p>{{ project.failureStory }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Tech Stack -->
   <section class="cs-section" *ngIf="project.techStack.length">
-    <span class="cs-section-label">Stack</span>
-    <h2>Technology Breakdown</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem;">
-      <div *ngFor="let tech of project.techStack" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-dim);">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--text-primary);">{{ tech.name }}</div>
-        <div style="font-size: 0.6875rem; color: var(--text-muted);">{{ tech.purpose }}</div>
+    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">Stack</span>
+      </div>
+      <div class="title-col">
+        <h2 class="section-title">Technology Breakdown</h2>
+      </div>
+    </div>
+
+    <div class="cs-tech-grid">
+      <div class="cs-tech-item" *ngFor="let tech of project.techStack">
+        <div class="cs-tech-name">{{ tech.name }}</div>
+        <div class="cs-tech-purpose">{{ tech.purpose }}</div>
       </div>
     </div>
   </section>
 
-  <div style="margin-top: 2rem;">
+  <!-- Bottom CTA -->
+  <div style="margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--border-dim); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
     <a routerLink="/work" class="btn">
       &larr; Back to Work Catalog
+    </a>
+    <a routerLink="/contact" class="btn btn-primary">
+      Discuss System Architecture &rarr;
     </a>
   </div>
 </div>

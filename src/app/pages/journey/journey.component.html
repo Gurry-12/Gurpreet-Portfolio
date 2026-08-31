@@ -1,28 +1,77 @@
 <div class="page-container">
-  <!-- Back Link -->
-  <a routerLink="/" class="action-link" style="margin-bottom: 1.5rem;">
-    &larr; Back to Index
-  </a>
-
   <!-- Header -->
-  <header style="margin-bottom: 2rem;">
-    <span class="section-eyebrow">04 / Trajectory</span>
-    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Engineering Evolution</h1>
-    <p class="hero-bio" style="margin-bottom: 0;">
-      A visual timeline tracking how technical focus and mental models evolved from early scripting to backend systems and domain architecture.
-    </p>
+  <header style="margin-bottom: var(--sp-8);">
+    <div class="editorial-head">
+      <div class="eyebrow-col">
+        <span class="section-eyebrow">04 / Trajectory</span>
+      </div>
+      <div class="title-col">
+        <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 0.5rem;">Engineering Evolution</h1>
+        <p class="hero-bio" style="margin-bottom: 0;">
+          A timeline tracking how technical focus and mental models evolved from early scripting to backend systems and domain architecture.
+        </p>
+      </div>
+    </div>
   </header>
 
-  <div class="journey-stream">
-    <article class="journey-entry" [class.current]="i === 0" *ngFor="let m of milestones; let i = index">
-      <div class="journey-entry-year">{{ m.year }}</div>
-      <h2 class="journey-entry-phase">{{ m.phase }}</h2>
-      <div class="journey-entry-title">{{ m.title }}</div>
-      <p class="journey-entry-desc">{{ m.summary }}</p>
+  <!-- Timeline -->
+  <div class="journey-timeline">
+    <article
+      class="journey-row"
+      *ngFor="let m of milestones; let i = index; let first = first"
+      [class.journey-row--current]="first">
 
-      <div class="journey-entry-shift">
-        <strong style="color: var(--text-primary);">Key Shift:</strong> {{ m.keyShift }}
+      <!-- Left: Year & dot -->
+      <div class="journey-row__rail">
+        <span class="journey-row__dot" [class.journey-row__dot--active]="first"></span>
+        <span class="journey-row__year">{{ m.year }}</span>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="journey-row__body">
+        <h2 class="journey-row__phase">{{ m.phase }}</h2>
+        <div class="journey-row__title">{{ m.title }}</div>
+
+        <p class="journey-row__desc">{{ m.summary }}</p>
+
+        <!-- Focus / Skills -->
+        <div class="tag-list" style="margin-bottom: 1rem;">
+          <span class="tag" *ngFor="let skill of m.focus">{{ skill }}</span>
+        </div>
+
+        <div class="journey-row__shift">
+          <strong style="color: var(--text-primary);">Key Shift:</strong> {{ m.keyShift }}
+        </div>
       </div>
     </article>
   </div>
+
+  <!-- Summary -->
+  <section style="border-top: 1px solid var(--border-dim); padding-top: var(--sp-8); margin-top: var(--sp-6);">
+    <div class="grid">
+      <div class="g-3">
+        <span class="section-eyebrow">Trajectory Summary</span>
+      </div>
+      <div class="g-9">
+        <div style="display: flex; flex-wrap: wrap; gap: var(--sp-6);">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">3</div>
+            <div style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase;">Industry Roles</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">606+</div>
+            <div style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase;">Problems Solved</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">4 yrs</div>
+            <div style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase;">Engineering Journey</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--accent);">Active</div>
+            <div style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase;">Current Status</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

@@ -66,9 +66,9 @@ export class ContactComponent {
     {
       index: '05',
       label: 'CURRICULUM VITAE',
-      value: 'Gurpreet_Singh_Resume.pdf',
+      value: 'Gurpreet_Singh_Java_Developer.pdf',
       actionText: 'Download Resume (PDF)',
-      url: '/assets/resume/Gurpreet_Singh_Resume.pdf',
+      url: '/assets/resume/Gurpreet_Singh_Java_Developer.pdf',
       isExternal: true,
       isEmail: false,
       annotation: 'Updated February 2026 · 1-page technical summary'
