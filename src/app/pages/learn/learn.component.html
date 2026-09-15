@@ -1,0 +1,204 @@
+<!-- Learning Page — Structured Engineering Learning Dashboard -->
+<div class="page-container">
+  <div class="shell">
+
+    <!-- Page Header -->
+    <header class="cs-hero-header">
+      <div class="cs-hero-content">
+        <div class="cs-meta">
+          <span class="cs-category-badge">Learning</span>
+          <span>·</span>
+          <span class="cs-year-badge">Notes</span>
+        </div>
+        <h1 class="cs-hero-title">
+          Learn
+        </h1>
+        <p class="cs-hero-sub cs-hero-sub--mb">
+          A structured map of what I'm learning, technical observations, and discoveries from building.
+        </p>
+
+        <!-- Contextual Navigation (Anchor links) -->
+        <div class="cs-anchor-nav">
+          <a routerLink="/learn" fragment="roadmap" class="action-link">Learning Roadmap</a>
+          <a routerLink="/learn" fragment="discoveries" class="action-link">Discoveries</a>
+          <a routerLink="/learn" fragment="knowledge" class="action-link">Knowledge Log</a>
+        </div>
+      </div>
+      <page-header-art icon="learn"></page-header-art>
+    </header>
+
+    <!-- Learning Roadmap Section -->
+    <section class="section" id="roadmap" aria-labelledby="roadmap-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Map</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="roadmap-heading">Learning Roadmap</h2>
+          <p class="section-head-note">Where I am with each topic and what I've applied it to.</p>
+        </div>
+      </div>
+
+      <!-- Status legend -->
+      <div class="learning-legend learning-legend--mb" role="list" aria-label="Status legend">
+        <div class="learning-legend-item" *ngFor="let s of statusOrder" role="listitem">
+          <span class="learning-status-chip" [ngClass]="getStatusClass(s)">{{ s }}</span>
+        </div>
+        <span class="learning-legend-label">← earlier stage · further along →</span>
+      </div>
+
+      <!-- Track navigation tabs -->
+      <div class="learning-track-nav" role="tablist" aria-label="Learning tracks">
+        <button
+          *ngFor="let track of tracks"
+          type="button"
+          role="tab"
+          class="learning-track-tab"
+          [class.active]="activeTrackId === track.id"
+          [attr.aria-selected]="activeTrackId === track.id"
+          [attr.id]="'tab-' + track.id"
+          [attr.aria-controls]="'panel-' + track.id"
+          (click)="selectTrack(track.id)"
+        >
+          <ng-container [ngSwitch]="track.id">
+            <svg *ngSwitchCase="'backend'" class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+            <svg *ngSwitchCase="'computer-science'" class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="14" y="14" width="4" height="6" rx="2"/><rect x="6" y="4" width="4" height="6" rx="2"/><path d="M6 20h4"/><path d="M14 10h4"/><path d="M6 14h2v6"/><path d="M14 4h2v6"/></svg>
+            <svg *ngSwitchCase="'ai-ml'" class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 3v18"/></svg>
+            <svg *ngSwitchCase="'tools-practices'" class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            <svg *ngSwitchDefault class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/></svg>
+          </ng-container>
+          {{ track.name }}
+        </button>
+      </div>
+
+      <!-- Active track content -->
+      <div
+        *ngIf="activeTrack"
+        class="learning-track-panel"
+        role="tabpanel"
+        [attr.id]="'panel-' + activeTrack.id"
+        [attr.aria-labelledby]="'tab-' + activeTrack.id"
+      >
+        <div class="learning-track-description">
+          <p>{{ activeTrack.description }}</p>
+        </div>
+
+        <div class="learning-topics-detail" role="list" [attr.aria-label]="activeTrack.name + ' topics'">
+          <article class="learning-topic-card" *ngFor="let topic of activeTrack.topics; let i = index" role="listitem" [attr.id]="'topic-' + topic.id">
+            <div class="learning-topic-header">
+              <div class="learning-topic-meta">
+                <span class="learning-topic-num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                <h3 class="learning-topic-name">{{ topic.name }}</h3>
+              </div>
+              <div class="learning-topic-right">
+                <span class="learning-status-chip" [ngClass]="getStatusClass(topic.status)">{{ topic.status }}</span>
+              </div>
+            </div>
+
+            <div class="learning-status-track" aria-hidden="true">
+              <div class="learning-status-step" *ngFor="let s of statusOrder; let j = index" [class.reached]="j <= getStatusStepIndex(topic.status)" [class.current]="j === getStatusStepIndex(topic.status)" [attr.title]="s"></div>
+            </div>
+
+            <p class="learning-topic-notes" *ngIf="topic.notes">{{ topic.notes }}</p>
+
+            <div class="learning-topic-footer">
+              <div *ngIf="topic.relatedProjects?.length" class="learning-topic-meta-row">
+                <span class="learning-meta-label">Applied in</span>
+                <div class="tag-list">
+                  <span class="tag" *ngFor="let p of topic.relatedProjects">{{ p }}</span>
+                </div>
+              </div>
+              <div *ngIf="topic.resources?.length" class="learning-topic-meta-row">
+                <span class="learning-meta-label">Resources</span>
+                <div class="tag-list">
+                  <span class="tag" *ngFor="let r of topic.resources">{{ r }}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Filtering -->
+    <section class="section" id="discoveries" aria-labelledby="discoveries-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Discoveries</span>
+        </div>
+        <div class="title-col">
+          <div class="cs-tab-pills" role="group" aria-label="Filter notes by category">
+            <button
+              *ngFor="let cat of categories"
+              type="button"
+              class="cs-tab-pill"
+              [class.active]="selectedFilter === cat"
+              [attr.aria-pressed]="selectedFilter === cat"
+              (click)="setFilter(cat)"
+            >{{ cat }}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discoveries -->
+      <div *ngIf="filteredFindings.length" class="discoveries-body">
+        <h3 class="notes-section-title">What Surprised Me in Practice</h3>
+        <div class="notes-archive" role="list" aria-label="Field discoveries">
+          <article class="note-card" role="listitem" *ngFor="let f of filteredFindings">
+            <div class="note-card-head">
+              <span class="note-date">{{ f.date }}</span>
+              <span class="tag tag-uppercase">{{ f.category }}</span>
+            </div>
+            <h4 class="note-card-title">{{ f.title }}</h4>
+            <p class="note-card-summary">
+              {{ f.summary }}
+            </p>
+            <p class="note-card-body">
+              {{ f.body }}
+            </p>
+            <div class="tag-list" role="list" aria-label="Tags">
+              <span class="tag" *ngFor="let tag of f.tags">{{ tag }}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Structured Learnings -->
+    <section class="section section--flush-top" id="knowledge" *ngIf="filteredLearnings.length" aria-labelledby="knowledge-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Knowledge Log</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="knowledge-heading">Topic → Discovery → Application</h2>
+        </div>
+      </div>
+
+      <div class="cs-tech-grid" role="list" aria-label="Structured learnings">
+        <article class="cs-tech-item" *ngFor="let item of filteredLearnings" role="listitem">
+          <div class="project-meta-row">
+            <span class="tag tag-uppercase">{{ item.category }}</span>
+            <span>·</span>
+            <span>{{ item.date }}</span>
+          </div>
+          <h3 class="cs-tech-item-title">{{ item.topic }}</h3>
+
+          <p class="cs-tech-item-body">
+            <span class="cs-inspector-label">Why It Mattered</span>
+            {{ item.whyItMattered }}
+          </p>
+          <p class="cs-tech-item-body">
+            <span class="cs-inspector-label">What I Discovered</span>
+            {{ item.whatIDiscovered }}
+          </p>
+
+          <p class="cs-tech-item-applied">
+            Applied in: <span>{{ item.appliedIn }}</span>
+          </p>
+        </article>
+      </div>
+    </section>
+
+  </div>
+</div>

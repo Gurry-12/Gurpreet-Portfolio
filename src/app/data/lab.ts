@@ -39,7 +39,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     learnings: 'Simulating webhook retries taught me to always verify incoming payment signatures before mutating invoice status in the database.',
     tech: ['Java', 'Spring Boot', 'Crypto', 'REST'],
     status: 'Completed',
-    github: 'https://github.com/Gurry-12/insurance-system'
+    github: 'https://github.com/Gurry-12/insurance-policy-claim-capstone-project'
   },
   {
     id: 'concurrency-benchmark-lab',

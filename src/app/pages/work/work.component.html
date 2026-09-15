@@ -1,116 +1,259 @@
+<!-- Work Page — Projects & Case Studies -->
 <div class="page-container">
-  <!-- Header -->
-  <header style="margin-bottom: var(--sp-8);">
-    <div class="editorial-head">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">01 / Engineering Archive</span>
-      </div>
-      <div class="title-col">
-        <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 0.5rem;">Selected Work</h1>
-        <p class="hero-bio" style="margin-bottom: 0;">
-          Systems engineered with explicit architectural boundaries, multi-role state workflows, and documented trade-offs.
+  <div class="shell">
+
+    <!-- Page Header -->
+    <header class="cs-hero-header">
+      <div class="cs-hero-content">
+        <div class="cs-meta">
+          <span class="cs-category-badge">Engineering</span>
+          <span>·</span>
+          <span class="cs-year-badge">Portfolio</span>
+        </div>
+        <h1 class="cs-hero-title">
+          Work
+        </h1>
+        <p class="cs-hero-sub">
+          A living record of active engineering work, featured case studies, and archived systems.
         </p>
       </div>
-    </div>
-  </header>
+      <page-header-art icon="work"></page-header-art>
+    </header>
 
-  <!-- Tier 1: Major Case Studies -->
-  <section style="margin-bottom: var(--sp-8);">
-    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">Tier 1</span>
-      </div>
-      <div class="title-col">
-        <span class="section-title">Flagship Systems</span>
-      </div>
+    <!-- Contextual Navigation (Anchor links) -->
+    <div class="cs-anchor-nav">
+      <a routerLink="/work" fragment="active" class="action-link">Active Work</a>
+      <a routerLink="/work" fragment="featured" class="action-link">Featured Case Studies</a>
+      <a routerLink="/work" fragment="supporting" class="action-link">Supporting Systems</a>
     </div>
 
-    <div class="grid">
-      <article class="project-module g-12" *ngFor="let p of tier1Projects; let i = index">
-        <span class="project-index">0{{ i + 1 }}</span>
+    <!-- Active Projects -->
+    <section class="section" id="active" aria-labelledby="active-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Currently</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="active-heading">Active Work</h2>
+        </div>
+      </div>
 
-        <div class="project-main">
-          <div class="project-meta-row">
-            <span>{{ p.category }}</span>
-            <span>&middot;</span>
-            <span>{{ p.year }}</span>
+      <div role="list" aria-label="Active projects">
+        <article
+          class="building-project"
+          *ngFor="let proj of activeProjects; let i = index"
+          [id]="proj.id"
+          role="listitem"
+          [attr.aria-labelledby]="'building-title-' + proj.id"
+        >
+
+          <!-- Project header row -->
+          <div class="building-project-header">
+            <div class="building-project-meta">
+              <span class="section-eyebrow">{{ (i + 1).toString().padStart(2, '0') }} / {{ proj.startedDate }}</span>
+              <span
+                class="build-status-chip"
+                [ngClass]="getBuildStatusClass(proj.status)"
+                role="status"
+                [attr.aria-label]="'Status: ' + proj.status"
+              >
+                <span class="status-dot" [class.pulse]="proj.status === 'Building' || proj.status === 'In Progress'"></span>
+                {{ proj.status }}
+              </span>
+            </div>
+            <h3 class="building-project-title" [id]="'building-title-' + proj.id">
+              {{ proj.title }}
+            </h3>
+            <p class="building-project-subtitle">{{ proj.subtitle }}</p>
           </div>
 
-          <h2 class="project-title">
+          <!-- Two-column content grid -->
+          <div class="building-content-grid">
+            <!-- Left: Narrative -->
+            <div class="building-narrative">
+              <div class="building-block">
+                <h4 class="building-block-label">Problem</h4>
+                <p class="building-block-text">{{ proj.problem }}</p>
+              </div>
+              <div class="building-block" *ngIf="proj.why">
+                <h4 class="building-block-label">Engineering Rationale</h4>
+                <p class="building-block-text">{{ proj.why }}</p>
+              </div>
+              <div class="building-block building-block--highlight">
+                <h4 class="building-block-label">Currently Working On</h4>
+                <p class="building-block-text">{{ proj.currentWork }}</p>
+              </div>
+              <div class="building-block" *ngIf="proj.currentState">
+                <h4 class="building-block-label">Current State</h4>
+                <p class="building-block-text">{{ proj.currentState }}</p>
+              </div>
+            </div>
+
+            <!-- Right: Structured detail -->
+            <div class="building-detail">
+              <div class="building-detail-section" *ngIf="proj.challenges?.length">
+                <h4 class="building-detail-label">Active Challenges</h4>
+                <div *ngFor="let c of proj.challenges" class="building-challenge">
+                  <div class="building-challenge-title">{{ c.challenge }}</div>
+                  <p class="building-challenge-approach">{{ c.approach }}</p>
+                </div>
+              </div>
+
+              <div class="building-detail-section" *ngIf="proj.decisions?.length">
+                <h4 class="building-detail-label">Key Decisions</h4>
+                <div *ngFor="let d of proj.decisions" class="building-decision">
+                  <div class="building-decision-title">{{ d.decision }}</div>
+                  <p class="building-decision-rationale">{{ d.rationale }}</p>
+                </div>
+              </div>
+
+              <div class="building-detail-section">
+                <h4 class="building-detail-label">Next Milestone</h4>
+                <p class="building-block-text">{{ proj.nextMilestone }}</p>
+              </div>
+              <div class="building-detail-section">
+                <h4 class="building-detail-label">Stack</h4>
+                <div class="tag-list" role="list" aria-label="Technologies">
+                  <span class="tag tech-tag" *ngFor="let t of proj.tech" role="listitem"><tech-icon name="{{ t }}"></tech-icon>{{ t }}</span>
+                </div>
+                <div class="project-actions">
+                  <a
+                    *ngIf="proj.github"
+                    [href]="proj.github"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-sm"
+                    [attr.aria-label]="proj.title + ' repository on GitHub'"
+                  >
+                    Repository <span aria-hidden="true">↗</span>
+                  </a>
+                  <a
+                    *ngIf="proj.live"
+                    [href]="proj.live"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn btn-sm"
+                    [attr.aria-label]="proj.title + ' live demo'"
+                  >
+                    Live Demo <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
+    <!-- Tier 1: Major Case Studies -->
+    <section class="section" id="featured" aria-labelledby="featured-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Tier 1</span>
+        </div>
+        <div class="title-col">
+          <div class="section-header">
+            <h2 class="section-title" id="featured-heading">Featured Case Studies</h2>
+            <span class="section-header-note">Deepest engineering detail</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list" role="list">
+        <article
+          class="project-module"
+          *ngFor="let p of tier1Projects; let i = index"
+          role="listitem"
+        >
+          <div class="project-index">
+            <span class="project-index-tag">{{ (i + 1).toString().padStart(2, '0') }} · {{ p.category }} · {{ p.year }}</span>
+          </div>
+
+          <div class="project-main">
+            <h3 class="project-title">
+              <a [routerLink]="['/work', p.id]">{{ p.title }}</a>
+            </h3>
+            <p class="project-desc project-desc--problem">{{ p.problem }}</p>
+            <p class="project-desc">{{ p.solution }}</p>
+
+            <div class="project-insight" *ngIf="p.engineeringDecisions.length">
+              <strong>Key decision: </strong>{{ p.engineeringDecisions[0].why }}
+            </div>
+
+            <div class="tag-list" role="list" aria-label="Technologies">
+              <span class="tag tech-tag" *ngFor="let t of p.tags.slice(0, 4)" role="listitem"><tech-icon name="{{ t }}"></tech-icon>{{ t }}</span>
+            </div>
+          </div>
+
+          <aside class="project-aside">
+            <ul class="project-aside-list" role="list" aria-label="Project details">
+              <li>
+                <span class="k">Status</span>
+                <span class="v v--accent">Case Study</span>
+              </li>
+              <li>
+                <span class="k">Focus</span>
+                <span class="v v--tight">
+                  {{ p.subtitle }}
+                </span>
+              </li>
+            </ul>
+            <div class="project-actions">
+              <a [routerLink]="['/work', p.id]" class="action-link" [attr.aria-label]="p.title + ' case study'">
+                Read case study <span aria-hidden="true">→</span>
+              </a>
+              <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="p.title + ' repository on GitHub'">
+                Repository <span aria-hidden="true">↗</span>
+              </a>
+              <a *ngIf="p.live" [href]="p.live" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="p.title + ' live demo'">
+                Live <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </aside>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tier 2: Supporting Work -->
+    <section class="section" id="supporting" *ngIf="tier2Projects.length" aria-labelledby="tier2-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Tier 2</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="tier2-heading">Supporting Systems</h2>
+        </div>
+      </div>
+
+      <div class="cs-tech-grid" role="list" aria-label="Supporting projects">
+        <article class="cs-tech-item" *ngFor="let p of tier2Projects; let i = index" role="listitem">
+          <div class="project-meta-row">
+            <span class="project-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
+            <span>·</span>
+            <span>{{ p.category }} · {{ p.year }}</span>
+          </div>
+          <h3 class="cs-tech-item-title">
             <a [routerLink]="['/work', p.id]">{{ p.title }}</a>
-          </h2>
-
-          <p class="project-desc">{{ p.solution }}</p>
-
-          <div class="project-insight" *ngIf="p.engineeringDecisions.length">
-            <strong>Key Decision:</strong> {{ p.engineeringDecisions[0].why }}
-          </div>
-
-          <div class="project-actions">
-            <a [routerLink]="['/work', p.id]" class="action-link">
-              Read Case Study &rarr;
-            </a>
-            <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link" style="color: var(--text-muted);">
-              Source Code &#8599;
-            </a>
-          </div>
-        </div>
-
-        <aside class="project-aside">
-          <ul class="project-aside-list">
-            <li><span class="k">Type</span><span class="v">{{ p.category }}</span></li>
-            <li><span class="k">Year</span><span class="v">{{ p.year }}</span></li>
-            <li><span class="k">Status</span><span class="v">Active</span></li>
-            <li><span class="k">Stack</span><span class="v">{{ p.tags.slice(0, 3).join(' · ') }}</span></li>
-          </ul>
-        </aside>
-      </article>
-    </div>
-  </section>
-
-  <!-- Tier 2: Supporting Work -->
-  <section *ngIf="tier2Projects.length" style="border-top: 1px solid var(--border-dim); padding-top: var(--sp-8);">
-    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">Tier 2</span>
-      </div>
-      <div class="title-col">
-        <span class="section-title">Supporting Systems</span>
-      </div>
-    </div>
-
-    <div class="grid">
-      <article class="project-module g-12" *ngFor="let p of tier2Projects; let i = index">
-        <span class="project-index" style="color: var(--text-muted);">0{{ i + 1 }}</span>
-
-        <div class="project-main">
-          <div class="project-meta-row">
-            <span>{{ p.category }}</span>
-            <span>&middot;</span>
-            <span>{{ p.year }}</span>
-          </div>
-
-          <h3 class="project-title">
-            {{ p.title }}
           </h3>
-
-          <p class="project-desc">{{ p.solution }}</p>
-
-          <div class="project-actions" *ngIf="p.github">
-            <a [href]="p.github" target="_blank" rel="noopener" class="action-link">
-              View Repository &#8599;
+          <p class="cs-tech-item-body">{{ p.solution }}</p>
+          <div class="tag-list" role="list" aria-label="Technologies">
+            <span class="tag tech-tag" *ngFor="let t of p.tags.slice(0, 3)" role="listitem"><tech-icon name="{{ t }}"></tech-icon>{{ t }}</span>
+          </div>
+          <div class="project-actions project-actions--sm">
+            <a [routerLink]="['/work', p.id]" class="action-link action-link--push" [attr.aria-label]="p.title + ' case study'">
+              Read case study →
+            </a>
+            <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link action-link--push" [attr.aria-label]="p.title + ' repository on GitHub'">
+              Repository <span aria-hidden="true">↗</span>
+            </a>
+            <a *ngIf="p.live" [href]="p.live" target="_blank" rel="noopener" class="action-link action-link--push" [attr.aria-label]="p.title + ' live demo'">
+              Live <span aria-hidden="true">↗</span>
             </a>
           </div>
-        </div>
+        </article>
+      </div>
+    </section>
 
-        <aside class="project-aside">
-          <ul class="project-aside-list">
-            <li><span class="k">Type</span><span class="v">{{ p.category }}</span></li>
-            <li><span class="k">Year</span><span class="v">{{ p.year }}</span></li>
-            <li><span class="k">Stack</span><span class="v">{{ p.tags.slice(0, 3).join(' · ') }}</span></li>
-          </ul>
-        </aside>
-      </article>
-    </div>
-  </section>
+  </div>
 </div>

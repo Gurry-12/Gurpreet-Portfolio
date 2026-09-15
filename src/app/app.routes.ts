@@ -4,17 +4,43 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
-    title: 'Gurpreet Singh — Backend Software Engineer & Publication'
+    title: 'Gurpreet Singh — Personal Engineering Hub'
   },
   {
     path: 'work',
     loadComponent: () => import('./pages/work/work.component').then(m => m.WorkComponent),
-    title: 'Work & Case Studies — Gurpreet Singh'
+    title: 'Work — Gurpreet Singh'
   },
   {
     path: 'work/:id',
     loadComponent: () => import('./pages/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
-    title: 'Case Study — Gurpreet Singh'
+    title: 'Work — Gurpreet Singh'
+  },
+  {
+    path: 'learn',
+    loadComponent: () => import('./pages/learn/learn.component').then(m => m.LearnComponent),
+    title: 'Learn — Gurpreet Singh'
+  },
+  {
+    path: 'lab',
+    loadComponent: () => import('./pages/lab/lab.component').then(m => m.LabComponent),
+    title: 'Lab — Gurpreet Singh'
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
+    title: 'About — Gurpreet Singh'
+  },
+  // Redirects for deleted pages to maintain link integrity
+  {
+    path: 'building',
+    redirectTo: 'work',
+    pathMatch: 'full'
+  },
+  {
+    path: 'projects',
+    redirectTo: 'work',
+    pathMatch: 'full'
   },
   {
     path: 'projects/:id',
@@ -22,29 +48,29 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'notes',
-    loadComponent: () => import('./pages/notes/notes.component').then(m => m.NotesComponent),
-    title: 'Engineering Notes & Discoveries — Gurpreet Singh'
+    path: 'learning',
+    redirectTo: 'learn',
+    pathMatch: 'full'
   },
   {
-    path: 'lab',
-    loadComponent: () => import('./pages/lab/lab.component').then(m => m.LabComponent),
-    title: 'Project Lab & Experiments — Gurpreet Singh'
+    path: 'notes',
+    redirectTo: 'learn',
+    pathMatch: 'full'
   },
   {
     path: 'journey',
-    loadComponent: () => import('./pages/journey/journey.component').then(m => m.JourneyComponent),
-    title: 'Engineering Evolution & Trajectory — Gurpreet Singh'
+    redirectTo: 'about',
+    pathMatch: 'full'
   },
   {
-    path: 'about',
-    loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
-    title: 'About & Principles — Gurpreet Singh'
+    path: 'goals',
+    redirectTo: 'about',
+    pathMatch: 'full'
   },
   {
     path: 'contact',
-    loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent),
-    title: 'Contact & Communication — Gurpreet Singh'
+    redirectTo: 'about',
+    pathMatch: 'full'
   },
   {
     path: '**',

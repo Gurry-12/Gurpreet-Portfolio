@@ -1,47 +1,75 @@
+<!-- Lab Page — Experiments & Sandboxes -->
 <div class="page-container">
-  <!-- Header -->
-  <header style="margin-bottom: var(--sp-8);">
-    <div class="editorial-head">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">03 / Project Lab</span>
-      </div>
-      <div class="title-col">
-        <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 0.5rem;">Technical Experiments &amp; Sandboxes</h1>
-        <p class="hero-bio" style="margin-bottom: 0;">
-          Focused sandboxes testing hypotheses across machine learning, real-time reactive streams, and database concurrency.
+  <div class="shell">
+
+    <!-- Page Header -->
+    <header class="cs-hero-header">
+      <div class="cs-hero-content">
+        <div class="cs-meta">
+          <span class="cs-category-badge">Lab</span>
+          <span>·</span>
+          <span class="cs-year-badge">Experiments</span>
+        </div>
+        <h1 class="cs-hero-title">
+          Technical Experiments &amp; Sandboxes
+        </h1>
+        <p class="cs-hero-sub">
+          Focused sandboxes testing hypotheses across machine learning, real-time reactive streams, and database concurrency. Lab work doesn't need to be polished — it needs to teach.
         </p>
       </div>
-    </div>
-  </header>
+      <page-header-art icon="lab"></page-header-art>
+    </header>
 
-  <div class="lab-list">
-    <article class="lab-item" *ngFor="let exp of experiments">
-      <div>
-        <div class="lab-header">
-          <span class="lab-tag">{{ exp.category }}</span>
-          <span style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--accent);">{{ exp.status }}</span>
+    <!-- Lab Grid -->
+    <section class="section" aria-label="Experiments">
+      <div class="lab-list" role="list">
+        <article class="lab-item" *ngFor="let exp of experiments" role="listitem">
+          <div>
+            <div class="lab-header">
+              <span class="lab-tag">{{ exp.category }}</span>
+              <span class="learning-status-chip" [ngClass]="{ 'status-applying': exp.status === 'Completed', 'status-learning': exp.status !== 'Completed' }">
+                {{ exp.status }}
+              </span>
+            </div>
+
+            <h2 class="lab-item-title">{{ exp.title }}</h2>
+            <p class="lab-item-desc">{{ exp.description }}</p>
+
+            <div class="lab-takeaway">
+              <span class="lab-takeaway-label">Key Discovery</span>
+              {{ exp.learnings }}
+            </div>
+          </div>
+
+          <div>
+            <div class="tag-list" role="list" aria-label="Technologies">
+              <span class="tag tech-tag" *ngFor="let t of exp.tech" role="listitem"><tech-icon name="{{ t }}"></tech-icon>{{ t }}</span>
+            </div>
+            <div class="project-actions">
+              <a *ngIf="exp.github" [href]="exp.github" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="exp.title + ' repository'">
+                Repository <span aria-hidden="true">↗</span>
+              </a>
+              <a *ngIf="exp.live" [href]="exp.live" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="exp.title + ' live demo'">
+                Live Demo <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Footer nav -->
+    <section class="section" aria-label="Related pages">
+      <div class="home-cta-row">
+        <div class="home-cta-left">
+          <p class="home-cta-text">Experiments feed into projects and notes.</p>
         </div>
-        <h2 class="lab-item-title">{{ exp.title }}</h2>
-        <p class="lab-item-desc">{{ exp.description }}</p>
-        <div class="lab-takeaway">
-          <strong>Key Discovery:</strong> {{ exp.learnings }}
+        <div class="home-cta-links">
+          <a routerLink="/work" class="btn" id="lab-cta-projects">Projects</a>
+          <a routerLink="/learn" class="btn" id="lab-cta-notes">Engineering Notes</a>
         </div>
       </div>
+    </section>
 
-      <div>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem;">
-          <span class="tag" style="font-size: 0.6875rem; padding: 2px 0.5rem;" *ngFor="let t of exp.tech">{{ t }}</span>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem;">
-          <a *ngIf="exp.github" [href]="exp.github" target="_blank" rel="noopener" class="action-link">
-            Repository &#8599;
-          </a>
-          <a *ngIf="exp.live" [href]="exp.live" target="_blank" rel="noopener" class="action-link" style="color: var(--accent);">
-            Live Demo &#8599;
-          </a>
-        </div>
-      </div>
-    </article>
   </div>
 </div>

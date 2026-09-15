@@ -283,7 +283,7 @@ export const PROJECTS: Project[] = [
       'Stateless tokens work best when coupled with proactive refresh token rotation.'
     ],
 
-    github: 'https://github.com/Gurry-12/insurance-system',
+    github: 'https://github.com/Gurry-12/insurance-policy-claim-capstone-project',
     live: 'https://insurance-demo.onrender.com'
   },
 
@@ -470,7 +470,7 @@ export const PROJECTS: Project[] = [
       'Never rely on UI assumptions for financial workflows; enforce all multi-party constraints on the server.'
     ],
 
-    github: 'https://github.com/Gurry-12'
+    github: 'https://github.com/Gurry-12/department-expence-approval-system'
   }
 ];
 

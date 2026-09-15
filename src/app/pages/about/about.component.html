@@ -1,174 +1,224 @@
+<!-- About Page — Profile, Journey, Goals, Contact -->
 <div class="page-container">
-  <!-- Header / Editorial Bio -->
-  <header style="margin-bottom: var(--sp-8);">
-    <div class="editorial-head">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">05 / Profile &amp; Philosophy</span>
-      </div>
-      <div class="title-col">
-        <h1 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 0.75rem;">About &amp; Principles</h1>
-        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 1rem; max-width: 640px;">
-          I am a Software Engineer based in India, currently contributing at <strong style="color: var(--text-primary);">Monocept</strong> as a Software Engineer. My day-to-day engineering focuses on Java 17, Spring Boot 3, Spring Security with role-based JWT authentication, and relational database schema optimization.
-        </p>
-        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 0; max-width: 640px;">
-          Previously, I interned at <strong style="color: var(--text-primary);">Anviam Solutions</strong>, developing ASP.NET Core MVC APIs, Python backend modules, and tuning SQL query performance, as well as <strong style="color: var(--text-primary);">Codehop Interfusion</strong>, developing test-driven backend utilities using Python, Flask, and BDD testing.
-        </p>
-      </div>
-    </div>
-  </header>
+  <div class="shell">
 
-  <!-- Algorithmic Problem Solving (verified) -->
-  <section style="margin-bottom: var(--sp-8); border-top: 1px solid var(--border-dim); padding-top: var(--sp-8);">
-    <div class="editorial-head" style="margin-bottom: var(--sp-5);">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">Algorithmic Problem Solving</span>
+    <!-- Page Header -->
+    <header class="cs-hero-header">
+      <div class="cs-hero-content">
+        <div class="cs-meta">
+          <span class="cs-category-badge">About</span>
+          <span>·</span>
+          <span class="cs-year-badge">Profile & Direction</span>
+        </div>
+        <h1 class="cs-hero-title">
+          About
+        </h1>
+        <p class="cs-hero-sub cs-hero-sub--mb">
+          The person behind the build — my background, engineering journey, how I think about systems, and how to reach me.
+        </p>
+
+        <!-- Contextual Navigation (Anchor links) -->
+        <div class="cs-anchor-nav">
+          <a routerLink="/about" fragment="background" class="action-link">Background</a>
+          <a routerLink="/about" fragment="journey" class="action-link">Journey</a>
+          <a routerLink="/about" fragment="philosophy" class="action-link">Philosophy</a>
+          <a routerLink="/about" fragment="goals" class="action-link">Goals</a>
+          <a routerLink="/about" fragment="contact" class="action-link">Contact</a>
+        </div>
       </div>
-      <div class="title-col" style="display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;">
-        <span class="section-title">606+ Verified Problems Solved</span>
-        <a href="https://codolio.com/profile/Guriii" target="_blank" rel="noopener" class="section-link">
-          Codolio ({{ globalRank }}) &rarr;
+      <page-header-art icon="about"></page-header-art>
+    </header>
+
+    <!-- WHO I AM -->
+    <section class="section" id="background" aria-labelledby="who-heading">
+      <div class="editorial-head">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Background</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="who-heading">Who I Am</h2>
+          <p class="section-head-note">A compact bio — where I come from and what I build today.</p>
+          <div class="about-copy">
+            <p class="about-lead">
+              I'm a Computer Science graduate from Gulzar College of Engineering, Punjab Technical University,
+              specializing in IoT, Cyber Security, and Blockchain. Currently contributing as a Software
+              Engineer at <strong>Monocept</strong>, where I build
+              Java and Spring Boot backend services with role-based JWT auth, relational schema design,
+              and clean API contracts.
+            </p>
+            <p class="about-lead">
+              Before that, I interned at <strong>Anviam Solutions</strong>
+              building ASP.NET Core APIs, Python backend modules, and SQL query optimizations; and at
+              <strong>Codehop Interfusion</strong> building test-driven
+              utilities with Python, Flask, and BDD testing pipelines.
+            </p>
+            <p class="about-lead">
+              I also served as Chairperson of CodeForge — a student developer community — organizing
+              coding competitions, hackathons, and peer-learning workshops. Explaining complex systems
+              to others is how I verified that I actually understood them.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="section" id="journey" aria-labelledby="journey-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Timeline</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="journey-heading">Engineering Evolution</h2>
+          <p class="section-head-note">How technical focus and mental models evolved over time.</p>
+        </div>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="journey-row" *ngFor="let m of milestones; let i = index; let first = first" [class.journey-row--current]="i === 0">
+          <div class="journey-row__rail">
+            <span class="journey-row__dot" [class.journey-row__dot--active]="i === 0" aria-hidden="true"></span>
+            <span class="journey-row__year">{{ m.year }}</span>
+          </div>
+          <div class="journey-row__body">
+            <h3 class="journey-row__phase">{{ m.phase }}</h3>
+            <div class="journey-row__title">{{ m.title }}</div>
+            <p class="journey-row__desc">{{ m.summary }}</p>
+            <div class="tag-list tag-list--spaced" role="list" aria-label="Focus areas">
+              <span class="tag tech-tag" *ngFor="let skill of m.focus" role="listitem">{{ skill }}</span>
+            </div>
+            <div class="project-insight project-insight--flush">
+              <strong>Key shift: </strong>{{ m.keyShift }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="section" id="philosophy" aria-labelledby="philosophy-heading">
+      <div class="editorial-head">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Philosophy</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="philosophy-heading">How I Approach Engineering</h2>
+          <div class="about-philosophy-list" role="list">
+            <div class="about-principle" *ngFor="let p of principles; let i = index" role="listitem">
+              <span class="about-principle-num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+              <div>
+                <h3 class="about-principle-title">{{ p.title }}</h3>
+                <p class="about-principle-desc">{{ p.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOALS & DIRECTION -->
+    <section class="section" id="goals" aria-labelledby="goals-heading">
+      <div class="editorial-head">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Direction</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="goals-heading">Goals & Priorities</h2>
+          <div class="about-copy">
+            <p class="about-lead">
+              Backend engineering is the current foundation. The direction goes toward distributed systems,
+              understanding how services coordinate and recover at scale, and AI/ML engineering in production.
+            </p>
+            <div class="career-trajectory" aria-label="Career trajectory">
+              <div class="trajectory-step" *ngFor="let step of careerTrajectory; let i = index; let last = last">
+                <span class="trajectory-label" [class.trajectory-current]="step.current">{{ step.label }}</span>
+                <span class="trajectory-arrow" *ngIf="!last" aria-hidden="true">→</span>
+              </div>
+            </div>
+
+            <div class="about-interests-grid">
+              <div class="about-interest-item" *ngFor="let area of engineeringInterests">
+                <h3 class="about-interest-title">{{ area.title }}</h3>
+                <p class="about-interest-desc">{{ area.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <div class="editorial-head editorial-head--mb">
+        <div class="eyebrow-col">
+          <span class="section-eyebrow">Contact</span>
+        </div>
+        <div class="title-col">
+          <h2 class="section-title" id="contact-heading">Get in Touch</h2>
+          <p class="section-head-note">Professional inquiries, engineering discussions, or team opportunities.</p>
+        </div>
+      </div>
+
+      <div class="contact-list" role="list">
+        <a class="contact-row" *ngFor="let ch of channels" role="listitem"
+          [href]="ch.url" [attr.target]="ch.isEmail ? null : '_blank'" rel="noopener"
+          [attr.aria-label]="ch.value">
+          <span class="contact-icon">
+            @switch (ch.label) {
+              @case ('PRIMARY EMAIL') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> }
+              @case ('LINKEDIN') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> }
+              @case ('GITHUB') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> }
+              @case ('CODOLIO') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.6 20h2.9l5.5-8-5.5-8h-2.9l5.5 8-5.5 8zm-5.2 0H6.5l-5.5-8 5.5-8h2.9l5.5 8 5.5 8z"/></svg> }
+            }
+          </span>
+          <span class="contact-meta">
+            <span class="contact-name">{{ ch.label }}</span>
+            <span class="contact-value">{{ ch.value }}</span>
+          </span>
+          <span class="contact-arrow" aria-hidden="true">↗</span>
         </a>
       </div>
-    </div>
 
-    <div class="grid">
-      <div class="g-9 g-offset-3">
-        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--border-dim); border: 1px solid var(--border-dim);">
-          <div *ngFor="let p of platformStats" style="background: var(--canvas); padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
-                <strong style="font-size: 1rem; color: var(--text-primary);">{{ p.name }}</strong>
-                <span *ngIf="p.rating" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);">Rating: {{ p.rating }}</span>
-              </div>
-              <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
-                {{ p.solved }} <span style="font-size: 0.75rem; font-weight: 400; color: var(--text-muted);">solved</span>
-              </div>
-              <div style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">
-                {{ p.detail }}
-              </div>
-            </div>
-            <a [href]="p.url" target="_blank" rel="noopener" class="action-link" style="font-size: 0.6875rem;">
-              View Profile &#8599;
-            </a>
+      <div class="contact-separator" role="separator" aria-hidden="true"></div>
+
+      <form class="cs-form" (submit)="onContactSubmit($event)">
+        <input type="hidden" name="access_key" value="da04666f-556b-4305-a83a-f07182dfe5e7">
+        <input type="checkbox" name="botcheck" style="display:none">
+
+        <div class="cs-form-row">
+          <div class="cs-form-group">
+            <label for="contact-name" class="cs-form-label">Name</label>
+            <input id="contact-name" name="name" type="text" required class="cs-form-input" autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="cs-form-group">
+            <label for="contact-email" class="cs-form-label">Email</label>
+            <input id="contact-email" name="email" type="email" required class="cs-form-input" autocomplete="email" placeholder="you@example.com">
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Engineering Principles -->
-  <section style="margin-bottom: var(--sp-8); border-top: 1px solid var(--border-dim); padding-top: var(--sp-8);">
-    <div class="editorial-head" style="margin-bottom: var(--sp-5);">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">Mental Models</span>
-      </div>
-      <div class="title-col">
-        <span class="section-title">Engineering Approach</span>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="g-3">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;">01 / SPECIFICATION</div>
-      </div>
-      <div class="g-9">
-        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Contracts Before Code</h3>
-        <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: var(--sp-6);">
-          Define formal requirements (SRS), entity relationships, and authorization matrices before implementing controller logic.
-        </p>
-      </div>
-
-      <div class="g-3">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;">02 / STATE DISCIPLINE</div>
-      </div>
-      <div class="g-9">
-        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Explicit Transitions</h3>
-        <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: var(--sp-6);">
-          Replace ad-hoc boolean flags with deterministic state models and audit trails to prevent illegal operations.
-        </p>
-      </div>
-
-      <div class="g-3">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;">03 / DATA INTEGRITY</div>
-      </div>
-      <div class="g-9">
-        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Schema Over Shortcuts</h3>
-        <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: var(--sp-6);">
-          Enforce referential constraints, indexing strategy, and transaction boundaries at the database level rather than assuming application-layer perfection.
-        </p>
-      </div>
-
-      <div class="g-3">
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;">04 / OBSERVABILITY</div>
-      </div>
-      <div class="g-9">
-        <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Structured Error Handling</h3>
-        <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0;">
-          Provide standardized REST error envelopes via centralized exception handlers to ensure predictable client recovery.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education & Certifications -->
-  <section style="margin-bottom: var(--sp-8); border-top: 1px solid var(--border-dim); padding-top: var(--sp-8);">
-    <div class="grid">
-      <div class="g-6">
-        <span class="section-eyebrow" style="margin-bottom: 0.5rem;">Academic Background</span>
-        <h2 style="font-size: 1.125rem; margin: 0 0 0.75rem;">Education</h2>
-        <div style="margin-bottom: 1rem;">
-          <div style="font-weight: 600; font-size: 0.875rem; color: var(--text-primary);">B.Tech in Computer Science &amp; Engineering</div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">IoT &amp; Cyber Security with Blockchain · 2021 — 2025</div>
-          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Gulzar College of Engineering (Punjab Technical University)</div>
+        <div class="cs-form-group">
+          <label for="contact-subject" class="cs-form-label">Subject</label>
+          <input id="contact-subject" name="subject" type="text" required class="cs-form-input" placeholder="e.g. Backend engineering opportunity">
         </div>
-      </div>
 
-      <div class="g-6">
-        <span class="section-eyebrow" style="margin-bottom: 0.5rem;">Verified Credentials</span>
-        <h2 style="font-size: 1.125rem; margin: 0 0 0.75rem;">Certifications</h2>
-        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <div *ngFor="let c of certifications" style="border-bottom: 1px solid var(--border-dim); padding-bottom: 0.5rem;">
-            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-primary);">{{ c.name }}</div>
-            <div style="font-size: 0.6875rem; color: var(--text-muted); font-family: var(--font-mono);">
-              {{ c.issuer }} &middot; {{ c.date }} &middot; ID: {{ c.credentialId }}
-            </div>
-          </div>
+        <div class="cs-form-group">
+          <label for="contact-message" class="cs-form-label">Message</label>
+          <textarea id="contact-message" name="message" required class="cs-form-textarea" rows="4" placeholder="What can I help with?"></textarea>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Direct Channels -->
-  <section style="border-top: 1px solid var(--border-dim); padding-top: var(--sp-8);">
-    <div class="editorial-head" style="margin-bottom: var(--sp-4);">
-      <div class="eyebrow-col">
-        <span class="section-eyebrow">Communication</span>
-      </div>
-      <div class="title-col">
-        <span class="section-title">Direct Channels</span>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="g-9 g-offset-3">
-        <div class="hero-ctas">
-          <a href="mailto:work.gurpreetsw@gmail.com" class="btn btn-primary">
-            Email
-          </a>
-          <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener" class="btn">
-            LinkedIn
-          </a>
-          <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn">
-            GitHub
-          </a>
-          <a href="https://codolio.com/profile/Guriii" target="_blank" rel="noopener" class="btn">
-            Codolio
-          </a>
-          <a href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf" target="_blank" class="btn">
-            Resume (PDF)
-          </a>
+        <div class="cs-form-footer">
+          <p class="cs-form-status" *ngIf="contactStatus === 'success'" role="status">
+            Message sent — thanks for reaching out. I'll get back to you soon.
+          </p>
+          <p class="cs-form-status cs-form-status--error" *ngIf="contactStatus === 'error'" role="alert">
+            {{ contactMessage }}
+          </p>
+          <button type="submit" class="btn btn-primary" [disabled]="contactStatus === 'sending'">
+            {{ contactStatus === 'sending' ? 'Sending…' : 'Send Message' }}
+          </button>
         </div>
-      </div>
-    </div>
-  </section>
+      </form>
+    </section>
+
+  </div>
 </div>
