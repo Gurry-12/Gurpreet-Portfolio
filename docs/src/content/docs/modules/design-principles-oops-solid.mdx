@@ -1,0 +1,177 @@
+---
+title: "Design Principles (OOPS & SOLID)"
+description: "II. Core Programming · 18 Subtopics · 17.5 Hours · Sequence IDs 120 - 137"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="120 - 137"
+  hours={17.5}
+  topicsCount={3}
+  subtopicsCount={18}
+  p0Count={13}
+  p1Count={5}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [II. Core Programming](/docs/roadmap/phase-2-core-programming/)
+- **Sequence Range:** #120 - 137
+- **Prerequisite Modules:** [Core Java Programming](/docs/modules/core-java-programming/)
+- **Total Curated Learning Time:** 17.5 Hours
+:::
+
+## 1. Module Purpose
+
+Master Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion, plus UML modeling.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Writing code that works is trivial; writing code that survives change requires SOLID architecture. Unstructured OOP degrades into fragile monoliths.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Deconstruct monolithic god-classes into single-responsibility collaborators.
+- Use interfaces and dependency inversion to make code testable via mocks and stubs.
+- Create Class and Sequence diagrams communicating architecture precisely.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **3 high-level topic groups**:
+
+1. **OOPS** (4 subtopics)
+2. **Other principles** (4 subtopics)
+3. **Solid** (10 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #120 | OOPS | Encapsulation | P0 | 1.0h | #119 | Not Started |
+| #121 | OOPS | Abstraction | P0 | 1.0h | #120 | Not Started |
+| #122 | OOPS | Inheritance | P0 | 1.0h | #121 | Not Started |
+| #123 | OOPS | Polymorphism | P0 | 1.0h | #122 | Not Started |
+| #124 | Other principles | DRY | P0 | 1.0h | #123 | Not Started |
+| #125 | Other principles | SOC | P0 | 1.0h | #124 | Not Started |
+| #126 | Other principles | KISS | P0 | 1.0h | #125 | Not Started |
+| #127 | Other principles | YAGNI | P0 | 1.0h | #126 | Not Started |
+| #128 | Solid | Single Responsibility | P0 | 1.0h | #127 | Not Started |
+| #129 | Solid | Open/Close | P0 | 1.0h | #128 | Not Started |
+| #130 | Solid | LSP | P0 | 1.0h | #129 | Not Started |
+| #131 | Solid | Interface Segregation | P0 | 1.0h | #130 | Not Started |
+| #132 | Solid | Dependency Inversion | P0 | 1.0h | #131 | Not Started |
+| #133 | Solid | Implementation of SRP | P1 | 1.0h | #132 | Not Started |
+| #134 | Solid | Implementation of OCP | P1 | 1.0h | #133 | Not Started |
+| #135 | Solid | Implementation of LSP | P1 | 1.0h | #134 | Not Started |
+| #136 | Solid | Implementation of ISP | P1 | 1.0h | #135 | Not Started |
+| #137 | Solid | Implementation of DIP | P1 | 0.5h | #136 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Core Java Programming](/docs/modules/core-java-programming/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **17.5 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~2.2 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (13 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (5 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Clean Architecture, Robert C. Martin (SRP/OCP/LSP/ISP/DIP)**
+- 📖 **Clean Architecture, Robert C. Martin — SOLID chapters**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Refactoring Kata**: Refactor a 500-line spaghetti invoice generator into cleanly separated SOLID classes.
+1. **E-Commerce UML**: Design Class and Sequence diagrams for an order fulfillment pipeline.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of Design Principles (OOPS & SOLID).
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Core Java Programming](/docs/modules/core-java-programming/), [OOAD & Software Design](/docs/modules/ooad-software-design/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

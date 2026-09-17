@@ -1,0 +1,160 @@
+---
+title: "Spring Core Concepts"
+description: "VI. Spring Ecosystem · 4 Subtopics · 3.5 Hours · Sequence IDs 301 - 304"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="301 - 304"
+  hours={3.5}
+  topicsCount={1}
+  subtopicsCount={4}
+  p0Count={4}
+  p1Count={0}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [VI. Spring Ecosystem](/docs/roadmap/phase-6-spring-ecosystem/)
+- **Sequence Range:** #301 - 304
+- **Prerequisite Modules:** [Design Principles (OOPS & SOLID)](/docs/modules/design-principles-oops-solid/), [Spring Framework Basics](/docs/modules/spring-framework-basics/)
+- **Total Curated Learning Time:** 3.5 Hours
+:::
+
+## 1. Module Purpose
+
+Master the Spring Framework, Inversion of Control (IoC), Dependency Injection (DI), Spring Boot autoconfiguration, and RESTful API development.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Spring Boot is the de-facto standard for enterprise Java microservices and web backends, drastically reducing boilerplate.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Understand the Spring ApplicationContext, Bean lifecycle, and `@Component`/`@Autowired` injection.
+- Build production-grade REST APIs with Spring MVC, `@RestController`, and validation.
+- Configure Spring Boot profiles, Actuator health endpoints, and externalized properties.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **1 high-level topic groups**:
+
+1. **Spring Core** (4 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #301 | Spring Core | Core spring concepts | P0 | 1.0h | #137, #300 | Not Started |
+| #302 | Spring Core | Dependency injection - XML based, Annotaion based | P0 | 1.0h | #301 | Not Started |
+| #303 | Spring Core | Component scan | P0 | 1.0h | #302 | Not Started |
+| #304 | Spring Core | Autowiring | P0 | 0.5h | #303 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Design Principles (OOPS & SOLID)](/docs/modules/design-principles-oops-solid/), [Spring Framework Basics](/docs/modules/spring-framework-basics/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **3.5 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~1 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (4 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (0 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Spring in Action, 6th ed., Craig Walls**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **REST API Service**: Build a production-grade CRUD microservice with Spring Boot, Spring Data JPA, and DTO mapping.
+1. **Global Exception Handler**: Implement `@RestControllerAdvice` returning standardized RFC-7807 error responses.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of Spring Core Concepts.
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Spring Framework Basics](/docs/modules/spring-framework-basics/), [Spring Boot Application Development](/docs/modules/spring-boot-application-development/), [Spring MVC Web Applications](/docs/modules/spring-mvc-web-applications/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

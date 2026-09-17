@@ -1,0 +1,95 @@
+---
+title: "Full-Stack Engineering & Professional English Knowledge Base"
+description: "Unified developer portal featuring full-stack learning roadmap, in-depth architectural deep dives, authoritative reading library, and workplace English mastery."
+template: splash
+hero:
+  tagline: Production-grade engineering curriculum, deep mental models, canonical reading lists, and professional workplace communication.
+  actions:
+    - text: 🗺️ Explore Roadmap
+      link: /docs/roadmap/phase-1-foundation/
+      icon: right-arrow
+      variant: primary
+    - text: 📚 In-Depth Reading Library
+      link: /docs/resources/in-depth-reading-library/
+      icon: open-book
+      variant: secondary
+    - text: 🧠 Engineering Notes
+      link: /docs/notes/java/jvm-architecture-memory-model/
+      icon: document
+      variant: secondary
+    - text: 🗣️ English Academy
+      link: /docs/getting-started/how-to-learn-english/
+      icon: rocket
+      variant: secondary
+---
+
+import { Card, CardGrid, Badge } from '@astrojs/starlight/components';
+
+## 🌟 Knowledge Base Highlights
+
+<CardGrid stagger>
+  <Card title="📚 In-Depth Reading Library" icon="open-book">
+    Access primary Tier 1 literature: **Effective Java**, **Designing Data-Intensive Applications**, **Database Internals**, JVM & JLS Specifications, and RFCs.
+    [Browse Reading Library →](/docs/resources/in-depth-reading-library/)
+  </Card>
+
+  <Card title="🗺️ Full-Stack Curriculum (659 Skills)" icon="list-format">
+    10 structured phases and 28 modules covering Java, Spring Boot, MySQL, React, Docker, Microservices, and AI Agents derived from the Excel roadmap.
+    [View 10-Phase Roadmap →](/docs/roadmap/phase-1-foundation/)
+  </Card>
+
+  <Card title="🧠 Engineering Notes & Deep Dives" icon="document">
+    Zero fluff, deep technical guides on **JVM memory layout**, **HashMap hashing**, **B-Tree page splits**, **Spring Bean lifecycle**, and **Docker namespaces**.
+    [Read Engineering Notes →](/docs/notes/java/jvm-architecture-memory-model/)
+  </Card>
+
+  <Card title="⚖️ Architectural Decision Guides" icon="setting">
+    Practical decision matrices for critical trade-offs: **SQL vs NoSQL**, **REST vs Kafka**, **Map Implementations**, and **Frontend State Management**.
+    [Explore Decision Guides →](/docs/reference/decision-guides/sql-vs-nosql-database-selection/)
+  </Card>
+
+  <Card title="🗣️ Professional English Academy" icon="rocket">
+    Comprehensive curriculum covering CEFR standards, grammar mastery, technical lexicon, connected speech, Agile standups, and STAR interview drills.
+    [Start English Lessons →](/docs/getting-started/how-to-learn-english/)
+  </Card>
+
+  <Card title="📊 Dependency Graph & DAG Topology" icon="puzzle">
+    Inspect prerequisites, root entry points, learning progression, and cross-module topological dependencies.
+    [Inspect Dependency Graph →](/docs/learning-path/dependency-map/)
+  </Card>
+</CardGrid>
+
+---
+
+## 🏗️ Curriculum Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                 I. FOUNDATION (Soft Skills, Git, TDD)                   │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│         II. CORE PROGRAMMING (Java 21, OOP, SOLID, Clean Code)          │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│         III. DATA & DATABASES (MySQL, InnoDB, B-Trees, JDBC)            │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│         IV. WEB & PERSISTENCE (Servlets, Hibernate, JPA)                │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│         V. ENTERPRISE SPRING & REACT (Spring Boot, React, Next.js)      │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│         VI. DISTRIBUTED SYSTEMS & AI (Microservices, Kafka, Docker)     │
+└─────────────────────────────────────────────────────────────────────────┘
+```

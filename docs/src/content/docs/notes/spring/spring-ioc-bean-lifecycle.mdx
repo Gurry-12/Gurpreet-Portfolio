@@ -1,0 +1,114 @@
+---
+title: "Spring IoC Container & Bean Lifecycle Internals"
+description: "Comprehensive architecture of Spring Inversion of Control, BeanDefinition registry, 8-phase Bean Lifecycle, BeanPostProcessor hooks, dynamic proxies, and circular dependency resolution."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+The **Spring Inversion of Control (IoC) Container** is the core backbone of the Spring Framework. Instead of application components constructing their own dependencies (`new OrderRepository()`), the container assumes ownership of component creation, configuration, wiring, and lifecycle management.
+
+:::tip Engineering Mental Model
+The Spring IoC container is a factory and state-machine that converts configuration metadata (`@Component`, `@Configuration`, XML) into `BeanDefinition` metadata models, instantiates raw Java objects, and orchestrates them through an 8-phase lifecycle pipeline where dynamic proxies (AOP, Security, Transactions) are injected.
+:::
+
+---
+
+## 2. Container Hierarchy: `BeanFactory` vs `ApplicationContext`
+
+| Dimension | `BeanFactory` (`DefaultListableBeanFactory`) | `ApplicationContext` (`AnnotationConfigApplicationContext`) |
+| :--- | :--- | :--- |
+| **Instantiation Strategy** | **Lazy** (Instantiates beans upon first `getBean()` call). | **Eager Pre-Instantiation** (Instantiates all singletons at startup). |
+| **Resource Footprint** | Extremely lightweight; suited for memory-constrained devices. | Enterprise standard; detects configuration errors at application launch. |
+| **Enterprise Services** | Basic dependency injection only. | Integrated AOP, Internationalization (`MessageSource`), Event Publishing, Environment Profiles. |
+
+---
+
+## 3. The 8-Phase Spring Bean Lifecycle Pipeline
+
+```
+  ┌────────────────────────────────────────────────────────────────────────┐
+  │                   SPRING BEAN LIFECYCLE PIPELINE                       │
+  │                                                                        │
+  │  [1. BeanDefinition Loading] ──> Classpath scanning & metadata parser  │
+  │               │                                                        │
+  │  [2. Instantiation] ───────────> Java Constructor reflection / CGLIB   │
+  │               │                                                        │
+  │  [3. Populate Properties] ─────> Dependency Injection (@Autowired)     │
+  │               │                                                        │
+  │  [4. Aware Interfaces] ────────> Set BeanName, BeanFactory, AppContext │
+  │               │                                                        │
+  │  [5. BeanPostProcessor (Before)]> postProcessBeforeInitialization()    │
+  │               │                                                        │
+  │  [6. Initialization] ──────────> @PostConstruct / afterPropertiesSet() │
+  │               │                                                        │
+  │  [7. BeanPostProcessor (After)]─> postProcessAfterInitialization()     │
+  │               │                  (Dynamic AOP / Transaction Proxies)   │
+  │               ▼                                                        │
+  │  [8. Bean Ready for Use] ──────> Stored in Singleton Cache             │
+  │               │                                                        │
+  │  [Application Shutdown] ───────> @PreDestroy / DisposableBean.destroy()│
+  └────────────────────────────────────────────────────────────────────────┘
+```
+
+<Steps>
+1. **BeanDefinition Parsing**: Spring scans classpath for `@Component`, `@Service`, `@Bean` and registers `BeanDefinition` objects containing bean class, scope, autowiring mode, and init methods.
+1. **Instantiation**: The container calls the appropriate constructor via reflection.
+1. **Property Population**: Dependencies are resolved and injected via setters or reflection fields.
+1. **Aware Interfaces**: Spring passes container references to beans implementing `BeanNameAware`, `BeanFactoryAware`, or `ApplicationContextAware`.
+1. **BeanPostProcessor (Before)**: Custom processors execute pre-initialization logic (e.g. `@PostConstruct` resolution via `CommonAnnotationBeanPostProcessor`).
+1. **Initialization**: Custom init logic executes: `@PostConstruct` \to `InitializingBean.afterPropertiesSet()` \to custom `initMethod`.
+1. **BeanPostProcessor (After)**: Critical step! Spring wraps the target bean in **Dynamic Proxies** (AOP advisors, `@Transactional`, `@Async`).
+1. **Ready / Destruction**: Bean serves traffic until context closes, executing `@PreDestroy` \to `DisposableBean.destroy()`.
+</Steps>
+
+---
+
+## 4. Dynamic Proxy Mechanisms: JDK Dynamic Proxy vs CGLIB
+
+Spring AOP applies proxies to beans to intercept method invocations for transactions, logging, and security:
+
+```
+┌──────────────────────────────────────┐     ┌──────────────────────────────────────┐
+│       JDK DYNAMIC PROXIES            │     │           CGLIB PROXIES              │
+│  - Built into Java standard library  │     │  - Bytecode generation library       │
+│  - Requires target to implement an   │     │  - Generates subclass at runtime     │
+│    Interface (e.g. `OrderService`)   │     │  - Can proxy concrete classes        │
+│  - Uses `java.lang.reflect.Proxy`    │     │  - CANNOT proxy `final` methods/class│
+└──────────────────────────────────────┘     └──────────────────────────────────────┘
+```
+
+:::note Spring Boot 2 & 3 Default
+Spring Boot defaults to **CGLIB proxies (`spring.aop.proxy-target-class=true`)** for all beans, allowing direct injection of concrete class types without requiring interfaces.
+:::
+
+---
+
+## 5. Circular Dependency Resolution: The Three-Level Cache
+
+How does Spring resolve Circular Dependencies (e.g. Bean A requires Bean B, Bean B requires Bean A)?
+Spring's `DefaultSingletonBeanRegistry` maintains **three concurrent hash maps**:
+
+1. **`singletonObjects` (1st Level Cache)**: Fully initialized, populated, and proxied singleton beans ready for use.
+2. **`earlySingletonObjects` (2nd Level Cache)**: Partially created beans (instantiated, but not yet initialized or populated) to resolve circular references.
+3. **`singletonFactories` (3rd Level Cache)**: `ObjectFactory<?>` producing early references (and early AOP proxies if required).
+
+```
+Thread -> Checks 1st Cache (singletonObjects)
+           └─> Not found -> Checks 2nd Cache (earlySingletonObjects)
+                               └─> Not found -> Checks 3rd Cache (singletonFactories)
+                                                    └─> Found: Creates early proxy, moves to 2nd Cache
+```
+
+<Aside type="danger" title="Why Constructor Injection Breaks Circular References">
+The three-level cache only works for **setter and field injection** because objects can be instantiated before their fields are populated. With **constructor injection**, Bean A cannot be instantiated without calling `new BeanA(BeanB)`, which immediately requires `new BeanB(BeanA)`, causing a fatal `BeanCurrentlyInCreationException`.
+**Fix**: Refactor to eliminate the circular coupling, or annotate one dependency with `@Lazy`.
+</Aside>
+
+---
+
+## 6. Authoritative Primary References (Tier 1)
+
+- [Spring Framework Reference — The IoC Container](https://docs.spring.io/spring-framework/reference/core/beans.html)
+- [Spring Framework Core GitHub — DefaultListableBeanFactory.java](https://github.com/spring-projects/spring-framework/blob/main/spring-beans/src/main/java/org/springframework/beans/factory/support/DefaultListableBeanFactory.java)

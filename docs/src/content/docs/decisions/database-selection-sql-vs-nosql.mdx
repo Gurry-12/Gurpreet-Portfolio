@@ -1,0 +1,36 @@
+---
+title: "Decision Guide: Relational SQL vs NoSQL Database Selection"
+description: "Architectural decision framework comparing Relational RDBMS (PostgreSQL, MySQL) against Document, Key-Value, and Columnar NoSQL databases."
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+## 1. Decision Comparison Matrix
+
+| Architectural Dimension | Relational RDBMS (PostgreSQL, MySQL) | Document Store (MongoDB) | Key-Value Store (Redis) | Distributed Wide-Column (Cassandra) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Data Model** | Normalized Tables & Relations | JSON/BSON Documents | Key-Blob / In-Memory Data Structures | Column Families & Partition Keys |
+| **Schema Strictness** | Strict Schema (DDL) | Dynamic / Schema-on-Read | Schemaless | Fixed Table Schema |
+| **Transaction Guarantee** | Strong ACID (Multi-table) | Single-document ACID (Multi-doc available) | Single-command Atomicity | Tunable Consistency (BASE) |
+| **Scaling Vector** | Vertical (Read replicas) | Horizontal Sharding | In-Memory Sharding | Masterless P2P Partitioning |
+| **Primary Sweet Spot** | Financial ledgers, ERP, complex JOINs | Hierarchical content, dynamic catalogs | Caching, session store, real-time counters | High-write IoT telemetry, time-series |
+
+---
+
+## 2. Decision Framework
+
+```
+Evaluate Data Access & Consistency Requirements:
+  │
+  ├─> Does the domain require complex relational integrity and multi-table ACID?
+  │     └── YES ──> Use PostgreSQL / MySQL
+  │
+  ├─> Is the access pattern purely sub-millisecond key lookups and ephemeral state?
+  │     └── YES ──> Use Redis
+  │
+  ├─> Does the data naturally form self-contained hierarchical documents with dynamic schemas?
+  │     └── YES ──> Use MongoDB / DocumentDB
+  │
+  └─> Do you require multi-region masterless writes with massive write throughput?
+        └── YES ──> Use Apache Cassandra / ScyllaDB
+```

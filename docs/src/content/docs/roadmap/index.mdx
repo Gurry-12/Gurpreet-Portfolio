@@ -1,0 +1,45 @@
+---
+title: "Full Learning Roadmap Matrix"
+description: "Interactive matrix of all 10 Phases, 28 Modules, 200 Topics, and 659 Subtopics."
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import RoadmapMatrix from '../../../components/RoadmapMatrix.astro';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+
+The complete full-stack curriculum contains **659 individual learning objectives** structured across 10 progressive phases. Use the interactive filter below to search across topics, subtopics, sequence IDs, and priority tiers.
+
+:::tip Spreadsheet Ground Truth
+Every item below is directly extracted from `Combined_FullStack_Learning_Roadmap.xlsx`. Sequence IDs, estimated hours, and prerequisites match the workbook source of truth.
+:::
+
+## Interactive Roadmap Explorer
+
+<RoadmapMatrix />
+
+---
+
+## Roadmap Phases Summary
+
+| Phase | Modules | Topics | Subtopics | Est. Hours | Phase Milestone |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| **[I. Foundation](/docs/roadmap/phase-1-foundation/)** | [Soft Skills & Professional Readiness](/docs/modules/soft-skills-professional-readiness/), [Git & GitHub Version Control](/docs/modules/git-github-version-control/), [Clean Code & TDD](/docs/modules/clean-code-tdd/) | 8 | 31 | **27.0h** | Toolchain ready; coding standards & version control habits established. |
+| **[II. Core Programming](/docs/roadmap/phase-2-core-programming/)** | [Core Java Programming](/docs/modules/core-java-programming/), [Design Principles (OOPS & SOLID)](/docs/modules/design-principles-oops-solid/), [OOAD & Software Design](/docs/modules/ooad-software-design/) | 52 | 129 | **109.5h** | Proficient in Java OOP; can model systems with SOLID & UML. |
+| **[III. Data & Databases](/docs/roadmap/phase-3-data-databases/)** | [MySQL Database Management](/docs/modules/mysql-database-management/), [RDBMS & JDBC Connectivity](/docs/modules/rdbms-jdbc-connectivity/) | 6 | 29 | **17.5h** | Can design normalized schemas and talk to MySQL from Java (JDBC). |
+| **[IV. Web Fundamentals](/docs/roadmap/phase-4-web-fundamentals/)** | [JavaScript Programming](/docs/modules/javascript-programming/), [Bootstrap Website Design](/docs/modules/bootstrap-website-design/), [JSP & Servlets Web Applications](/docs/modules/jsp-servlets-web-applications/) | 14 | 76 | **44.5h** | Can build interactive front-ends and Java web apps (Servlets/JSP). |
+| **[V. Persistence & Advanced Java](/docs/roadmap/phase-5-persistence-advanced-java/)** | [Hibernate ORM Framework](/docs/modules/hibernate-orm-framework/), [Enterprise Java Design](/docs/modules/enterprise-java-design/) | 9 | 31 | **47.5h** | Maps objects to relational data (JPA/Hibernate); concurrency-ready. |
+| **[VI. Spring Ecosystem](/docs/roadmap/phase-6-spring-ecosystem/)** | [Spring Framework Basics](/docs/modules/spring-framework-basics/), [Spring Core Concepts](/docs/modules/spring-core-concepts/), [Spring Boot Application Development](/docs/modules/spring-boot-application-development/), [Spring MVC Web Applications](/docs/modules/spring-mvc-web-applications/) | 11 | 30 | **28.0h** | Can build production REST APIs with Spring Boot & Spring MVC. |
+| **[VII. Frontend Engineering](/docs/roadmap/phase-7-frontend-engineering/)** | [React.js Frontend Development](/docs/modules/react-js-frontend-development/), [React Redux State Management](/docs/modules/react-redux-state-management/), [Next.js Framework](/docs/modules/next-js-framework/) | 19 | 56 | **42.5h** | Can build modern SPAs in React with Redux and server-rendered Next.js. |
+| **[VIII. Architecture & Ops](/docs/roadmap/phase-8-architecture-ops/)** | [Design Patterns (GoF)](/docs/modules/design-patterns-gof/), [Docker & Containerization](/docs/modules/docker-containerization/) | 15 | 33 | **24.0h** | Applies GoF patterns; packages apps as Docker containers. |
+| **[IX. Microservices & Mobile](/docs/roadmap/phase-9-microservices-mobile/)** | [Java Microservices (Spring Cloud)](/docs/modules/java-microservices-spring-cloud/), [React Native Mobile Apps](/docs/modules/react-native-mobile-apps/) | 16 | 56 | **60.5h** | Ships Spring Cloud microservices and React Native mobile apps. |
+| **[X. Professional & AI](/docs/roadmap/phase-10-professional-ai/)** | [Agile Methodology & Scrum](/docs/modules/agile-methodology-scrum/), [Business Analysis](/docs/modules/business-analysis/), [AI & Machine Learning for Software Engineers](/docs/modules/ai-machine-learning-for-software-engineers/), [Agentic AI & LangChain](/docs/modules/agentic-ai-langchain/) | 50 | 188 | **216.5h** | Agile/BA fluency; can ship AI/ML and LangChain agent applications. |
+
+| **TOTAL** | **28 Modules** | **200** | **659** | **617.5h** | **Full-Stack Software Engineer** |
+
+---
+
+## Priority Distribution Across Curriculum
+
+- **P0 (Must-Have)**: 210 items (31.9%) — Critical core fundamentals.
+- **P1 (Core Competency)**: 247 items (37.5%) — Production-level engineering skills.
+- **P2 (Advanced / Specialized)**: 202 items (30.6%) — Deep architectural mastery and edge cases.

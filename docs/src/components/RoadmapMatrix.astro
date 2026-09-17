@@ -1,0 +1,134 @@
+---
+import roadmapData from '../data/roadmap.json';
+import phasesData from '../data/phases.json';
+import PriorityBadge from './PriorityBadge.astro';
+import StatusBadge from './StatusBadge.astro';
+---
+
+<div class="not-content" id="roadmap-container">
+  <div class="filter-bar">
+    <input 
+      type="text" 
+      id="search-input" 
+      class="filter-input" 
+      placeholder="Search topic, subtopic, module, or seq ID (e.g. 119, JDBC, Hooks)..." 
+    />
+    <select id="phase-select" class="filter-select">
+      <option value="">All Phases (10)</option>
+      {phasesData.map((p) => (
+        <option value={p.name}>{p.name}</option>
+      ))}
+    </select>
+    <select id="priority-select" class="filter-select">
+      <option value="">All Priorities</option>
+      <option value="P0">P0 — Must-Have</option>
+      <option value="P1">P1 — Core Competency</option>
+      <option value="P2">P2 — Advanced</option>
+    </select>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.8125rem; color: var(--sl-color-gray-3);">
+    <span id="match-count">Showing all {roadmapData.length} items</span>
+    <span>Source: Combined_FullStack_Learning_Roadmap.xlsx</span>
+  </div>
+
+  <div class="roadmap-matrix-wrapper">
+    <table class="roadmap-matrix-table" id="matrix-table">
+      <thead>
+        <tr>
+          <th style="width: 50px;">Seq</th>
+          <th style="width: 140px;">Phase</th>
+          <th style="width: 180px;">Module</th>
+          <th style="width: 180px;">Topic</th>
+          <th>Subtopic</th>
+          <th style="width: 70px;">Priority</th>
+          <th style="width: 60px;">Hours</th>
+          <th style="width: 80px;">Prereqs</th>
+        </tr>
+      </thead>
+      <tbody id="matrix-body">
+        {roadmapData.map((item) => (
+          <tr 
+            data-seq={item.sequence_id}
+            data-phase={item.phase}
+            data-module={item.module}
+            data-topic={item.topic.toLowerCase()}
+            data-subtopic={item.subtopic.toLowerCase()}
+            data-priority={item.priority}
+          >
+            <td style="font-family: var(--sl-font-mono); font-weight: 700; color: var(--sl-color-gray-3);">#{item.sequence_id}</td>
+            <td style="font-size: 0.75rem; color: var(--sl-color-gray-3);">{item.phase}</td>
+            <td>
+              <a href={`/modules/${item.module_slug}/`} style="color: var(--sl-color-accent-high); font-weight: 600; text-decoration: none;">
+                {item.module}
+              </a>
+            </td>
+            <td style="font-weight: 500;">{item.topic}</td>
+            <td>{item.subtopic}</td>
+            <td><PriorityBadge priority={item.priority} /></td>
+            <td style="font-family: var(--sl-font-mono); font-weight: 600;">{item.estimated_hours}h</td>
+            <td style="font-family: var(--sl-font-mono); font-size: 0.75rem; color: var(--sl-color-gray-3);">
+              {item.prerequisite_ids.length > 0 ? (
+                item.prerequisite_ids.map((pid, idx) => (
+                  <span>{idx > 0 ? ', ' : ''}#{pid}</span>
+                ))
+              ) : (
+                <span style="color: #4ade80; font-weight: 600;">Root</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function initFilter() {
+    const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+    const phaseSelect = document.getElementById('phase-select') as HTMLSelectElement | null;
+    const prioritySelect = document.getElementById('priority-select') as HTMLSelectElement | null;
+    const matchCount = document.getElementById('match-count');
+    const rows = document.querySelectorAll('#matrix-body tr') as NodeListOf<HTMLTableRowElement>;
+
+    if (!searchInput || !phaseSelect || !prioritySelect || !matchCount) return;
+
+    function filterTable() {
+      const q = searchInput.value.toLowerCase().trim();
+      const phase = phaseSelect.value;
+      const priority = prioritySelect.value;
+
+      let visible = 0;
+
+      rows.forEach((row) => {
+        const seq = row.getAttribute('data-seq') || '';
+        const rowPhase = row.getAttribute('data-phase') || '';
+        const rowModule = (row.getAttribute('data-module') || '').toLowerCase();
+        const rowTopic = row.getAttribute('data-topic') || '';
+        const rowSubtopic = row.getAttribute('data-subtopic') || '';
+        const rowPriority = row.getAttribute('data-priority') || '';
+
+        const matchesPhase = !phase || rowPhase === phase;
+        const matchesPriority = !priority || rowPriority === priority;
+        const matchesQuery = !q || seq.includes(q) || rowModule.includes(q) || rowTopic.includes(q) || rowSubtopic.includes(q);
+
+        if (matchesPhase && matchesPriority && matchesQuery) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      matchCount.textContent = `Showing ${visible} of ${rows.length} items`;
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    phaseSelect.addEventListener('change', filterTable);
+    prioritySelect.addEventListener('change', filterTable);
+  }
+
+  // Support client navigation in Starlight
+  document.addEventListener('DOMContentLoaded', initFilter);
+  document.addEventListener('astro:page-load', initFilter);
+</script>

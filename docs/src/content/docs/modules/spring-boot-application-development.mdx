@@ -1,0 +1,186 @@
+---
+title: "Spring Boot Application Development"
+description: "VI. Spring Ecosystem · 18 Subtopics · 17.0 Hours · Sequence IDs 305 - 322"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="305 - 322"
+  hours={17.0}
+  topicsCount={8}
+  subtopicsCount={18}
+  p0Count={2}
+  p1Count={16}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [VI. Spring Ecosystem](/docs/roadmap/phase-6-spring-ecosystem/)
+- **Sequence Range:** #305 - 322
+- **Prerequisite Modules:** [Clean Code & TDD](/docs/modules/clean-code-tdd/), [Core Java Programming](/docs/modules/core-java-programming/), [Hibernate ORM Framework](/docs/modules/hibernate-orm-framework/), [MySQL Database Management](/docs/modules/mysql-database-management/), [Spring Core Concepts](/docs/modules/spring-core-concepts/)
+- **Total Curated Learning Time:** 17.0 Hours
+:::
+
+## 1. Module Purpose
+
+Master the Spring Framework, Inversion of Control (IoC), Dependency Injection (DI), Spring Boot autoconfiguration, and RESTful API development.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Spring Boot is the de-facto standard for enterprise Java microservices and web backends, drastically reducing boilerplate.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Understand the Spring ApplicationContext, Bean lifecycle, and `@Component`/`@Autowired` injection.
+- Build production-grade REST APIs with Spring MVC, `@RestController`, and validation.
+- Configure Spring Boot profiles, Actuator health endpoints, and externalized properties.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **8 high-level topic groups**:
+
+1. **Creating spring boot aplications** (3 subtopics)
+2. **Database integration in spring boot** (4 subtopics)
+3. **Creating RESTful APIs** (3 subtopics)
+4. **Swagger integration** (2 subtopics)
+5. **Postman** (1 subtopics)
+6. **CORS errors** (1 subtopics)
+7. **Docker** (1 subtopics)
+8. **JWT token based auth concepts** (3 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #305 | Creating spring boot aplications | Creating Spring boot projects | P0 | 1.0h | #31, #119, #173, #274, #304 | Not Started |
+| #306 | Creating spring boot aplications | Project component | P0 | 1.0h | #305 | Not Started |
+| #307 | Creating spring boot aplications | Spring Boot Aspect Oriented Programming | P1 | 1.0h | #306 | Not Started |
+| #308 | Database integration in spring boot | Spring Boot JPA | P1 | 1.0h | #307 | Not Started |
+| #309 | Database integration in spring boot | Spring Boot JDBC | P1 | 1.0h | #308 | Not Started |
+| #310 | Database integration in spring boot | CRUD operations | P1 | 1.0h | #309 | Not Started |
+| #311 | Database integration in spring boot | Using Entity Manager | P1 | 1.0h | #310 | Not Started |
+| #312 | Creating RESTful APIs | Using RestTemplate and spring CrudRepository | P1 | 0.5h | #311 | Not Started |
+| #313 | Creating RESTful APIs | AutoConfiguration and Dispatcher Servlet | P1 | 0.5h | #312 | Not Started |
+| #314 | Creating RESTful APIs | Internationalization of Restful Services | P1 | 1.0h | #313 | Not Started |
+| #315 | Swagger integration | Configuring auto generation of Swagger | P1 | 0.5h | #314 | Not Started |
+| #316 | Swagger integration | Custom Annotation in swagger | P1 | 0.5h | #315 | Not Started |
+| #317 | Postman | Creating a CRUD applicattion and testing | P1 | 1.0h | #316 | Not Started |
+| #318 | CORS errors | Angular integraion and solving CORS errors | P1 | 1.0h | #317 | Not Started |
+| #319 | Docker | Containerize spring boot application | P1 | 1.0h | #318 | Not Started |
+| #320 | JWT token based auth concepts | Introduction to JSON Web Tokens | P1 | 1.5h | #319 | Not Started |
+| #321 | JWT token based auth concepts | Authentication | P1 | 1.5h | #320 | Not Started |
+| #322 | JWT token based auth concepts | Authorization(401 ,403 status code) | P1 | 1.0h | #321 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Clean Code & TDD](/docs/modules/clean-code-tdd/), [Core Java Programming](/docs/modules/core-java-programming/), [Hibernate ORM Framework](/docs/modules/hibernate-orm-framework/), [MySQL Database Management](/docs/modules/mysql-database-management/), [Spring Core Concepts](/docs/modules/spring-core-concepts/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **17.0 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~2.1 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (2 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (16 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Spring Boot Reference Documentation (docs.spring.io/spring-boot)**
+- 📖 **Spring Framework Reference: Enabling Cross-Origin Requests (CORS)**
+- 📖 **Spring Security Reference + jwt.io Introduction to JWT**
+- 📖 **springdoc-openapi Documentation (springdoc.org)**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **REST API Service**: Build a production-grade CRUD microservice with Spring Boot, Spring Data JPA, and DTO mapping.
+1. **Global Exception Handler**: Implement `@RestControllerAdvice` returning standardized RFC-7807 error responses.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these critical Spring Boot production traps:
+
+- ⚠️ **Field Injection (`@Autowired` on Private Fields)**: Makes unit testing difficult without starting an entire Spring context, hides tight coupling, and prevents creating immutable components. Always use **Constructor Injection**.
+- ⚠️ **The Self-Invocation `@Transactional` Bypass**: Calling a `@Transactional` method from within the same class (`this.method()`) bypasses the Spring AOP dynamic proxy, resulting in zero transaction demarcation.
+- ⚠️ **Executing Blocking Remote Calls Inside Transaction Boundaries**: Holding a database connection open while making slow external HTTP/RPC requests causes connection pool starvation across the entire application.
+- ⚠️ **Disabling Spring Security CSRF Without Token Guards**: Blindly adding `.csrf(AbstractHttpConfigurer::disable)` on browser-based cookie session apps opens vulnerability to Cross-Site Request Forgery attacks.
+
+---
+
+## 13. Interview Relevance
+
+Expect the following deep technical questions in Spring engineering interviews:
+
+- 💡 **Auto-Configuration Engine**: How does `@EnableAutoConfiguration` discover configuration classes? Explain the role of `@ConditionalOnMissingBean`.
+- 💡 **Bean Lifecycle Phases**: Walk through the lifecycle from `BeanDefinition` creation, instantiation, property population, `BeanPostProcessor` before/after hooks, to initialization.
+- 💡 **Transaction Propagation**: What is the difference between `REQUIRED` and `REQUIRES_NEW`? Why do checked exceptions not trigger a rollback by default?
+- 💡 **Circular Dependency Resolution**: How does Spring's 3-level singleton cache resolve circular dependencies in setter injection?
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Spring Framework Basics](/docs/modules/spring-framework-basics/), [Spring Core Concepts](/docs/modules/spring-core-concepts/), [Spring MVC Web Applications](/docs/modules/spring-mvc-web-applications/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

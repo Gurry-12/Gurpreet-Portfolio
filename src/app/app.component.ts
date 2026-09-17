@@ -29,6 +29,7 @@ import { filter } from 'rxjs/operators';
           <a routerLink="/learn" routerLinkActive="active" id="nav-learn">learn</a>
           <a routerLink="/lab" routerLinkActive="active" id="nav-lab">lab</a>
           <a routerLink="/about" routerLinkActive="active" id="nav-about">about</a>
+          <a href="/docs/" class="nav-link" id="nav-docs" target="_self">docs ↗</a>
           <a
             href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf"
             target="_blank"
@@ -81,6 +82,9 @@ import { filter } from 'rxjs/operators';
         <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()" id="mnav-about">
           about
         </a>
+        <a href="/docs/" class="mobile-nav-link" (click)="closeMenu()" id="mnav-docs" target="_self">
+          docs ↗
+        </a>
         <a
           href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf"
           target="_blank"
@@ -114,6 +118,7 @@ import { filter } from 'rxjs/operators';
           <a href="https://codolio.com/profile/Guriii" target="_blank" rel="noopener" aria-label="Codolio profile" id="footer-codolio">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14.6 20h2.9l5.5-8-5.5-8h-2.9l5.5 8-5.5 8zm-5.2 0H6.5l-5.5-8 5.5-8h2.9l-5.5 8 5.5 8z"/></svg>
           </a>
+          <a href="/docs/" aria-label="Documentation knowledge base" id="footer-docs" class="footer-docs-link">docs ↗</a>
           <a routerLink="/about" aria-label="Contact page" id="footer-contact">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </a>

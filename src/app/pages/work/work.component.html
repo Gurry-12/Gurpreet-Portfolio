@@ -130,12 +130,13 @@
                   <a
                     *ngIf="proj.live"
                     [href]="proj.live"
-                    target="_blank"
+                    [attr.target]="proj.live.startsWith('http') ? '_blank' : '_self'"
                     rel="noopener"
-                    class="btn btn-sm"
-                    [attr.aria-label]="proj.title + ' live demo'"
+                    class="btn btn-sm btn-primary"
+                    [attr.aria-label]="proj.title + ' live link'"
                   >
-                    Live Demo <span aria-hidden="true">↗</span>
+                    <span *ngIf="proj.id === 'engineering-english-knowledge-base'">Open Knowledge Base ↗</span>
+                    <span *ngIf="proj.id !== 'engineering-english-knowledge-base'">Live Demo <span aria-hidden="true">↗</span></span>
                   </a>
                 </div>
               </div>
@@ -206,8 +207,9 @@
               <a *ngIf="p.github" [href]="p.github" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="p.title + ' repository on GitHub'">
                 Repository <span aria-hidden="true">↗</span>
               </a>
-              <a *ngIf="p.live" [href]="p.live" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="p.title + ' live demo'">
-                Live <span aria-hidden="true">↗</span>
+              <a *ngIf="p.live" [href]="p.live" [attr.target]="p.live.startsWith('http') ? '_blank' : '_self'" rel="noopener" class="action-link" [attr.aria-label]="p.title + ' live link'">
+                <span *ngIf="p.id === 'engineering-english-knowledge-base'">Open Knowledge Base ↗</span>
+                <span *ngIf="p.id !== 'engineering-english-knowledge-base'">Live <span aria-hidden="true">↗</span></span>
               </a>
             </div>
           </aside>

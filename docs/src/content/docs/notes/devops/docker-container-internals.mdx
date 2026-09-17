@@ -1,0 +1,108 @@
+---
+title: "Docker Container Internals & Linux Kernel Primitives"
+description: "Deep dive into Linux namespaces (PID, NET, MNT), Control Groups (cgroups v2), Overlay2 Union File Systems, layer caching, and security boundaries."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+A Docker container is **not a lightweight Virtual Machine**. There is no guest operating system kernel, no hypervisor overhead, and no virtual hardware emulation.
+
+:::tip Engineering Mental Model
+A container is simply a **standard Linux host process** running directly on the host kernel, wrapped in two Linux kernel isolation mechanisms:
+1. **Linux Namespaces** (determines **what the process can see**).
+2. **Control Groups / cgroups** (determines **how much resources the process can use**).
+:::
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    DOCKER CONTAINER ISOLATION PRIMITIVES                     │
+│                                                                             │
+│  ┌──────────────────────── CONTAINER PROCESS ────────────────────────────┐  │
+│  │                                                                       │  │
+│  │  ┌─────────────────────── LINUX NAMESPACES ────────────────────────┐  │  │
+│  │  │ • PID: Process ID tree (Container process sees itself as PID 1) │  │  │
+│  │  │ • NET: Virtual network interfaces, IP addresses, routing tables │  │  │
+│  │  │ • MNT: Isolated root filesystem mount points (`/`, `/etc`)      │  │  │
+│  │  │ • IPC: Inter-Process Communication & shared memory isolation    │  │  │
+│  │  │ • UTS: Isolated hostname and NIS domain                         │  │  │
+│  │  │ • USER: Maps container UID 0 (root) to unprivileged host UID    │  │  │
+│  │  └─────────────────────────────────────────────────────────────────┘  │  │
+│  │                                                                       │  │
+│  │  ┌────────────────── CONTROL GROUPS (CGROUPS V2) ──────────────────┐  │  │
+│  │  │ • CPU: CPU quota and bandwidth limits (e.g. `--cpus=2.0`)       │  │  │
+│  │  │ • Memory: Hard memory ceiling (OOM Killer triggers on breach)   │  │  │
+│  │  │ • BlkIO: Disk read/write I/O throttling                         │  │  │
+│  │  └─────────────────────────────────────────────────────────────────┘  │  │
+│  └──────────────────────────────────┬────────────────────────────────────┘  │
+│                                     │                                       │
+│                       ┌─────────────▼─────────────┐                         │
+│                       │    HOST LINUX KERNEL      │                         │
+│                       └───────────────────────────┘                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. The Overlay2 Union File System & Layer Caching
+
+Docker images consist of stacked, read-only immutable layers:
+- **LowerDir (Read-Only)**: Base OS layers and application build artifacts.
+- **UpperDir (Read-Write)**: The thin writable container layer where modifications take place.
+- **MergedDir (Unified View)**: What the containerized process sees as its root filesystem (`/`).
+
+```
+Merged View (Container Root /)
+  ▲
+  ├── [ UpperDir ] Container Read-Write Layer (Modified files, temp logs)
+  ▲
+  ├── [ LowerDir Layer 3 ] Application JAR / static assets
+  ▲
+  ├── [ LowerDir Layer 2 ] OpenJDK / Node.js Runtime
+  ▲
+  └── [ LowerDir Layer 1 ] Base OS (Alpine / Debian Slim)
+```
+
+:::note Copy-on-Write (CoW) Semantics
+When a container modifies a file residing in a read-only lower layer, the Linux kernel copies the file up into the `UpperDir` before modifying it. The underlying image layers remain 100% untouched and shared across hundreds of container instances.
+:::
+
+---
+
+## 3. Production Hardened Multi-Stage Dockerfile Pattern
+
+```dockerfile
+# STAGE 1: BUILD ENVIRONMENT (Includes heavy compilers and build tools)
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /build
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline -B
+COPY src ./src
+RUN ./mvnw clean package -DskipTests -B
+
+# STAGE 2: PRODUCTION RUNTIME (Minimal footprint, zero build tools)
+FROM eclipse-temurin:21-jre-alpine AS runner
+WORKDIR /app
+
+# SECURITY: Create dedicated unprivileged user (Never run as root!)
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser:appgroup
+
+# Copy only the compiled artifact from builder stage
+COPY --from=builder --chown=appuser:appgroup /build/target/*.jar app.jar
+
+# JVM Ergonomics for Containers
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC"
+
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar app.jar"]
+```
+
+---
+
+## 4. Authoritative Primary References (Tier 1)
+
+- [Docker Engine Technical Documentation](https://docs.docker.com/engine/)
+- [Linux Kernel Documentation — Namespaces and Control Groups](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html)

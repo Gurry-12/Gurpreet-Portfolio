@@ -1,0 +1,326 @@
+[
+  {
+    "name": "I. Foundation",
+    "slug": "phase-1-foundation",
+    "milestone": "Toolchain ready; coding standards & version control habits established.",
+    "modules": [
+      {
+        "name": "Soft Skills & Professional Readiness",
+        "slug": "soft-skills-professional-readiness",
+        "topics": 2,
+        "subtopics": 8,
+        "hours": 8.0,
+        "milestone": "Toolchain ready; coding standards & version control habits established."
+      },
+      {
+        "name": "Git & GitHub Version Control",
+        "slug": "git-github-version-control",
+        "topics": 3,
+        "subtopics": 14,
+        "hours": 7.0,
+        "milestone": "Toolchain ready; coding standards & version control habits established."
+      },
+      {
+        "name": "Clean Code & TDD",
+        "slug": "clean-code-tdd",
+        "topics": 3,
+        "subtopics": 9,
+        "hours": 12.0,
+        "milestone": "Toolchain ready; coding standards & version control habits established."
+      }
+    ],
+    "total_topics": 8,
+    "total_subtopics": 31,
+    "total_hours": 27.0
+  },
+  {
+    "name": "II. Core Programming",
+    "slug": "phase-2-core-programming",
+    "milestone": "Proficient in Java OOP; can model systems with SOLID & UML.",
+    "modules": [
+      {
+        "name": "Core Java Programming",
+        "slug": "core-java-programming",
+        "topics": 42,
+        "subtopics": 88,
+        "hours": 68.0,
+        "milestone": "Proficient in Java OOP; can model systems with SOLID & UML."
+      },
+      {
+        "name": "Design Principles (OOPS & SOLID)",
+        "slug": "design-principles-oops-solid",
+        "topics": 3,
+        "subtopics": 18,
+        "hours": 17.5,
+        "milestone": "Proficient in Java OOP; can model systems with SOLID & UML."
+      },
+      {
+        "name": "OOAD & Software Design",
+        "slug": "ooad-software-design",
+        "topics": 7,
+        "subtopics": 23,
+        "hours": 24.0,
+        "milestone": "Proficient in Java OOP; can model systems with SOLID & UML."
+      }
+    ],
+    "total_topics": 52,
+    "total_subtopics": 129,
+    "total_hours": 109.5
+  },
+  {
+    "name": "III. Data & Databases",
+    "slug": "phase-3-data-databases",
+    "milestone": "Can design normalized schemas and talk to MySQL from Java (JDBC).",
+    "modules": [
+      {
+        "name": "MySQL Database Management",
+        "slug": "mysql-database-management",
+        "topics": 3,
+        "subtopics": 13,
+        "hours": 7.0,
+        "milestone": "Can design normalized schemas and talk to MySQL from Java (JDBC)."
+      },
+      {
+        "name": "RDBMS & JDBC Connectivity",
+        "slug": "rdbms-jdbc-connectivity",
+        "topics": 3,
+        "subtopics": 16,
+        "hours": 10.5,
+        "milestone": "Can design normalized schemas and talk to MySQL from Java (JDBC)."
+      }
+    ],
+    "total_topics": 6,
+    "total_subtopics": 29,
+    "total_hours": 17.5
+  },
+  {
+    "name": "IV. Web Fundamentals",
+    "slug": "phase-4-web-fundamentals",
+    "milestone": "Can build interactive front-ends and Java web apps (Servlets/JSP).",
+    "modules": [
+      {
+        "name": "JavaScript Programming",
+        "slug": "javascript-programming",
+        "topics": 9,
+        "subtopics": 47,
+        "hours": 27.0,
+        "milestone": "Can build interactive front-ends and Java web apps (Servlets/JSP)."
+      },
+      {
+        "name": "Bootstrap Website Design",
+        "slug": "bootstrap-website-design",
+        "topics": 3,
+        "subtopics": 9,
+        "hours": 7.5,
+        "milestone": "Can build interactive front-ends and Java web apps (Servlets/JSP)."
+      },
+      {
+        "name": "JSP & Servlets Web Applications",
+        "slug": "jsp-servlets-web-applications",
+        "topics": 2,
+        "subtopics": 20,
+        "hours": 10.0,
+        "milestone": "Can build interactive front-ends and Java web apps (Servlets/JSP)."
+      }
+    ],
+    "total_topics": 14,
+    "total_subtopics": 76,
+    "total_hours": 44.5
+  },
+  {
+    "name": "V. Persistence & Advanced Java",
+    "slug": "phase-5-persistence-advanced-java",
+    "milestone": "Maps objects to relational data (JPA/Hibernate); concurrency-ready.",
+    "modules": [
+      {
+        "name": "Hibernate ORM Framework",
+        "slug": "hibernate-orm-framework",
+        "topics": 2,
+        "subtopics": 9,
+        "hours": 8.5,
+        "milestone": "Maps objects to relational data (JPA/Hibernate); concurrency-ready."
+      },
+      {
+        "name": "Enterprise Java Design",
+        "slug": "enterprise-java-design",
+        "topics": 7,
+        "subtopics": 22,
+        "hours": 39.0,
+        "milestone": "Maps objects to relational data (JPA/Hibernate); concurrency-ready."
+      }
+    ],
+    "total_topics": 9,
+    "total_subtopics": 31,
+    "total_hours": 47.5
+  },
+  {
+    "name": "VI. Spring Ecosystem",
+    "slug": "phase-6-spring-ecosystem",
+    "milestone": "Can build production REST APIs with Spring Boot & Spring MVC.",
+    "modules": [
+      {
+        "name": "Spring Framework Basics",
+        "slug": "spring-framework-basics",
+        "topics": 1,
+        "subtopics": 4,
+        "hours": 4.0,
+        "milestone": "Can build production REST APIs with Spring Boot & Spring MVC."
+      },
+      {
+        "name": "Spring Core Concepts",
+        "slug": "spring-core-concepts",
+        "topics": 1,
+        "subtopics": 4,
+        "hours": 3.5,
+        "milestone": "Can build production REST APIs with Spring Boot & Spring MVC."
+      },
+      {
+        "name": "Spring Boot Application Development",
+        "slug": "spring-boot-application-development",
+        "topics": 8,
+        "subtopics": 18,
+        "hours": 17.0,
+        "milestone": "Can build production REST APIs with Spring Boot & Spring MVC."
+      },
+      {
+        "name": "Spring MVC Web Applications",
+        "slug": "spring-mvc-web-applications",
+        "topics": 1,
+        "subtopics": 4,
+        "hours": 3.5,
+        "milestone": "Can build production REST APIs with Spring Boot & Spring MVC."
+      }
+    ],
+    "total_topics": 11,
+    "total_subtopics": 30,
+    "total_hours": 28.0
+  },
+  {
+    "name": "VII. Frontend Engineering",
+    "slug": "phase-7-frontend-engineering",
+    "milestone": "Can build modern SPAs in React with Redux and server-rendered Next.js.",
+    "modules": [
+      {
+        "name": "React.js Frontend Development",
+        "slug": "react-js-frontend-development",
+        "topics": 6,
+        "subtopics": 19,
+        "hours": 24.0,
+        "milestone": "Can build modern SPAs in React with Redux and server-rendered Next.js."
+      },
+      {
+        "name": "React Redux State Management",
+        "slug": "react-redux-state-management",
+        "topics": 3,
+        "subtopics": 10,
+        "hours": 5.0,
+        "milestone": "Can build modern SPAs in React with Redux and server-rendered Next.js."
+      },
+      {
+        "name": "Next.js Framework",
+        "slug": "next-js-framework",
+        "topics": 10,
+        "subtopics": 27,
+        "hours": 13.5,
+        "milestone": "Can build modern SPAs in React with Redux and server-rendered Next.js."
+      }
+    ],
+    "total_topics": 19,
+    "total_subtopics": 56,
+    "total_hours": 42.5
+  },
+  {
+    "name": "VIII. Architecture & Ops",
+    "slug": "phase-8-architecture-ops",
+    "milestone": "Applies GoF patterns; packages apps as Docker containers.",
+    "modules": [
+      {
+        "name": "Design Patterns (GoF)",
+        "slug": "design-patterns-gof",
+        "topics": 13,
+        "subtopics": 15,
+        "hours": 15.0,
+        "milestone": "Applies GoF patterns; packages apps as Docker containers."
+      },
+      {
+        "name": "Docker & Containerization",
+        "slug": "docker-containerization",
+        "topics": 2,
+        "subtopics": 18,
+        "hours": 9.0,
+        "milestone": "Applies GoF patterns; packages apps as Docker containers."
+      }
+    ],
+    "total_topics": 15,
+    "total_subtopics": 33,
+    "total_hours": 24.0
+  },
+  {
+    "name": "IX. Microservices & Mobile",
+    "slug": "phase-9-microservices-mobile",
+    "milestone": "Ships Spring Cloud microservices and React Native mobile apps.",
+    "modules": [
+      {
+        "name": "Java Microservices (Spring Cloud)",
+        "slug": "java-microservices-spring-cloud",
+        "topics": 7,
+        "subtopics": 20,
+        "hours": 21.5,
+        "milestone": "Ships Spring Cloud microservices and React Native mobile apps."
+      },
+      {
+        "name": "React Native Mobile Apps",
+        "slug": "react-native-mobile-apps",
+        "topics": 9,
+        "subtopics": 36,
+        "hours": 39.0,
+        "milestone": "Ships Spring Cloud microservices and React Native mobile apps."
+      }
+    ],
+    "total_topics": 16,
+    "total_subtopics": 56,
+    "total_hours": 60.5
+  },
+  {
+    "name": "X. Professional & AI",
+    "slug": "phase-10-professional-ai",
+    "milestone": "Agile/BA fluency; can ship AI/ML and LangChain agent applications.",
+    "modules": [
+      {
+        "name": "Agile Methodology & Scrum",
+        "slug": "agile-methodology-scrum",
+        "topics": 3,
+        "subtopics": 11,
+        "hours": 16.0,
+        "milestone": "Agile/BA fluency; can ship AI/ML and LangChain agent applications."
+      },
+      {
+        "name": "Business Analysis",
+        "slug": "business-analysis",
+        "topics": 7,
+        "subtopics": 28,
+        "hours": 29.0,
+        "milestone": "Agile/BA fluency; can ship AI/ML and LangChain agent applications."
+      },
+      {
+        "name": "AI & Machine Learning for Software Engineers",
+        "slug": "ai-machine-learning-for-software-engineers",
+        "topics": 32,
+        "subtopics": 81,
+        "hours": 126.0,
+        "milestone": "Agile/BA fluency; can ship AI/ML and LangChain agent applications."
+      },
+      {
+        "name": "Agentic AI & LangChain",
+        "slug": "agentic-ai-langchain",
+        "topics": 8,
+        "subtopics": 68,
+        "hours": 45.5,
+        "milestone": "Agile/BA fluency; can ship AI/ML and LangChain agent applications."
+      }
+    ],
+    "total_topics": 50,
+    "total_subtopics": 188,
+    "total_hours": 216.5
+  }
+]

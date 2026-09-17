@@ -1,0 +1,122 @@
+---
+title: "Java Generics & Type Erasure Internals"
+description: "Deep dive into Java generics compile-time type safety, bytecode type erasure, synthetic bridge methods, wildcard variance (PECS), and heap pollution."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+Java Generics were introduced in Java 5 to provide **compile-time type safety** and eliminate boilerplate runtime type casting (`(String) list.get(0)`).
+
+:::tip Engineering Mental Model
+Java generics exist almost exclusively at **compile time**. The JVM execution engine has no concept of generic parameterized types like `List<String>` or `Map<Integer, User>`. Through a process called **Type Erasure**, the Java compiler enforces type constraints during compilation and then strips all generic type arguments from bytecode, replacing them with raw types or upper bounds and inserting synthetic bytecode casts (`CHECKCAST`).
+:::
+
+---
+
+## 2. Type Erasure Mechanics Under the Hood
+
+### How the Compiler Erases Types
+1. Replaces unbounded type parameters (`<T>`) with `Object`.
+2. Replaces bounded type parameters (`<T extends Number>`) with the first bounding class (`Number`).
+3. Inserts explicit `CHECKCAST` bytecode instructions where objects are retrieved.
+4. Generates **Synthetic Bridge Methods** to preserve polymorphism in method overriding.
+
+```java
+// BEFORE COMPILATION (Source Code)
+public class Box<T extends Comparable<T>> {
+    private T value;
+    public void set(T val) { this.value = val; }
+    public T get() { return value; }
+}
+
+// AFTER COMPILATION (Decompiled Bytecode Equivalent)
+public class Box {
+    private Comparable value;
+    public void set(Comparable val) { this.value = val; }
+    public Comparable get() { return value; }
+}
+```
+
+---
+
+## 3. Synthetic Bridge Methods
+
+Consider subclassing a generic class:
+
+```java
+public class StringBox extends Box<String> {
+    @Override
+    public void set(String val) {
+        System.out.println("Setting string: " + val);
+    }
+}
+```
+
+After type erasure, `Box.set` has the signature `set(Comparable)`. But `StringBox` declares `set(String)`. Because the parameter types differ, this is an **overload**, not an **override** at the bytecode level!
+
+To maintain polymorphic dispatch, the Java compiler silently generates a **Synthetic Bridge Method**:
+
+```java
+// Compiler-Generated Bridge Method in StringBox.class
+public void set(Comparable val) {
+    this.set((String) val); // Casts argument and delegates to set(String)
+}
+```
+
+---
+
+## 4. Generic Variance: Invariance, Covariance, and Contravariance
+
+In Java, raw arrays are **covariant** (`String[]` is a subtype of `Object[]`), which is a known source of runtime bugs:
+
+```java
+// Fails at RUNTIME with ArrayStoreException
+Object[] array = new String[5];
+array[0] = Integer.valueOf(42); // Compiles cleanly, throws ArrayStoreException at runtime!
+```
+
+To prevent this design flaw, **Java Generics are invariant**: `List<String>` is NOT a subtype of `List<Object>`.
+
+### The PECS Rule: Producer Extends, Consumer Super
+To allow safe subtype polymorphism, Java uses bounded wildcards:
+
+<CardGrid>
+  <Card title="? extends T (Covariance / Producer)" icon="down-caret">
+    - **Use Case**: When you only **read** items from the collection (`Producer extends`).
+    - **Rule**: `List<? extends Number>` can read `Number` instances safely.
+    - **Restriction**: You **cannot add** any elements (except `null`) because the compiler cannot guarantee the exact concrete subtype stored in the list.
+  </Card>
+  <Card title="? super T (Contravariance / Consumer)" icon="up-caret">
+    - **Use Case**: When you only **write** items into the collection (`Consumer super`).
+    - **Rule**: `List<? super Integer>` can safely accept `Integer` instances.
+    - **Restriction**: Reading from it returns only `Object` references.
+  </Card>
+</CardGrid>
+
+```java
+// Canonical PECS Demonstration from Collections.copy()
+public static <T> void copy(List<? super T> dest, List<? extends T> src) {
+    for (int i = 0; i < src.size(); i++) {
+        dest.set(i, src.get(i)); // Reads from producer (extends), writes to consumer (super)
+    }
+}
+```
+
+---
+
+## 5. Heap Pollution & Limitations of Erasure
+
+### What You CANNOT Do With Java Generics
+1. **Cannot instantiate generic types**: `new T()` is invalid because `T` does not exist at runtime.
+2. **Cannot create generic arrays**: `new List<String>[10]` causes a compilation error (prevents heap pollution).
+3. **Cannot use primitive types**: `List<int>` is invalid; requires wrapper classes (`List<Integer>`) due to `Object` erasure.
+4. **Cannot check generic types with `instanceof`**: `if (obj instanceof List<String>)` fails because type parameters are erased.
+
+---
+
+## 6. Authoritative Primary References (Tier 1 & Tier 2)
+
+- [Java Language Specification (JLS SE 21) — Chapter 4: Types, Values, and Variables](https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html)
+- [Effective Java (3rd Edition) — Chapter 5: Generics (Items 26–33)](https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/)

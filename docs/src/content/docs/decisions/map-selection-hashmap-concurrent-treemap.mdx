@@ -1,0 +1,51 @@
+---
+title: "Decision Guide: HashMap vs TreeMap vs ConcurrentHashMap"
+description: "Architectural trade-off matrix and decision framework for selecting the correct Java Map implementation."
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+## 1. Decision Matrix Summary
+
+| Criterion | `HashMap` | `LinkedHashMap` | `TreeMap` | `ConcurrentHashMap` |
+| :--- | :--- | :--- | :--- | :--- |
+| **Lookup Complexity** | Average `O(1)` | Average `O(1)` | Guaranteed `O(log N)` | Average `O(1)` |
+| **Key Ordering** | Unordered / Arbitrary | Insertion or Access (LRU) | Natural / Custom Comparator | Unordered |
+| **Thread Safety** | ❌ None (Race conditions) | ❌ None | ❌ None | ✅ Lock-Free Reads, CAS Writes |
+| **Null Key Support** | ✅ Yes (1 null key at index 0)| ✅ Yes | ❌ Throws `NullPointerException`| ❌ Throws `NullPointerException`|
+| **Memory Footprint** | Low (Array + Nodes) | Moderate (Adds double links) | Moderate (Tree parent/left/right) | Higher (Segment/Node table) |
+
+---
+
+## 2. Decision Tree Flowchart
+
+```
+Need key-value associative storage?
+  │
+  ├─> Is the map shared across multiple concurrent threads?
+  │     ├── YES ──> Use `ConcurrentHashMap`
+  │     └── NO  ──> Proceed to ordering criteria
+  │
+  ├─> Do you require sorted key ranges (e.g. `subMap()`, `headMap()`)?
+  │     ├── YES ──> Use `TreeMap`
+  │     └── NO  ──> Proceed to iteration criteria
+  │
+  ├─> Do you need predictable insertion order or an LRU eviction cache?
+  │     ├── YES ──> Use `LinkedHashMap`
+  │     └── NO  ──> Use standard `HashMap` (Default Choice)
+```
+
+---
+
+## 3. Concrete Failure Scenarios
+
+<CardGrid>
+  <Card title="Using TreeMap for General Lookups" icon="warning">
+    **Anti-Pattern**: Using `TreeMap` when sorting is never required.
+    **Cost**: Incurs `O(log N)` tree traversal overhead and higher object allocation costs on every lookup instead of `O(1)` hash indexing.
+  </Card>
+  <Card title="Using Collections.synchronizedMap()" icon="error">
+    **Anti-Pattern**: Wrapping HashMap in `Collections.synchronizedMap(map)` for high-concurrency systems.
+    **Cost**: Acquires a single global mutex on EVERY operation, serializing all reader and writer threads and causing catastrophic thread contention bottlenecks. Always prefer `ConcurrentHashMap`.
+  </Card>
+</CardGrid>

@@ -1,0 +1,24 @@
+---
+title: "Decision Guide: Synchronous vs Asynchronous Processing Architecture"
+description: "Engineering evaluation criteria for synchronous blocking workflows versus asynchronous background jobs and non-blocking I/O."
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+## 1. Architectural Comparison
+
+| Dimension | Synchronous Processing | Asynchronous Processing |
+| :--- | :--- | :--- |
+| **Execution Flow** | Caller thread blocks until response is generated. | Caller receives immediate acknowledgement; work executes in background. |
+| **System Resilience** | Cascading failures: downstream latency exhausts upstream thread pools. | High resilience: queues absorb traffic spikes (load leveling). |
+| **User Experience** | Instant confirmation for simple operations; spinner freeze for heavy jobs. | Fast response with progress polling / WebSockets notification. |
+| **Implementation Cost**| Low (Straightforward sequential code). | Higher (Requires distributed state tracking, idempotency, retry mechanisms). |
+
+---
+
+## 2. Production Evaluation Rule of Thumb
+
+<Aside type="tip" title="The 200ms Latency Rule">
+If an operation takes **< 200ms** (e.g. database PK lookup, simple validation): execute **Synchronously**.
+If an operation involves third-party external APIs, report generation, video transcoding, or takes **> 500ms**: execute **Asynchronously** using background worker queues.
+</Aside>

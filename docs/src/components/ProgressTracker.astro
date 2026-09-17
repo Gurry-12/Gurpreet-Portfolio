@@ -1,0 +1,142 @@
+---
+import roadmapData from '../data/roadmap.json';
+import phasesData from '../data/phases.json';
+---
+
+<div class="not-content" id="tracker-root" style="margin: 1.5rem 0;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+    <div class="module-stat-card" style="padding: 1.25rem;">
+      <div class="module-stat-value" id="stat-completed-count" style="color: #4ade80;">0 / 659</div>
+      <div class="module-stat-label">Subtopics Completed</div>
+    </div>
+    <div class="module-stat-card" style="padding: 1.25rem;">
+      <div class="module-stat-value" id="stat-progress-pct" style="color: var(--sl-color-accent-high);">0%</div>
+      <div class="module-stat-label">Overall Completion</div>
+    </div>
+    <div class="module-stat-card" style="padding: 1.25rem;">
+      <div class="module-stat-value" id="stat-completed-hours" style="color: #38bdf8;">0.0 / 617.5h</div>
+      <div class="module-stat-label">Hours Logged</div>
+    </div>
+    <div class="module-stat-card" style="padding: 1.25rem;">
+      <div class="module-stat-value" id="stat-p0-pct" style="color: var(--color-p0-text);">0 / 210</div>
+      <div class="module-stat-label">P0 (Must-Have) Done</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+    <div style="font-size: 0.875rem; color: var(--sl-color-gray-3);">
+      Check off subtopics as you master them. Progress is safely preserved in your browser's LocalStorage.
+    </div>
+    <button id="reset-btn" style="padding: 0.35rem 0.75rem; border-radius: 0.375rem; font-size: 0.75rem; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); cursor: pointer; font-weight: 600;">
+      Reset Progress
+    </button>
+  </div>
+
+  <div style="max-height: 600px; overflow-y: auto; border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem; background: var(--sl-color-bg-sidebar);">
+    {phasesData.map((phase) => (
+      <details style="border-bottom: 1px solid var(--sl-color-gray-6); padding: 0.75rem 1rem;">
+        <summary style="font-weight: 700; cursor: pointer; color: var(--sl-color-white); outline: none;">
+          {phase.name} <span style="font-weight: 400; font-size: 0.8125rem; color: var(--sl-color-gray-3);">({phase.total_subtopics} items · {phase.total_hours}h)</span>
+        </summary>
+        <div style="margin-top: 0.75rem; padding-left: 0.5rem;">
+          {roadmapData.filter(item => item.phase === phase.name).map((item) => (
+            <label style="display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.35rem 0; font-size: 0.8125rem; cursor: pointer;">
+              <input 
+                type="checkbox" 
+                class="item-checkbox" 
+                data-seq={item.sequence_id}
+                data-hours={item.estimated_hours}
+                data-priority={item.priority}
+                style="margin-top: 0.2rem;"
+              />
+              <span style="color: var(--sl-color-gray-3); font-family: var(--sl-font-mono); width: 45px;">#{item.sequence_id}</span>
+              <span style="flex-grow: 1; color: var(--sl-color-gray-2);">
+                <strong style="color: var(--sl-color-white);">{item.module}:</strong> {item.topic} — {item.subtopic}
+              </span>
+              <span style="font-family: var(--sl-font-mono); font-size: 0.75rem; color: var(--sl-color-gray-3);">{item.estimated_hours}h</span>
+            </label>
+          ))}
+        </div>
+      </details>
+    ))}
+  </div>
+</div>
+
+<script>
+  function initTracker() {
+    const STORAGE_KEY = 'swabhav_roadmap_progress_v1';
+    const checkboxes = document.querySelectorAll('.item-checkbox') as NodeListOf<HTMLInputElement>;
+    const statCompletedCount = document.getElementById('stat-completed-count');
+    const statProgressPct = document.getElementById('stat-progress-pct');
+    const statCompletedHours = document.getElementById('stat-completed-hours');
+    const statP0Pct = document.getElementById('stat-p0-pct');
+    const resetBtn = document.getElementById('reset-btn');
+
+    if (!checkboxes.length || !statCompletedCount) return;
+
+    let savedState: Record<string, boolean> = {};
+    try {
+      savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch {
+      savedState = {};
+    }
+
+    function updateStats() {
+      let count = 0;
+      let hours = 0.0;
+      let p0Count = 0;
+
+      checkboxes.forEach((cb) => {
+        const sid = cb.getAttribute('data-seq') || '';
+        const h = parseFloat(cb.getAttribute('data-hours') || '0');
+        const prio = cb.getAttribute('data-priority') || '';
+
+        if (savedState[sid]) {
+          cb.checked = true;
+          count++;
+          hours += h;
+          if (prio === 'P0') p0Count++;
+        } else {
+          cb.checked = false;
+        }
+      });
+
+      const totalItems = checkboxes.length || 659;
+      const totalHours = 617.5;
+      const pct = Math.round((count / totalItems) * 100);
+
+      statCompletedCount!.textContent = `${count} / ${totalItems}`;
+      statProgressPct!.textContent = `${pct}%`;
+      statCompletedHours!.textContent = `${hours.toFixed(1)} / ${totalHours}h`;
+      statP0Pct!.textContent = `${p0Count} / 210`;
+    }
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const sid = cb.getAttribute('data-seq') || '';
+        if (cb.checked) {
+          savedState[sid] = true;
+        } else {
+          delete savedState[sid];
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+        updateStats();
+      });
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset all progress?')) {
+          savedState = {};
+          localStorage.removeItem(STORAGE_KEY);
+          updateStats();
+        }
+      });
+    }
+
+    updateStats();
+  }
+
+  document.addEventListener('DOMContentLoaded', initTracker);
+  document.addEventListener('astro:page-load', initTracker);
+</script>

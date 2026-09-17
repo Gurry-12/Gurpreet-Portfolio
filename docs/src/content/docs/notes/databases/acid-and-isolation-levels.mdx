@@ -1,0 +1,73 @@
+---
+title: "ACID Transactions & Concurrency Isolation Levels"
+description: "Deep dive into Atomicity, Consistency, Isolation, Durability, transaction anomalies (Dirty, Non-repeatable, Phantom reads), ANSI SQL isolation levels, and MVCC mechanics."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & The ACID Guarantee
+
+A database **Transaction** is a logical unit of work that ensures reliable data processing in the presence of concurrent execution and hardware failures.
+
+- **Atomicity (All-or-Nothing)**: All operations in a transaction succeed, or the entire transaction is rolled back. Powered by **Write-Ahead Logging (WAL)** / Undo Logs.
+- **Consistency**: The database transitions from one valid state to another, satisfying all schema constraints, foreign keys, and business invariants.
+- **Isolation**: Concurrent transactions execute without interfering with one another or observing incomplete intermediate states.
+- **Durability**: Once a transaction is committed, its changes survive system crashes and power failures via disk `fsync` of Redo Logs.
+
+---
+
+## 2. Transaction Concurrency Anomalies
+
+When multiple transactions execute concurrently without complete serial lock synchronization, several anomalies can arise:
+
+```
+1. DIRTY READ (Read Uncommitted Changes)
+   Trx 1: UPDATE account SET balance = 500 WHERE id = 1; (NOT YET COMMITTED)
+   Trx 2: SELECT balance FROM account WHERE id = 1;      --> Reads 500!
+   Trx 1: ROLLBACK; (Balance restored to 1000)           --> Trx 2 operated on ghost data!
+
+2. NON-REPEATABLE READ (Fuzzy Read)
+   Trx 1: SELECT balance FROM account WHERE id = 1;      --> Reads 1000
+   Trx 2: UPDATE account SET balance = 800 WHERE id = 1; COMMIT;
+   Trx 1: SELECT balance FROM account WHERE id = 1;      --> Reads 800 (Value changed mid-transaction!)
+
+3. PHANTOM READ (New Rows Inserted)
+   Trx 1: SELECT count(*) FROM orders WHERE total > 100; --> Returns 5 rows
+   Trx 2: INSERT INTO orders VALUES (..., 150); COMMIT;
+   Trx 1: SELECT count(*) FROM orders WHERE total > 100; --> Returns 6 rows (Phantom row appeared!)
+
+4. WRITE SKEW (Serialization Anomaly)
+   Constraint: At least 1 on-call doctor must remain active.
+   Trx 1: Checks count (2 doctors) -> Doctor A goes offline.
+   Trx 2: Checks count (2 doctors) -> Doctor B goes offline.
+   Both commit -> 0 doctors active! (Invariant violated!).
+```
+
+---
+
+## 3. ANSI SQL Isolation Levels Matrix
+
+| Isolation Level | Dirty Read | Non-Repeatable Read | Phantom Read | Implementation Cost |
+| :--- | :--- | :--- | :--- | :--- |
+| **`READ UNCOMMITTED`** | ❌ Occurs | ❌ Occurs | ❌ Occurs | Lowest (no read locks) |
+| **`READ COMMITTED`** (Postgres default) | ✅ Prevented | ❌ Occurs | ❌ Occurs | Read view created per query |
+| **`REPEATABLE READ`** (MySQL InnoDB default) | ✅ Prevented | ✅ Prevented | ✅ Prevented (InnoDB Next-Key Locks/MVCC) | Read view created at transaction start |
+| **`SERIALIZABLE`** | ✅ Prevented | ✅ Prevented | ✅ Prevented | Highest (Two-Phase Locking / SSI) |
+
+---
+
+## 4. How Multi-Version Concurrency Control (MVCC) Works
+
+Modern databases (MySQL InnoDB, PostgreSQL) do not acquire blocking read locks. Instead, they use **MVCC**:
+- When a row is modified, the database creates a new version of the row with metadata columns:
+  - `DB_TRX_ID`: ID of the transaction that modified the row.
+  - `DB_ROLL_PTR`: Pointer to the **Undo Log** containing the previous version.
+- When Transaction `T` executes a `SELECT`, the engine constructs a **Read View (Snapshot)**. It reads the row version that was committed *before* `T` started, allowing **reads to never block writes, and writes to never block reads**.
+
+---
+
+## 5. Authoritative Primary References (Tier 1 & Tier 2)
+
+- [MySQL 8.0 Reference Manual — InnoDB Multi-Versioning (MVCC)](https://dev.mysql.com/doc/refman/8.0/en/innodb-multi-versioning.html)
+- [PostgreSQL Documentation — Concurrency Control & Isolation](https://www.postgresql.org/docs/current/mvcc.html)
+- [*Designing Data-Intensive Applications* — Martin Kleppmann (Chapter 7: Transactions)](https://dataintensive.net/)

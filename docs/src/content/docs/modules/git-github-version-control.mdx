@@ -1,0 +1,172 @@
+---
+title: "Git & GitHub Version Control"
+description: "I. Foundation · 14 Subtopics · 7.0 Hours · Sequence IDs 9 - 22"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="9 - 22"
+  hours={7.0}
+  topicsCount={3}
+  subtopicsCount={14}
+  p0Count={12}
+  p1Count={2}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [I. Foundation](/docs/roadmap/phase-1-foundation/)
+- **Sequence Range:** #9 - 22
+- **Prerequisite Modules:** None (Root Starting Point)
+- **Total Curated Learning Time:** 7.0 Hours
+:::
+
+## 1. Module Purpose
+
+Master distributed version control, branching workflows, pull requests, rebase vs merge, and collaborative engineering standards.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Version control is the lifeblood of software teams. Sloppy Git habits lead to lost code, broken deployments, and merge conflicts that paralyze releases.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Execute three-way merges, interactive rebases, and conflict resolution confidently.
+- Enforce branch protection, semantic commit conventions, and GitHub PR reviews.
+- Diagnose repository history using git log, reflog, bisect, and cherry-pick.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **3 high-level topic groups**:
+
+1. **Introduction** (4 subtopics)
+2. **Working with git** (4 subtopics)
+3. **Git and github integration** (6 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #9 | Introduction | Need for Version Control System | P0 | 0.5h | Root | Not Started |
+| #10 | Introduction | How to download and install | P0 | 0.5h | #9 | Not Started |
+| #11 | Introduction | Commit tree and internal working of git | P0 | 0.5h | #10 | Not Started |
+| #12 | Introduction | Basic git commands | P0 | 0.5h | #11 | Not Started |
+| #13 | Working with git | Introduction to branches | P0 | 0.5h | #12 | Not Started |
+| #14 | Working with git | Creating and merging branches | P0 | 0.5h | #13 | Not Started |
+| #15 | Working with git | How to undo a merge and resolve conflicts | P1 | 0.5h | #14 | Not Started |
+| #16 | Working with git | Other handy git commands like stash, prune etc | P1 | 0.5h | #15 | Not Started |
+| #17 | Git and github integration | Git environment Setup | P0 | 0.5h | #16 | Not Started |
+| #18 | Git and github integration | Working Directory, Staging Area, Git repository | P0 | 0.5h | #17 | Not Started |
+| #19 | Git and github integration | GIt commit | P0 | 0.5h | #18 | Not Started |
+| #20 | Git and github integration | PUSH and PULL | P0 | 0.5h | #19 | Not Started |
+| #21 | Git and github integration | Branching | P0 | 0.5h | #20 | Not Started |
+| #22 | Git and github integration | Cloning | P0 | 0.5h | #21 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** None (Root Starting Point)
+- **Starting Point Status:** **YES** — This module is a root entry point with no external blockers.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **7.0 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~1 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (12 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (2 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Pro Git, Scott Chacon & Ben Straub (git-scm.com/book/en/v2)**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Conflict Simulator**: Create two branches modifying the same lines, perform a merge, and manually resolve conflicts using Git CLI.
+1. **Interactive Rebase Drill**: Squash 5 messy commits into a single clean conventional commit (`feat: ...`).
+1. **Recovery Drill**: Recover a deleted commit using `git reflog`.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] Can resolve non-trivial merge conflicts via CLI without IDE crutches.
+- [ ] Understands the difference between working directory, staging area, local repo, and remote.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of Git & GitHub Version Control.
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Soft Skills & Professional Readiness](/docs/modules/soft-skills-professional-readiness/), [Clean Code & TDD](/docs/modules/clean-code-tdd/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

@@ -1,0 +1,75 @@
+---
+title: "React Fiber Architecture & Reconciliation Internals"
+description: "Deep technical guide to React Fiber node data structures, Two-Phase reconciliation (Render vs Commit), `O(N)` diffing heuristic, and key stability."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+**React Fiber** is the complete rewrite of React's core reconciliation engine introduced in React 16 to enable **incremental, interruptible rendering** and priority-based task scheduling (Concurrent React).
+
+:::tip Engineering Mental Model
+In the legacy Stack Reconciler, rendering a deep component tree was recursive and synchronous—once started, it could not be paused, causing dropped frames during heavy updates. Fiber represents the component tree as a **singly-linked list of Fiber nodes** (`child`, `sibling`, `return`). This enables React to pause work, yield to the browser for user input, and resume work without losing progress.
+:::
+
+```
+                        FIBER LINKED-LIST TREE STRUCTURE
+                                 ┌──────────────┐
+                                 │ App (Return) │
+                                 └──┬───────────┘
+                                    │ child
+                                    ▼
+                             ┌──────────────┐ sibling ┌──────────────┐
+                             │    Header    │ ──────> │ MainContent  │
+                             └──────────────┘         └──┬───────────┘
+                                                         │ child
+                                                         ▼
+                                                  ┌──────────────┐
+                                                  │ UserProfile  │
+                                                  └──────────────┘
+```
+
+---
+
+## 2. The Two-Phase Rendering Pipeline
+
+```
+  ┌────────────────────────────────────────────────────────────────────────┐
+  │                      THE TWO-PHASE RENDER ENGINE                       │
+  │                                                                        │
+  │  PHASE 1: RENDER / RECONCILIATION (Async, Interruptible, Pure)         │
+  │  - Traverses Fiber tree, creates Work-in-Progress tree                 │
+  │  - Runs `O(N)` Diffing Heuristic, evaluates component functions/hooks  │
+  │  - Computes DOM mutations and tags Fiber nodes with Flags (Placement) │
+  │               │                                                        │
+  │               ▼                                                        │
+  │  PHASE 2: COMMIT (Sync, Uninterruptible, Mutates Real DOM)             │
+  │  - Applies computed DOM operations in a single fast pass               │
+  │  - Executes `useLayoutEffect` synchronously before paint              │
+  │  - Browser paints pixels to screen                                     │
+  │  - Executes passive `useEffect` callbacks asynchronously               │
+  └────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. The `O(N)` Diffing Heuristic
+
+Comparing two arbitrary trees has an optimal time complexity of `O(N^3)`. React achieves linear `O(N)` performance based on two assumptions:
+1. **Different Element Types Produce Different Trees**: If `<div>` changes to `<span>`, React destroys the old tree and constructs the new tree from scratch without diffing children.
+2. **Stable Keys for Array Elements**: The `key` prop provides persistent identity across render cycles.
+
+<Aside type="danger" title="Why Using Array Index as Key is an Anti-Pattern">
+When using `key={index}` on a list where items can be inserted, sorted, or deleted:
+1. Inserting an item at index 0 shifts all existing item indices (0 \to 1, 1 \to 2).
+2. React matches Fiber nodes by key and assumes all existing items mutated their props rather than moving, triggering **unnecessary re-renders and corrupting uncontrolled component state** (e.g. text inputs holding stale input values).
+**Rule**: Always use stable, unique domain identifiers (`item.id`) as keys.
+</Aside>
+
+---
+
+## 4. Authoritative Primary References (Tier 1)
+
+- [React Documentation — Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
+- [React Architecture Core GitHub — React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture)

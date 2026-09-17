@@ -1,0 +1,211 @@
+---
+title: "JavaScript Programming"
+description: "IV. Web Fundamentals · 47 Subtopics · 27.0 Hours · Sequence IDs 190 - 236"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="190 - 236"
+  hours={27.0}
+  topicsCount={9}
+  subtopicsCount={47}
+  p0Count={28}
+  p1Count={13}
+  p2Count={6}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [IV. Web Fundamentals](/docs/roadmap/phase-4-web-fundamentals/)
+- **Sequence Range:** #190 - 236
+- **Prerequisite Modules:** [Git & GitHub Version Control](/docs/modules/git-github-version-control/)
+- **Total Curated Learning Time:** 27.0 Hours
+:::
+
+## 1. Module Purpose
+
+Master core JavaScript (ES6+), the Event Loop, asynchronous programming (Promises, async/await), DOM manipulation, and modern closures.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+JavaScript is the universal language of the web. Understanding its single-threaded event loop and asynchronous model is vital for full-stack developers.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Demystify the JS Event Loop, Call Stack, Task Queue, and Microtask Queue.
+- Master asynchronous patterns: Callbacks, Promises, Promise.all, and async/await.
+- Understand closures, lexical scoping, prototypal inheritance, and the `this` keyword.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **9 high-level topic groups**:
+
+1. **Javascript Introduction** (10 subtopics)
+2. **Javascipt Arrays** (5 subtopics)
+3. **DOM** (4 subtopics)
+4. **Getting and setting attributes** (4 subtopics)
+5. **Javascript events** (4 subtopics)
+6. **Time and Date** (3 subtopics)
+7. **Asynchronous Javascript** (7 subtopics)
+8. **Promises and fetch API** (3 subtopics)
+9. **Javascript Patterns** (7 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #190 | Javascript Introduction | Visual Studio Code with Live server installation | P0 | 0.5h | #22 | Not Started |
+| #191 | Javascript Introduction | Datatypes | P0 | 0.5h | #190 | Not Started |
+| #192 | Javascript Introduction | const, let, var | P0 | 0.5h | #191 | Not Started |
+| #193 | Javascript Introduction | String and template string | P0 | 0.5h | #192 | Not Started |
+| #194 | Javascript Introduction | Arrays | P0 | 0.5h | #193 | Not Started |
+| #195 | Javascript Introduction | null and undefined | P0 | 0.5h | #194 | Not Started |
+| #196 | Javascript Introduction | Loose vs Strict | P0 | 0.5h | #195 | Not Started |
+| #197 | Javascript Introduction | Type conversions | P0 | 0.5h | #196 | Not Started |
+| #198 | Javascript Introduction | function and function hoisting | P0 | 0.5h | #197 | Not Started |
+| #199 | Javascript Introduction | Arrow functions | P0 | 0.5h | #198 | Not Started |
+| #200 | Javascipt Arrays | foreach method and callback | P1 | 0.5h | #199 | Not Started |
+| #201 | Javascipt Arrays | Object literals | P0 | 0.5h | #200 | Not Started |
+| #202 | Javascipt Arrays | this keyword | P0 | 0.5h | #201 | Not Started |
+| #203 | Javascipt Arrays | Array of objects | P0 | 0.5h | #202 | Not Started |
+| #204 | Javascipt Arrays | Math object | P0 | 0.5h | #203 | Not Started |
+| #205 | DOM | DOM | P0 | 0.5h | #204 | Not Started |
+| #206 | DOM | Query Selector(queryselector, queryselectorall,getelementbyid,getelementbyclassname, getelementbytagname) | P0 | 0.5h | #205 | Not Started |
+| #207 | DOM | innerText and innerHtml | P0 | 0.5h | #206 | Not Started |
+| #208 | DOM | Xhr | P1 | 0.5h | #207 | Not Started |
+| #209 | Getting and setting attributes | getAttribute() and setAtributes() | P0 | 1.0h | #208 | Not Started |
+| #210 | Getting and setting attributes | classList (Adding and removing classes) | P0 | 1.0h | #209 | Not Started |
+| #211 | Getting and setting attributes | Parent, childeren and sibbling | P0 | 1.0h | #210 | Not Started |
+| #212 | Getting and setting attributes | Webworker | P2 | 1.0h | #211 | Not Started |
+| #213 | Javascript events | Creating and removing an object | P0 | 0.5h | #212 | Not Started |
+| #214 | Javascript events | Event Bubbling | P0 | 0.5h | #213 | Not Started |
+| #215 | Javascript events | regex | P1 | 0.5h | #214 | Not Started |
+| #216 | Javascript events | Array Methods(filter,map,reduce,find,sort) | P0 | 0.5h | #215 | Not Started |
+| #217 | Time and Date | Chaining array methods | P0 | 0.5h | #216 | Not Started |
+| #218 | Time and Date | Date and Time(Date constructor, Timestamp and comparison, converting timestamp to Date object) | P0 | 0.5h | #217 | Not Started |
+| #219 | Time and Date | Date-fns | P1 | 0.5h | #218 | Not Started |
+| #220 | Asynchronous Javascript | Asynchronous javascript | P1 | 0.5h | #219 | Not Started |
+| #221 | Asynchronous Javascript | setTimeout() | P0 | 0.5h | #220 | Not Started |
+| #222 | Asynchronous Javascript | Event queue, Messgae Queue, Event loop, Browser API, JS Engine and stack | P1 | 0.5h | #221 | Not Started |
+| #223 | Asynchronous Javascript | HTTP Request(XHR XMLHTTPRequest) | P1 | 0.5h | #222 | Not Started |
+| #224 | Asynchronous Javascript | Ready states | P0 | 0.5h | #223 | Not Started |
+| #225 | Asynchronous Javascript | Response status | P0 | 0.5h | #224 | Not Started |
+| #226 | Asynchronous Javascript | Callback hel | P1 | 0.5h | #225 | Not Started |
+| #227 | Promises and fetch API | Promises | P1 | 1.0h | #226 | Not Started |
+| #228 | Promises and fetch API | Fetch API | P1 | 1.0h | #227 | Not Started |
+| #229 | Promises and fetch API | async, await | P1 | 1.0h | #228 | Not Started |
+| #230 | Javascript Patterns | local storage, session storage | P1 | 0.5h | #229 | Not Started |
+| #231 | Javascript Patterns | Web worker | P2 | 0.5h | #230 | Not Started |
+| #232 | Javascript Patterns | Module pattern | P2 | 0.5h | #231 | Not Started |
+| #233 | Javascript Patterns | Constructor pattern | P2 | 0.5h | #232 | Not Started |
+| #234 | Javascript Patterns | Prototype pattern | P2 | 0.5h | #233 | Not Started |
+| #235 | Javascript Patterns | IIFE | P2 | 0.5h | #234 | Not Started |
+| #236 | Javascript Patterns | Closure | P1 | 0.5h | #235 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Git & GitHub Version Control](/docs/modules/git-github-version-control/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **27.0 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1.4 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~3.4 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (28 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (13 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (6 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **MDN Web Docs: JavaScript Guide (developer.mozilla.org)**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Async Fetch Dashboard**: Build a weather dashboard fetching multiple API endpoints concurrently with proper retry logic.
+1. **Event Loop Simulator**: Trace code snippets predicting exact console output order between timeouts and microtasks.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of JavaScript Programming.
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Bootstrap Website Design](/docs/modules/bootstrap-website-design/), [JSP & Servlets Web Applications](/docs/modules/jsp-servlets-web-applications/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

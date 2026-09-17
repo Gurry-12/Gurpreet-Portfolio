@@ -1,0 +1,136 @@
+---
+title: "Database Indexing & B+ Tree Mechanics"
+description: "Comprehensive engineering guide to B+ Tree storage structures, Clustered vs Secondary indexes, Leftmost Prefix Rule, Index Selectivity, and Write Amplification."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+A database index is a specialized data structure (most commonly a **B+ Tree**) that enables the database engine to locate specific rows in `O(log N)` disk block I/O operations, rather than scanning every page in the table (`O(N)` full table scan).
+
+:::tip Engineering Mental Model
+Without an index, finding a row in a 10,000,000-row table requires reading gigabytes of data from disk into RAM. A B+ Tree organizes keys in sorted, fixed-size pages (e.g. 16 KB in MySQL InnoDB). A 3-to-4 level deep B+ Tree can index billions of rows, meaning **any row can be located in just 3 to 4 page reads**.
+:::
+
+```
+                          B+ TREE INDEX STRUCTURE (3 LEVELS)
+                                 ┌──────────────┐
+                                 │ Root Page 16K│
+                                 └──┬────────┬──┘
+                  ┌─────────────────┘        └─────────────────┐
+                  ▼                                            ▼
+         ┌────────────────┐                           ┌────────────────┐
+         │Internal Node 16K│                           │Internal Node 16K│
+         └──┬──────────┬──┘                           └──┬──────────┬──┘
+    ┌───────┘          └───────┐                 ┌───────┘          └───────┐
+    ▼                          ▼                 ▼                          ▼
+┌────────┐                ┌────────┐         ┌────────┐                ┌────────┐
+│Leaf 1  │ <────────────> │Leaf 2  │<──────> │Leaf 3  │ <────────────> │Leaf 4  │
+│Keys+Ptr│ (Doubly Linked)│Keys+Ptr│         │Keys+Ptr│ (Range Scans!) │Keys+Ptr│
+└────────┘                └────────┘         └────────┘                └────────┘
+```
+
+---
+
+## 2. B-Tree vs B+ Tree: Why Relational Databases Choose B+ Tree
+
+| Feature | Standard B-Tree | B+ Tree (Standard RDBMS: MySQL, Postgres) |
+| :--- | :--- | :--- |
+| **Data Row Storage** | Stored in **both** internal nodes and leaf nodes. | Stored **exclusively in leaf nodes**. |
+| **Branching Factor (Fan-out)**| Low (data records consume space in internal nodes, fewer keys per page). | **Extremely High** (internal nodes only store index keys and page pointers, fitting thousands of keys per page). |
+| **Tree Depth for 10M Rows** | ~5–7 levels deep. | **~3–4 levels deep** (fewer disk I/O lookups). |
+| **Range Queries (`BETWEEN`, `>`, `<`)** | Inefficient (requires recursive in-order tree traversal). | **Ultra-Fast `O(log N + K)`**: Leaves are linked as a doubly-linked list. Find start key, then sequential walk. |
+
+---
+
+## 3. Clustered vs Secondary (Non-Clustered) Indexes
+
+### A. Clustered Index (Primary Key in MySQL InnoDB)
+- The table **IS** the index. The leaf pages of the clustered index contain the complete actual row data.
+- A table can have **only one** clustered index.
+
+### B. Secondary Index & The Bookmark Lookup
+- A secondary index (e.g. on `email` or `created_at`) stores the indexed key and the corresponding **Clustered Index Primary Key**.
+- When querying via a secondary index (`SELECT * FROM users WHERE email = ?`):
+  1. Engine traverses the `email` secondary B+ Tree \to finds Primary Key ID `1042`.
+  2. Engine traverses the Clustered B+ Tree with PK `1042` \to retrieves actual row columns. (This double-lookup is called a **Bookmark Lookup / Secondary Probe**).
+
+```
+Secondary Index Lookup (`email`) ──> Yields PK (1042) ──> Clustered Index Lookup ──> Returns Full Row Data
+```
+
+---
+
+## 4. The Covering Index Optimization
+
+A **Covering Index** occurs when all columns requested in a `SELECT` query exist entirely within the secondary index itself.
+
+```sql
+-- Create composite index on (department_id, salary, user_id)
+CREATE INDEX idx_dept_salary ON employees(department_id, salary, user_id);
+
+-- COVERING QUERY: MySQL satisfies this query purely from index leaf nodes!
+SELECT user_id, salary FROM employees WHERE department_id = 10;
+-- EXPLAIN Output: "Using index" (Zero clustered table lookups!)
+```
+
+---
+
+## 5. Composite Indexes & The Leftmost Prefix Rule
+
+When creating a composite index on multiple columns `(A, B, C)`:
+- The B+ Tree is sorted first by `A`, then within identical `A`s by `B`, then within identical `B`s by `C`.
+
+```sql
+CREATE INDEX idx_abc ON transactions(account_id, status, created_at);
+
+-- CAN USE INDEX:
+WHERE account_id = 100                             -- (A) matches leftmost prefix
+WHERE account_id = 100 AND status = 'COMPLETED'    -- (A, B) matches
+WHERE account_id = 100 AND status = 'OK' AND created_at > '2026-01-01' -- (A, B, C)
+
+-- CANNOT USE INDEX EFFICIENTLY:
+WHERE status = 'COMPLETED'                         -- Missing A! Full table scan!
+WHERE created_at > '2026-01-01'                    -- Missing A & B! Full table scan!
+WHERE account_id = 100 AND created_at > '2026-01-01' -- Uses index ONLY for A; B is skipped.
+```
+
+---
+
+## 6. The Failure Layer: Common Indexing Anti-Patterns
+
+<CardGrid>
+  <Card title="Functions on Indexed Columns" icon="error">
+    ```sql
+    -- BAD: B+ Tree sorted by 'created_at', NOT 'YEAR(created_at)'!
+    WHERE YEAR(created_at) = 2026; -- FULL TABLE SCAN!
+
+    -- GOOD: SARGable range query uses index
+    WHERE created_at >= '2026-01-01' AND created_at < '2027-01-01';
+    ```
+  </Card>
+  <Card title="Leading Wildcards in LIKE" icon="warning">
+    ```sql
+    -- BAD: Cannot use B+ tree prefix sorting
+    WHERE email LIKE '%@gmail.com'; -- FULL TABLE SCAN!
+
+    -- GOOD: Prefix search utilizes B+ Tree
+    WHERE email LIKE 'john.doe%';
+    ```
+  </Card>
+  <Card title="Low Cardinality / Poor Selectivity" icon="information">
+    Indexing boolean flags (`is_active`) or genders (`M`/`F`) where distinct values represent greater than 20% of the table causes the query planner to abort the index and prefer a full sequential scan.
+  </Card>
+  <Card title="Write Amplification" icon="seti:db">
+    Every new index on a table requires synchronous B+ Tree page splits and disk writes on every `INSERT`, `UPDATE`, and `DELETE`. Excessive unused indexes degrade ingestion throughput.
+  </Card>
+</CardGrid>
+
+---
+
+## 7. Authoritative Primary References (Tier 1 & Tier 2)
+
+- [MySQL 8.0 Reference Manual — Optimization and Indexes](https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html)
+- [PostgreSQL Documentation — Index Types (B-Tree Internals)](https://www.postgresql.org/docs/current/indexes-types.html)
+- [*Database Internals: A Deep Dive* — Alex Petrov](https://www.databass.dev/)

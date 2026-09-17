@@ -1,0 +1,23 @@
+---
+interface Props {
+  priority: string;
+}
+
+const { priority } = Astro.props;
+const cleanPriority = priority ? priority.trim().toUpperCase() : 'P1';
+
+let badgeClass = 'badge-p1';
+let label = 'P1 — Core';
+
+if (cleanPriority.startsWith('P0')) {
+  badgeClass = 'badge-p0';
+  label = 'P0 — Must-Have';
+} else if (cleanPriority.startsWith('P2')) {
+  badgeClass = 'badge-p2';
+  label = 'P2 — Advanced';
+}
+---
+
+<span class={`badge-priority ${badgeClass}`} title={label}>
+  {cleanPriority.slice(0, 2)}
+</span>

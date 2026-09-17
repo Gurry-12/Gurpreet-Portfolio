@@ -1,0 +1,57 @@
+---
+title: "Prerequisites & Starting Points"
+description: "Architectural entry points, dependency rules, and data quality notes."
+---
+
+import { Card, CardGrid, Badge, Aside } from '@astrojs/starlight/components';
+
+## The 4 Root Entry Points
+
+Our dependency graph analysis shows that out of 659 learning items, exactly **4 sequences have no prerequisites (`Prerequisite_ID: None`)**. These form the true entry points of the engineering curriculum:
+
+<CardGrid>
+  <Card title="Seq #1: Soft Skills" icon="star">
+    **Module:** [Soft Skills & Professional Readiness](/docs/modules/soft-skills-professional-readiness/)
+    
+    *Subtopic: Software Engineer Mindset* — Establishes workplace habits, engineering etiquette, and problem breakdown methods.
+  </Card>
+  <Card title="Seq #9: Git & GitHub" icon="laptop">
+    **Module:** [Git & GitHub Version Control](/docs/modules/git-github-version-control/)
+    
+    *Subtopic: Need for Version Control System* — Sets up local repositories, terminal Git, and code backup habits.
+  </Card>
+  <Card title="Seq #32: Core Java" icon="code">
+    **Module:** [Core Java Programming](/docs/modules/core-java-programming/)
+    
+    *Subtopic: JRE / JDK difference* — Begins object-oriented programming, data structures, and JVM mechanics.
+  </Card>
+  <Card title="Seq #161: MySQL DB" icon="bars">
+    **Module:** [MySQL Database Management](/docs/modules/mysql-database-management/)
+    
+    *Subtopic: Basic CRUD operation queries* — Begins relational schema design, tables, and data querying.
+  </Card>
+</CardGrid>
+
+---
+
+## Dependency Rules
+
+1. **Strict Upstream Completion**: A learner should not begin a topic until all referenced `Prerequisite_ID` items have been completed.
+2. **P0 Gatekeeping**: When a P0 subtopic is listed as a prerequisite, it acts as a hard blocker. No downstream items may proceed until the P0 prerequisite is mastered.
+3. **Cross-Module Transitions**: There are **42 explicit cross-module dependencies** in the roadmap. For example:
+   - `RDBMS & JDBC Connectivity` (Seq 174) requires both `Core Java` (Seq 119) and `MySQL` (Seq 173).
+   - `JSP & Servlets Web Applications` (Seq 246) requires both `Core Java` (Seq 119) and `MySQL` (Seq 173).
+   - `Spring Framework Basics` (Seq 297) requires `Core Java` (Seq 119) and `OOAD` (Seq 160).
+   - `React.js Frontend Development` (Seq 327) requires `JavaScript` (Seq 236).
+
+---
+
+## Data Quality Notes
+
+:::tip Data Quality Analysis (No Guessing)
+During workbook validation, the following architectural attributes were confirmed:
+1. **0 Dependency Cycles**: The entire graph of 659 nodes is an acyclic directed graph (DAG). No circular dependencies exist.
+2. **Missing Reference Resolution**: Sequences #1, #9, #32, and #161 contain literal `'None'` in the spreadsheet, confirming them as legitimate entry roots.
+3. **Multi-Parent Dependencies**: 14 items contain comma-separated prerequisite lists (e.g. `Seq 305: 31, 119, 173, 274, 304`), which our parser successfully resolved into multiple parent links.
+4. **Sequence Positioning Note**: In `Roadmap Overview`, **Next.js Framework** is listed under `Phase VII. Frontend Engineering`, while its sequence IDs (445–471) place it after React Native (Phase IX). Our architecture preserves this exact Phase classification.
+:::

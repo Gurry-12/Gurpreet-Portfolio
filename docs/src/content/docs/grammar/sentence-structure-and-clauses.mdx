@@ -1,0 +1,34 @@
+---
+title: "Sentence Structure, Clauses & Conjunctions (Simple, Compound, Complex)"
+description: "Master clauses (independent vs dependent), coordinating conjunctions (FANBOYS), subordinating conjunctions, and avoiding run-on sentences."
+---
+
+import { Card, CardGrid, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## 1. The 3 Types of Sentences
+
+```
+1. SIMPLE SENTENCE (1 Independent Clause)
+   "The database server handles 5,000 requests per second."
+
+2. COMPOUND SENTENCE (2 Independent Clauses joined by FANBOYS: For, And, Nor, But, Or, Yet, So)
+   "The microservice was healthy, BUT the downstream cache failed."
+
+3. COMPLEX SENTENCE (1 Independent Clause + 1 or more Dependent Clauses)
+   "ALTHOUGH we added indexes, query latency remained high BECAUSE memory was saturated."
+```
+
+---
+
+## 2. Common Errors: Comma Splices & Run-on Sentences
+
+<CardGrid>
+  <Card title="Comma Splice Error" icon="error">
+    - ❌ *Incorrect:* *"The build failed, we need to check the logs."* (Two independent clauses joined only by a comma!).
+    - ✅ *Natural:* *"The build failed**;** we need to check the logs."* OR *"The build failed**, so** we need to check the logs."*
+  </Card>
+  <Card title="Missing Subordinator Punctuation" icon="warning">
+    - When a dependent clause starts the sentence, use a comma: *"**Because the network was down,** the request timed out."*
+    - When the dependent clause comes at the end, omit the comma: *"The request timed out **because the network was down**."*
+  </Card>
+</CardGrid>

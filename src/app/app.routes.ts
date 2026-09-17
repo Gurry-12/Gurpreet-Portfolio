@@ -31,6 +31,32 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
     title: 'About — Gurpreet Singh'
   },
+  // Redirects to documentation portal
+  {
+    path: 'docs',
+    canActivate: [() => { window.location.href = '/docs/'; return false; }],
+    children: []
+  },
+  {
+    path: 'english',
+    canActivate: [() => { window.location.href = '/docs/'; return false; }],
+    children: []
+  },
+  {
+    path: 'documentation',
+    canActivate: [() => { window.location.href = '/docs/'; return false; }],
+    children: []
+  },
+  {
+    path: 'kb',
+    canActivate: [() => { window.location.href = '/docs/'; return false; }],
+    children: []
+  },
+  {
+    path: 'knowledge-base',
+    canActivate: [() => { window.location.href = '/docs/'; return false; }],
+    children: []
+  },
   // Redirects for deleted pages to maintain link integrity
   {
     path: 'building',

@@ -1,0 +1,32 @@
+---
+title: "Decision Guide: Synchronous REST vs Event-Driven Messaging"
+description: "Architectural evaluation framework for synchronous HTTP REST APIs versus asynchronous Message Brokers (Kafka, RabbitMQ)."
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+## 1. Trade-off Comparison Matrix
+
+| Dimension | Synchronous REST (HTTP/JSON) | Message Broker: RabbitMQ (AMQP) | Event Stream: Apache Kafka |
+| :--- | :--- | :--- | :--- |
+| **Communication Paradigm** | Point-to-Point Request-Response | Smart Broker / Dumb Consumer Queue | Dumb Broker / Smart Consumer Log |
+| **Temporal Coupling** | High (Both client & server must be online) | Low (Queue buffers during downtime) | Zero (Persistent distributed commit log) |
+| **Message Replayability** | ❌ None | ❌ Messages deleted upon Ack | ✅ Retained on disk (Replayable offsets) |
+| **Throughput Capacity** | Thousands of req/sec | Tens of thousands msg/sec | **Millions of events/sec** |
+| **Complexity & Ops** | Minimal (Standard HTTP) | Moderate (Erlang cluster management) | High (KRaft / ZooKeeper, partitions) |
+
+---
+
+## 2. When to Use Which Architecture
+
+```
+Is the caller blocked waiting for an immediate answer to render in the UI?
+  ├── YES ──> Use Synchronous REST API (e.g. GET /api/v1/user/profile)
+  └── NO  ──> Proceed to asynchronous processing criteria
+        │
+        ├─> Does the workflow require complex routing, priority queues, and task delivery?
+        │     └── YES ──> Use RabbitMQ (e.g. Send Email, PDF Generation Task)
+        │
+        └─> Does the system require high-throughput event streaming, analytics, and event sourcing?
+              └── YES ──> Use Apache Kafka (e.g. Payment Events, Clickstream Analytics)
+```

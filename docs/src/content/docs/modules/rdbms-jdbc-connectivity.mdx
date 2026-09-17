@@ -1,0 +1,173 @@
+---
+title: "RDBMS & JDBC Connectivity"
+description: "III. Data & Databases · 16 Subtopics · 10.5 Hours · Sequence IDs 174 - 189"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="174 - 189"
+  hours={10.5}
+  topicsCount={2}
+  subtopicsCount={16}
+  p0Count={11}
+  p1Count={5}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [III. Data & Databases](/docs/roadmap/phase-3-data-databases/)
+- **Sequence Range:** #174 - 189
+- **Prerequisite Modules:** [Core Java Programming](/docs/modules/core-java-programming/), [MySQL Database Management](/docs/modules/mysql-database-management/)
+- **Total Curated Learning Time:** 10.5 Hours
+:::
+
+## 1. Module Purpose
+
+Design normalized relational schemas, write high-performance SQL queries, index effectively, and connect Java to databases safely via JDBC.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Databases outlive applications. Poor schema design or inefficient queries cause 90% of backend scalability bottlenecks.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Design 3NF normalized relational schemas with appropriate constraints and data types.
+- Write complex JOINs, subqueries, window functions, and transactions (ACID).
+- Use JDBC `PreparedStatement` and connection pooling (`HikariCP`) to prevent SQL injection.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **2 high-level topic groups**:
+
+1. **RDBMS queries and Normalization** (12 subtopics)
+2. **JDBC** (4 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #174 | RDBMS queries and Normalization | Noramalizing sql tables | P0 | 0.5h | #119, #173 | Not Started |
+| #175 | RDBMS queries and Normalization | Grouping data | P0 | 0.5h | #174 | Not Started |
+| #176 | RDBMS queries and Normalization | Joins | P0 | 0.5h | #175 | Not Started |
+| #177 | RDBMS queries and Normalization | Subqueries | P0 | 0.5h | #176 | Not Started |
+| #178 | RDBMS queries and Normalization | Views | P1 | 0.5h | #177 | Not Started |
+| #179 | RDBMS queries and Normalization | Function and Stored Procedures | P1 | 0.5h | #178 | Not Started |
+| #184 | RDBMS queries and Normalization | Normalizing sql tables | P0 | 0.5h | #183 | Not Started |
+| #185 | RDBMS queries and Normalization | Grouping data | P0 | 0.5h | #184 | Not Started |
+| #186 | RDBMS queries and Normalization | Joins | P0 | 0.5h | #185 | Not Started |
+| #187 | RDBMS queries and Normalization | Subqueries | P0 | 0.5h | #186 | Not Started |
+| #188 | RDBMS queries and Normalization | Views | P1 | 0.5h | #187 | Not Started |
+| #189 | RDBMS queries and Normalization | Function and Stored Procedures | P1 | 1.5h | #188 | Not Started |
+| #180 | JDBC | JDBC Architecture | P0 | 1.0h | #179 | Not Started |
+| #181 | JDBC | Mysql Integration | P0 | 1.0h | #180 | Not Started |
+| #182 | JDBC | Transactions | P1 | 1.0h | #181 | Not Started |
+| #183 | JDBC | ResultSet,Connection | P0 | 0.5h | #182 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Core Java Programming](/docs/modules/core-java-programming/), [MySQL Database Management](/docs/modules/mysql-database-management/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **10.5 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~1.3 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (11 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (5 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Oracle JDBC Developer Guide (docs.oracle.com/database) + MySQL Reference Manual**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Schema Design**: Create an e-commerce database with Orders, Products, Customers, and Payments, normalized to 3NF.
+1. **JDBC Repository**: Implement a complete CRUD DAO layer with connection pooling and rollback on failure.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of RDBMS & JDBC Connectivity.
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [MySQL Database Management](/docs/modules/mysql-database-management/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

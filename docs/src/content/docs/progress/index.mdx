@@ -1,0 +1,29 @@
+---
+title: "Engineering Progress Tracker"
+description: "Interactive progress tracker and analytics dashboard."
+---
+
+import ProgressTracker from '../../../components/ProgressTracker.astro';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+:::tip Client-Side Persistence
+This tracker uses browser **LocalStorage** to remember your completed items across sessions. The static documentation site and Excel source-of-truth remain immutable, while your personal learning trajectory is tracked dynamically in real-time.
+:::
+
+## Live Interactive Tracker
+
+<ProgressTracker />
+
+---
+
+## Progress Architecture & Future Systems
+
+The documentation platform is architected with a clean separation of concerns:
+
+1. **Static Documentation Layer**: Astro Starlight static site generation (zero database runtime needed for lightning-fast doc lookups).
+2. **Roadmap Metadata**: Extracted via `scripts/sync-roadmap.py` from `Combined_FullStack_Learning_Roadmap.xlsx`.
+3. **Personal Progress Layer**: Currently client-side LocalStorage. Designed to be easily connected to:
+   - An authenticated REST/GraphQL API (e.g. Supabase, Firebase, or Spring Boot).
+   - An LMS (Learning Management System) webhook or OAuth2 provider.
+   - Team cohort tracking dashboards.

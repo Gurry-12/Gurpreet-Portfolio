@@ -4,7 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:angular": "ng build",
+    "build:docs": "npm --prefix docs run build",
+    "build": "npm run build:angular && npm run build:docs && node scripts/bundle-build.mjs",
+    "dev:docs": "npm --prefix docs run dev",
+    "preview": "npx -y serve dist/gurpreet-portfolio/browser -l 5000",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

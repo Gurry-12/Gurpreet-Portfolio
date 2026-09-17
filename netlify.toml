@@ -1,12 +1,137 @@
 [build]
   publish = "dist/gurpreet-portfolio/browser"
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "npm install --legacy-peer-deps && npm --prefix docs install --legacy-peer-deps && npm run build"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   NPM_CONFIG_FUND = "false"
   NPM_CONFIG_AUDIT = "false"
+
+[[redirects]]
+  from = "/docs"
+  to = "/docs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/english"
+  to = "/docs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/english/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/documentation"
+  to = "/docs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/documentation/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/kb"
+  to = "/docs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kb/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/knowledge-base"
+  to = "/docs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/knowledge-base/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/roadmap/*"
+  to = "/docs/roadmap/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/modules/*"
+  to = "/docs/modules/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/notes/*"
+  to = "/docs/notes/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/reference/*"
+  to = "/docs/reference/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/getting-started/*"
+  to = "/docs/getting-started/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/learning-path/*"
+  to = "/docs/learning-path/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/progress/*"
+  to = "/docs/progress/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/resources/*"
+  to = "/docs/resources/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/speaking/*"
+  to = "/docs/speaking/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/pronunciation/*"
+  to = "/docs/pronunciation/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/vocabulary/*"
+  to = "/docs/vocabulary/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/grammar/*"
+  to = "/docs/grammar/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/professional/*"
+  to = "/docs/professional/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/practice/*"
+  to = "/docs/practice/:splat"
+  status = 301
 
 [[redirects]]
   from = "/*"

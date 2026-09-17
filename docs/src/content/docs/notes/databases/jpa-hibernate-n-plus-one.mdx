@@ -1,0 +1,104 @@
+---
+title: "JPA / Hibernate Persistence & The N+1 Query Problem"
+description: "Deep architectural guide to EntityManager persistence context, first-level caching, dirty checking, proxy lazy loading, and resolving N+1 query traps."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+**Jakarta Persistence (JPA)** is the standard specification for Object-Relational Mapping (ORM) in Java, implemented primarily by **Hibernate**.
+
+:::tip Engineering Mental Model
+Hibernate acts as an in-memory transactional cache and state synchronizer between OOP objects and relational database rows. Its core abstraction, the **Persistence Context**, tracks all loaded entities as a Unit of Work, automatically detecting property modifications (Dirty Checking) and syncing them to SQL at commit time (`flush()`).
+:::
+
+---
+
+## 2. Entity Lifecycle States
+
+```
+                 [ new Entity() ]
+                        │
+                        ▼ (em.persist())
+┌─────────────────────────────────────────────────────────────┐
+│                     MANAGED STATE                           │
+│  - Attached to active Persistence Context (1st Level Cache) │
+│  - Tracked for automatic Dirty Checking on flush()          │
+└──────────────┬───────────────────────────────┬──────────────┘
+               │ (em.detach() / tx commit)     │ (em.remove())
+               ▼                               ▼
+       ┌───────────────┐               ┌───────────────┐
+       │   DETACHED    │               │    REMOVED    │
+       │ Outside Cache │               │ Marked Delete │
+       └───────┬───────┘               └───────────────┘
+               │ (em.merge())
+               ▼
+       [ Back to Managed ]
+```
+
+---
+
+## 3. The N+1 Query Problem Explained
+
+Consider a standard One-to-Many relationship between `Customer` and `Order`:
+
+```java
+@Entity
+public class Customer {
+    @Id private Long id;
+    private String name;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Order> orders;
+}
+```
+
+```java
+// TRIGGERING THE N+1 DISASTER:
+List<Customer> customers = entityManager
+    .createQuery("SELECT c FROM Customer c", Customer.class)
+    .getResultList(); // Query 1: Returns 100 Customers
+
+for (Customer c : customers) {
+    // Each iteration accesses the lazy collection proxy!
+    System.out.println(c.getOrders().size()); // Fires 1 SQL Query per customer!
+}
+// TOTAL QUERIES EXECUTED: 1 + 100 = 101 SQL QUERIES!
+```
+
+---
+
+## 4. Production Solutions for N+1 Queries
+
+<Tabs>
+  <TabItem label="1. JOIN FETCH (JPQL)">
+    ```sql
+    -- Fetches Customer and Orders in a single SQL JOIN
+    SELECT c FROM Customer c JOIN FETCH c.orders
+    ```
+    - **Pros**: Direct, guarantees single query retrieval.
+    - **Cons**: Cannot fetch multiple `@OneToMany` bag collections simultaneously (throws `MultipleBagFetchException`).
+  </TabItem>
+  <TabItem label="2. @EntityGraph">
+    ```java
+    @EntityGraph(attributePaths = {"orders"})
+    List<Customer> findAll();
+    ```
+    - **Pros**: Declarative, dynamic fetching per repository method without hardcoding JPQL query strings.
+  </TabItem>
+  <TabItem label="3. Batch Fetching">
+    ```properties
+    # application.properties
+    spring.jpa.properties.hibernate.default_batch_fetch_size=50
+    ```
+    - **Behavior**: Replaces 100 individual queries with `SELECT ... WHERE customer_id IN (?, ?, ..., ?)` in batches of 50. Total queries drops from 101 to **3**.
+  </TabItem>
+</Tabs>
+
+---
+
+## 5. Authoritative Primary References (Tier 1)
+
+- [Hibernate ORM 6.4 User Guide](https://docs.jboss.org/hibernate/orm/6.4/userguide/html_single/Hibernate_User_Guide.html)
+- [Jakarta Persistence 3.1 Specification](https://jakarta.ee/specifications/persistence/3.1/)

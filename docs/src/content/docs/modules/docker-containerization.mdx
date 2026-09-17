@@ -1,0 +1,177 @@
+---
+title: "Docker & Containerization"
+description: "VIII. Architecture & Ops · 18 Subtopics · 9.0 Hours · Sequence IDs 371 - 388"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="371 - 388"
+  hours={9.0}
+  topicsCount={2}
+  subtopicsCount={18}
+  p0Count={2}
+  p1Count={16}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [VIII. Architecture & Ops](/docs/roadmap/phase-8-architecture-ops/)
+- **Sequence Range:** #371 - 388
+- **Prerequisite Modules:** [Spring Boot Application Development](/docs/modules/spring-boot-application-development/)
+- **Total Curated Learning Time:** 9.0 Hours
+:::
+
+## 1. Module Purpose
+
+Containerize full-stack applications with Docker, multi-stage Dockerfiles, Docker Compose orchestration, and volume/network management.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Containerization eliminates the 'it works on my machine' syndrome and serves as the universal runtime unit for modern cloud deployments.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Write lightweight, multi-stage Dockerfiles for Java and Node.js applications.
+- Orchestrate multi-container environments (Frontend + Backend + DB) using Docker Compose.
+- Manage persistent storage with volumes and secure inter-container networking.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **2 high-level topic groups**:
+
+1. **Basics** (11 subtopics)
+2. **Docker Compose and Docker Files** (7 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #371 | Basics | Containerization vs virtualization | P0 | 0.5h | #322 | Not Started |
+| #372 | Basics | Terminologies in Docker World | P1 | 0.5h | #371 | Not Started |
+| #373 | Basics | Docker Architecture | P0 | 0.5h | #372 | Not Started |
+| #374 | Basics | Docker Machine | P1 | 0.5h | #373 | Not Started |
+| #375 | Basics | Configuring Docker Engine | P1 | 0.5h | #374 | Not Started |
+| #376 | Basics | Lifecycle | P1 | 0.5h | #375 | Not Started |
+| #377 | Basics | Basic Docker Commands | P1 | 0.5h | #376 | Not Started |
+| #378 | Basics | Exposing Ports and Port forwarding | P1 | 0.5h | #377 | Not Started |
+| #379 | Basics | Linking Containers | P1 | 0.5h | #378 | Not Started |
+| #380 | Basics | Creating Mongo and Mongo Express containers | P1 | 0.5h | #379 | Not Started |
+| #381 | Basics | Docker Volumes | P1 | 0.5h | #380 | Not Started |
+| #382 | Docker Compose and Docker Files | Introduction to compose file | P1 | 0.5h | #381 | Not Started |
+| #383 | Docker Compose and Docker Files | Creating Mongo and Mongo Express containers | P1 | 0.5h | #382 | Not Started |
+| #384 | Docker Compose and Docker Files | Introducing the docker file | P1 | 0.5h | #383 | Not Started |
+| #385 | Docker Compose and Docker Files | Creating a docker file | P1 | 0.5h | #384 | Not Started |
+| #386 | Docker Compose and Docker Files | Building images manually | P1 | 0.5h | #385 | Not Started |
+| #387 | Docker Compose and Docker Files | Creating a Public Repo on Docker Hub | P1 | 0.5h | #386 | Not Started |
+| #388 | Docker Compose and Docker Files | Using our public repo on Docker Hub | P1 | 0.5h | #387 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Spring Boot Application Development](/docs/modules/spring-boot-application-development/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **9.0 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~1.1 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (2 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (16 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Docker Compose Overview (docs.docker.com/compose)**
+- 📖 **Docker Documentation (docs.docker.com) + Docker Deep Dive, Nigel Poulton**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Full-Stack Docker Compose**: Deploy a React frontend, Spring Boot backend, and MySQL database with a single `docker-compose up`.
+1. **Multi-Stage Optimization**: Reduce a Spring Boot image from 600MB down to under 150MB using alpine/distroless.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these containerization anti-patterns:
+
+- ⚠️ **Running Containers as Root**: Containers running as UID 0 that suffer an escape vulnerability give attackers instant root access to the host kernel. Always declare an unprivileged `USER nonroot`.
+- ⚠️ **Bloated Single-Stage Docker Images**: Shipping build tools (Maven, JDK, npm, gcc) in production images increases image size by gigabytes and dramatically expands the CVE attack surface. Always use **Multi-Stage Builds**.
+- ⚠️ **Hardcoding Secrets in Image Layers / ENV**: Environment variables baked into image layers persist in image history (`docker history`) even if overwritten in subsequent layers.
+- ⚠️ **Storing State in Container Writable Layer**: Writing persistent data to the container filesystem rather than Docker Volumes causes data loss when the container restarts and incurs copy-on-write (CoW) performance penalties.
+
+---
+
+## 13. Interview Relevance
+
+Expect the following DevOps and container architecture questions:
+
+- 💡 **Container vs Virtual Machine**: Explain how Linux Namespaces (isolation) and Control Groups (resource quotas) create process boundaries on a shared host kernel.
+- 💡 **Overlay2 Storage Driver**: How does the Copy-on-Write (CoW) union filesystem handle file modifications across image layers?
+- 💡 **Layer Caching Optimization**: Why should `COPY package.json` precede `COPY .` in a Dockerfile?
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [Design Patterns (GoF)](/docs/modules/design-patterns-gof/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

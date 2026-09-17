@@ -1,0 +1,161 @@
+---
+title: "HashMap Internals & Hashing Mechanics"
+description: "Deep dive into java.util.HashMap data structures, hash bit-mixing, bucket indexing, treeification (Red-Black Trees), resize mechanics, and multi-threading race conditions."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+`java.util.HashMap` is an associative array implementation based on a **hash table with separate chaining and red-black tree bins**. It maps keys to values in average `O(1)` time complexity for `get()` and `put()`.
+
+:::tip Engineering Mental Model
+A HashMap is an array of buckets (`Node<K,V>[] table`). The key's integer hash code is transformed via a bit-mixing function and mapped to a bucket index using a bitwise AND mask. When collisions occur, buckets organize as a singly-linked list until reaching a threshold, whereupon they transform into a balanced Red-Black Tree to guarantee `O(log N)` worst-case performance under hash flooding attacks.
+:::
+
+```
+                     JAVA 8+ HASHMAP INTERNAL ARCHITECTURE
+  Node<K,V>[] table (Capacity = 16, 32, 64...)
+  ┌──────┐
+  │ [0]  │ ──> null
+  ├──────┤
+  │ [1]  │ ──> [ Node (Key1, Val1) ] ──> [ Node (Key2, Val2) ] ──> null (Separate Chaining)
+  ├──────┤
+  │ [2]  │ ──> null
+  ├──────┤
+  │ [3]  │ ──> [ TreeNode (Root) ]  (Treeified when bucket length >= 8 & table >= 64)
+  │      │        /         \
+  │      │     [Left]      [Right]  (Red-Black Tree: O(log N) lookup)
+  ├──────┤
+  │ ...  │
+  └──────┘
+```
+
+---
+
+## 2. Core Constants & Structural Fields
+
+In `java.util.HashMap` (OpenJDK source):
+
+```java
+static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // 16
+static final int MAXIMUM_CAPACITY = 1 << 30;         // 1,073,741,824
+static final float DEFAULT_LOAD_FACTOR = 0.75f;
+static final int TREEIFY_THRESHOLD = 8;             // Convert list to TreeNode
+static final int UNTREEIFY_THRESHOLD = 6;           // Revert tree back to list on resize
+static final int MIN_TREEIFY_CAPACITY = 64;         // Minimum table capacity before treeify
+```
+
+- **Threshold**: Calculated as `Capacity * Load Factor`. For initial capacity 16 and load factor 0.75, threshold is 12. When `size > 12`, the table doubles in capacity (32).
+
+---
+
+## 3. How Bucket Indexing & Hashing Work
+
+### Step 1: The Hash Perturbation Function (Bit-Mixing)
+Why does HashMap not use `key.hashCode()` directly?
+
+```java
+static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+```
+
+- **Problem**: When table size is small (e.g., N = 16), the bucket index calculation only looks at the lowest 4 bits (16 - 1 = 15 = 0000 1111_2). If two keys have hash codes with identical lower bits but different upper bits, they will collide 100% of the time.
+- **Solution**: `h ^ (h >>> 16)` shifts high 16 bits down and XORs them with low 16 bits. This mixes high-bit entropy into the lower bits, dramatically reducing collision probability.
+
+### Step 2: Bucket Index Calculation via Bitmask
+```java
+int index = (n - 1) & hash; // where n is table.length (always a power of 2)
+```
+- Because n is always a power of 2 (2^k), `(n - 1)` is a bitmask of all 1s (e.g. 16 - 1 = 15 = 1111_2).
+- `(n - 1) & hash` is mathematically equivalent to `hash % n`, but executes in a single CPU cycle (~1 ns) compared to integer modulo division (~20–50 CPU cycles).
+
+---
+
+## 4. The Put Operation (`put(K, V)`) Step-by-Step
+
+<Steps>
+1. **Lazy Table Initialization**: If `table == null` or `table.length == 0`, initialize table via `resize()` to default capacity (16).
+1. **Empty Bucket Check**: Compute `index = (n - 1) & hash`. If `table[index] == null`, create new `Node<>(hash, key, value, null)` directly in the bucket.
+1. **Collision Handling**:
+   - If bucket key matches: replace existing value.
+   - If bucket is a `TreeNode`: call `putTreeVal()` to insert into Red-Black Tree (`O(log N)`).
+   - If bucket is a linked list: traverse list. If key found, replace value; otherwise append new node at the tail.
+1. **Treeification Check**: If linked list traversal count reaches `TREEIFY_THRESHOLD (8)`:
+   - If `table.length < 64`, call `resize()` to double table capacity instead of treeifying.
+   - If `table.length >= 64`, convert the entire linked list into a `TreeNode` Red-Black Tree.
+1. **Size Increment & Rehash**: Increment `++size`. If `size > threshold`, invoke `resize()`.
+</Steps>
+
+---
+
+## 5. Resize & Rehashing Mechanics (Java 8 Optimization)
+
+When the table doubles in size (`N -> 2N`), a node at index j can only move to one of two locations:
+1. Same index: `j`
+2. High index: `j + oldCap`
+
+```java
+// OpenJDK Java 8+ split-rehash optimization
+if ((e.hash & oldCap) == 0) {
+    // Stays at original index j
+} else {
+    // Moves to j + oldCap
+}
+```
+Because capacity is a power of 2, the new index is determined entirely by checking whether the single new bit introduced by 2N is `0` or `1`. No expensive hash code recomputation or modulo arithmetic is required.
+
+---
+
+## 6. The `equals()` and `hashCode()` Contract Violation
+
+```java
+// ANTI-PATTERN: Mutable or Inconsistent Key
+public class AccountKey {
+    private String accountNumber;
+    private double balance; // MUTABLE FIELD!
+
+    // If accountNumber matches but balance changes, hashCode changes!
+}
+```
+
+<Aside type="danger" title="Disastrous Production Bug">
+If an object used as a `HashMap` key is mutated such that its `hashCode()` changes after insertion:
+1. `map.get(key)` will search the wrong bucket index `(n - 1) & newHash`.
+2. The lookup returns `null` even though the key and value exist in the table.
+3. The entry can never be retrieved or removed, creating a **silent memory leak**.
+
+**Rule**: Always use immutable keys (`String`, `Integer`, `record`, or custom class with `final` fields).
+</Aside>
+
+---
+
+## 7. Multi-Threading Failure Modes: Why HashMap is NOT Thread-Safe
+
+1. **Java 7 Circular Linked List**: Under concurrent resizing in Java 7, head-insertion caused two racing threads to invert pointer references, forming a circular linked list `A -> B -> A`. Subsequent `get()` calls entered an **infinite CPU loop at 100% core utilization**.
+2. **Java 8 Data Loss & Null Pointer Exceptions**: Java 8 uses tail-insertion to prevent circular loops, but concurrent `put()` calls without synchronization still overwrite bucket pointers, causing silent data loss, corrupting tree structures, and throwing internal `NullPointerExceptions`.
+
+:::tip Production Fix
+For multi-threaded environments, use `java.util.concurrent.ConcurrentHashMap` or `Collections.synchronizedMap()`.
+:::
+
+---
+
+## 8. Performance Trade-off Comparison
+
+| Collection | Lookup Time | Sorted? | Thread-Safe? | Null Keys Allowed? | Underlying Structure |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`HashMap`** | `O(1)` avg / `O(log N)` worst | No | ❌ No | ✅ Yes (1 null key at index 0) | Hash table + LinkedList + Red-Black Tree |
+| **`LinkedHashMap`** | `O(1)` avg | Insertion or LRU order | ❌ No | ✅ Yes | Hash table + Doubly-linked list |
+| **`TreeMap`** | `O(log N)` guaranteed | ✅ Sorted (Comparable) | ❌ No | ❌ No null keys | Red-Black Tree |
+| **`ConcurrentHashMap`** | `O(1)` avg | No | ✅ Yes (Lock-free reads, CAS writes) | ❌ No null keys or values | Table + CAS + synchronized bucket nodes |
+
+---
+
+## 9. Authoritative Primary References (Tier 1)
+
+- [OpenJDK java.util.HashMap Source Code (JDK 21)](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/HashMap.java)
+- [Java Language Specification (JLS SE 21) — Object Methods](https://docs.oracle.com/javase/specs/jls/se21/html/index.html)
+- [Effective Java (3rd Edition) — Item 11: Always override hashCode when you override equals](https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/)

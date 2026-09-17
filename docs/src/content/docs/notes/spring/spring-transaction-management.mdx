@@ -1,0 +1,88 @@
+---
+title: "Spring Declarative Transaction Management (@Transactional)"
+description: "Deep dive into Spring transaction proxy interceptors, transaction propagation levels, isolation anomaly handling, rollback rules, and the self-invocation trap."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+Spring's declarative transaction management (`@Transactional`) abstracts low-level JDBC transaction demarcation (`connection.setAutoCommit(false)`, `connection.commit()`, `connection.rollback()`) into high-level declarative AOP aspect interceptors.
+
+:::tip Engineering Mental Model
+`@Transactional` is an AOP interceptor (`TransactionInterceptor`) that wraps your target method in a transaction boundary. It obtains a database connection from the `DataSourceTransactionManager` / `JpaTransactionManager`, binds it to the current thread (`TransactionSynchronizationManager`), executes the business logic, and commits or rolls back based on exception outcomes.
+:::
+
+---
+
+## 2. Transaction Propagation Behaviors
+
+When Method A calls Method B, how should transactions behave? Spring provides 7 propagation modes via `Propagation`:
+
+| Propagation Mode | Behavior If Transaction Exists | Behavior If NO Transaction Exists |
+| :--- | :--- | :--- |
+| **`REQUIRED` (Default)** | Joins existing transaction. | Creates a new transaction. |
+| **`REQUIRES_NEW`** | **Suspends** existing transaction, creates an independent new transaction. | Creates a new transaction. |
+| **`NESTED`** | Creates a JDBC **Savepoint** within current transaction. | Creates a new transaction. |
+| **`SUPPORTS`** | Joins existing transaction. | Executes non-transactionally. |
+| **`NOT_SUPPORTED`** | **Suspends** existing transaction. | Executes non-transactionally. |
+| **`MANDATORY`** | Joins existing transaction. | Throws `TransactionRequiredException`. |
+| **`NEVER`** | Throws `IllegalTransactionStateException`. | Executes non-transactionally. |
+
+---
+
+## 3. The Classic Self-Invocation Trap
+
+```java
+@Service
+public class OrderService {
+
+    public void processOrder(Order order) {
+        // Direct method call on 'this' reference (BYPASSES PROXY!)
+        this.saveAuditLog(order);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveAuditLog(Order order) {
+        // Audit log persistence logic
+    }
+}
+```
+
+<Aside type="danger" title="Why @Transactional is Silently Ignored on Self-Invocation">
+When calling `this.saveAuditLog(order)`, the invocation occurs on the raw Java `this` reference inside the class, **bypassing the Spring AOP Proxy wrapper**. Consequently, the `TransactionInterceptor` is never triggered, and `saveAuditLog` executes with the caller's transaction context rather than creating a `REQUIRES_NEW` transaction.
+
+**Solutions**:
+1. Move `saveAuditLog` to a separate collaborator service (`AuditService`).
+2. Inject the self-proxy via `@Autowired private OrderService self;` and call `self.saveAuditLog(order)`.
+</Aside>
+
+---
+
+## 4. Exception Rollback Rules
+
+By default, Spring transactions **only rollback on Unchecked Exceptions** (`RuntimeException` and `Error`):
+
+```java
+// BUG: Will NOT rollback if IOException occurs!
+@Transactional
+public void createOrder(Order order) throws IOException {
+    orderRepository.save(order);
+    if (networkFails) {
+        throw new IOException("Failed to send order email"); // CHECKED EXCEPTION -> COMMITS DATA!
+    }
+}
+
+// PRODUCTION FIX: Explicitly declare rollbackFor
+@Transactional(rollbackFor = Exception.class)
+public void createOrderSafely(Order order) throws Exception {
+    orderRepository.save(order);
+}
+```
+
+---
+
+## 5. Authoritative Primary References (Tier 1)
+
+- [Spring Framework Reference — Transaction Management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Spring Transaction Aspect GitHub Repository](https://github.com/spring-projects/spring-framework/tree/main/spring-tx)

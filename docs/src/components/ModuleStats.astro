@@ -1,0 +1,44 @@
+---
+interface Props {
+  seqRange: string;
+  hours: number;
+  topicsCount: number;
+  subtopicsCount: number;
+  p0Count: number;
+  p1Count: number;
+  p2Count: number;
+}
+
+const { seqRange, hours, topicsCount, subtopicsCount, p0Count, p1Count, p2Count } = Astro.props;
+---
+
+<div class="module-stats-grid not-content">
+  <div class="module-stat-card">
+    <div class="module-stat-value">{seqRange}</div>
+    <div class="module-stat-label">Sequence IDs</div>
+  </div>
+  <div class="module-stat-card">
+    <div class="module-stat-value">{hours}h</div>
+    <div class="module-stat-label">Est. Learning Time</div>
+  </div>
+  <div class="module-stat-card">
+    <div class="module-stat-value">{topicsCount}</div>
+    <div class="module-stat-label">Topics</div>
+  </div>
+  <div class="module-stat-card">
+    <div class="module-stat-value">{subtopicsCount}</div>
+    <div class="module-stat-label">Subtopics</div>
+  </div>
+  <div class="module-stat-card" style="border-color: var(--color-p0-border);">
+    <div class="module-stat-value" style="color: var(--color-p0-text);">{p0Count}</div>
+    <div class="module-stat-label">P0 (Must-Have)</div>
+  </div>
+  <div class="module-stat-card" style="border-color: var(--color-p1-border);">
+    <div class="module-stat-value" style="color: var(--color-p1-text);">{p1Count}</div>
+    <div class="module-stat-label">P1 (Core)</div>
+  </div>
+  <div class="module-stat-card" style="border-color: var(--color-p2-border);">
+    <div class="module-stat-value" style="color: var(--color-p2-text);">{p2Count}</div>
+    <div class="module-stat-label">P2 (Advanced)</div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+---
+title: "Dependency Map & Graph Analysis"
+description: "Comprehensive analysis of learning prerequisites, DAG topology, root entry points, and cross-phase dependencies."
+---
+
+import { Card, CardGrid, Badge } from '@astrojs/starlight/components';
+
+This dependency map visualizes the structural topology of the Full-Stack Engineering Roadmap. The curriculum forms a **Directed Acyclic Graph (DAG)** with 4 root entry points, zero circular dependencies, and clear sequential milestones.
+
+---
+
+## 1. Phase Progression Flow
+
+The high-level dependency chain moves progressively from fundamental engineering tools to enterprise architecture and agentic AI systems:
+
+<div class="not-content" style="overflow-x: auto; margin: 1.5rem 0;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--sl-color-gray-5); text-align: left;">
+        <th style="padding: 0.75rem 0.5rem;">Phase</th>
+        <th style="padding: 0.75rem 0.5rem;">Name</th>
+        <th style="padding: 0.75rem 0.5rem;">Direct Prerequisites</th>
+        <th style="padding: 0.75rem 0.5rem;">Core Focus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">I</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-1-foundation/">Foundation</a></td>
+        <td style="padding: 0.75rem 0.5rem;"><span style="color: var(--sl-color-green-high);">None (Root Entry Point)</span></td>
+        <td style="padding: 0.75rem 0.5rem;">Soft skills, Git, Clean Code & TDD</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">II</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-2-core-programming/">Core Programming</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase I (Git, Clean Code)</td>
+        <td style="padding: 0.75rem 0.5rem;">Core Java, OOPS, SOLID, OOAD</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">III</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-3-data-databases/">Data & Databases</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase II (Core Java)</td>
+        <td style="padding: 0.75rem 0.5rem;">MySQL Schema Design, RDBMS, JDBC</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">IV</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-4-web-fundamentals/">Web Fundamentals</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase I & II (Git, Java)</td>
+        <td style="padding: 0.75rem 0.5rem;">JavaScript, Bootstrap, JSP & Servlets</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">V</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-5-persistence-advanced-java/">Persistence & Adv. Java</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase III (RDBMS, JDBC)</td>
+        <td style="padding: 0.75rem 0.5rem;">Hibernate ORM, Enterprise Java Design</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">VI</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-6-spring-ecosystem/">Spring Ecosystem</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase IV & V (Servlets, Hibernate)</td>
+        <td style="padding: 0.75rem 0.5rem;">Spring Core, Spring Boot, Spring MVC</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">VII</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-7-frontend-engineering/">Frontend Engineering</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase IV (JavaScript)</td>
+        <td style="padding: 0.75rem 0.5rem;">React.js, Redux State, Next.js</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">VIII</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-8-architecture-ops/">Architecture & Ops</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase II & VI (SOLID, Spring Boot)</td>
+        <td style="padding: 0.75rem 0.5rem;">GoF Design Patterns, Docker Containerization</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--sl-color-gray-6);">
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">IX</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-9-microservices-mobile/">Microservices & Mobile</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase VI & VII & VIII (Spring Boot, React, Docker)</td>
+        <td style="padding: 0.75rem 0.5rem;">Spring Cloud Microservices, React Native</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.75rem 0.5rem; font-weight: bold;">X</td>
+        <td style="padding: 0.75rem 0.5rem;"><a href="/docs/roadmap/phase-10-professional-ai/">Professional & AI</a></td>
+        <td style="padding: 0.75rem 0.5rem;">Phase I & II (Soft Skills, Python/Java)</td>
+        <td style="padding: 0.75rem 0.5rem;">Agile, Scrum, Business Analysis, ML, LangChain</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+---
+
+## 2. Cross-Module Dependency Matrix
+
+| Target Module | Depends On (Prerequisites) | Key Bridge Concept |
+| :--- | :--- | :--- |
+| **Core Java Programming** | Soft Skills, Git | Version control workflow and analytical problem decomposition. |
+| **RDBMS & JDBC** | MySQL Database Management | Connecting Java applications to normalized relational schemas. |
+| **JSP & Servlets** | Core Java, JavaScript | Request/response lifecycle, HTTP sessions, and MVC web architecture. |
+| **Hibernate ORM** | RDBMS & JDBC, Core Java | Object-Relational Mapping, entity lifecycle, and transaction management. |
+| **Spring Boot Development** | Spring Core, Spring Framework Basics | Auto-configuration, starter dependencies, and embedded servers. |
+| **React Redux State** | React.js Frontend Development | Centralized immutable state management and asynchronous thunks. |
+| **Java Microservices** | Spring Boot, Docker | Distributed architecture, service discovery, API gateways, and containerization. |
+| **Agentic AI & LangChain** | AI & Machine Learning | LLM prompt engineering, vector databases, and autonomous agents. |
+
+---
+
+## 3. Graph Analysis & Top-Level Metrics
+
+<CardGrid>
+  <Card title="4 Root Entry Points" icon="rocket">
+    Nodes with zero prerequisites: **Soft Skills** (Seq 1), **Git & GitHub** (Seq 20), **Bootstrap Website Design** (Seq 222), and **Agile Methodology & Scrum** (Seq 472).
+  </Card>
+  <Card title="Zero Circular Dependencies" icon="approve-check">
+    The dependency graph is strictly acyclic (`G = (V, E)` is a valid DAG), ensuring a mathematically provable topological sort order.
+  </Card>
+  <Card title="659 Total Verifiable Skills" icon="list-format">
+    Every skill is indexed with its exact sequence ID, module boundary, priority classification (P0/P1/P2), and estimated duration.
+  </Card>
+  <Card title="Multi-Parent Convergence Points" icon="random">
+    Key modules like **Spring Boot**, **Hibernate**, and **Microservices** synthesize multi-disciplinary prerequisites across backend, database, and DevOps layers.
+  </Card>
+</CardGrid>

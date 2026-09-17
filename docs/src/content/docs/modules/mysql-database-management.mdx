@@ -1,0 +1,172 @@
+---
+title: "MySQL Database Management"
+description: "III. Data & Databases · 13 Subtopics · 7.0 Hours · Sequence IDs 161 - 173"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="161 - 173"
+  hours={7.0}
+  topicsCount={3}
+  subtopicsCount={13}
+  p0Count={10}
+  p1Count={3}
+  p2Count={0}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [III. Data & Databases](/docs/roadmap/phase-3-data-databases/)
+- **Sequence Range:** #161 - 173
+- **Prerequisite Modules:** None (Root Starting Point)
+- **Total Curated Learning Time:** 7.0 Hours
+:::
+
+## 1. Module Purpose
+
+Design normalized relational schemas, write high-performance SQL queries, index effectively, and connect Java to databases safely via JDBC.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Databases outlive applications. Poor schema design or inefficient queries cause 90% of backend scalability bottlenecks.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Design 3NF normalized relational schemas with appropriate constraints and data types.
+- Write complex JOINs, subqueries, window functions, and transactions (ACID).
+- Use JDBC `PreparedStatement` and connection pooling (`HikariCP`) to prevent SQL injection.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **3 high-level topic groups**:
+
+1. **Querying DB** (4 subtopics)
+2. **Normalization** (6 subtopics)
+3. **Transactions** (3 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #161 | Querying DB | Basic CRUD operation queries | P0 | 0.5h | Root | Not Started |
+| #162 | Querying DB | Different kinds of JOINs with examples | P0 | 0.5h | #161 | Not Started |
+| #163 | Querying DB | Using nested queries | P0 | 0.5h | #162 | Not Started |
+| #164 | Querying DB | CTE | P0 | 1.0h | #163 | Not Started |
+| #165 | Normalization | 1NF | P0 | 0.5h | #164 | Not Started |
+| #166 | Normalization | 2NF | P0 | 0.5h | #165 | Not Started |
+| #167 | Normalization | 3NF | P0 | 0.5h | #166 | Not Started |
+| #168 | Normalization | BCNF | P1 | 0.5h | #167 | Not Started |
+| #169 | Normalization | 4NF | P1 | 0.5h | #168 | Not Started |
+| #170 | Normalization | 5NF | P1 | 0.5h | #169 | Not Started |
+| #171 | Transactions | How transactions work | P0 | 0.5h | #170 | Not Started |
+| #172 | Transactions | What are ACID properties | P0 | 0.5h | #171 | Not Started |
+| #173 | Transactions | Importance of ACID with examples | P0 | 0.5h | #172 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** None (Root Starting Point)
+- **Starting Point Status:** **YES** — This module is a root entry point with no external blockers.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **7.0 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~1 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (10 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (3 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (0 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **MySQL 8.0 Reference Manual (dev.mysql.com/doc/refman)**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **Schema Design**: Create an e-commerce database with Orders, Products, Customers, and Payments, normalized to 3NF.
+1. **JDBC Repository**: Implement a complete CRUD DAO layer with connection pooling and rollback on failure.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common database design and query traps:
+
+- ⚠️ **Non-SARGable Queries & Function Wrapping**: Writing `WHERE YEAR(created_at) = 2026` suppresses the B+ Tree index, forcing an expensive `O(N)` full table scan. Use range comparisons: `WHERE created_at >= '2026-01-01' AND created_at < '2027-01-01'`.
+- ⚠️ **Leading Wildcards in LIKE Queries**: `WHERE name LIKE '%smith'` cannot utilize B+ Tree prefix ordering, resulting in a full table scan.
+- ⚠️ **Implicit Type Conversion**: Querying a `VARCHAR` column with an integer (`WHERE phone = 1234567890`) forces MySQL to cast every row, bypassing indexes.
+- ⚠️ **Over-Indexing High-Throughput Write Tables**: Every index adds synchronous I/O page split overhead to `INSERT`, `UPDATE`, and `DELETE` operations.
+
+---
+
+## 13. Interview Relevance
+
+Expect the following database engineering interview topics:
+
+- 💡 **B+ Tree Architecture**: Why do databases use B+ Trees instead of Binary Search Trees or Hash Tables? How does high fan-out minimize disk I/O?
+- 💡 **Clustered vs Secondary Indexes**: What is a bookmark lookup / secondary probe? How does a Covering Index eliminate it?
+- 💡 **Isolation Levels & Anomalies**: Differentiate between Dirty Read, Non-Repeatable Read, and Phantom Read. How does InnoDB MVCC resolve them without read locks?
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [RDBMS & JDBC Connectivity](/docs/modules/rdbms-jdbc-connectivity/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

@@ -1,0 +1,66 @@
+---
+title: "REST API Design & HTTP Protocol Internals"
+description: "Comprehensive architecture of REST constraints, HTTP/1.1 vs HTTP/2 vs HTTP/3, method idempotency, Richardson Maturity Model, and caching mechanics."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Architectural Principles of REST
+
+**Representational State Transfer (REST)** is an architectural style defined by Roy Fielding in his 2000 doctoral dissertation. It relies on 6 core constraints:
+1. **Client-Server Separation**: Decouples UI concerns from data storage concerns.
+2. **Statelessness**: Every request from client to server must contain all information necessary to understand and process the request. No session state on the server.
+3. **Cacheability**: Responses must implicitly or explicitly define themselves as cacheable or non-cacheable (`Cache-Control`, `ETag`).
+4. **Uniform Interface**: Identification of resources (`/api/v1/orders/102`), manipulation through representations (JSON), self-descriptive messages, and HATEOAS.
+5. **Layered System**: The client cannot tell whether it is connected directly to the end server or an intermediary proxy/load balancer.
+
+---
+
+## 2. HTTP Method Semantics & Idempotency
+
+| HTTP Method | Safe? (Read-Only) | Idempotent? (`f(f(x)) = f(x)`) | Standard Success Code | Primary Semantic Purpose |
+| :--- | :--- | :--- | :--- | :--- |
+| **`GET`** | ✅ Yes | ✅ Yes | `200 OK` | Retrieve resource representation. |
+| **`HEAD`** | ✅ Yes | ✅ Yes | `200 OK` (No body) | Retrieve response headers only. |
+| **`PUT`** | ❌ No | ✅ Yes | `200 OK` / `204 No Content` | Complete resource replacement / upsert. |
+| **`DELETE`**| ❌ No | ✅ Yes | `204 No Content` / `200 OK` | Remove resource. |
+| **`POST`** | ❌ No | ❌ No (Creates new resource) | `201 Created` | Create subordinate resource / trigger process. |
+| **`PATCH`** | ❌ No | ❌ No (Can be non-idempotent) | `200 OK` | Partial resource delta modification. |
+
+---
+
+## 3. HTTP Protocol Evolution: HTTP/1.1 vs HTTP/2 vs HTTP/3
+
+```
+HTTP/1.1 (1997): Text-based, 1 request per TCP connection (Head-of-Line Blocking)
+┌──────────────┐ ── Request 1 ──> ┌──────────────┐ ── Response 1 ──> (Sequential)
+└──────────────┘ <─── Wait ───── └──────────────┘
+
+HTTP/2 (2015): Binary Framing Layer, Multiplexed Streams over Single TCP Connection
+┌──────────────┐ ─── Stream 1 (Req 1) ─── Stream 3 (Req 2) ───> ┌──────────────┐
+│ Single TCP   │ <─── Stream 1 (Resp 1) ── Stream 3 (Resp 2) ── │ Binary Frames│
+└──────────────┘                                                └──────────────┘
+
+HTTP/3 (2022): QUIC over UDP (Eliminates TCP transport Head-of-Line blocking)
+```
+
+---
+
+## 4. Caching Mechanics & Conditional Requests (`ETag`)
+
+```
+Client ─── GET /api/v1/users/42 ──────────────────────> Server
+       <── 200 OK + ETag: "33a64df5" + Cache-Control: max-age=3600 ──
+
+(10 minutes later: Client re-validates stale resource)
+Client ─── GET /api/v1/users/42 + If-None-Match: "33a64df5" ─> Server
+       <── 304 Not Modified (ZERO PAYLOAD BODY TRANSFERRED!) ──────
+```
+
+---
+
+## 5. Authoritative Primary References (Tier 1 & Tier 2)
+
+- [IETF RFC 9110 — HTTP Semantics (2022)](https://datatracker.ietf.org/doc/html/rfc9110)
+- [IETF RFC 9113 — HTTP/2 Standard](https://datatracker.ietf.org/doc/html/rfc9113)
+- [Architectural Styles and the Design of Network-based Software Architectures (Roy T. Fielding)](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)

@@ -1,0 +1,20 @@
+[
+  {
+    "code": "P0",
+    "name": "P0 (Must-Have)",
+    "meaning": "Core fundamentals / non-negotiables",
+    "guidance": "Complete fully before moving to the next module; anything blocked on it stays blocked."
+  },
+  {
+    "code": "P1",
+    "name": "P1 (Core Competency)",
+    "meaning": "Essential patterns, standard-library tools, common production workflows",
+    "guidance": "Build small practice projects until the pattern is automatic; these make you employable."
+  },
+  {
+    "code": "P2",
+    "name": "P2 (Advanced / Specialized)",
+    "meaning": "Optimization, edge cases, architectural polish",
+    "guidance": "Do after the module is otherwise complete; useful for senior-role and specialized tracks."
+  }
+]

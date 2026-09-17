@@ -1,0 +1,97 @@
+---
+title: "Spring Boot Auto-Configuration Internals"
+description: "Deep architectural breakdown of @EnableAutoConfiguration, AutoConfiguration.imports, conditional evaluation engine (@ConditionalOnClass, @ConditionalOnMissingBean), and startup diagnostics."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+**Spring Boot Auto-Configuration** attempts to automatically configure your Spring application based on the jar dependencies present on the classpath.
+
+:::tip Engineering Mental Model
+Auto-configuration is not "magic." It is a deterministic collection of regular Spring `@Configuration` classes whose evaluation is deferred and gated by `@Conditional` annotations. If a class (e.g. `HikariDataSource.class`) exists on the classpath and you have not defined your own `DataSource` bean, Spring Boot creates and configures one for you automatically.
+:::
+
+---
+
+## 2. Anatomy of `@SpringBootApplication`
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(excludeFilters = { ... })
+public @interface SpringBootApplication { ... }
+```
+
+- `@SpringBootConfiguration`: Specialized `@Configuration` indicating the primary configuration class.
+- `@ComponentScan`: Scans for `@Component`, `@Service`, `@Repository`, `@Controller` in the current package and sub-packages.
+- `@EnableAutoConfiguration`: Activates the auto-configuration discovery mechanism.
+
+---
+
+## 3. How Auto-Configuration Works Under the Hood
+
+<Steps>
+1. **Import Selection**: `@EnableAutoConfiguration` imports `AutoConfigurationImportSelector`.
+1. **Metadata Discovery**:
+   - **Spring Boot 3+**: Reads configuration class names from `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`.
+   - **Spring Boot 2.x (Legacy)**: Read from `META-INF/spring.factories`.
+1. **Filtering & Ordering**: Auto-configuration classes are sorted using `@AutoConfigureOrder`, `@AutoConfigureBefore`, and `@AutoConfigureAfter`.
+1. **Conditional Evaluation**: The container evaluates `@Conditional` annotations on each configuration class. If any condition evaluates to `false`, the entire configuration class is discarded.
+1. **Bean Registration**: Surviving configuration classes register their `@Bean` definitions into the `ApplicationContext`.
+</Steps>
+
+---
+
+## 4. The `@Conditional` Annotation Hierarchy
+
+```java
+// Example from DataSourceAutoConfiguration
+@AutoConfiguration
+@ConditionalOnClass({ DataSource.class, EmbeddedDatabaseType.class })
+@ConditionalOnMissingBean(type = "io.r2dbc.spi.ConnectionFactory")
+@EnableConfigurationProperties(DataSourceProperties.class)
+public class DataSourceAutoConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean // Only creates HikariDataSource if user DID NOT define a custom DataSource bean
+    public HikariDataSource dataSource(DataSourceProperties properties) {
+        return properties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+    }
+}
+```
+
+| Conditional Annotation | Evaluation Rule |
+| :--- | :--- |
+| `@ConditionalOnClass(X.class)` | Matches only if class `X` is present on the application classpath. |
+| `@ConditionalOnMissingClass(X)`| Matches only if class `X` is **absent** from the classpath. |
+| `@ConditionalOnBean(X.class)` | Matches only if a bean of type `X` is already registered in the context. |
+| `@ConditionalOnMissingBean(X)` | Matches only if **no bean** of type `X` exists (enables user override). |
+| `@ConditionalOnProperty(...)` | Matches based on configuration values in `application.yml` or `application.properties`. |
+| `@ConditionalOnWebApplication`| Matches only if the app runs in a Servlet-based or Reactive web context. |
+
+---
+
+## 5. Diagnostic Toolkit & Debugging Auto-Configuration
+
+To understand exactly why a specific auto-configuration matched or failed to match:
+
+```bash
+# Run application with debug logging enabled
+java -jar application.jar --debug
+```
+
+This outputs the **ConditionEvaluationReport**:
+- **Positive Matches**: Auto-configurations whose conditions evaluated to `true` (e.g. `DataSourceAutoConfiguration matched: @ConditionalOnClass found org.apache.tomcat.jdbc.pool.DataSource`).
+- **Negative Matches**: Auto-configurations skipped (e.g. `MongoAutoConfiguration: @ConditionalOnClass did not find com.mongodb.client.MongoClient`).
+- **Exclusions**: Manually excluded configurations via `@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })`.
+
+---
+
+## 6. Authoritative Primary References (Tier 1)
+
+- [Spring Boot Reference Documentation — Auto-configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html)
+- [Spring Boot AutoConfigure GitHub Repository](https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-autoconfigure)

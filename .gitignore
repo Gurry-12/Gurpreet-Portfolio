@@ -3,6 +3,10 @@
 # Compiled output
 /dist
 /dist/
+/docs/dist
+/docs/dist/
+/docs/.astro
+/docs/.astro/
 /tmp
 /tmp/
 /out-tsc
@@ -15,6 +19,8 @@
 # Node
 /node_modules
 /node_modules/
+/docs/node_modules
+/docs/node_modules/
 npm-debug.log
 npm-debug.log*
 yarn-error.log

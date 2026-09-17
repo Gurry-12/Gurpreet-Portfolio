@@ -1,0 +1,184 @@
+---
+title: "Java Microservices (Spring Cloud)"
+description: "IX. Microservices & Mobile · 20 Subtopics · 21.5 Hours · Sequence IDs 389 - 408"
+---
+
+import { Card, CardGrid, Badge, Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import PriorityBadge from '../../../components/PriorityBadge.astro';
+import ModuleStats from '../../../components/ModuleStats.astro';
+
+<ModuleStats
+  seqRange="389 - 408"
+  hours={21.5}
+  topicsCount={7}
+  subtopicsCount={20}
+  p0Count={0}
+  p1Count={11}
+  p2Count={9}
+/>
+
+:::tip Spreadsheet Ground Truth
+- **Phase:** [IX. Microservices & Mobile](/docs/roadmap/phase-9-microservices-mobile/)
+- **Sequence Range:** #389 - 408
+- **Prerequisite Modules:** [Docker & Containerization](/docs/modules/docker-containerization/), [Spring Boot Application Development](/docs/modules/spring-boot-application-development/)
+- **Total Curated Learning Time:** 21.5 Hours
+:::
+
+## 1. Module Purpose
+
+Master the Spring Framework, Inversion of Control (IoC), Dependency Injection (DI), Spring Boot autoconfiguration, and RESTful API development.
+
+---
+
+## 2. Why It Matters for Software Engineering
+
+Spring Boot is the de-facto standard for enterprise Java microservices and web backends, drastically reducing boilerplate.
+
+---
+
+## 3. Learning Objectives
+
+By completing this module, you will be able to:
+
+- Understand the Spring ApplicationContext, Bean lifecycle, and `@Component`/`@Autowired` injection.
+- Build production-grade REST APIs with Spring MVC, `@RestController`, and validation.
+- Configure Spring Boot profiles, Actuator health endpoints, and externalized properties.
+
+---
+
+## 4. Topics Covered
+
+This module encompasses **7 high-level topic groups**:
+
+1. **Microservices Introduction** (4 subtopics)
+2. **Building Microservice** (1 subtopics)
+3. **Microservices Communication** (3 subtopics)
+4. **Service Registry and Discovery using Spring Cloud Netflix and Eurekax** (4 subtopics)
+5. **Centralized Configurations** (1 subtopics)
+6. **API Gateway** (4 subtopics)
+7. **Auto Refreshing Config Changes** (3 subtopics)
+
+---
+
+## 5. Subtopics & Curriculum Breakdown
+
+:::note Complete Topic-Subtopic Matrix
+Every row below maps directly to `Learning Roadmap` in the workbook. Prioritize **P0 (Must-Have)** items before attempting P1 or P2.
+:::
+
+| Seq ID | Topic | Subtopic | Priority | Hours | Prerequisites | Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| #389 | Microservices Introduction | What are microservices? | P1 | 1.0h | #322, #388 | Not Started |
+| #390 | Microservices Introduction | Advantages of microservices | P1 | 1.0h | #389 | Not Started |
+| #391 | Microservices Introduction | Microservices Architecture with Spring Boot and Spring Cloud | P2 | 1.0h | #390 | Not Started |
+| #392 | Microservices Introduction | Monolithic Architecture vs. Microservices Architecture | P2 | 0.5h | #391 | Not Started |
+| #393 | Building Microservice | Creating two microservices | P1 | 2.0h | #392 | Not Started |
+| #394 | Microservices Communication | Using Rest Template | P1 | 1.5h | #393 | Not Started |
+| #395 | Microservices Communication | Using Web Client | P1 | 1.5h | #394 | Not Started |
+| #396 | Microservices Communication | Using Open Feign | P1 | 1.0h | #395 | Not Started |
+| #397 | Service Registry and Discovery using Spring Cloud Netflix and Eurekax | Understanding Service Registry | P1 | 1.0h | #396 | Not Started |
+| #398 | Service Registry and Discovery using Spring Cloud Netflix and Eurekax | Spring Cloud Netflix Eureka Server Implementation | P1 | 1.0h | #397 | Not Started |
+| #399 | Service Registry and Discovery using Spring Cloud Netflix and Eurekax | Registering microservices as Eureka Clients | P1 | 1.0h | #398 | Not Started |
+| #400 | Service Registry and Discovery using Spring Cloud Netflix and Eurekax | Load Balancing | P1 | 0.5h | #399 | Not Started |
+| #401 | Centralized Configurations | Spring Cloud Config Server | P2 | 2.0h | #400 | Not Started |
+| #402 | API Gateway | API Gateway Setup | P2 | 1.0h | #401 | Not Started |
+| #403 | API Gateway | Registering API Gateway as Eureka Client | P1 | 1.0h | #402 | Not Started |
+| #404 | API Gateway | Configuring API Gateway Routes | P2 | 1.0h | #403 | Not Started |
+| #405 | API Gateway | Spring Cloud Gateway | P2 | 1.0h | #404 | Not Started |
+| #406 | Auto Refreshing Config Changes | Spring Cloud Bus | P2 | 1.0h | #405 | Not Started |
+| #407 | Auto Refreshing Config Changes | MessageBroker | P2 | 1.0h | #406 | Not Started |
+| #408 | Auto Refreshing Config Changes | RabbitMq & Kafka | P2 | 0.5h | #407 | Not Started |
+
+---
+
+## 6. Prerequisites & Dependencies
+
+- **Direct Module Prerequisites:** [Docker & Containerization](/docs/modules/docker-containerization/), [Spring Boot Application Development](/docs/modules/spring-boot-application-development/)
+- **Starting Point Status:** Requires completion of upstream prerequisite items.
+
+---
+
+## 7. Estimated Learning Time & Pacing
+
+- **Total Module Hours:** **21.5 Hours**
+- **Recommended Pace:**
+  - *Full-Time Immersion (20 hrs/week):* ~1.1 weeks
+  - *Part-Time Self-Paced (8 hrs/week):* ~2.7 weeks
+
+---
+
+## 8. Priority Distribution
+
+<CardGrid>
+  <Card title="P0 — Must-Have (0 items)" icon="warning">
+    Core non-negotiable fundamentals. Must be fully mastered with working code before progressing.
+  </Card>
+  <Card title="P1 — Core Competency (11 items)" icon="approve-check">
+    Production-grade patterns and standard workflows that build professional employability.
+  </Card>
+  <Card title="P2 — Advanced / Specialized (9 items)" icon="puzzle">
+    Optimization, architectural edge cases, and senior-level depth.
+  </Card>
+</CardGrid>
+
+---
+
+## 9. Recommended Learning Resources
+
+:::tip Ground-Truth Recommended Sources
+The following authoritative sources are explicitly designated in the spreadsheet roadmap:
+:::
+
+- 📖 **Microservices Patterns, Chris Richardson + Spring Cloud Docs (spring.io/projects/spring-cloud)**
+- 📖 **Spring Cloud Config & Bus docs + Confluent Kafka docs**
+- 📖 **Spring Cloud Netflix/Eureka Service Discovery docs**
+
+---
+
+## 10. Practical Exercises & Real-World Projects
+
+:::note Educational Guidance
+Apply the knowledge from this module with concrete engineering projects:
+:::
+
+<Steps>
+1. **REST API Service**: Build a production-grade CRUD microservice with Spring Boot, Spring Data JPA, and DTO mapping.
+1. **Global Exception Handler**: Implement `@RestControllerAdvice` returning standardized RFC-7807 error responses.
+</Steps>
+
+---
+
+## 11. Completion Criteria
+
+Before marking this module complete, ensure you have satisfied the following verification benchmarks:
+
+- [ ] All P0 (Must-Have) subtopics completed and demonstrated in working code.
+- [ ] Unit test coverage above 80% with zero failing edge cases.
+- [ ] Ability to explain core trade-offs and architectural alternatives without notes.
+
+---
+
+## 12. Common Mistakes & Anti-Patterns
+
+Avoid these common traps frequently encountered by junior and mid-level developers:
+
+- ⚠️ **Skipping fundamentals and jumping straight into high-level abstractions.**
+- ⚠️ **Ignoring error states, nullability, and resource leaks.**
+- ⚠️ **Failing to profile performance under realistic concurrency or data volume.**
+
+---
+
+## 13. Interview Relevance
+
+Expect the following technical interview dimensions for this module:
+
+- 💡 Explaining the internal architecture and life-cycle of Java Microservices (Spring Cloud).
+- 💡 System design trade-offs: when to choose this approach versus alternatives.
+- 💡 Debugging live scenarios: identifying thread locks, memory leaks, or query bottlenecks.
+
+---
+
+## 14. Related Modules
+
+- **Same Phase Modules:** [React Native Mobile Apps](/docs/modules/react-native-mobile-apps/)
+- **Next Steps:** Proceed to the next module in the [Recommended Learning Order](/docs/learning-path/recommended-order/).

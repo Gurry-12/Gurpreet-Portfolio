@@ -1,0 +1,94 @@
+---
+title: "JavaScript Event Loop & Asynchronous Runtime Model"
+description: "Deep dive into the JavaScript single-threaded concurrency model, Call Stack, Microtask queue, Macrotask queue, and rendering frame budget."
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, Steps } from '@astrojs/starlight/components';
+
+## 1. Overview & Mental Model
+
+JavaScript is a **single-threaded**, non-blocking, asynchronous concurrent programming language with a single Call Stack.
+
+:::tip Engineering Mental Model
+The V8 JS Engine executes synchronous code on a single thread. When asynchronous operations (I/O, network fetch, timers) are invoked, the browser Web APIs handle them in background threads. Upon completion, their callbacks are enqueued into either the **Microtask Queue** or the **Macrotask Queue**, which the **Event Loop** continuously drains into the Call Stack.
+:::
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       JAVASCRIPT BROWSER RUNTIME MODEL                      │
+│                                                                             │
+│  ┌───────────────────────┐                    ┌──────────────────────────┐  │
+│  │     V8 CALL STACK     │                    │      BROWSER WEB APIS    │  │
+│  │  [ fn3() ]            │ ── Async Call ───> │  Fetch API, DOM Events,  │  │
+│  │  [ fn2() ]            │                    │  setTimeout, IndexedDB   │  │
+│  │  [ main() ]           │                    └────────────┬─────────────┘  │
+│  └───────────▲───────────┘                                 │                │
+│              │                                             │ Callback Ready │
+│              │                                             ▼                │
+│              │       ┌──────────────────────────────────────────────────┐   │
+│              │       │  MICROTASK QUEUE (High Priority)                 │   │
+│              │       │  Promise.then, queueMicrotask, MutationObserver  │   │
+│              │       └──────────────────────┬───────────────────────────┘   │
+│   EVENT      │                              │                               │
+│   LOOP ──────┤       ┌──────────────────────▼───────────────────────────┐   │
+│              │       │  MACROTASK / TASK QUEUE (Standard Priority)      │   │
+│              │       │  setTimeout, setInterval, I/O, UI Click Events   │   │
+│              │       └──────────────────────────────────────────────────┘   │
+│              │                                                              │
+│              └────── Render Pipeline (RequestAnimationFrame / Paint @60FPS) │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 2. Microtasks vs Macrotasks Execution Order
+
+### The Golden Rule of Event Loop Ticks
+In every Event Loop iteration:
+1. **Execute 1 Macrotask** from the top of the Macrotask queue.
+2. **Drain ALL Microtasks** in the Microtask queue until it is completely empty (including any new microtasks enqueued while draining!).
+3. **Render UI** (if 16.6ms frame budget has elapsed).
+4. Move to the next Macrotask.
+
+```javascript
+console.log('1: Synchronous');
+
+setTimeout(() => {
+    console.log('2: Macrotask (setTimeout)');
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log('3: Microtask (Promise 1)');
+}).then(() => {
+    console.log('4: Microtask (Promise 2)');
+});
+
+console.log('5: Synchronous');
+
+// OUTPUT SEQUENCE:
+// 1: Synchronous
+// 5: Synchronous
+// 3: Microtask (Promise 1)
+// 4: Microtask (Promise 2)
+// 2: Macrotask (setTimeout)
+```
+
+---
+
+## 3. The Failure Layer: Blocking the Event Loop
+
+Because JavaScript executes on a single main thread, any CPU-intensive synchronous loop (`while(true)`, cryptographic hashing, processing a 50MB JSON payload) locks the Call Stack.
+
+<Aside type="danger" title="Consequences of Main Thread Starvation">
+1. The browser cannot drain the microtask or macrotask queues.
+2. The browser cannot trigger the UI Render Pipeline, causing **UI freezing and dropped frames**.
+3. User click and scroll events are ignored, leading to "Page Unresponsive" browser crash prompts.
+**Fix**: Offload heavy computation to **Web Workers** or partition computation via `scheduler.yield()` / `requestIdleCallback()`.
+</Aside>
+
+---
+
+## 4. Authoritative Primary References (Tier 1)
+
+- [HTML Living Standard — Event Loops & Task Queues](https://html.spec.whatwg.org/multipage/webappapis.html#event-loops)
+- [MDN Web Docs — Concurrency Model and the Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
