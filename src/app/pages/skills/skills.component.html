@@ -1,0 +1,67 @@
+<!-- Dedicated Technical Skills Matrix -->
+<div class="page-shell">
+  <div class="editorial-container">
+
+    <!-- Page Header -->
+    <header class="editorial-header">
+      <div class="editorial-header-grid">
+        <div class="header-col-label">
+          <span class="editorial-meta-label">SKILLS</span>
+        </div>
+        <div class="header-col-content">
+          <h1 class="page-heading">Technical Capabilities &amp; Stack</h1>
+          <p class="page-lead">
+            An organized inventory of programming languages, frameworks, storage systems, and architectural patterns I work with in production.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="editorial-rule"></div>
+
+    <!-- Skills Matrix Categories -->
+    <div class="skills-matrix-wrapper">
+      <section class="skill-category-section" *ngFor="let group of skillGroups; let i = index">
+        <div class="editorial-grid">
+          
+          <!-- Category Label & Description -->
+          <div class="grid-col-label">
+            <span class="category-index">0{{ i + 1 }}</span>
+            <h2 class="category-heading">{{ group.category }}</h2>
+            <p class="category-desc">{{ group.description }}</p>
+          </div>
+
+          <!-- Items Grid -->
+          <div class="grid-col-content">
+            <div class="skills-editorial-grid">
+              <div class="skill-card-item" *ngFor="let item of group.items">
+                <div class="skill-card-header">
+                  <tech-icon [name]="item.name"></tech-icon>
+                  <span class="skill-name">{{ item.name }}</span>
+                </div>
+                <p class="skill-note" *ngIf="item.note">{{ item.note }}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="editorial-rule" *ngIf="i < skillGroups.length - 1"></div>
+      </section>
+    </div>
+
+    <!-- Closing Action -->
+    <div class="page-footer-cta">
+      <div class="cta-inner">
+        <div>
+          <span class="editorial-meta-label">NEXT</span>
+          <div class="cta-title">See these skills in real systems</div>
+        </div>
+        <a routerLink="/projects" class="editorial-action-link">
+          <span>Explore Projects</span>
+          <span class="action-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -4,98 +4,78 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
-    title: 'Gurpreet Singh — Personal Engineering Hub'
+    title: 'Gurpreet Singh — Software Engineer'
   },
   {
-    path: 'work',
+    path: 'projects',
     loadComponent: () => import('./pages/work/work.component').then(m => m.WorkComponent),
-    title: 'Work — Gurpreet Singh'
+    title: 'Projects — Gurpreet Singh'
   },
   {
-    path: 'work/:id',
+    path: 'projects/:id',
     loadComponent: () => import('./pages/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
-    title: 'Work — Gurpreet Singh'
+    title: 'Project Case Study — Gurpreet Singh'
   },
   {
-    path: 'learn',
-    loadComponent: () => import('./pages/learn/learn.component').then(m => m.LearnComponent),
-    title: 'Learn — Gurpreet Singh'
+    path: 'skills',
+    loadComponent: () => import('./pages/skills/skills.component').then(m => m.SkillsComponent),
+    title: 'Skills & Stack — Gurpreet Singh'
   },
   {
-    path: 'lab',
-    loadComponent: () => import('./pages/lab/lab.component').then(m => m.LabComponent),
-    title: 'Lab — Gurpreet Singh'
+    path: 'experience',
+    loadComponent: () => import('./pages/experience/experience.component').then(m => m.ExperienceComponent),
+    title: 'Experience — Gurpreet Singh'
+  },
+  {
+    path: 'achievements',
+    loadComponent: () => import('./pages/achievements/achievements.component').then(m => m.AchievementsComponent),
+    title: 'Achievements & Proof — Gurpreet Singh'
   },
   {
     path: 'about',
     loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
     title: 'About — Gurpreet Singh'
   },
-  // Redirects to documentation portal
   {
-    path: 'docs',
-    canActivate: [() => { window.location.href = '/docs/'; return false; }],
-    children: []
+    path: 'contact',
+    loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent),
+    title: 'Contact — Gurpreet Singh'
   },
+
+  // Aliases and backward-compatible redirects
   {
-    path: 'english',
-    canActivate: [() => { window.location.href = '/docs/'; return false; }],
-    children: []
-  },
-  {
-    path: 'documentation',
-    canActivate: [() => { window.location.href = '/docs/'; return false; }],
-    children: []
-  },
-  {
-    path: 'kb',
-    canActivate: [() => { window.location.href = '/docs/'; return false; }],
-    children: []
-  },
-  {
-    path: 'knowledge-base',
-    canActivate: [() => { window.location.href = '/docs/'; return false; }],
-    children: []
-  },
-  // Redirects for deleted pages to maintain link integrity
-  {
-    path: 'building',
-    redirectTo: 'work',
+    path: 'work',
+    redirectTo: 'projects',
     pathMatch: 'full'
   },
   {
-    path: 'projects',
-    redirectTo: 'work',
-    pathMatch: 'full'
-  },
-  {
-    path: 'projects/:id',
-    redirectTo: 'work/:id',
-    pathMatch: 'full'
-  },
-  {
-    path: 'learning',
-    redirectTo: 'learn',
-    pathMatch: 'full'
-  },
-  {
-    path: 'notes',
-    redirectTo: 'learn',
+    path: 'work/:id',
+    redirectTo: 'projects/:id',
     pathMatch: 'full'
   },
   {
     path: 'journey',
-    redirectTo: 'about',
+    redirectTo: 'experience',
     pathMatch: 'full'
   },
   {
-    path: 'goals',
-    redirectTo: 'about',
+    path: 'learn',
+    redirectTo: 'skills',
     pathMatch: 'full'
   },
   {
-    path: 'contact',
-    redirectTo: 'about',
+    path: 'notes',
+    redirectTo: 'skills',
+    pathMatch: 'full'
+  },
+  {
+    path: 'lab',
+    redirectTo: 'projects',
+    pathMatch: 'full'
+  },
+  {
+    path: 'building',
+    redirectTo: 'projects',
     pathMatch: 'full'
   },
   {

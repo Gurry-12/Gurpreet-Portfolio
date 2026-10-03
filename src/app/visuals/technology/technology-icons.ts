@@ -40,49 +40,118 @@ export const TECHNOLOGY_ICONS: TechIconDef[] = [
   { key: 'rest', names: ['rest'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>' },
   { key: 'jmeter', names: ['jmeter'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>' },
   { key: 'jwt', names: ['jwt'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>' },
-]
+  { key: 'aws', names: ['aws'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>' },
+  { key: 'kafka', names: ['kafka'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><line x1="8.7" x2="15.3" y1="10.7" y2="7.3"/><line x1="8.7" x2="15.3" y1="13.3" y2="16.7"/></svg>' },
+  { key: 'redis', names: ['redis'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>' },
+  { key: 'database', names: ['database'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>' },
+  { key: 'security', names: ['security'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' },
+  { key: 'algorithms', names: ['algorithms'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="19" r="3"/><line x1="12" y1="8" x2="6" y2="16"/><line x1="12" y1="8" x2="18" y2="16"/></svg>' },
+  { key: 'architecture', names: ['architecture'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>' },
+  { key: 'postman', names: ['postman'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>' },
+  { key: 'testing', names: ['testing'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' },
+  { key: 'cloudwatch', names: ['cloudwatch'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>' },
+  { key: 'solidity', names: ['solidity'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 9 12 16 22 9 12 2"/><polygon points="12 16 2 9 12 22 22 9 12 16"/></svg>' },
+  { key: 'email', names: ['email', 'mail', 'contact'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>' },
+  { key: 'linkedin', names: ['linkedin'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0a66c2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>' },
+  { key: 'github', names: ['github'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>' },
+  { key: 'cplusplus', names: ['cplusplus'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="#00599C" d="M117.747 24.538L67.147 0a6.762 6.762 0 0 0-6.294 0L10.253 24.538a6.787 6.787 0 0 0-3.86 6.079v66.766a6.787 6.787 0 0 0 3.86 6.079l50.6 24.538a6.763 6.763 0 0 0 6.294 0l50.6-24.538a6.787 6.787 0 0 0 3.86-6.079V30.617a6.787 6.787 0 0 0-3.86-6.079z"/><path fill="#004482" d="M117.747 24.538L64 50.617v77.383a6.763 6.763 0 0 0 3.147-.847l50.6-24.538a6.787 6.787 0 0 0 3.86-6.079V30.617a6.787 6.787 0 0 0-3.86-6.079z"/><path fill="#fff" d="M64 34.023c-16.556 0-30 13.444-30 30s13.444 30 30 30c11.046 0 20.706-5.977 25.875-14.887l-12.984-7.5a15.003 15.003 0 0 1-12.891 7.387c-8.284 0-15-6.716-15-15s6.716-15 15-15c5.38 0 10.106 2.84 12.775 7.098l13.064-7.535C84.664 39.815 75.006 34.023 64 34.023zm31 23.977v5h-5v4h5v5h4v-5h5v-4h-5v-5h-4zm15 0v5h-5v4h5v5h4v-5h5v-4h-5v-5h-4z"/></svg>' },
+  { key: 'codolio', names: ['codolio'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' },
+  { key: 'phone', names: ['phone', 'mobile', 'call', 'telephone'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>' },
+  { key: 'code', names: ['code'], svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' }
+];
 
 // Alias expansion: real technology names used in this portfolio mapped to registry keys.
 const TECH_ALIASES: Array<{ key: string; names: string[] }> = [
-  { key: 'java', names: ['java 17', 'java'] },
-  { key: 'spring', names: ['spring boot 3', 'spring boot', 'spring security', 'spring data jpa', 'spring framework', 'spring mvc'] },
-  { key: 'hibernate', names: ['hibernate', 'jpa / hibernate', 'jpa'] },
-  { key: 'microsoftsqlserver', names: ['sql server'] },
-  { key: 'docker', names: ['docker'] },
-  { key: 'swagger', names: ['swagger / openapi 3', 'swagger'] },
+  { key: 'java', names: ['java 17', 'java', 'concurrency', 'multithreading', 'threads', 'jvm', 'oop', 'streams'] },
+  { key: 'spring', names: ['spring boot 3', 'spring boot', 'spring security', 'spring data jpa', 'spring framework', 'spring mvc', 'spring'] },
+  { key: 'hibernate', names: ['hibernate', 'jpa / hibernate', 'jpa', 'entity lifecycle', 'jpql'] },
+  { key: 'microsoftsqlserver', names: ['microsoft sql server', 'sql server', 'mssql', 'tsql', 'stored procedures'] },
+  { key: 'docker', names: ['docker', 'containerization', 'containers'] },
+  { key: 'swagger', names: ['swagger / openapi 3', 'swagger', 'api contract'] },
   { key: 'openapi', names: ['openapi 3', 'openapi'] },
-  { key: 'dotnetcore', names: ['asp.net core 8', 'asp.net core', 'dotnet core', 'ef core', 'entity framework core'] },
-  { key: 'csharp', names: ['c#'] },
-  { key: 'cplusplus', names: ['c / c++', 'c++', 'c more', 'cpp'] },
-  { key: 'bootstrap', names: ['bootstrap 5'] },
-  { key: 'typescript', names: ['typescript'] },
+  { key: 'dotnetcore', names: ['asp.net core 8', 'asp.net core', 'dotnet core', '.net', 'ef core', 'entity framework core'] },
+  { key: 'csharp', names: ['c#', 'csharp'] },
+  { key: 'cplusplus', names: ['c / c++', 'c++', 'c more', 'cpp', 'c language'] },
+  { key: 'bootstrap', names: ['bootstrap 5', 'bootstrap'] },
+  { key: 'typescript', names: ['typescript / javascript', 'typescript', 'ts'] },
   { key: 'tailwindcss', names: ['tailwind css', 'tailwind'] },
-  { key: 'python', names: ['python'] },
-  { key: 'scikitlearn', names: ['scikit-learn'] },
-  { key: 'pandas', names: ['pandas'] },
-  { key: 'flask', names: ['flask'] },
+  { key: 'python', names: ['python', 'python 3'] },
+  { key: 'scikitlearn', names: ['scikit-learn', 'scikit learn'] },
+  { key: 'pandas', names: ['pandas', 'numpy'] },
+  { key: 'flask', names: ['flask', 'flask apis'] },
   { key: 'mysql', names: ['mysql'] },
-  { key: 'postgresql', names: ['postgresql'] },
-  { key: 'git', names: ['git'] },
+  { key: 'postgresql', names: ['postgresql', 'postgres'] },
+  { key: 'git', names: ['git & github', 'git', 'version control', 'pull requests'] },
   { key: 'github', names: ['github'] },
-  { key: 'css3', names: ['css custom properties', 'css'] },
-  { key: 'javascript', names: ['javascript', 'js'] },
-  { key: 'angular', names: ['angular 18', 'angular router', 'angular', 'signals'] },
-  { key: 'rxjs', names: ['rxjs'] },
+  { key: 'css3', names: ['css custom properties', 'css', 'css3', 'html / css'] },
+  { key: 'javascript', names: ['javascript', 'js', 'es6'] },
+  { key: 'angular', names: ['angular 18', 'angular router', 'angular', 'signals', 'frontend state'] },
+  { key: 'rxjs', names: ['rxjs', 'reactive streams'] },
   { key: 'sass', names: ['scss', 'sass'] },
-  { key: 'chartjs', names: ['chart.js'] },
-  { key: 'crypto', names: ['crypto', 'cryptography'] },
-  { key: 'rest', names: ['rest', 'rest api', 'rest apis', 'apis', 'restful'] },
-  { key: 'jmeter', names: ['jmeter', 'apache jmeter'] },
-  { key: 'jwt', names: ['jwt', 'json web token'] },
-]
+  { key: 'chartjs', names: ['chart.js', 'charts', 'telemetry chart'] },
+  { key: 'crypto', names: ['crypto', 'cryptography', 'sha-256', 'encryption'] },
+  { key: 'rest', names: ['restful api architecture', 'rest api', 'rest apis', 'apis', 'restful', 'rest', 'api'] },
+  { key: 'jmeter', names: ['jmeter', 'apache jmeter', 'load testing'] },
+  { key: 'jwt', names: ['stateless jwt authentication', 'jwt', 'json web token', 'tokens', 'auth'] },
+  { key: 'aws', names: ['aws', 'amazon web services', 'ec2', 's3', 'lambda'] },
+  { key: 'kafka', names: ['kafka', 'apache kafka', 'message queues', 'event-driven'] },
+  { key: 'redis', names: ['redis', 'caching', 'cache'] },
+  { key: 'database', names: ['sql', 'query optimization', 'relational schema', 'indexing strategies', 'acid', 'indexing'] },
+  { key: 'security', names: ['role-based access control (rbac)', 'rbac', 'security & architecture', 'security', 'defensive engineering'] },
+  { key: 'codolio', names: ['codolio', 'codechef', 'leetcode', 'hackerrank', 'dsa', 'data structures & algorithms', 'algorithms'] },
+  { key: 'architecture', names: ['layered / clean architecture', 'clean architecture', 'layered architecture', 'distributed systems patterns', 'distributed systems', 'microservices'] },
+  { key: 'postman', names: ['postman & swagger / openapi', 'postman'] },
+  { key: 'testing', names: ['junit 5 & mockito', 'junit 5', 'junit', 'mockito', 'unit testing', 'integration testing'] },
+  { key: 'cloudwatch', names: ['cloudwatch', 'cloudwatch log sentinel', 'aws cloudwatch', 'cloudwatch sdk'] },
+  { key: 'solidity', names: ['solidity', 'blockchain', 'ethereum', 'smart contracts', 'web3', 'agrichain'] },
+  { key: 'email', names: ['email', 'mail', 'contact'] },
+  { key: 'phone', names: ['phone', 'mobile', 'call', 'telephone', 'whatsapp'] },
+  { key: 'linkedin', names: ['linkedin'] }
+];
 
 export function resolveTechIcon(name: string): TechIconDef | undefined {
   const n = (name ?? '').toLowerCase().trim();
   if (!n) return undefined;
+
+  // 1. Direct key match in icon registry (highest priority)
+  const directKeyMatch = TECHNOLOGY_ICONS.find(t => t.key === n);
+  if (directKeyMatch) return directKeyMatch;
+  
+  // 2. Exact alias match
+  const exactMatch = TECH_ALIASES.find(a => a.names.some(alias => n === alias));
+  if (exactMatch) {
+    const iconDef = TECHNOLOGY_ICONS.find(t => t.key === exactMatch.key);
+    if (iconDef) return iconDef;
+  }
+
+  // 3. Partial / substring match (only for aliases with length >= 2 to prevent collisions)
   const match = TECH_ALIASES.find(a => a.names.some(alias =>
-    n === alias || n.startsWith(alias + ' ') || n.includes(alias)
+    alias.length >= 2 && (n.startsWith(alias + ' ') || n.endsWith(' ' + alias) || n.includes(alias))
   ));
-  if (!match) return undefined;
-  return TECHNOLOGY_ICONS.find(t => t.key === match.key);
+  if (match) {
+    const iconDef = TECHNOLOGY_ICONS.find(t => t.key === match.key);
+    if (iconDef) return iconDef;
+  }
+
+  // 4. Fallback heuristics
+  if (n.includes('sql') || n.includes('db') || n.includes('data')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'database');
+  }
+  if (n.includes('test') || n.includes('mock') || n.includes('junit')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'testing');
+  }
+  if (n.includes('sec') || n.includes('auth') || n.includes('token') || n.includes('rbac')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'security');
+  }
+  if (n.includes('cloud') || n.includes('aws')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'aws');
+  }
+  if (n.includes('system') || n.includes('arch') || n.includes('pattern')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'architecture');
+  }
+  if (n.includes('algo') || n.includes('tree') || n.includes('graph') || n.includes('codolio')) {
+    return TECHNOLOGY_ICONS.find(t => t.key === 'codolio');
+  }
+
+  return TECHNOLOGY_ICONS.find(t => t.key === 'code');
 }

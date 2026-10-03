@@ -1,0 +1,99 @@
+<!-- Dedicated Professional Experience Record: Full-Length Cards -->
+<div class="page-shell">
+  <div class="editorial-container">
+
+    <!-- Page Header -->
+    <header class="editorial-header">
+      <div class="editorial-header-grid">
+        <div class="header-col-label">
+          <span class="editorial-meta-label">EXPERIENCE</span>
+        </div>
+        <div class="header-col-content">
+          <h1 class="page-heading">Work &amp; Professional History</h1>
+          <p class="page-lead">
+            A chronological record of engineering positions, core technical responsibilities, and systems delivered in production environments.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="editorial-rule"></div>
+
+    <!-- Full Length Experience Cards List -->
+    <div class="experience-cards-full-list">
+      <article class="experience-card-full" *ngFor="let exp of experiences; let i = index">
+        
+        <!-- Card Header Bar -->
+        <div class="exp-card-header">
+          <div class="exp-card-role-group">
+            <div class="exp-badge-row">
+              <span class="exp-order-badge">0{{ i + 1 }}</span>
+              <span class="exp-status-chip" [class.current-chip]="exp.period.includes('Present')">
+                {{ exp.period.includes('Present') ? 'CURRENT POSITION' : 'PREVIOUS POSITION' }}
+              </span>
+            </div>
+            <h2 class="exp-card-role-title">{{ exp.role }}</h2>
+            <div class="exp-card-company-line">
+              <span class="exp-card-company">{{ exp.company }}</span>
+              <span class="exp-card-dot">·</span>
+              <span class="exp-card-location">{{ exp.location }}</span>
+            </div>
+          </div>
+
+          <div class="exp-card-period-tag">
+            <span class="exp-period-text">{{ exp.period }}</span>
+          </div>
+        </div>
+
+        <div class="exp-card-divider"></div>
+
+        <!-- Card Body Content -->
+        <div class="exp-card-body">
+          <p class="exp-card-summary">{{ exp.summary }}</p>
+
+          <div class="exp-card-grid-split">
+            <!-- Key Responsibilities Column -->
+            <div class="exp-details-col">
+              <div class="exp-subheading">KEY RESPONSIBILITIES &amp; DELIVERIES</div>
+              <ul class="exp-bullets-list">
+                <li *ngFor="let r of exp.responsibilities">{{ r }}</li>
+              </ul>
+            </div>
+
+            <!-- Tech Stack & Impact Column -->
+            <div class="exp-tech-impact-col">
+              <div class="exp-subheading">TECHNOLOGY STACK</div>
+              <div class="exp-tech-chips-row">
+                <span class="exp-tech-chip" *ngFor="let t of exp.technologies">
+                  <tech-icon [name]="t"></tech-icon>
+                  <span>{{ t }}</span>
+                </span>
+              </div>
+
+              <div class="exp-impact-card" *ngIf="exp.impact">
+                <span class="exp-impact-label">KEY OUTCOME / IMPACT</span>
+                <p class="exp-impact-text">{{ exp.impact }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- Closing Action -->
+    <div class="page-footer-cta">
+      <div class="cta-inner">
+        <div>
+          <span class="editorial-meta-label">NEXT</span>
+          <div class="cta-title">Review verified credentials &amp; certifications</div>
+        </div>
+        <a routerLink="/achievements" class="editorial-action-link">
+          <span>View Achievements</span>
+          <span class="action-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

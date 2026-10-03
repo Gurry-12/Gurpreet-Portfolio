@@ -1,0 +1,182 @@
+<!-- Dedicated Simple Contact Page: Full-Length Cards -->
+<div class="page-shell">
+  <div class="editorial-container">
+
+    <!-- Page Header -->
+    <header class="editorial-header">
+      <div class="editorial-header-grid">
+        <div class="header-col-label">
+          <span class="editorial-meta-label">CONTACT</span>
+        </div>
+        <div class="header-col-content">
+          <h1 class="page-heading">Let's Connect</h1>
+          <p class="page-lead">
+            Available for software engineering roles, backend systems design, and technical collaborations. Reach out directly on any channel or drop a note below.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="editorial-rule"></div>
+
+    <!-- Contact Content Deck -->
+    <div class="contact-cards-deck">
+      
+      <!-- Card 01: Direct Verified Channels -->
+      <article class="contact-card-full">
+        <div class="contact-card-header">
+          <div class="contact-badge-row">
+            <span class="contact-order-badge">01</span>
+            <span class="contact-section-tag">DIRECT CHANNELS</span>
+          </div>
+          <h2 class="contact-card-title">Verified Communication Links</h2>
+        </div>
+
+        <div class="contact-card-divider"></div>
+
+        <div class="contact-card-body">
+          <div class="contact-channels-grid">
+            <a 
+              *ngFor="let ch of channels" 
+              [href]="ch.action" 
+              [target]="ch.action.startsWith('mailto:') || ch.action.startsWith('tel:') ? '_self' : '_blank'" 
+              rel="noopener noreferrer" 
+              class="contact-channel-card"
+            >
+              <div class="channel-card-left">
+                <tech-icon [name]="ch.icon"></tech-icon>
+                <span class="channel-card-label">{{ ch.label }} ↗</span>
+              </div>
+              <span class="channel-card-val">{{ ch.value }}</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 02: Simple Direct Message Form -->
+      <article class="contact-card-full">
+        <div class="contact-card-header">
+          <div class="contact-badge-row">
+            <span class="contact-order-badge">02</span>
+            <span class="contact-section-tag">SEND A MESSAGE</span>
+          </div>
+          <h2 class="contact-card-title">Direct Inquiries &amp; Notes</h2>
+        </div>
+
+        <div class="contact-card-divider"></div>
+
+        <div class="contact-card-body">
+          <!-- Success State -->
+          <div class="contact-success-card" *ngIf="submitted">
+            <div class="success-icon-badge">✓</div>
+            <h3 class="success-heading">Message Sent Directly</h3>
+            <p class="success-body">
+              Thank you, <strong>{{ formData.name }}</strong>! Your inquiry has been submitted directly to <strong>{{ primaryEmail }}</strong>. I will get back to you promptly at <strong>{{ formData.email }}</strong>.
+            </p>
+            <div class="success-actions-row">
+              <button type="button" class="editorial-btn-secondary" (click)="copyDraftedMessage()">
+                <span *ngIf="!copiedMessage">Copy Sent Message Text</span>
+                <span *ngIf="copiedMessage" style="color: #10b981;">✓ Copied to Clipboard</span>
+              </button>
+              <a [href]="getMailtoLink()" class="editorial-btn-secondary">
+                <span>Also Open in Email App ↗</span>
+              </a>
+              <button type="button" class="editorial-btn-secondary" (click)="resetForm()">
+                <span>Write Another Note</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Form Fields -->
+          <form class="simple-contact-form" (submit)="onSubmit($event)" *ngIf="!submitted">
+            
+            <div class="form-row-2col">
+              <div class="form-field-group">
+                <label for="contact-name" class="field-label">Your Name <span class="req">*</span></label>
+                <input 
+                  type="text" 
+                  id="contact-name" 
+                  class="field-input-clean" 
+                  placeholder="e.g. Alex Miller"
+                  [value]="formData.name"
+                  (input)="onNameChange($event)"
+                  required
+                />
+              </div>
+
+              <div class="form-field-group">
+                <label for="contact-email" class="field-label">Your Email <span class="req">*</span></label>
+                <input 
+                  type="email" 
+                  id="contact-email" 
+                  class="field-input-clean" 
+                  placeholder="e.g. alex@company.com"
+                  [value]="formData.email"
+                  (input)="onEmailChange($event)"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-field-group">
+              <label for="contact-subject" class="field-label">Subject</label>
+              <input 
+                type="text" 
+                id="contact-subject" 
+                class="field-input-clean" 
+                placeholder="e.g. Software Engineering Opportunity / Collaboration"
+                [value]="formData.subject"
+                (input)="onSubjectChange($event)"
+              />
+            </div>
+
+            <div class="form-field-group">
+              <label for="contact-message" class="field-label">Message <span class="req">*</span></label>
+              <textarea 
+                id="contact-message" 
+                class="field-textarea-clean" 
+                rows="5"
+                placeholder="Share role specifications, questions, or collaboration details..."
+                [value]="formData.message"
+                (input)="onMessageChange($event)"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-error-alert" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <div class="form-submit-row">
+              <button 
+                type="submit" 
+                class="editorial-btn-primary" 
+                [disabled]="isSubmitting"
+              >
+                <span *ngIf="!isSubmitting">Send Message →</span>
+                <span *ngIf="isSubmitting">Sending...</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Closing Action -->
+    <div class="page-footer-cta">
+      <div class="cta-inner">
+        <div>
+          <span class="editorial-meta-label">BACK TO PORTFOLIO</span>
+          <div class="cta-title">Explore engineering projects and case studies</div>
+        </div>
+        <a routerLink="/projects" class="editorial-action-link">
+          <span>View Projects</span>
+          <span class="action-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

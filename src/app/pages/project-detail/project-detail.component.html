@@ -1,152 +1,362 @@
-<!-- Project Case Study — editorial detail view -->
-<div class="page-container" *ngIf="project">
-  <div class="shell">
+<!-- ==========================================================================
+     PROJECT CASE STUDY — DEEP EDITORIAL ENGINEERING VIEW
+     ========================================================================== -->
+<div class="page-shell" *ngIf="project">
+  <div class="editorial-container">
 
-    <!-- Back Link -->
-    <a routerLink="/work" class="action-link pd-back-link">
-      &larr; Back to Work Catalog
-    </a>
+    <!-- Top Navigation Breadcrumb -->
+    <div class="case-study-nav" style="margin-bottom: 2.5rem;">
+      <a routerLink="/projects" class="editorial-action-link">
+        <span class="action-arrow">←</span>
+        <span>Back to Projects Index</span>
+      </a>
+    </div>
 
-    <!-- Hero -->
-    <header class="cs-hero-header">
-      <div class="cs-hero-content">
-        <div class="cs-meta">
-          <span class="cs-category-badge">{{ project.category }}</span>
-          <span>·</span>
-          <span class="cs-year-badge">{{ project.year }}</span>
+    <!-- Case Study Header -->
+    <header class="editorial-header">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="editorial-meta-label">{{ project.category }} · {{ project.year }}</span>
+          <span class="tier-indicator" *ngIf="project.tier === 1">★ MAJOR CASE STUDY</span>
         </div>
-        <h1 class="cs-hero-title">{{ project.title }}</h1>
-        <p class="cs-hero-sub">{{ project.subtitle }}</p>
+        <div class="grid-col-content">
+          <h1 class="page-heading">{{ project.title }}</h1>
+          <p class="case-study-subtitle-lead">{{ project.subtitle }}</p>
 
-        <div class="cs-hero-actions">
-          <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener" class="btn"
-            [attr.aria-label]="project.title + ' repository on GitHub'">
-            Repository <span aria-hidden="true">↗</span>
-          </a>
-          <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener" class="btn btn-primary"
-            [attr.aria-label]="project.title + ' live demo'">
-            Live Demo <span aria-hidden="true">↗</span>
-          </a>
+          <div class="case-study-tags-row" style="margin: 1.5rem 0;">
+            <span class="tag-plain" *ngFor="let t of project.tags">
+              <tech-icon [name]="t"></tech-icon>
+              <span>{{ t }}</span>
+            </span>
+          </div>
+
+          <div class="case-study-links-row">
+            <a *ngIf="project.github" [href]="project.github" target="_blank" rel="noopener noreferrer" class="editorial-btn-outline" [attr.aria-label]="project.title + ' repository'">
+              <span>Source Repository</span>
+              <span class="action-arrow">↗</span>
+            </a>
+            <a *ngIf="project.live" [href]="project.live" target="_blank" rel="noopener noreferrer" class="editorial-btn-primary" [attr.aria-label]="project.title + ' live demo'">
+              <span>Live Application</span>
+              <span class="action-arrow">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Telemetry & Metrics -->
-    <section class="cs-section" *ngIf="project.metrics?.length">
-      <div class="cs-metrics-grid" role="list" aria-label="Project metrics">
-        <div class="cs-metric-card" *ngFor="let m of project.metrics" role="listitem">
-          <div class="cs-metric-val">{{ m.value }}</div>
-          <div class="cs-metric-lbl">{{ m.label }}</div>
-          <div class="cs-metric-detail">{{ m.detail }}</div>
+    <div class="editorial-rule"></div>
+
+    <!-- Key Metrics / System Telemetry -->
+    <section class="case-study-section" *ngIf="project.metrics?.length" aria-label="System Metrics">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-heading">TELEMETRY</span>
+          <p class="category-desc">Verified metrics and scale characteristics of the deployed system.</p>
+        </div>
+        <div class="grid-col-content">
+          <div class="telemetry-grid">
+            <div class="telemetry-cell" *ngFor="let m of project.metrics">
+              <div class="telemetry-number">{{ m.value }}</div>
+              <div class="telemetry-title">{{ m.label }}</div>
+              <div class="telemetry-sub">{{ m.detail }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Problem & Solution Overview -->
-    <section class="cs-section">
-      <span class="cs-section-label">Overview</span>
-      <h2 class="cs-section-heading">Context &amp; Architectural Objectives</h2>
+    <div class="editorial-rule" *ngIf="project.metrics?.length"></div>
 
-      <div class="cs-problem-grid">
-        <div class="cs-context-box">
-          <span class="cs-section-label">Domain Challenge</span>
-          <h3 class="cs-context-title">The Real-World Problem</h3>
-          <p class="cs-context-desc">{{ project.problemStatement }}</p>
+    <!-- 01 / Domain Challenge & System Context -->
+    <section class="case-study-section" aria-labelledby="problem-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">01</span>
+          <span class="category-heading">THE PROBLEM</span>
         </div>
-        <div class="cs-context-box">
-          <span class="cs-section-label">System Implementation</span>
-          <h3 class="cs-context-title">Engineered Solution</h3>
-          <p class="cs-context-desc">{{ project.overview }}</p>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="problem-heading">Domain Challenge &amp; System Context</h2>
+          <p class="case-study-lead-para">{{ project.problemStatement }}</p>
+          <p class="case-study-body-para">{{ project.problem }}</p>
+
+          <div class="case-study-callout-box" style="margin-top: 2rem;">
+            <div class="callout-heading">🛡️ Core Constraints Enforced</div>
+            <ul class="callout-bullets-list">
+              <li>Strict zero-bypass role authorization (Customer cannot settle own claims).</li>
+              <li>Multi-party state machine validation (Deterministic approval path).</li>
+              <li>Declarative ACID transaction boundaries across relational entities.</li>
+              <li>Input DTO immutability and centralized RFC 7807 problem details.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Interactive System Blueprint -->
-    <section class="cs-section" *ngIf="project.architectureLayers?.length || project.stateMachine">
-      <span class="cs-section-label">Interactive Blueprint</span>
-      <h2 class="cs-section-heading">System Architecture &amp; State Workflows</h2>
-      <p class="section-head-note">Select a tab below to inspect topological layers or state-machine transitions.</p>
+    <div class="editorial-rule"></div>
 
-      <!-- Tabs -->
-      <div class="cs-tab-pills cs-tab-pills--mt" role="tablist" aria-label="Architecture views">
-        <button type="button" class="cs-tab-pill" role="tab" [class.active]="activeDiagramTab === 'architecture'"
-          [attr.aria-selected]="activeDiagramTab === 'architecture'" (click)="setDiagramTab('architecture')"
-          *ngIf="project.architectureLayers?.length">
-          01 / Layers
-        </button>
-        <button type="button" class="cs-tab-pill" role="tab" [class.active]="activeDiagramTab === 'stateMachine'"
-          [attr.aria-selected]="activeDiagramTab === 'stateMachine'" (click)="setDiagramTab('stateMachine')"
-          *ngIf="project.stateMachine">
-          02 / State Machine
-        </button>
+    <!-- 02 / What Was Engineered -->
+    <section class="case-study-section" aria-labelledby="solution-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">02</span>
+          <span class="category-heading">WHAT I BUILT</span>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="solution-heading">Architectural Overview &amp; Implementation</h2>
+          <p class="case-study-lead-para">{{ project.overview }}</p>
+          <p class="case-study-body-para">{{ project.solution }}</p>
+
+          <div class="case-study-callout-box" style="margin-top: 2rem;">
+            <div class="callout-heading">⚡ Engineering Highlights</div>
+            <ul class="callout-bullets-list">
+              <li>Layered and Clean Architecture with decoupled domain services.</li>
+              <li>Stateless JWT authentication filters and method-level pre-authorization.</li>
+              <li>Declarative &#64;Transactional rollbacks ensuring zero orphan records.</li>
+              <li>Optimistic concurrency control with versioned claim records.</li>
+            </ul>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="cs-diagram-canvas">
-        <!-- TAB 1: Architecture Layers -->
-        <div *ngIf="activeDiagramTab === 'architecture'" class="pd-layer-grid">
-          <!-- Layer Selector Rail -->
-          <div class="cs-flow-rail" role="tablist" aria-label="Architecture layers">
-            <button type="button" class="cs-flow-node"
-              *ngFor="let layer of project.architectureLayers"
-              [class.cs-flow-node--active]="selectedLayerId === layer.id"
-              role="tab"
-              [attr.aria-selected]="selectedLayerId === layer.id"
-              (click)="selectLayer(layer.id)">
-              <div class="cs-flow-node__badge">{{ layer.id.toUpperCase() }}</div>
-              <div class="cs-flow-node__content">
-                <div class="cs-flow-node__name">{{ layer.name }}</div>
-              </div>
-            </button>
+    <div class="editorial-rule"></div>
+
+    <!-- 03 / Layered Architecture & State Machine Inspector -->
+    <section class="case-study-section" *ngIf="project.architectureLayers?.length || project.stateMachine" aria-labelledby="blueprint-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">03</span>
+          <span class="category-heading">ARCHITECTURE</span>
+          <p class="category-desc">Interactive topology and state transition inspection.</p>
+        </div>
+        <div class="grid-col-content">
+          <div class="section-top-row">
+            <div>
+              <h2 class="section-title-clean" id="blueprint-heading">System Blueprint &amp; Workflows</h2>
+              <p class="section-desc-clean">Inspect architectural layer responsibilities or finite state machine transitions.</p>
+            </div>
+            
+            <div class="contact-view-toggle" style="margin: 1.5rem 0;" role="tablist">
+              <button
+                type="button"
+                class="toggle-tab-btn"
+                [class.active]="activeDiagramTab === 'architecture'"
+                (click)="setDiagramTab('architecture')"
+                *ngIf="project.architectureLayers?.length"
+                role="tab"
+              >
+                <span>🏢 Layer Breakdown</span>
+              </button>
+              <button
+                type="button"
+                class="toggle-tab-btn"
+                [class.active]="activeDiagramTab === 'stateMachine'"
+                (click)="setDiagramTab('stateMachine')"
+                *ngIf="project.stateMachine"
+                role="tab"
+              >
+                <span>⚙️ State Machine Workflow</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Active Layer Details -->
-          <div class="cs-inspector-panel" *ngIf="getSelectedLayer() as activeLayer">
-            <div class="cs-inspector-head">
-              <span class="cs-inspector-badge">Layer Details</span>
-              <h3 class="cs-inspector-title">{{ activeLayer.name }}</h3>
+          <!-- Tab 1: Architecture Layers Inspector -->
+          <div *ngIf="activeDiagramTab === 'architecture' && project.architectureLayers?.length" class="layer-inspector-grid">
+            <div class="layer-selector-rail" role="tablist">
+              <button
+                type="button"
+                class="layer-node-btn"
+                *ngFor="let l of project.architectureLayers"
+                [class.active]="selectedLayerId === l.id"
+                (click)="selectLayer(l.id)"
+                role="tab"
+              >
+                <span class="layer-badge">{{ l.badge }}</span>
+                <span class="layer-name">{{ l.name }}</span>
+              </button>
             </div>
 
-            <p class="cs-inspector-desc">{{ activeLayer.description }}</p>
+            <div class="layer-detail-panel" *ngIf="getSelectedLayer() as activeLayer">
+              <div class="layer-panel-header">
+                <span class="layer-panel-badge">{{ activeLayer.badge }}</span>
+                <h3 class="layer-panel-title">{{ activeLayer.name }}</h3>
+              </div>
+              <p class="layer-panel-desc">{{ activeLayer.description }}</p>
 
-            <div class="cs-inspector-tech-box">
-              <span class="cs-inspector-label">Technologies</span>
-              <div class="tag-list" role="list">
-                <span class="tag tech-tag" *ngFor="let tech of activeLayer.tech.split(' / ')" role="listitem">
-                  <tech-icon name="{{ tech }}"></tech-icon>{{ tech }}
-                </span>
+              <div class="layer-panel-section">
+                <span class="panel-section-label">TECHNOLOGY &amp; ROLE</span>
+                <div class="panel-tech-text"><strong>{{ activeLayer.role }}:</strong> {{ activeLayer.tech }}</div>
+              </div>
+
+              <div class="layer-panel-section">
+                <span class="panel-section-label">KEY RESPONSIBILITIES</span>
+                <ul class="panel-responsibilities-list">
+                  <li *ngFor="let r of activeLayer.keyResponsibilities">{{ r }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: State Machine Table -->
+          <div *ngIf="activeDiagramTab === 'stateMachine' && project.stateMachine" class="state-machine-wrapper">
+            <div class="state-nodes-row">
+              <div class="state-node" *ngFor="let n of project.stateMachine.nodes">
+                <div class="state-node-name">{{ n.name }}</div>
+                <div class="state-node-role">{{ n.role }}</div>
+                <div class="state-node-desc">{{ n.desc }}</div>
               </div>
             </div>
 
-            <div class="cs-inspector-responsibilities">
-              <span class="cs-inspector-label">Responsibilities</span>
-              <ul class="cs-inspector-list">
-                <li *ngFor="let resp of activeLayer.keyResponsibilities">{{ resp }}</li>
-              </ul>
+            <div class="state-table-container">
+              <table class="editorial-table">
+                <thead>
+                  <tr>
+                    <th>From State</th>
+                    <th>Trigger / Event</th>
+                    <th>To State</th>
+                    <th>Authorized Actor</th>
+                    <th>Transition Guard</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tr of project.stateMachine.transitions">
+                    <td><span class="table-tag">{{ tr.from }}</span></td>
+                    <td><strong>{{ tr.action }}</strong></td>
+                    <td><span class="table-tag table-tag--target">{{ tr.to }}</span></td>
+                    <td><span class="actor-badge">{{ tr.actor }}</span></td>
+                    <td><span class="guard-badge">{{ tr.guard || 'None' }}</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="editorial-rule"></div>
+
+    <!-- 04 / Important Decisions & Trade-offs -->
+    <section class="case-study-section" *ngIf="project.engineeringDecisions.length" aria-labelledby="decisions-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">04</span>
+          <span class="category-heading">DECISIONS</span>
+          <p class="category-desc">Deliberate trade-offs and rationale behind architectural choices.</p>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="decisions-heading">Key Architectural Decisions &amp; Trade-offs</h2>
+          
+          <div class="decisions-editorial-grid">
+            <div class="decision-card" *ngFor="let dec of project.engineeringDecisions; let i = index">
+              <div class="decision-num">0{{ i + 1 }}</div>
+              <div class="decision-body">
+                <h3 class="decision-title">{{ dec.decision }}</h3>
+                <div class="decision-alt">
+                  <span class="alt-label">Alternative Considered:</span>
+                  <span class="alt-val">{{ dec.alternative }}</span>
+                </div>
+                <p class="decision-why">{{ dec.why }}</p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- TAB 2: State Machine -->
-        <div *ngIf="activeDiagramTab === 'stateMachine' && project.stateMachine">
-          <h3 class="cs-inspector-title">State Transition Map</h3>
-          <p class="section-head-note">How the system moves between states, what triggers each transition, and who acts.</p>
+    <div class="editorial-rule" *ngIf="project.engineeringDecisions.length"></div>
 
-          <div class="pd-state-table">
-            <table class="cs-table">
+    <!-- 05 / What Was Difficult / Challenges -->
+    <section class="case-study-section" *ngIf="project.challenges.length" aria-labelledby="challenges-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">05</span>
+          <span class="category-heading">HARD PARTS</span>
+          <p class="category-desc">Real concurrency bottlenecks, state bypasses, and data consistency hurdles.</p>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="challenges-heading">Difficult Problems &amp; Solutions</h2>
+          
+          <div class="challenges-editorial-grid">
+            <div class="challenge-card" *ngFor="let ch of project.challenges; let i = index">
+              <div class="challenge-badge">HURDLE 0{{ i + 1 }}</div>
+              <h3 class="challenge-title">{{ ch.challenge }}</h3>
+              <p class="challenge-solution">{{ ch.solution }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="editorial-rule" *ngIf="project.challenges.length"></div>
+
+    <!-- 06 / Failure Story -->
+    <section class="case-study-section" *ngIf="project.failureStory" aria-labelledby="failure-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">06</span>
+          <span class="category-heading">FAILURE POSTMORTEM</span>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="failure-heading">What Broke &amp; What It Taught Me</h2>
+          <div class="failure-quote-box">
+            <p class="failure-quote-text">{{ project.failureStory }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="editorial-rule" *ngIf="project.failureStory"></div>
+
+    <!-- 07 / Key Learnings -->
+    <section class="case-study-section" *ngIf="project.keyLearnings.length" aria-labelledby="learnings-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">07</span>
+          <span class="category-heading">KEY LEARNINGS</span>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="learnings-heading">Carry-Forward Engineering Principles</h2>
+          <div class="learnings-editorial-list">
+            <div class="learning-editorial-row" *ngFor="let lesson of project.keyLearnings; let i = index">
+              <span class="lesson-num">0{{ i + 1 }}</span>
+              <p class="lesson-text">{{ lesson }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="editorial-rule" *ngIf="project.keyLearnings.length"></div>
+
+    <!-- 08 / Technology Selection Rationale Table -->
+    <section class="case-study-section" *ngIf="project.techStack.length" aria-labelledby="stack-heading">
+      <div class="editorial-grid">
+        <div class="grid-col-label">
+          <span class="category-index">08</span>
+          <span class="category-heading">TECH SELECTION</span>
+        </div>
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="stack-heading">Technology Selection Rationale</h2>
+          
+          <div class="state-table-container" style="margin-top: 1.5rem;">
+            <table class="editorial-table">
               <thead>
                 <tr>
-                  <th>From State</th>
-                  <th>Trigger / Action</th>
-                  <th>To State</th>
-                  <th>Actor / Role</th>
+                  <th style="width: 240px;">Technology</th>
+                  <th>Role &amp; Selection Rationale</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let tr of project.stateMachine.transitions">
-                  <td><span class="tag">{{ tr.from }}</span></td>
-                  <td><strong>{{ tr.action }}</strong></td>
-                  <td><span class="tag">{{ tr.to }}</span></td>
-                  <td>{{ tr.actor }}</td>
+                <tr *ngFor="let t of project.techStack">
+                  <td>
+                    <span class="tag-plain" style="border: none; background: transparent; padding-left: 0;">
+                      <tech-icon [name]="t.name"></tech-icon>
+                      <strong style="color: #ffffff;">{{ t.name }}</strong>
+                    </span>
+                  </td>
+                  <td>{{ t.purpose }}</td>
                 </tr>
               </tbody>
             </table>
@@ -155,107 +365,27 @@
       </div>
     </section>
 
-    <!-- Trade-offs & Decisions -->
-    <section class="cs-section" *ngIf="project.engineeringDecisions.length">
-      <span class="cs-section-label">Decisions</span>
-      <h2 class="cs-section-heading">Trade-offs &amp; Engineering Decisions</h2>
-
-      <div class="cs-decision-grid">
-        <div class="cs-decision-card" *ngFor="let dec of project.engineeringDecisions">
-          <div class="cs-decision-top">
-            <span class="cs-decision-tag">Decision Made</span>
-            <h3 class="cs-decision-heading">{{ dec.decision }}</h3>
-          </div>
-          <p class="cs-decision-alt">Alternative considered: {{ dec.alternative }}</p>
-          <p class="cs-decision-rationale">{{ dec.why }}</p>
+    <!-- Bottom Navigation -->
+    <div class="page-footer-cta">
+      <div class="cta-inner">
+        <div>
+          <span class="editorial-meta-label">NEXT</span>
+          <div class="cta-title">Explore more backend systems &amp; capabilities</div>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a routerLink="/projects" class="editorial-btn-outline">
+            <span>← All Projects</span>
+          </a>
+          <a routerLink="/skills" class="editorial-btn-primary">
+            <span>View Skills Matrix</span>
+            <span class="action-arrow">→</span>
+          </a>
+          <a routerLink="/contact" class="editorial-btn-ghost">
+            <span>Discuss this System ↗</span>
+          </a>
         </div>
       </div>
-    </section>
-
-    <!-- Challenges & Hard Parts -->
-    <section class="cs-section" *ngIf="project.challenges.length">
-      <span class="cs-section-label">Hard Parts</span>
-      <h2 class="cs-section-heading">Challenges &amp; How They Were Resolved</h2>
-
-      <div class="cs-challenge-grid">
-        <div class="cs-challenge-card" *ngFor="let ch of project.challenges">
-          <div class="cs-challenge-top">
-            <span class="cs-decision-tag">Obstacle</span>
-            <h3 class="cs-decision-heading">{{ ch.challenge }}</h3>
-          </div>
-          <p class="cs-decision-rationale">{{ ch.solution }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Failure Story -->
-    <section class="cs-section" *ngIf="project.failureStory">
-      <span class="cs-section-label">What Broke</span>
-      <h2 class="cs-section-heading">The Failure &amp; What It Taught Me</h2>
-
-      <div class="cs-failure-box">
-        <p class="cs-failure-text">{{ project.failureStory }}</p>
-      </div>
-    </section>
-
-    <!-- Key Learnings -->
-    <section class="cs-section" *ngIf="project.keyLearnings.length">
-      <span class="cs-section-label">Carry-Forward</span>
-      <h2 class="cs-section-heading">Key Learnings</h2>
-
-      <ol class="cs-learnings-list">
-        <li *ngFor="let lesson of project.keyLearnings">{{ lesson }}</li>
-      </ol>
-    </section>
-
-    <!-- Tech Stack -->
-    <section class="cs-section" *ngIf="project.techStack.length">
-      <span class="cs-section-label">Technology</span>
-      <h2 class="cs-section-heading">Stack &amp; Why Each Piece Was Chosen</h2>
-
-      <div class="pd-state-table">
-        <table class="cs-table">
-          <thead>
-            <tr>
-              <th>Technology</th>
-              <th>Role It Played</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let tech of project.techStack">
-              <td>
-                <span class="tech-name-cell">
-                  <tech-icon name="{{ tech.name }}"></tech-icon>
-                  <span>{{ tech.name }}</span>
-                </span>
-              </td>
-              <td>{{ tech.purpose }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Request Lifecycle -->
-    <section class="cs-section" *ngIf="project.requestLifecycle?.length">
-      <span class="cs-section-label">Request Path</span>
-      <h2 class="cs-section-heading">Lifecycle of a Request</h2>
-      <p class="section-head-note">How a single request travels through the system end to end.</p>
-
-      <div class="cs-lifecycle-timeline">
-        <div class="cs-lifecycle-step" *ngFor="let st of project.requestLifecycle">
-          <div class="cs-lifecycle-count">{{ st.step }}</div>
-          <div class="cs-lifecycle-body">
-            <div class="cs-lifecycle-meta">
-              <span class="tag tech-tag">{{ st.layer }}</span>
-              <span class="tag" *ngIf="st.method">{{ st.method }}</span>
-            </div>
-            <h3 class="cs-lifecycle-title">{{ st.title }}</h3>
-            <p class="cs-lifecycle-detail">{{ st.detail }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
 
   </div>
 </div>

@@ -1,0 +1,84 @@
+<!-- Dedicated Achievements & Verified Proof: Full-Length Cards -->
+<div class="page-shell">
+  <div class="editorial-container">
+
+    <!-- Page Header -->
+    <header class="editorial-header">
+      <div class="editorial-header-grid">
+        <div class="header-col-label">
+          <span class="editorial-meta-label">PROOF</span>
+        </div>
+        <div class="header-col-content">
+          <h1 class="page-heading">Achievements &amp; Verified Records</h1>
+          <p class="page-lead">
+            A substantiated account of competitive programming milestones, proctored examinations, certifications, and academic leadership.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="editorial-rule"></div>
+
+    <!-- Full Length Achievements Cards List -->
+    <div class="achievements-cards-full-list">
+      <article class="achievement-card-full" *ngFor="let ach of achievements; let i = index">
+        
+        <!-- Card Header Bar -->
+        <div class="ach-card-header">
+          <div class="ach-card-meta-group">
+            <div class="ach-badge-row">
+              <span class="ach-order-badge">0{{ i + 1 }}</span>
+              <span class="ach-cat-chip">{{ ach.category }}</span>
+              <span class="ach-status-badge" *ngIf="ach.badge">{{ ach.badge }}</span>
+            </div>
+            <h2 class="ach-card-title">{{ ach.title }}</h2>
+            <div class="ach-card-issuer-line">
+              <span class="ach-issuer-name">{{ ach.issuer }}</span>
+            </div>
+          </div>
+
+          <div class="ach-card-period-tag">
+            <span class="ach-period-text">{{ ach.period }}</span>
+          </div>
+        </div>
+
+        <div class="ach-card-divider"></div>
+
+        <!-- Card Body Content -->
+        <div class="ach-card-body">
+          <p class="ach-card-desc">{{ ach.description }}</p>
+
+          <div class="ach-highlights-box">
+            <div class="ach-subheading">VERIFIED HIGHLIGHTS &amp; OUTCOMES</div>
+            <ul class="ach-bullets-list">
+              <li *ngFor="let h of ach.highlights">{{ h }}</li>
+            </ul>
+          </div>
+
+          <div class="ach-action-row" *ngIf="ach.evidenceLink">
+            <a [href]="ach.evidenceLink.url" target="_blank" rel="noopener noreferrer" class="editorial-btn-outline">
+              <span>{{ ach.evidenceLink.label }}</span>
+              <span class="action-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </div>
+
+    <!-- Closing Action -->
+    <div class="page-footer-cta">
+      <div class="cta-inner">
+        <div>
+          <span class="editorial-meta-label">NEXT</span>
+          <div class="cta-title">Start a conversation or inquiry</div>
+        </div>
+        <a routerLink="/contact" class="editorial-action-link">
+          <span>Get in Touch</span>
+          <span class="action-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

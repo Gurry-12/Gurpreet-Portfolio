@@ -1,275 +1,282 @@
-<!-- Home — Engineering Dashboard -->
-<div class="page-container">
-  <div class="shell">
+<!-- ==========================================================================
+     GURPREET SINGH — HOME (CURATED TRAILER)
+     Progressive Disclosure: Introduction + Highlights + Navigation to Deep Pages
+     ========================================================================== -->
+<div class="page-shell">
+  <div class="editorial-container">
 
-    <!-- =====================================================================
-         HERO — Identity + Status
-    ====================================================================== -->
-    <section class="hero" aria-label="Identity">
-      <div class="hero-grid">
-
-        <!-- Main identity block -->
-        <div class="hero-main">
-          <div class="hero-pretitle">
-            <span class="hero-pretitle-dot">●</span>
-            <span>Active</span>
-            <span class="hero-pretitle-dot">·</span>
-            <span class="hero-pretitle-dim">Software Engineer · Monocept</span>
-            <span class="hero-pretitle-dot">·</span>
-            <span class="hero-pretitle-dim">IST · UTC+5:30</span>
-            <span class="hero-pretitle-dot">·</span>
-            <span class="hero-open-chip">Open to roles</span>
+    <!-- HERO SECTION -->
+    <section class="home-hero-section">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <div class="home-taped-avatar">
+            <div class="taped-photo-img-wrap">
+              <img 
+                src="/assets/gurpreet-avatar.png" 
+                alt="Gurpreet Singh" 
+                class="taped-photo-img"
+                width="96" 
+                height="96"
+              />
+            </div>
+            <div class="taped-photo-caption">
+              <span>GURPREET</span>
+              <span>2026</span>
+            </div>
           </div>
+          <span class="editorial-meta-label" style="margin-top: 1.25rem;">INDIA · IST</span>
+        </div>
 
-          <h1 class="hero-name">Gurpreet Singh</h1>
-          <p class="hero-role">Backend Engineer · Java / Spring Boot / SQL</p>
+        <div class="grid-col-content">
+          <span class="editorial-meta-label">SOFTWARE ENGINEER</span>
+          <h1 class="hero-name-title">Gurpreet Singh</h1>
+          <div class="hero-role-subtitle">Backend · Java 17 · Spring Boot 3 · SQL Server</div>
 
-          <p class="hero-bio">
-            Java backend engineer building production-oriented systems with Spring Boot,
-            SQL Server, and JWT auth. I learn by building real software — not just following tutorials.
+          <p class="hero-lead-text">
+            I engineer resilient backend services, deterministic business workflows, and high-concurrency relational data architectures. Currently working as a Software Engineer at <strong>Monocept</strong>.
           </p>
 
-          <div class="hero-focus-box" role="status" aria-label="Current engineering focus">
-            <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
-            <span>Currently: backend systems, SQL, DSA, system design</span>
-          </div>
-
-          <div class="hero-ctas">
-            <a routerLink="/work" fragment="active" class="btn btn-primary" id="hero-building-link">
-              What I'm Building
+          <div class="hero-action-buttons">
+            <a routerLink="/projects" class="editorial-btn-primary">
+              <span>Explore Work</span>
+              <span class="action-arrow">→</span>
             </a>
-            <a routerLink="/work" class="btn" id="hero-work-link">
-              Case Studies
+            <a href="/assets/resume/Gurpreet_Singh_Java_Developer.pdf" target="_blank" rel="noopener noreferrer" class="editorial-btn-outline">
+              <span>Resume</span>
+              <span class="action-arrow">↓</span>
             </a>
-            <a href="/docs/" class="btn" id="hero-docs-link">
-              📚 Knowledge Base ↗
-            </a>
-            <a href="https://github.com/Gurry-12" target="_blank" rel="noopener" class="btn" id="hero-github-link">
-              GitHub ↗
+            <a href="https://github.com/Gurry-12" target="_blank" rel="noopener noreferrer" class="editorial-btn-ghost">
+              <span>GitHub ↗</span>
             </a>
           </div>
         </div>
 
-        <!-- Right rail — quick index -->
-        <aside class="hero-rail" aria-label="Page index">
-          <span class="rail-label">Current Focus</span>
-          <p class="rail-status">
-            Building engineering fundamentals and production-grade system experience.
+      </div>
+    </section>
+
+    <div class="editorial-rule"></div>
+
+    <!-- 01 / SELECTED WORK -->
+    <section class="home-section" *ngIf="featuredProject" aria-labelledby="home-work-heading">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <span class="editorial-meta-label" id="home-work-heading">01 / SELECTED WORK</span>
+        </div>
+
+        <div class="grid-col-content">
+          <article class="featured-project-box">
+            <span class="featured-tag">PRIMARY CASE STUDY</span>
+            <h2 class="featured-title">
+              <a [routerLink]="['/projects', featuredProject.id]">{{ featuredProject.title }}</a>
+            </h2>
+            <div class="featured-subtitle">{{ featuredProject.subtitle }}</div>
+            <p class="featured-desc">{{ featuredProject.problem }}</p>
+
+            <div class="featured-tags-row">
+              <span class="tag-plain" *ngFor="let t of featuredProject.tags">
+                <tech-icon [name]="t"></tech-icon>
+                <span>{{ t }}</span>
+              </span>
+            </div>
+
+            <div class="featured-action-bar">
+              <a [routerLink]="['/projects', featuredProject.id]" class="editorial-action-link">
+                <span>Explore Project Case Study</span>
+                <span class="action-arrow">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Supporting Project Callout -->
+          <div class="supporting-project-snippet" *ngIf="supportingProject">
+            <div>
+              <span class="supporting-tag">ALSO BUILT</span>
+              <h3 class="supporting-title">
+                <a [routerLink]="['/projects', supportingProject.id]">{{ supportingProject.title }}</a>
+              </h3>
+              <p class="supporting-sub">{{ supportingProject.subtitle }}</p>
+            </div>
+            <a [routerLink]="['/projects', supportingProject.id]" class="editorial-action-link" style="font-size: 0.85rem;">
+              <span>View →</span>
+            </a>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <a routerLink="/projects" class="editorial-action-link">
+              <span>View all projects &amp; systems archive</span>
+              <span class="action-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="editorial-rule"></div>
+
+    <!-- 02 / CURRENT FOCUS -->
+    <section class="home-section" aria-labelledby="home-focus-heading">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <span class="editorial-meta-label">02 / FOCUS</span>
+        </div>
+
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="home-focus-heading">Current Technical Focus</h2>
+          <p class="section-desc-clean">
+            Core domains and technologies I am actively building, optimizing, and practicing with daily.
           </p>
 
-          <ul class="rail-index" role="list">
-            <li *ngFor="let topic of currentFocus; let i = index">
-              <a [routerLink]="['/learn']" class="focus-link">
-                <span>{{ topic }}</span>
-                <span class="ridx">{{ (i + 1).toString().padStart(2, '0') }}</span>
-              </a>
-            </li>
-          </ul>
-        </aside>
+          <div class="focus-editorial-grid">
+            <div class="focus-grid-item" *ngFor="let item of currentFocus">
+              <tech-icon [name]="item"></tech-icon>
+              <span class="focus-text">{{ item }}</span>
+            </div>
+          </div>
 
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         CURRENTLY BUILDING
-    ====================================================================== -->
-    <section class="section" aria-labelledby="building-heading">
-      <div class="editorial-head editorial-head--mb">
-        <div class="eyebrow-col">
-          <span class="section-eyebrow">Building</span>
-        </div>
-        <div class="title-col">
-          <div class="section-header section-header--flush">
-            <h2 class="section-title" id="building-heading">Currently Building</h2>
-            <a routerLink="/work" fragment="active" class="section-link" id="home-building-all">
-              All active work →
+          <div style="margin-top: 1.5rem;">
+            <a routerLink="/skills" class="editorial-action-link">
+              <span>View complete technical skills matrix</span>
+              <span class="action-arrow">→</span>
             </a>
           </div>
         </div>
-      </div>
 
-      <div class="project-list" role="list">
-        <article
-          class="project-module"
-          *ngFor="let proj of activeProjects; let i = index"
-          role="listitem"
-        >
-          <div class="project-index">
-            <span [ngClass]="getBuildStatusClass(proj.status)" class="build-status-chip">
-              {{ proj.status }}
-            </span>
-          </div>
-
-          <div class="project-main">
-            <div class="project-meta-row">
-              <span class="project-number">{{ (i + 1).toString().padStart(2, '0') }}</span>
-              <span>·</span>
-              <span>{{ proj.startedDate }}</span>
-            </div>
-            <h3 class="project-title">
-              <a [routerLink]="['/work']" fragment="active">{{ proj.title }}</a>
-            </h3>
-            <p class="project-desc">{{ proj.problem }}</p>
-
-            <div class="project-insight">
-              <strong>Currently: </strong>{{ proj.currentWork }}
-            </div>
-
-            <div class="tag-list" role="list" aria-label="Technologies">
-              <span class="tag tech-tag" *ngFor="let t of proj.tech.slice(0, 5)" role="listitem"><tech-icon name="{{ t }}"></tech-icon>{{ t }}</span>
-            </div>
-          </div>
-
-          <aside class="project-aside">
-            <ul class="project-aside-list" role="list" aria-label="Project details">
-              <li>
-                <span class="k">Status</span>
-                <span class="v" [ngClass]="getBuildStatusClass(proj.status)">{{ proj.status }}</span>
-              </li>
-              <li>
-                <span class="k">Challenge</span>
-                <span class="v v--tight">
-                  {{ proj.challenges[0].challenge }}
-                </span>
-              </li>
-              <li>
-                <span class="k">Next</span>
-                <span class="v v--tight">
-                  {{ proj.nextMilestone.slice(0, 60) }}{{ proj.nextMilestone.length > 60 ? '…' : '' }}
-                </span>
-              </li>
-            </ul>
-            <div class="project-actions">
-              <a *ngIf="proj.github" [href]="proj.github" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="proj.title + ' repository'">
-                Repository <span aria-hidden="true">↗</span>
-              </a>
-              <a *ngIf="proj.live" [href]="proj.live" target="_blank" rel="noopener" class="action-link" [attr.aria-label]="proj.title + ' live demo'">
-                Live <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </aside>
-        </article>
       </div>
     </section>
 
-    <!-- =====================================================================
-         CURRENTLY LEARNING
-    ====================================================================== -->
-    <section class="section" aria-labelledby="learning-heading">
-      <div class="editorial-head editorial-head--mb">
-        <div class="eyebrow-col">
-          <span class="section-eyebrow">Learning</span>
+    <div class="editorial-rule"></div>
+
+    <!-- 03 / EXPERIENCE PREVIEW -->
+    <section class="home-section" aria-labelledby="home-exp-heading">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <span class="editorial-meta-label">03 / EXPERIENCE</span>
         </div>
-        <div class="title-col">
-          <div class="section-header section-header--flush">
-            <h2 class="section-title" id="learning-heading">Currently Learning</h2>
-            <a routerLink="/learn" class="section-link" id="home-learning-all">
-              Full learning map →
+
+        <div class="grid-col-content">
+          <div class="preview-role-box">
+            <span class="entry-period">2026 — PRESENT</span>
+            <h2 class="preview-role-title" id="home-exp-heading">Software Engineer · Monocept</h2>
+            <p class="preview-role-summary">
+              Engineering enterprise backend services using Java 17, Spring Boot 3, and SQL Server. Designing stateless JWT security filters, transactional state machines, and relational schema optimizations.
+            </p>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <a routerLink="/experience" class="editorial-action-link">
+              <span>View full professional history (Monocept, Anviam, Codehop)</span>
+              <span class="action-arrow">→</span>
             </a>
           </div>
         </div>
-      </div>
 
-      <div class="learning-tracks-grid" role="list" aria-label="Learning tracks">
-        <div
-          class="learning-track-card"
-          *ngFor="let track of learningTracks"
-          role="listitem"
-        >
-          <h3 class="learning-track-name">{{ track.name }}</h3>
-          <div class="learning-topics-list" role="list">
-            <div
-              class="learning-topic-row"
-              *ngFor="let topic of track.topics.slice(0, 4)"
-              role="listitem"
-            >
-              <span class="learning-topic-name">{{ topic.name }}</span>
-              <span
-                class="learning-status-chip"
-                [ngClass]="getStatusClass(topic.status)"
-                [attr.aria-label]="topic.name + ': ' + topic.status"
-              >{{ topic.status }}</span>
+      </div>
+    </section>
+
+    <div class="editorial-rule"></div>
+
+    <!-- 04 / ACHIEVEMENTS & PROOF PREVIEW -->
+    <section class="home-section" aria-labelledby="home-proof-heading">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <span class="editorial-meta-label">04 / PROOF</span>
+        </div>
+
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="home-proof-heading">Selected Milestones</h2>
+          
+          <div class="proof-snippets-grid">
+            <div class="proof-card-item">
+              <span class="proof-num">600+</span>
+              <div>
+                <h3 class="proof-title">DSA Problems Solved</h3>
+                <div class="proof-detail">LeetCode, CodeChef (2-Star), GeeksforGeeks, HackerRank (5-Star Java)</div>
+              </div>
+            </div>
+
+            <div class="proof-card-item">
+              <span class="proof-num">LEAD</span>
+              <div>
+                <h3 class="proof-title">Chairperson — CodeForge</h3>
+                <div class="proof-detail">Led student technical community, organized 10+ hackathons, and mentored 250+ peers</div>
+              </div>
             </div>
           </div>
-          <a routerLink="/learn" [fragment]="track.id" class="action-link action-link--push">
-            Full track →
-          </a>
-        </div>
-      </div>
-    </section>
 
-    <!-- =====================================================================
-         METRICS — Real numbers only
-    ====================================================================== -->
-    <section class="section" aria-labelledby="metrics-heading">
-      <div class="editorial-head editorial-head--mb">
-        <div class="eyebrow-col">
-          <span class="section-eyebrow">Evidence</span>
-        </div>
-        <div class="title-col">
-          <h2 class="section-title" id="metrics-heading">Measurable Work</h2>
-        </div>
-      </div>
-
-      <div class="telemetry-bar" role="list" aria-label="Engineering metrics">
-        <div class="telemetry-item" *ngFor="let m of metrics" role="listitem">
-          <div class="telemetry-tag">{{ m.source }}</div>
-          <div class="telemetry-val">{{ m.value }}</div>
-          <div class="telemetry-lbl">{{ m.label }}</div>
-          <div class="telemetry-detail" *ngIf="m.note">{{ m.note }}</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         RECENT ENGINEERING NOTES
-    ====================================================================== -->
-    <section class="section" aria-labelledby="notes-heading">
-      <div class="editorial-head editorial-head--mb">
-        <div class="eyebrow-col">
-          <span class="section-eyebrow">Notes</span>
-        </div>
-        <div class="title-col">
-          <div class="section-header section-header--flush">
-            <h2 class="section-title" id="notes-heading">Recent Engineering Notes</h2>
-            <a routerLink="/learn" fragment="discoveries" class="section-link" id="home-notes-all">
-              All notes →
+          <div style="margin-top: 1.5rem;">
+            <a routerLink="/achievements" class="editorial-action-link">
+              <span>View all verified achievements &amp; certifications</span>
+              <span class="action-arrow">→</span>
             </a>
           </div>
         </div>
-      </div>
 
-      <nav class="notes-archive" aria-label="Recent engineering notes">
-        <a
-          routerLink="/learn"
-          fragment="discoveries"
-          class="note-row"
-          *ngFor="let note of recentNotes"
-          [id]="'home-note-' + note.id"
-        >
-          <span class="note-date">{{ note.date }}</span>
-          <div class="note-content">
-            <span class="note-title">{{ note.title }}</span>
-            <span class="note-category">{{ note.category }} · {{ note.tags.join(', ') }}</span>
-          </div>
-          <span class="note-arrow" aria-hidden="true">→</span>
-        </a>
-      </nav>
+      </div>
     </section>
 
-    <!-- =====================================================================
-         FOOTER CTA
-    ====================================================================== -->
-    <section class="section" aria-label="Navigation call to action">
-      <div class="home-cta-row">
-        <div class="home-cta-left">
-          <p class="home-cta-text">Explore the full engineering profile.</p>
+    <div class="editorial-rule"></div>
+
+    <!-- 05 / CONNECT -->
+    <section class="home-section" style="padding-bottom: 2rem;" aria-labelledby="home-connect-heading">
+      <div class="editorial-grid">
+        
+        <div class="grid-col-label">
+          <span class="editorial-meta-label">05 / CONNECT</span>
         </div>
-        <div class="home-cta-links">
-          <a routerLink="/about" class="btn" id="home-cta-about">About & Philosophy</a>
-          <a routerLink="/about" fragment="journey" class="btn" id="home-cta-journey">Journey</a>
-          <a routerLink="/about" fragment="contact" class="btn btn-primary" id="home-cta-contact">Get in Touch</a>
+
+        <div class="grid-col-content">
+          <h2 class="section-title-clean" id="home-connect-heading">Let's connect.</h2>
+          <p class="section-desc-clean">
+            Open to software engineering roles, backend architecture discussions, and technical collaborations.
+          </p>
+
+          <div class="home-connect-grid">
+            <a href="mailto:work.gurpreetsw@gmail.com" class="connect-channel-item">
+              <div class="connect-header-row">
+                <tech-icon name="email"></tech-icon>
+                <span class="connect-channel-name">Email ↗</span>
+              </div>
+            </a>
+            <a href="tel:+919376847944" class="connect-channel-item">
+              <div class="connect-header-row">
+                <tech-icon name="phone"></tech-icon>
+                <span class="connect-channel-name">Phone ↗</span>
+              </div>
+            </a>
+            <a href="https://linkedin.com/in/gurpreet-singh57" target="_blank" rel="noopener noreferrer" class="connect-channel-item">
+              <div class="connect-header-row">
+                <tech-icon name="linkedin"></tech-icon>
+                <span class="connect-channel-name">LinkedIn ↗</span>
+              </div>
+            </a>
+            <a href="https://github.com/Gurry-12" target="_blank" rel="noopener noreferrer" class="connect-channel-item">
+              <div class="connect-header-row">
+                <tech-icon name="github"></tech-icon>
+                <span class="connect-channel-name">GitHub ↗</span>
+              </div>
+            </a>
+            <a href="https://codolio.com/profile/Guriii" target="_blank" rel="noopener noreferrer" class="connect-channel-item">
+              <div class="connect-header-row">
+                <tech-icon name="codolio"></tech-icon>
+                <span class="connect-channel-name">Codolio ↗</span>
+              </div>
+            </a>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <a routerLink="/contact" class="editorial-action-link">
+              <span>Go to dedicated contact page</span>
+              <span class="action-arrow">→</span>
+            </a>
+          </div>
         </div>
+
       </div>
     </section>
 
