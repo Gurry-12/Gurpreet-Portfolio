@@ -15,17 +15,18 @@ export class HomeComponent implements OnInit {
   supportingProject: Project | null = null;
 
   currentFocus: string[] = [
-    'Java 17',
-    'Spring Boot 3',
-    'SQL Server & Indexing',
-    'High-Concurrency Backend Architecture',
-    'Data Structures & Algorithms (600+ Solved)',
-    'Stateless JWT Security & RBAC',
-    'Deterministic State Machines'
+    'Java 8+ / 17',
+    'Spring Boot & Spring Data JPA',
+    'ASP.NET Core & Entity Framework Core',
+    'Python & Flask Microservices',
+    'SQL Server & MySQL Query Tuning',
+    'GeeksforGeeks 60-Day POTD Challenge',
+    'Multithreading & OOP Design Patterns',
+    'Stateless JWT Security & RBAC'
   ];
 
   ngOnInit(): void {
-    this.featuredProject = PROJECTS.find(p => p.id === 'insureflow') || PROJECTS[0];
-    this.supportingProject = PROJECTS.find(p => p.id === 'cloudwatch-log-sentinel') || PROJECTS[1];
+    this.featuredProject = PROJECTS.find(p => p.id === 'insurance-system') || PROJECTS[0];
+    this.supportingProject = PROJECTS.find(p => p.id === 'department-expense-approval') || PROJECTS[1];
   }
 }

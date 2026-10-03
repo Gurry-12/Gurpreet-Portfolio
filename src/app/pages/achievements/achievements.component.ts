@@ -23,6 +23,19 @@ export class AchievementsComponent {
   achievements: AchievementItem[] = [
     {
       category: 'COMPETITIVE PROGRAMMING',
+      title: 'GeeksforGeeks 60-Day POTD Challenge',
+      issuer: 'GeeksforGeeks',
+      period: 'Completed Challenge',
+      badge: '60-Day POTD',
+      description: 'Completed daily Data Structures and Algorithms problems covering arrays, intervals, sorting, prefix sums, custom comparators, and mathematical optimization.',
+      highlights: [
+        'Solved daily problem of the day challenges consistently without interruption',
+        'Deep mastery of array manipulation, intervals, sorting, and prefix sum optimizations',
+        'Engineered custom comparators and multi-criteria sorting routines'
+      ]
+    },
+    {
+      category: 'COMPETITIVE PROGRAMMING',
       title: '600+ Data Structures & Algorithms Problems Solved',
       issuer: 'LeetCode, CodeChef, GeeksforGeeks, HackerRank',
       period: 'Continuous Practice (2022 — Present)',
@@ -35,18 +48,17 @@ export class AchievementsComponent {
         'LeetCode & GeeksforGeeks: 400+ curated problems solved in trees, DP, and graphs'
       ]
     },
-
     {
       category: 'LEADERSHIP & COMMUNITY',
-      title: 'Chairperson — CodeForge Student Technical Community',
-      issuer: 'Gulzar Group of Institutes / PTU',
-      period: '2022 — 2024',
-      badge: 'Chairperson',
-      description: 'Elected student chairperson of CodeForge. Organized hackathons, algorithm workshops, and peer-mentoring groups to foster software development culture across university departments.',
+      title: 'Student Placement Coordinator & Community Leader',
+      issuer: 'Gulzar Group of Institutes | Khanna, India',
+      period: 'Feb 2024 — Jul 2025',
+      badge: 'Coordinator',
+      description: 'Coordinated campus placement drives for 2,000+ students across multiple hiring domains, communicating operational updates to university stakeholders and automating workflows with Python.',
       highlights: [
-        'Organized 10+ hackathons and hands-on coding workshops',
-        'Mentored 250+ junior students in Java, git workflows, and basic algorithm design',
-        'Facilitated weekly peer coding review sessions and contest preparation'
+        'Coordinated 10+ placement drives involving 2,000+ students',
+        'Automated candidate-data and scheduling workflows using Excel/Python, improving efficiency by 25%',
+        'Elected Chairperson of CodeForge Student Technical Community (Mentored 250+ junior peers)'
       ]
     },
     {
@@ -63,14 +75,15 @@ export class AchievementsComponent {
     },
     {
       category: 'ACADEMICS',
-      title: 'Bachelor of Technology (B.Tech) in Computer Science & Engineering',
-      issuer: 'Gulzar College of Engineering · I.K. Gujral Punjab Technical University',
-      period: '2021 — 2025',
-      badge: 'B.Tech CSE',
-      description: 'Graduated with specialization in Internet of Things (IoT) & Cyber Security. Coursework emphasized Operating Systems, Database Management Systems (DBMS), Computer Networks, and Object-Oriented Software Design.',
+      title: 'B.Tech in Computer Science and Engineering',
+      issuer: 'Gulzar College of Engineering · Ludhiana, India',
+      period: 'Jun 2021 — Jun 2025',
+      badge: 'CGPA: 8.16',
+      description: 'Graduated with specialization in IoT & Cyber Security with Blockchain. Coursework emphasized Operating Systems, Database Management Systems (DBMS), Computer Networks, Object-Oriented Software Design, and Distributed Architectures.',
       highlights: [
-        'Specialization in IoT & Cyber Security',
-        'Active leadership in student clubs and technical symposiums'
+        'Cumulative Grade Point Average (CGPA): 8.16 / 10',
+        'Specialization in IoT & Cyber Security with Blockchain',
+        'Student Placement Coordinator and active community leadership'
       ]
     }
   ];

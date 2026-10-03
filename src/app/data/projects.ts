@@ -91,15 +91,15 @@ export const PROJECTS: Project[] = [
     featured: true,
 
     metrics: [
-      { label: 'REST API Endpoints', value: '35+', detail: 'Secured via RBAC' },
-      { label: 'FSM Approval Stages', value: '6 Stages', detail: 'Strict zero-bypass state machine' },
+      { label: 'REST API Endpoints', value: '~60 Endpoints', detail: '13 controllers · RBAC' },
+      { label: 'Entities & Tables', value: '16 Entities', detail: '17 normalized tables' },
       { label: 'Authorization Tiers', value: '3 Roles', detail: 'Customer · Agent · Admin' },
-      { label: 'Database Integrity', value: '100% ACID', detail: 'Foreign keys & composite indexing' }
+      { label: 'Security Controls', value: 'JWT + Rate Limiting', detail: 'Refresh tokens & RBAC' }
     ],
 
-    problem: 'Standard academic projects usually stop at simple CRUD without modeling real enterprise lifecycle complexities like role hierarchies, multi-state claim processing, and payment idempotency.',
-    solution: 'Engineered a full-featured Spring Boot 3 REST API managing policy lifecycles, simulated premium payments, and a 6-stage claim approval state machine across 3 user roles (Admin, Agent, Customer) with 35+ secure endpoints.',
-    tags: ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA / Hibernate', 'SQL Server', 'JWT', 'Docker', 'Swagger'],
+    problem: 'Standard academic projects usually stop at simple CRUD without modeling real enterprise lifecycle complexities like role hierarchies, multi-state claim processing, rate limiting, and payment idempotency.',
+    solution: 'Architected a full-stack insurance platform with ~60 REST endpoints, 16 entities, 17 tables, 13 controllers, and 3 role-based access levels. Enforced stateless JWT authentication, RBAC, refresh-token security, rate limiting, and protected application workflows.',
+    tags: ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA / Hibernate', 'SQL Server', 'JWT', 'Rate Limiting', 'Docker', 'Swagger'],
 
     overview: 'A production-inspired insurance platform that enables customers to purchase policies, pay premiums, and raise claims, while allowing staff/agents to verify documentation and admins to execute final settlement decisions through a secure role-based workflow. Built with layered architecture, centralized exception handling, and full Swagger/OpenAPI documentation.',
     problemStatement: 'In the insurance domain, business workflows are non-linear and security-sensitive. A customer must not approve their own claim; an agent cannot settle payments; and policies cannot transition to active status before verified premium settlement. This project tackles those exact constraints using strict DTO boundaries, declarative transaction boundaries, and state-machine transitions.',
@@ -422,45 +422,45 @@ export const PROJECTS: Project[] = [
   {
     id: 'department-expense-approval',
     title: 'Department Expense Approval System',
-    subtitle: 'Hierarchical Approval Workflow & Budget Audit Engine',
+    subtitle: 'Employee Expense Workflow, Approval Queues & Budget Tracking',
     category: 'Enterprise Backend',
-    year: '2025',
+    year: '2026',
     tier: 2,
-    featured: false,
+    featured: true,
 
-    problem: 'Managing departmental expense requests across employee, manager, and finance tiers often results in un-audited budget overruns and approval deadlocks.',
-    solution: 'Designed a multi-stage approval workflow with threshold-based routing (auto-approval under limit, dual-manager review above threshold) and immutable audit logging.',
-    tags: ['Java', 'Spring Boot', 'Spring Security', 'JPA', 'SQL Server', 'RBAC'],
+    problem: 'Managing departmental expense requests across employee, manager, and finance review tiers often results in un-audited budget overruns and approval deadlocks.',
+    solution: 'Designed an employee expense workflow spanning submission, finance review, approval, and department budget tracking. Collaborated with engineering teams and presented the solution to 15+ stakeholders, covering role-based workflows, review queues, budget tracking, analytics dashboards, and CSV financial reporting.',
+    tags: ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA / Hibernate', 'SQL Server', 'RBAC', 'Budget Tracking', 'CSV Financial Reporting'],
 
-    overview: 'An enterprise expense management service that routes reimbursement requests through role-based approval tiers, validates departmental budget ceilings, and records tamper-evident audit trails for every transaction.',
+    overview: 'An enterprise expense management service that routes reimbursement requests through role-based approval tiers, validates departmental budget ceilings, and records tamper-evident audit trails and CSV financial reporting.',
     problemStatement: 'Threshold-based approval routing requires strict state validation to ensure no claim is disbursed without passing all intermediate approval thresholds.',
 
     architecture: [
       'REST Controller Tier (Request Validation & DTO Transformation)',
       'Authorization Boundary (Department & Role Scoped Permissions)',
-      'Approval Workflow Engine (Stateful routing based on claim amount)',
-      'Audit Logging Service (Append-only ledger of approval decisions)'
+      'Approval Workflow Engine (Stateful routing & review queues)',
+      'Budget Tracking & Analytics (Real-time department budget calculation & CSV export)'
     ],
 
     techStack: [
       { name: 'Java 17', purpose: 'Core language' },
       { name: 'Spring Boot 3', purpose: 'REST framework' },
       { name: 'JPA / Hibernate', purpose: 'Entity relationships & audit logs' },
-      { name: 'SQL Server', purpose: 'ACID storage' }
+      { name: 'SQL Server', purpose: 'ACID storage & relational integrity' }
     ],
 
     engineeringDecisions: [
       {
-        decision: 'Append-Only Audit Log Tables',
-        why: 'Financial compliance requires that no approval or rejection record can be overwritten or updated in place.',
-        alternative: 'Updating a status column on the Expense record — rejected due to lack of historical trail.'
+        decision: 'Role-Based Review Queues and Budget Ceilings',
+        why: 'Enforces clear separation between employee submission, department manager verification, and finance disbursement.',
+        alternative: 'Single approval step — rejected due to lack of budget governance.'
       }
     ],
 
     challenges: [
       {
-        challenge: 'Circular Approval Deadlocks',
-        solution: 'Implemented hierarchy validation during user assignment to prevent circular reporting manager loops.'
+        challenge: 'Circular Approval Deadlocks & Budget Tracking',
+        solution: 'Implemented hierarchy validation during user assignment and atomic budget balance deduction during final finance review.'
       }
     ],
 
@@ -471,6 +471,59 @@ export const PROJECTS: Project[] = [
     ],
 
     github: 'https://github.com/Gurry-12/department-expence-approval-system'
+  },
+
+  {
+    id: 'sentiment-analyzer',
+    title: 'Sentiment Analyzer – Python',
+    subtitle: 'Machine Learning NLP Classifier & Real-Time Flask Web Engine',
+    category: 'Machine Learning & Python',
+    year: '2025',
+    tier: 2,
+    featured: true,
+
+    problem: 'Classifying user sentiments across large-scale textual feedback requires an accurate machine learning pipeline with fast inference and an accessible interface.',
+    solution: 'Created a machine-learning sentiment analysis application classifying text as positive, negative, or neutral. Utilized NLP preprocessing, model training, and evaluation to develop the classification pipeline, with a Flask-based web interface for real-time sentiment prediction.',
+    tags: ['Python', 'Machine Learning', 'NLP', 'Flask', 'Scikit-Learn', 'REST API'],
+
+    overview: 'An end-to-end NLP classification pipeline that ingests text inputs, cleans and vectorizes tokens, and predicts sentiment category with real-time confidence scores through a Flask web application.',
+    problemStatement: 'Unstructured natural language contains irregularities and varying syntactic patterns. Building a dependable sentiment tool requires robust preprocessing, evaluation metrics, and low-latency API serving.',
+
+    architecture: [
+      'NLP Preprocessing Pipeline (Text Cleaning, Tokenization, Stopwords Removal)',
+      'Feature Vectorization Tier (TF-IDF Vectorizer / N-gram features)',
+      'Model Training & Evaluation (Supervised Classifier Evaluation with Precision/Recall)',
+      'Flask Web Layer (Real-time Prediction REST API & Interactive UI)'
+    ],
+
+    techStack: [
+      { name: 'Python', purpose: 'Core language for ML modeling, NLP, and web server' },
+      { name: 'NLP & Scikit-Learn', purpose: 'Text processing, feature extraction, and classifier training' },
+      { name: 'Flask', purpose: 'Lightweight web framework for real-time model inference' }
+    ],
+
+    engineeringDecisions: [
+      {
+        decision: 'TF-IDF with Logistic Regression / Naive Bayes Classifier',
+        why: 'Delivers fast inference speeds (<20ms) and strong baseline accuracy without the memory footprint of heavy transformer models for lightweight web serving.',
+        alternative: 'Heavy deep learning architectures — rejected for simple single-instance hosting constraints.'
+      }
+    ],
+
+    challenges: [
+      {
+        challenge: 'Handling Slang, Negations, and Text Noise',
+        solution: 'Built custom NLP cleaning rules that preserve negation tokens (e.g. "not good") while stripping punctuation and uninformative stopwords.'
+      }
+    ],
+
+    failureStory: 'Initial tokenization stripped apostrophes blindly, converting "don\'t like" to "dont like" and dropping "dont" as an unknown token, causing negative reviews to be misclassified as positive. Refining the regex tokenizer preserved negation markers.',
+
+    keyLearnings: [
+      'Feature engineering and cleaning in NLP directly dictate downstream model accuracy more than complex hyperparameter tuning.'
+    ],
+
+    github: 'https://github.com/Gurry-12/Sentiment-Analyzer'
   }
 ];
 
