@@ -284,7 +284,7 @@ export const PROJECTS: Project[] = [
     ],
 
     github: 'https://github.com/Gurry-12/insurance-policy-claim-capstone-project',
-    live: 'https://insurance-demo.onrender.com'
+    live: 'https://insurance-policy-claim-capstone-project-5jrm6fgws.vercel.app/'
   },
 
   {
@@ -416,7 +416,6 @@ export const PROJECTS: Project[] = [
     ],
 
     github: 'https://github.com/Gurry-12/Disaster-Ready-UI',
-    live: 'https://disaster-ready-ui.onrender.com'
   },
 
   {

@@ -98,7 +98,7 @@ export const ACTIVE_PROJECTS: ActiveProject[] = [
 
     tech: ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA / Hibernate', 'SQL Server', 'JWT', 'Docker', 'Swagger'],
     github: 'https://github.com/Gurry-12/insurance-policy-claim-capstone-project',
-    live: 'https://insurance-demo.onrender.com',
+    live: 'https://insurance-policy-claim-capstone-project-5jrm6fgws.vercel.app/',
     startedDate: 'Jan 2026'
   },
 
